@@ -1,0 +1,47 @@
+# Local credentials and environment settings. Examples must contain placeholders only.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.secrets/
+secrets/
+.aws/
+.ssh/
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa
+id_ed25519
+
+# Dependencies and generated caches/output.
+node_modules/
+.next/
+.nuxt/
+.cache/
+.parcel-cache/
+.turbo/
+coverage/
+build/
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local preview/deployment identity, logs, and OS/editor clutter.
+.openai/
+*.log
+*.pid
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# IMPORTANT: dist/ contains the editable Soltech app, not disposable build output.
+# Keep dist/, design references, review images, and historical Checkpoints tracked.
