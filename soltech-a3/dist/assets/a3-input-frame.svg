@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="142" viewBox="0 0 680 142">
+ <defs>
+  <linearGradient id="outer" x2=".75" y2="1"><stop stop-color="#b6bbc0"/><stop offset=".14" stop-color="#fff"/><stop offset=".25" stop-color="#b1b6bc"/><stop offset=".48" stop-color="#e7e9eb"/><stop offset=".7" stop-color="#fafbfc"/><stop offset="1" stop-color="#a0a6ad"/></linearGradient>
+  <linearGradient id="inner" x2="0" y2="1"><stop stop-color="#747b83"/><stop offset=".07" stop-color="#d3d6da"/><stop offset=".45" stop-color="#fff"/><stop offset=".88" stop-color="#a7adb4"/><stop offset="1" stop-color="#eff1f3"/></linearGradient>
+  <linearGradient id="white" x2=".2" y2="1"><stop stop-color="#fff"/><stop offset=".6" stop-color="#fdfdfd"/><stop offset="1" stop-color="#f1f2f4"/></linearGradient>
+ </defs>
+ <path d="M30 2 H637 Q642 2 646 6 L674 34 Q678 38 678 44 V112 Q678 140 650 140 H30 Q2 140 2 112 V30 Q2 2 30 2Z" fill="url(#outer)" stroke="#aeb4bb"/>
+ <path d="M30 5 H636 Q640 5 643 8 L671 36 Q675 39 675 45 V112 Q675 137 650 137 H30 Q5 137 5 112 V30 Q5 5 30 5Z" fill="none" stroke="#fff" stroke-width="1.6"/>
+ <path d="M30 8 H635 Q638 8 641 11 L668 38 Q672 42 672 46 V111 Q672 134 649 134 H31 Q8 134 8 111 V31 Q8 8 30 8Z" fill="url(#inner)" stroke="#8a9199"/>
+ <path d="M31 11 H634 Q637 11 639 13 L665 40 Q669 44 669 47 V110 Q669 131 648 131 H32 Q11 131 11 110 V32 Q11 11 31 11Z" fill="url(#white)" stroke="#c7ccd1" stroke-width=".8"/>
+</svg>

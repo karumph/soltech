@@ -1,0 +1,60 @@
+@layer scanner-customize {
+ .scanner-customize{max-width:660px;padding-top:24px;padding-bottom:0;color:#252c31}
+ .scanner-customize [hidden]{display:none!important}
+ .customize-back{display:inline-flex;align-items:center;gap:8px;min-height:38px;color:#52616b;text-decoration:none;font-size:13px;font-weight:550}
+ .customize-back>span{font-size:25px;font-weight:400;line-height:1}
+ .customize-heading{margin:12px 0 22px}
+ .customize-heading h1{font-size:clamp(25px,4vw,32px);letter-spacing:-1.1px;line-height:1.2;margin:0 0 10px;font-weight:650}
+ .customize-heading h1>span{color:#76b6d8}
+ .scanner-customize p{color:#6b7780;font-size:13px;line-height:1.6;margin:7px 0 0}
+ .customize-sources{display:flex;align-items:center;gap:8px;border:1px solid #dce9f0;background:#f3f9fc;border-radius:12px;padding:12px 14px;font-size:12px}
+ .customize-source-dot{width:6px;height:6px;border-radius:50%;background:#76b6d8;flex:none}
+ .customize-sources strong{font-weight:600}
+ .customize-section{padding:24px 0;border-bottom:1px solid #e8edef}
+ .scanner-customize h2{font-size:15px;line-height:1.4;font-weight:650;margin:0;letter-spacing:-.25px}
+ .scanner-customize fieldset{border:0;padding:0;min-width:0;margin:0}
+ .scanner-customize .customize-account-choice{display:grid;grid-template-columns:1fr 1fr;padding:4px;background:#f0f3f5;border-radius:11px;margin-top:15px;gap:3px}
+ .customize-account-choice label{position:relative;cursor:pointer}
+ .customize-account-choice input{position:absolute;opacity:0;width:1px;height:1px}
+ .customize-account-choice span{display:flex;align-items:center;justify-content:center;min-height:42px;border-radius:8px;font-size:13px;font-weight:550;color:#66737d;border:1px solid transparent}
+ .customize-account-choice input:checked+span{color:#345f79;background:white;border-color:#e0e8ed;box-shadow:0 1px 3px #182b3910}
+ .customize-account-choice input:focus-visible+span{outline:2px solid #7bbce1;outline-offset:1px}
+ .customize-handles{margin-top:17px}
+ .customize-handles>label,.customize-recovery>label{font-size:12px;display:block;margin-bottom:8px;font-weight:600}
+ .scanner-customize .customize-list-note,.scanner-customize #customize-accounts-help{font-size:11px;margin-top:10px;line-height:1.5}
+ .scanner-customize textarea,.scanner-customize .customize-input input,.customize-recovery>input{width:100%;border:1px solid #dce3e7;border-radius:10px;background:#fcfdfe;padding:12px 13px;font:inherit;font-size:16px;min-height:48px;outline:none;box-shadow:none;color:#283740;transition:border-color .15s,background-color .15s}
+ .scanner-customize textarea{resize:vertical;min-height:80px}
+ .scanner-customize textarea:focus,.scanner-customize .customize-input input:focus,.customize-recovery>input:focus{border-color:#91bfd8;background:#f7fbfe;box-shadow:0 0 0 2px #eaf4fa}
+ .scanner-customize input::placeholder,.scanner-customize textarea::placeholder{color:#87929a;font-size:14px;opacity:1}
+ .customize-limits{padding-top:24px}
+ .customize-section-heading{display:flex;align-items:center;justify-content:space-between}
+ .customize-section-heading>span{font-size:11px;color:#76838c}
+ .scanner-customize .customize-filter-group{margin-top:23px}
+ .customize-filter-group legend{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:14px;font-weight:550;color:#34424b;line-height:1.4}
+ .customize-filter-group legend>span{font-size:11px;font-weight:450;color:#78858e}
+ .scanner-customize .customize-filter-group>p{font-size:11px;margin-top:4px}
+ .customize-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+ .customize-inputs.single{grid-template-columns:1fr}
+ .customize-input label{display:block;color:#78858e;font-size:11px;margin-bottom:6px}
+ .customize-field-error{display:block;color:#a33838;font-size:12px;line-height:1.5}
+ .customize-field-error:not(:empty){margin-top:6px}
+ .scanner-customize [aria-invalid=true]{border-color:#c57676!important}
+ .customize-errors,.customize-notice{padding:13px 15px;background:#fff7f4;color:#8d4540;border:1px solid #f0d8d1;border-radius:10px;font-size:13px;line-height:1.5;margin-top:20px}
+ .customize-notice button{background:none;border:0;color:inherit;text-decoration:underline;padding:10px 12px 10px 0;font:inherit;cursor:pointer;min-height:44px}
+ .scanner-customize .customize-preview-note{font-size:11px;text-align:center;margin:24px 0 18px;color:#7a8790}
+ .customize-footer{position:sticky;bottom:0;z-index:5;padding:13px 0 max(12px,env(safe-area-inset-bottom));background:linear-gradient(#fffffff5,#fff 45%);border-top:1px solid #e6edf1;backdrop-filter:blur(12px)}
+ .customize-footer>div{display:grid;grid-template-columns:1fr 1.55fr;gap:12px}
+ .customize-footer button{min-height:48px;border-radius:12px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:none}
+ .customize-clear{border:1px solid #e1e7eb;background:#f6f8f9;color:#5c6b75}
+ .customize-apply{border:1px solid #b5d7ea;background:#dcedf8;color:#305e7b}
+ .customize-apply:hover{background:#cee6f4}
+ .customize-footer button:focus-visible{outline:2px solid #79b7d9;outline-offset:3px}
+ .customize-footer button:disabled{opacity:.5;cursor:not-allowed}
+ .scanner-customize .customize-footer p{text-align:center;font-size:10px;color:#82909a;margin:8px 0 0}
+ .customize-recovery{margin:24px 0;padding:16px;border:1px solid #eadccf;border-radius:12px}
+ .customize-recovery summary{font-weight:600;font-size:13px;cursor:pointer}
+ .scanner-customize .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+ @media(max-width:600px){.scanner-customize{padding:12px 0 0}.customize-heading{margin-top:9px;margin-bottom:19px}.customize-heading h1{font-size:26px}.customize-section{padding:21px 0}.customize-limits{padding-top:21px}.customize-sources{padding:11px 12px}.customize-inputs{gap:10px}}
+ @media(max-width:350px){.customize-sources{gap:6px;font-size:11px}.customize-account-choice span{font-size:12px}}
+ @media(prefers-reduced-motion:reduce){.scanner-customize *{transition:none!important;scroll-behavior:auto!important}}
+}

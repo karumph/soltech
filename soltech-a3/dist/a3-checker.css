@@ -1,0 +1,28 @@
+/* Standalone A3 comparison. Existing data and interaction code is unchanged. */
+@layer a3-checker {
+ .checker .check-input-row{flex-direction:column;gap:14px}
+ .checker .check-address-input{flex:none;width:100%}
+ .checker .check-input-row>button[type=submit]{width:100%;min-height:62px}
+ @media(forced-colors:none){
+  .checker .coin-check-form{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+  .checker .check-label{margin-bottom:12px}
+  .checker .check-address-input:not(:has(input[aria-invalid=true])){border:7px solid transparent;border-image:url('assets/a3-input-frame.svg') 34 fill / 22px / 0 stretch;border-radius:18px;background:transparent;box-shadow:none;filter:drop-shadow(0 5px 4px #17212b18)}
+  .checker .check-input-row .check-address-input input{min-height:62px;padding:13px 15px;border-radius:12px 0 0 12px;background:transparent;font-size:1rem}
+  .checker .check-input-row .check-address-input .clear-address{flex:0 0 60px;width:60px;min-height:62px;padding:8px 6px;margin:0;border:0;border-left:1px solid #cfd4da;border-radius:0 13px 13px 0;background:transparent;color:#555e6a;box-shadow:none}
+  .checker .check-input-row .check-address-input .clear-address:hover:not(:disabled){background:#e7ebef80;color:#181d24}
+  .checker .check-input-row .check-address-input .clear-address:disabled{color:#707985;background:transparent}
+  .checker .check-address-input:has(input[aria-invalid=true]){border:7px solid transparent;border-image:url('assets/a3-input-frame.svg') 34 fill / 22px / 0 stretch;background:transparent;box-shadow:none;outline:2px solid #a22b45;outline-offset:2px}
+  .checker .check-address-input:focus-within:not(:has(input[aria-invalid=true])){outline:3px solid #424c5d;outline-offset:4px}
+  .checker .check-address-input:has(input[aria-invalid=true]):focus-within{outline:3px solid #424c5d;outline-offset:5px;box-shadow:0 0 0 2px #a22b45}
+  .checker .check-input-row>button[type=submit],.checker .check-input-row>button[type=submit]:hover:not(:disabled){border:7px solid transparent;border-image:url('assets/a3-button-frame.svg') 34 fill / 22px / 0 stretch;border-radius:15px;background:transparent;color:#fff;box-shadow:none;filter:drop-shadow(0 4px 4px #151c2220);font-weight:600;font-size:1rem;min-height:62px;padding:10px 20px}
+  .checker .check-input-row>button[type=submit]:hover:not(:disabled){filter:brightness(1.12) drop-shadow(0 4px 4px #151c2220)}
+  .checker .check-input-row>button[type=submit]:active:not(:disabled){filter:brightness(.93);transform:none}
+  .checker .check-input-row>button[type=submit]:focus-visible{outline:3px solid #424c5d;outline-offset:4px}
+  .checker .report-tabs{border:4px solid transparent;border-image:url('assets/a3-input-frame.svg') 34 fill / 18px / 0 stretch;border-radius:15px;background:transparent;box-shadow:none;filter:drop-shadow(0 4px 4px #17212b12);padding:4px}
+  .checker .report-tabs::before{background:linear-gradient(150deg,#fff,#f8f9fb);border-color:#bfc4ca;box-shadow:inset 0 1px 0 #fff,0 1px 3px #535b6710;border-radius:9px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+  .checker .report-tabs button{min-height:46px}
+  .checker .report-tabs button[aria-selected=true]{color:#151a21}
+ }
+ @media(max-width:360px){.checker .check-input-row .check-address-input input{padding-inline:9px}}
+ @media(prefers-reduced-motion:reduce){.checker .report-tabs::before{transition:none}}
+}

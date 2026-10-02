@@ -1,0 +1,212 @@
+[
+  {
+    "source": "C:\\Users\\jayde\\OneDrive\\Pictures\\Screenshots\\E1C23950-261F-4C60-8246-D324ABC194D9.png",
+    "destination": "design-references\\brand\\soltech-original-logo.png",
+    "sha256": "9D052A5A8ED4E150BE13A60C3BEF0AD6C85F56A6E738A9E0D00E0E9406F1034B",
+    "bytes": 1562767
+  },
+  {
+    "source": "C:\\Users\\jayde\\Downloads\\Imagines\\photo_2026-10-01_20-03-40.jpg",
+    "destination": "design-references\\scanner-2026-10-01\\scanner-flow-reference.jpg",
+    "sha256": "BA0068605906631F429B45D7F456EF3978832982C7CFA3EA884AA718EFD019B9",
+    "bytes": 49976
+  },
+  {
+    "source": "C:\\Users\\jayde\\.codex\\visualizations\\2026\\09\\30\\01a0f0cf-dea9-7be2-997e-b29e309296ea\\scanner-motion-examples.html",
+    "destination": "design-concepts\\scanner-motion-2026-10-01\\scanner-motion-examples.html",
+    "sha256": "FBBC3C15C6A729C7BCC9A4811FEB165EA4FAFD29CCDC2E091D5EB3C8216DEE1A",
+    "bytes": 25983
+  },
+  {
+    "source": "C:\\Users\\jayde\\AppData\\Roaming\\Telegram Desktop\\photo_2026-10-01_23-12-23 (2).jpg",
+    "destination": "design-references\\scanner-2026-10-01\\customize-market-filters-reference.jpg",
+    "sha256": "A1AD0543331A8F1FD7830ACBB8DCFB788F859ADB8DB4AE2C0E34C8E3DF93F681",
+    "bytes": 35244
+  },
+  {
+    "source": "C:\\Users\\jayde\\AppData\\Roaming\\Telegram Desktop\\photo_2026-10-01_23-12-23.jpg",
+    "destination": "design-references\\scanner-2026-10-01\\customize-holder-filters-reference.jpg",
+    "sha256": "636C4B563BB17822A4214042F900A14AF7D6CC2D4C9FFB3C458B8479152F6DAC",
+    "bytes": 36489
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-07-graphite-core-x-refined-prompt.txt",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-07-graphite-core-x-refined-prompt.txt",
+    "sha256": "72C01A9C81BCE5A32353D17D10DB300BB8B3863AA8837008D0D5FEA23054106E",
+    "bytes": 3768
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-07-graphite-core-x-refined.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-07-graphite-core-x-refined.png",
+    "sha256": "C5E924EB91A814E8A36F360013E24BF19A814C03F67681F4A9AE5929840CC8AA",
+    "bytes": 1538428
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-background-x-prompt.txt",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-background-x-prompt.txt",
+    "sha256": "CBDA339E55BE70F06263606BBAA3DCBA6ABDD2B3E739898B576629EFA7002D96",
+    "bytes": 3406
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-background-x.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-background-x.png",
+    "sha256": "E7A9E0A482333816AFC89591589101AB64E48A8A780950749C32BB2C083306B2",
+    "bytes": 1534136
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-01-alloy.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-01-alloy.png",
+    "sha256": "4807A1A08916E7E571FC81CA75717A76ED80D9E82F6D7AE2A7CFEEA93FA45D92",
+    "bytes": 1188933
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-02-core.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-02-core.png",
+    "sha256": "551115B9349F441EA1B8FDA2D38D76D72AACA4AEE792375C81A8DFDEE24ECFAB",
+    "bytes": 1149447
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-03-graphite.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-03-graphite.png",
+    "sha256": "3DEA8EFCE89BCAF95435033E5E96C50B48761F30CFC3F3063B47FF99F8E40C4F",
+    "bytes": 1231778
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-04-glass.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-04-glass.png",
+    "sha256": "41FDF8DF28A03D791EE48234E50C83FF4C75A13DD262B4698E05C71C79038447",
+    "bytes": 1161209
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-11-refined-alloy.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-11-refined-alloy.png",
+    "sha256": "542B5DF3C232DB45C98712CFA73434B8D1E4DAF2BB93C42AE7AA7F8ACE015919",
+    "bytes": 1393395
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-12-frosted-console.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-12-frosted-console.png",
+    "sha256": "9E66DDB1D60444E0C06159479784ED933038A4F062C77D317D5AD63632AA2E50",
+    "bytes": 1449591
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-13-graphite-console.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-13-graphite-console.png",
+    "sha256": "B5BC1B1E81388BE0FC9A3BDD83B1A61FB4558E2C16B3CC1BABF1154BC6956AA1",
+    "bytes": 1326852
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-14-signal-rails.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-14-signal-rails.png",
+    "sha256": "0F11523C2C8F45644AA7D618E85800F74A1C99A8F263B040441E20A09BA83447",
+    "bytes": 1422187
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-15-satin-minimal.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-15-satin-minimal.png",
+    "sha256": "F21FCD23C41C0A2F8FA08A25FBCC0658916B1CD3EF4C19921996CA221A6F1E4E",
+    "bytes": 1352353
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concept-16-control-deck.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concept-16-control-deck.png",
+    "sha256": "4ED5D247F5D0C1A6C26FA8605AA84073671F2FC97E61EF5064C147AFFCC03C07",
+    "bytes": 1393576
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-concepts-prompts.txt",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-concepts-prompts.txt",
+    "sha256": "9482D92B7EDBE49ABA5FCF6CFFBB5F59FEDC2E7FB40EEE88276022DFB19329FF",
+    "bytes": 12174
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-logo-free-prompts.txt",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-logo-free-prompts.txt",
+    "sha256": "2020C2A577751EB57BF92FA3D7B5C1831907CD98897350BADA6B72B2B67FBB8E",
+    "bytes": 18528
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-minimal-v1-prompt.txt",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-minimal-v1-prompt.txt",
+    "sha256": "C25E9392107A864E884E7B1DB068B1A5248437E1F38F1CBE289ED9E2FE6962B3",
+    "bytes": 2513
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\scanner-minimal-v1.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\scanner-minimal-v1.png",
+    "sha256": "1CC975F69EF3602A24E359BDF1C1C88886625D9044A3580A19168418F7A151C9",
+    "bytes": 930966
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-launch-legal-risk-review.html",
+    "destination": "soltech-refined\\research\\soltech-launch-legal-risk-review.html",
+    "sha256": "E051A9378D7536B02C133A8A04CB4E61AAD4B4583E3EB15A674C1FE2E2613C8E",
+    "bytes": 15086
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-scanner-compact.jpg",
+    "destination": "soltech-refined\\review\\soltech-scanner-compact.jpg",
+    "sha256": "70850AC20126DFFF94061DC54A3B56A3B2B1457CDFD1A784C5FC8AE9B58FE6E0",
+    "bytes": 32718
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-scanner-mobile.jpg",
+    "destination": "soltech-refined\\review\\soltech-scanner-mobile.jpg",
+    "sha256": "5F5E1D263D4C405CEA7872AD7D363B529CA36D7EEFD0F61ACE954C7E933332B7",
+    "bytes": 32171
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-scanner-placeholder-categories.jpg",
+    "destination": "soltech-refined\\review\\soltech-scanner-placeholder-categories.jpg",
+    "sha256": "10045395045D721C7B8F7877E5B7A805123CAE3550955C07127AB8CFAD1CC0A8",
+    "bytes": 32598
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-scanner-vertical-categories.jpg",
+    "destination": "soltech-refined\\review\\soltech-scanner-vertical-categories.jpg",
+    "sha256": "F9B0703F44CA660D3BD3B132497C8C2DF57EF2D5AA3C62C36B1BA96D81C19C3E",
+    "bytes": 32884
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-white-head-front-v1-prompt.txt",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\soltech-white-head-front-v1-prompt.txt",
+    "sha256": "4B3C24FC7A73A55C60073AA741BDDDB493227C9E0C4242F311971D0C77FD0D14",
+    "bytes": 1565
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\outputs\\soltech-white-head-front-v1.png",
+    "destination": "design-concepts\\scanner-explorations-2026-10-01\\soltech-white-head-front-v1.png",
+    "sha256": "23CD7A1D801C138D0EF82179A79FC5638DD8C6939E3EC249D2D79042A9421E27",
+    "bytes": 793449
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\work\\scanner-change-plan.json",
+    "destination": "Checkpoints\\historical-scanner-work-2026-09-30\\scanner-change-plan.json",
+    "sha256": "F634921C2679C2BB7990A25FEFA4672034B22371820A9DE3FEC39A9E83E6D42A",
+    "bytes": 127947
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\work\\simplify-scanner.mjs",
+    "destination": "Checkpoints\\historical-scanner-work-2026-09-30\\simplify-scanner.mjs",
+    "sha256": "CA269D7A6AD3F9D056742D2A187B203A68F400003B26E6CA28C29AD65A377E7F",
+    "bytes": 5681
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\work\\scanner-before-2026-09-30T05-56-20.476Z\\DESIGN-NOTES.md",
+    "destination": "Checkpoints\\historical-scanner-work-2026-09-30\\scanner-before-2026-09-30T05-56-20.476Z\\DESIGN-NOTES.md",
+    "sha256": "2F87537166BEB89467E969B6DECE5053A6EA33A898B7828A461029D0487B722A",
+    "bytes": 11571
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\work\\scanner-before-2026-09-30T05-56-20.476Z\\personal-scanner.js",
+    "destination": "Checkpoints\\historical-scanner-work-2026-09-30\\scanner-before-2026-09-30T05-56-20.476Z\\personal-scanner.js",
+    "sha256": "B0E239DA679AC1B384F194FE2A0817718237587D70870FDC9137C0F93E4C002A",
+    "bytes": 18113
+  },
+  {
+    "source": "C:\\Users\\jayde\\Documents\\Codex\\2026-09-30\\soltech-continuation\\work\\scanner-before-2026-09-30T05-56-20.476Z\\soltech-identity.css",
+    "destination": "Checkpoints\\historical-scanner-work-2026-09-30\\scanner-before-2026-09-30T05-56-20.476Z\\soltech-identity.css",
+    "sha256": "E23F2980525A070F263888273DDFBB1206D2F21194C28E8AED2E8DF24BE5A9EE",
+    "bytes": 32279
+  }
+]

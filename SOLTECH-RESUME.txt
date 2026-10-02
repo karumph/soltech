@@ -1,0 +1,94 @@
+SOLTECH — CURRENT HANDOFF
+Updated October 2, 2026 (America/Chicago).
+
+PROJECT LOCATION
+C:\Users\jayde\OneDrive\Desktop\SolTech
+Active app: soltech-refined. Editable source: soltech-refined\dist.
+Preview: run node mobile-preview.mjs 4183 from soltech-refined only if the server is stopped.
+Mobile: http://127.0.0.1:4183/mobile-preview.html
+Web: http://127.0.0.1:4183/index.html
+
+CURRENT IMPLEMENTATION
+- Branding is Soltech (lowercase t). Coin checking detects the network first and requests a choice only when needed. The address field uses the accepted subtle focus treatment.
+- Scanner: Post + New projects -> Match signals -> Coin checks -> Finds. Both sources scan continuously in the visual demo; signals alternate source branches, matching varies its selected path, and the full flow uses an 18-second cycle. No filtered branch or traveling coin symbols.
+- Pause persists across navigation and refresh. It fades activity and makes the diagram gray; Resume restarts it. Green Active and gray Inactive refer to this preview state. Live scanning is not connected, and a demo note remains visible.
+- The heavy silver scanner redesign was rejected and reverted. Current scanner retains the original white/light-blue layout, with darker silver outlines, clearer shadows and a richer light-blue Finds button. Latest screenshot: soltech-refined\review\scanner-clearer-silver-blue-mobile.jpg.
+- Customize keeps both sources included, without an Always included label or source-off switches. Post accounts can use the Soltech list or specific usernames. Optional shared limits cover market cap, coin age, liquidity and 24-hour volume. Existing saved choices are preserved. Latest screenshot: soltech-refined\review\scanner-customize-clean-label.jpg.
+
+FILES CONSOLIDATED
+Concepts/prompts are in design-concepts; supplied logo, flow and filter references are in design-references. Review screenshots and the earlier legal-risk review are inside soltech-refined. Scanner motion example source is in design-concepts\scanner-motion-2026-10-01.
+Checkpoints\consolidation-2026-10-02.json records copied files and verified SHA-256 hashes. Originals outside SolTech were retained. Installed tools, browser-local state and runtime-only credentials are separate from project files. Existing ZIP checkpoints are historical snapshots, not backups of every October change.
+
+The app remains local only. Preserve the current implementation and follow the user's next request; do not restore the older state described below.
+
+HISTORICAL HANDOFF — SEPTEMBER 30, 2026
+The following record is preserved for context. It is superseded by the current handoff above.
+
+SOLTECH — FRESH CHAT HANDOFF
+Saved September 30, 2026 (America/Chicago).
+
+CURRENT STOPPING POINT
+The latest finished change is a clear glass-style chart slider. The user asked to pause when finished, then asked for a fresh chat without losing progress. Design work is stopped. No additional changes are authorized just by loading this handoff. Briefly orient the user, then wait for the next request.
+
+ACTIVE PROJECT / VERSIONS
+Workspace: C:\Users\jayde\OneDrive\Desktop\SolTech
+Active design target: soltech-refined (the earlier silver comparison). This is the version the user has been refining. Do not confuse it with soltech-a3 or the original.
+Mobile: http://127.0.0.1:4183/mobile-preview.html
+Desktop: http://127.0.0.1:4183/index.html
+If the preview already responds, reuse its server. If stopped, run `node mobile-preview.mjs 4183` with soltech-refined as the working directory. Keep the same origin and browser.
+
+Preserved alternatives:
+- soltech-ui, original, port 4175. Do not replace or edit unless requested.
+- soltech-a3, separate pronounced A3 cut-corner version, port 4184. Do not edit for current silver work.
+- soltech-signature, older rejected experiment, retained for reference.
+The current work is LOCAL ONLY. No deployment or account changes are authorized. The hosting identity inherited by soltech-refined must not be used to publish without explicit permission.
+
+VISUAL DIRECTION / USER PREFERENCES
+The user prefers the original app composition and functionality with a better visual theme; avoid new screens, filler, feature additions or an unsolicited full redesign.
+Preserve the logo: circular, connected dual faceted profiles, dark left face and white/silver right face. Favor WHITE and SILVER over black. Use dark text, cool gray, restrained blue-gray, subtle edges inspired by the logo. Do not repeat faces, polygon backgrounds, neon, excessive blur or generic futuristic effects.
+Original logo attachment, now preserved locally: design-references\brand\soltech-original-logo.png. The project contains its existing runtime logo asset too.
+The user likes the mobile chart and existing controls. Keep them functional. They have expressed less enthusiasm for desktop chart composition; no further desktop redesign is currently requested.
+Small gray text should be readable and darker. Keep warnings/status colors separate from brand accents. Verify factual claims and tell the user when information is uncertain.
+For a major new direction the user wants real visually inspected references first, one coherent recommendation, then an agreed small reversible preview. For small changes or delegated choices, DO NOT restart the entire reference process.
+Latest correction: metric tiles have SOFT ROUNDED corners, like original M1. Sharp corners were superseded. The user explicitly said to apply changes directly, not generate more images for these tweaks.
+
+LATEST IMPLEMENTED CHECKER DESIGN
+Main finishing stylesheet: soltech-refined/dist/soltech-identity.css, loaded last in the soltech-identity cascade layer.
+- Joined address/Clear field: subtle clipped upper-right corner. Current field width remains steady; Clear cancels pending lookup and clears report.
+- Check coin button: charcoal-black with white text, existing rounded corners. No cut corner on this button in the refined version.
+- Outer search panel: subtle silver surface with fine rim. Shared silver surface gradient #f5f7fa / #eef1f5 / #e4e9f0 also used by navigation, report-tab and chart-range tracks.
+- Moving selected highlights: translucent white/glass-style highlights on stationary silver tracks. Main nav, Overview/Chart/Details and chart ranges slide. Navigation labels/icons remain neutral gray; no delayed blue text transition.
+- Supporting checker text is stronger charcoal, weight500/550; tiny source captions at least12px, privacy summary14px. Risk colors remain intact.
+- Removed decorative paired lines above Token address and the Market/Ownership/Risk empty-state summaries. Actual result content remains.
+- Four Overview metric tiles: M1 Fine outline, separate 2x2 tiles, 10px gaps, padding16px14px, 12px ROUNDED corners, thin #929da9 border, no shadow. Flat faces: Price #e6edf4; Market cap #fafbfc; Liquidity #e5e8ed; Volume #dae4ef. Dark labels/values. These hues do not indicate performance/risk. Pastel lilac/aqua/rose and sharp-corner interpretations were rejected/superseded.
+- Most recent change: chart's native range slider below the plot has a34x26 translucent white capsule handle and6px silver track, with reflective border/shadow. Native44px interaction height retained. No chart/data/JS change. Reduced-transparency and forced-colors fallbacks included. It is an Apple-inspired WEB effect, not native Apple Liquid Glass.
+
+PRODUCT / FUNCTIONAL STATE
+Four main tabs: Check, Finds, Scanner, Profile.
+One default customizable scanner is the agreed model. Users should not need to create/manage many scanners. Optional customization/presets control sources; Finds is the separate results feed. Older scanner setups remain preserved in Profile. Live X/new-coin scanner monitoring and notifications are NOT connected; do not imply live finds or profit/safety guarantees.
+Coin checker uses real data across Solana and major EVM networks. Ambiguous addresses require network selection. Existing sources include DEX Screener market data, risk providers, and minute-level price history. Missing data stays explicitly unknown/unavailable, never guessed zero. Check actual files for precise service coverage.
+Coin logo, market/holder/security/project data, report tabs and interactive chart are present. Chart defaults to estimated market cap when possible; users can choose price. Historical market cap is an ESTIMATE using today's ratio, not verified historical circulating supply. Short ranges and longer ranges depend on available history. Provider gaps remain explicit.
+DEX paid is distinct from active DEX boosts. Confirmed zero can show lightning0; absent count means Unknown, not zero. Paid promotion is not a security endorsement.
+Suspected insider count is provider-reported. Bundled holdings use an optional Solana Tracker service; no key was copied into the comparison. Never reveal or request keys in chat. A runtime-only key clears on server restart. Source semantics and coverage still need honest labels.
+Profile/name/photo/settings are browser-local. Photo crop supports drag/pinch and additional accessible controls. Notification settings are preferences only until delivery exists. Terms remain unpublished. Profile photo mode hides avatar-color options, remembering the prior color. Continue draft is separate from Saved scanners. Notifications returns to the screen from which it opened.
+No native iOS build, cloud account sync, notification delivery or live X monitoring is supplied by this preview.
+
+VERIFICATION / LIMITS
+Latest CSS changes were visually checked on mobile preview and desktop. Live lookup worked. M1 corner radius was verified as12px for all tiles on both sizes. Chart slider keyboard Home/End/arrows and pointer selection updated time/value. Independent bounded CSS reviews found no material contrast/cascade/fallback issue.
+Most recent historical automated-suite result was152 passing tests before the latest CSS-only changes; it was NOT rerun for recent paint/radius adjustments. Do not claim a freshly run suite.
+No physical iPhone verification. Browser blur/transparency rendering can differ. Earlier320px metrics verification found no overflow; current normal mobile preview is390px.
+Current screenshots in soltech-refined/design-review:
+- mobile-m1-soft-tiles.png and desktop-m1-soft-tiles.png
+- mobile-glass-chart-slider.png and desktop-glass-chart-slider.png
+Read soltech-refined/DESIGN-NOTES.md for detailed current decisions. START-HERE.md and older research can contain superseded wording; this handoff and latest user corrections take precedence.
+
+SAVED REFERENCES / CONCEPTS
+design-concepts/silver-explorations-2026-09-29 contains A1-C4 boards/prompts. A3 cut-corner search field was liked; the refined version applies it subtly to the field only.
+design-concepts/market-tile-studies-2026-09-30 contains original options, cool palette revision and prompts. Chosen M1, final softcorners. No more image generation is pending.
+design-references contains inspected interface references. Research and review notes exist in the project folders. Older studies are evidence/context, not a reason to repeat rejected designs.
+
+PROGRESS PROTECTION
+Source files, research, concept boards, review screenshots and all four local versions are saved in the workspace. Latest fresh-chat archive and verification record are under Checkpoints/soltech-fresh-chat-2026-09-30.*.
+This source archive does NOT contain browser-local profile photos/settings/scanner drafts, runtime API keys, or every word of this conversation. Those browser preferences remain tied to the same browser/origin; do not clear site data or switch ports unnecessarily. This chat remains the original conversation record.
+No cloud-sync guarantee: local hashes do not verify OneDrive synchronization.
+Next chat should use these EXISTING files, not recreate an app. User asked to pause after the slider; wait for their next design instruction.

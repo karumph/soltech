@@ -1,0 +1,160 @@
+<div id="soltech-motion-lab">
+  <div class="sl-preview-label">Simulated previews · no live feeds</div>
+  <div class="viz-carousel viz-dotted-background" aria-label="Animated Soltech scanner examples">
+    <section data-variant="Traveling signals" aria-label="Traveling signals scanner">
+      <div class="sl-product" data-design="flow">
+        <header class="sl-header"><h2>Soltech scanner</h2><span class="sl-status"><span></span><b>Active</b></span></header>
+        <div class="sl-subtitle">X posts + new pairs</div>
+        <div class="sl-flow sl-scene" aria-label="Signals move from sources through matching and coin checks to an outcome">
+          <svg class="sl-wires" aria-hidden="true"><g class="sl-paths"></g><circle class="sl-packet" r="4" hidden></circle></svg>
+          <div class="sl-node sl-source sl-source-x" data-node="x"><span class="sl-source-mark" aria-hidden="true">𝕏</span><div><strong>X posts</strong><small>Incoming signals</small></div><output data-count="x">0</output></div>
+          <div class="sl-node sl-source sl-source-pairs" data-node="pairs"><i data-lucide="link" aria-hidden="true"></i><div><strong>New pairs</strong><small>Incoming signals</small></div><output data-count="pairs">0</output></div>
+          <div class="sl-node sl-match" data-node="match"><i data-lucide="git-merge" aria-hidden="true"></i><div><strong>Match signals</strong><small>Find connections</small></div></div>
+          <div class="sl-node sl-check" data-node="check"><i data-lucide="shield-check" aria-hidden="true"></i><div><strong>Coin checks</strong><small>Apply filters</small></div></div>
+          <div class="sl-node sl-out sl-filtered" data-node="filtered"><i data-lucide="minus" aria-hidden="true"></i><strong>Filtered</strong><output data-count="filtered">0</output></div>
+          <div class="sl-node sl-out sl-finds" data-node="finds"><i data-lucide="arrow-right" aria-hidden="true"></i><strong>Finds</strong><output data-count="finds">0</output></div>
+        </div>
+        <div class="sl-caption"><strong class="sl-current">Waiting for signals</strong><span class="sl-detail">The next demo signal arrives shortly.</span></div>
+        <footer class="sl-footer"><button type="button" class="sl-button sl-customize"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>Customize</button><button type="button" class="sl-button sl-toggle"><span class="sl-toggle-icon" aria-hidden="true">Ⅱ</span><span class="sl-toggle-text">Pause</span></button></footer>
+        <div class="sl-settings" hidden></div><p class="sl-sr sl-announcement" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+    <section data-variant="Live queue" aria-label="Live queue scanner" hidden>
+      <div class="sl-product" data-design="queue">
+        <header class="sl-header"><h2>Soltech scanner</h2><span class="sl-status sl-off"><span></span><b>Inactive</b></span></header>
+        <div class="sl-subtitle">X posts + new pairs</div>
+        <div class="sl-queue sl-scene"><div class="sl-queue-head"><span>Signal</span><span>Processing</span></div><div class="sl-queue-items"><div class="sl-queue-empty"><i data-lucide="radio" aria-hidden="true"></i><strong>Ready to listen</strong><span>Run the demo to follow incoming signals.</span></div></div></div>
+        <div class="sl-caption"><strong class="sl-current">Ready to listen</strong><span class="sl-detail">Each signal keeps its own place in the queue.</span></div>
+        <footer class="sl-footer"><button type="button" class="sl-button sl-customize"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>Customize</button><button type="button" class="sl-button sl-toggle"><span class="sl-toggle-icon" aria-hidden="true">▷</span><span class="sl-toggle-text">Run demo</span></button></footer>
+        <div class="sl-settings" hidden></div><p class="sl-sr sl-announcement" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+    <section data-variant="Step by step" aria-label="Step by step scanner" hidden>
+      <div class="sl-product" data-design="steps">
+        <header class="sl-header"><h2>Soltech scanner</h2><span class="sl-status sl-off"><span></span><b>Inactive</b></span></header>
+        <div class="sl-subtitle">One candidate, from signal to result</div>
+        <div class="sl-steps sl-scene">
+          <div class="sl-candidate"><span class="sl-candidate-source">DEMO SIGNAL</span><strong class="sl-candidate-id">Ready to listen</strong></div>
+          <ol class="sl-step-list">
+            <li data-step="0"><span class="sl-step-dot">1</span><div><strong>Receive signal</strong><small>X post or new pair</small></div></li>
+            <li data-step="1"><span class="sl-step-dot">2</span><div><strong>Match signals</strong><small>Connect the post and token</small></div></li>
+            <li data-step="2"><span class="sl-step-dot">3</span><div><strong>Coin checks</strong><small>Apply your preset</small></div></li>
+            <li data-step="3"><span class="sl-step-dot">4</span><div><strong class="sl-outcome-title">Finds or filtered</strong><small class="sl-outcome-detail">Route the result</small></div></li>
+          </ol>
+        </div>
+        <div class="sl-caption"><strong class="sl-current">Ready to listen</strong><span class="sl-detail">See why each stage is happening.</span></div>
+        <footer class="sl-footer"><button type="button" class="sl-button sl-customize"><i data-lucide="sliders-horizontal" aria-hidden="true"></i>Customize</button><button type="button" class="sl-button sl-toggle"><span class="sl-toggle-icon" aria-hidden="true">▷</span><span class="sl-toggle-text">Run demo</span></button></footer>
+        <div class="sl-settings" hidden></div><p class="sl-sr sl-announcement" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </div>
+</div>
+<style>
+#soltech-motion-lab{width:100%}
+#soltech-motion-lab .sl-preview-label{font:12px/1.4 system-ui,sans-serif;color:light-dark(#66717b,#b6c0c9);margin:0 0 14px}
+#soltech-motion-lab .sl-product{--sl-bg:#fafbfc;--sl-paper:#fff;--sl-text:#1e2329;--sl-muted:#727a83;--sl-line:#dce1e6;--sl-blue:#609bc5;--sl-soft:#ecf5fb;--sl-green:#298650;color-scheme:light;background:var(--sl-bg);color:var(--sl-text);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:560px;width:100%;margin:0 auto;min-height:622px;padding:26px 24px 20px;border:1px solid var(--sl-line);border-radius:24px;position:relative;box-sizing:border-box;overflow:hidden}
+#soltech-motion-lab .sl-product *{box-sizing:border-box}
+#soltech-motion-lab .sl-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#soltech-motion-lab .sl-header h2{font:650 20px/1.25 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;letter-spacing:-.5px}
+#soltech-motion-lab .sl-status{display:inline-flex;gap:7px;align-items:center;color:var(--sl-green);font-size:12px;white-space:nowrap}
+#soltech-motion-lab .sl-status>span{width:7px;height:7px;border-radius:50%;background:currentColor}
+#soltech-motion-lab .sl-status b{font-weight:550}
+#soltech-motion-lab .sl-status.sl-off{color:var(--sl-muted)}
+#soltech-motion-lab .sl-subtitle{font-size:12px;color:var(--sl-muted);margin-top:8px;margin-bottom:26px}
+#soltech-motion-lab .sl-scene{height:380px;position:relative}
+#soltech-motion-lab .sl-node{position:absolute;border:1px solid var(--sl-line);border-radius:15px;background:var(--sl-paper);padding:15px 12px;display:flex;align-items:center;gap:10px;min-height:64px;z-index:1;transition:background .2s,border-color .2s}
+#soltech-motion-lab .sl-node strong{font-size:14px;font-weight:600;display:block;white-space:nowrap}
+#soltech-motion-lab .sl-node small{font-size:11px;color:var(--sl-muted);display:block;margin-top:2px;white-space:nowrap}
+#soltech-motion-lab .sl-node svg{width:20px;height:20px;flex:none;color:var(--sl-muted);stroke-width:1.5}
+#soltech-motion-lab .sl-source-mark{font:26px/1 system-ui,sans-serif;color:var(--sl-muted)}
+#soltech-motion-lab .sl-source{top:0;width:calc(50% - 15px)}
+#soltech-motion-lab .sl-source-x{left:0}
+#soltech-motion-lab .sl-source-pairs{right:0}
+#soltech-motion-lab .sl-node output{margin-left:auto;color:var(--sl-muted);font-size:12px;font-variant-numeric:tabular-nums}
+#soltech-motion-lab .sl-match,#soltech-motion-lab .sl-check{width:60%;left:20%;justify-content:center}
+#soltech-motion-lab .sl-match{top:112px}
+#soltech-motion-lab .sl-check{top:220px}
+#soltech-motion-lab .sl-out{top:326px;min-height:48px;width:43%;padding:12px}
+#soltech-motion-lab .sl-filtered{left:2%}
+#soltech-motion-lab .sl-finds{right:2%}
+#soltech-motion-lab .sl-node.sl-lit{background:var(--sl-soft);border-color:#afcfe4}
+#soltech-motion-lab .sl-wires{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:0}
+#soltech-motion-lab .sl-wires path{stroke:var(--sl-line);stroke-width:1.5;fill:none}
+#soltech-motion-lab .sl-packet{fill:var(--sl-blue)}
+#soltech-motion-lab [hidden]{display:none!important}
+#soltech-motion-lab .sl-caption{min-height:62px;text-align:center;padding-top:16px}
+#soltech-motion-lab .sl-caption strong{display:block;font-size:14px;font-weight:550}
+#soltech-motion-lab .sl-caption span{display:block;font-size:12px;color:var(--sl-muted);margin-top:4px}
+#soltech-motion-lab .sl-footer{display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--sl-line);padding-top:14px;margin-top:18px}
+#soltech-motion-lab .sl-button{font:500 12px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;border:1px solid var(--sl-line);border-radius:10px;background:var(--sl-paper);color:var(--sl-text);padding:10px 12px;min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:var(--cursor-interaction,pointer)}
+#soltech-motion-lab .sl-button:hover{background:var(--sl-soft)}
+#soltech-motion-lab .sl-button:focus-visible{outline:2px solid var(--sl-blue);outline-offset:3px}
+#soltech-motion-lab .sl-button svg{width:15px;height:15px;stroke-width:1.7}
+#soltech-motion-lab .sl-toggle{min-width:90px}
+#soltech-motion-lab .sl-toggle-icon{font:17px/1 system-ui,sans-serif}
+#soltech-motion-lab .sl-queue-head{display:flex;justify-content:space-between;color:var(--sl-muted);font-size:11px;padding:2px 0 10px;border-bottom:1px solid var(--sl-line)}
+#soltech-motion-lab .sl-queue-empty{height:280px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;text-align:center}
+#soltech-motion-lab .sl-queue-empty svg{width:30px;height:30px;color:var(--sl-muted);margin-bottom:8px}
+#soltech-motion-lab .sl-queue-empty strong{font-weight:550}
+#soltech-motion-lab .sl-queue-empty span{color:var(--sl-muted);font-size:12px}
+#soltech-motion-lab .sl-queue-row{padding:16px 0 13px;border-bottom:1px solid var(--sl-line);height:85px}
+#soltech-motion-lab .sl-queue-meta{display:flex;gap:10px;align-items:center;justify-content:space-between;font-size:12px}
+#soltech-motion-lab .sl-queue-meta strong{font-weight:550}
+#soltech-motion-lab .sl-queue-meta span{color:var(--sl-muted)}
+#soltech-motion-lab .sl-lane{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-top:17px;font-size:11px;color:var(--sl-muted)}
+#soltech-motion-lab .sl-lane:before{content:"";height:1px;background:var(--sl-line);position:absolute;top:-8px;left:0;right:0}
+#soltech-motion-lab .sl-lane-label:last-of-type{text-align:right}
+#soltech-motion-lab .sl-lane-label.sl-lit{color:#376f97;font-weight:600}
+#soltech-motion-lab .sl-lane-dot{position:absolute;left:0;top:-10px;width:5px;height:5px;border-radius:50%;background:var(--sl-blue)}
+#soltech-motion-lab .sl-candidate{display:flex;flex-direction:column;gap:6px;padding:0 0 22px;border-bottom:1px solid var(--sl-line)}
+#soltech-motion-lab .sl-candidate-source{font-size:10px;letter-spacing:1.4px;color:var(--sl-muted)}
+#soltech-motion-lab .sl-candidate-id{font-size:18px;font-weight:600;letter-spacing:-.4px}
+#soltech-motion-lab .sl-step-list{list-style:none;margin:25px 0 0;padding:0}
+#soltech-motion-lab .sl-step-list li{display:flex;gap:15px;position:relative;min-height:66px;align-items:flex-start}
+#soltech-motion-lab .sl-step-list li:not(:last-child):after{content:"";position:absolute;left:15px;top:34px;bottom:4px;width:1px;background:var(--sl-line)}
+#soltech-motion-lab .sl-step-dot{width:32px;height:32px;border:1px solid var(--sl-line);border-radius:50%;display:grid;place-items:center;color:var(--sl-muted);background:var(--sl-paper);font-size:12px;flex:none}
+#soltech-motion-lab .sl-step-list strong{font-size:14px;font-weight:550}
+#soltech-motion-lab .sl-step-list small{display:block;margin-top:2px;font-size:12px;color:var(--sl-muted)}
+#soltech-motion-lab .sl-step-list .sl-lit .sl-step-dot{border-color:#afcfe4;background:var(--sl-soft);color:#376f97}
+#soltech-motion-lab .sl-step-list .sl-lit strong{color:#376f97}
+#soltech-motion-lab .sl-settings{position:absolute;inset:auto 0 0;z-index:5;background:var(--sl-paper);border-top:1px solid var(--sl-line);border-radius:20px 20px 0 0;padding:22px 24px;box-shadow:0 -16px 45px #1c33451c}
+#soltech-motion-lab .sl-settings h3{font-size:16px;font-weight:600;margin:0 0 4px}
+#soltech-motion-lab .sl-settings p{font-size:12px;color:var(--sl-muted);margin:0 0 18px}
+#soltech-motion-lab .sl-settings label{display:flex;gap:10px;align-items:center;min-height:42px;font-size:14px}
+#soltech-motion-lab .sl-settings input{accent-color:#5d94ba;width:17px;height:17px}
+#soltech-motion-lab .sl-settings .sl-button{margin-top:16px;float:right}
+#soltech-motion-lab .sl-settings:after{content:"";display:block;clear:both}
+#soltech-motion-lab .sl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:420px){#soltech-motion-lab .sl-product{padding:22px 14px 18px;min-height:622px;border-radius:19px}#soltech-motion-lab .sl-header h2{font-size:18px}#soltech-motion-lab .sl-source{width:calc(50% - 8px);padding:12px 8px;gap:6px}#soltech-motion-lab .sl-source>svg,#soltech-motion-lab .sl-source-mark{display:none}#soltech-motion-lab .sl-node strong{font-size:13px}#soltech-motion-lab .sl-node small{font-size:11px}#soltech-motion-lab .sl-out{gap:6px;padding:11px 8px}#soltech-motion-lab .sl-out svg{width:16px}#soltech-motion-lab .sl-match,#soltech-motion-lab .sl-check{width:68%;left:16%}}
+@media(pointer:coarse){#soltech-motion-lab .sl-button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){#soltech-motion-lab .sl-node{transition:none}#soltech-motion-lab .sl-packet,#soltech-motion-lab .sl-lane-dot{display:none}}
+</style>
+<script>
+(() => {
+  const root=document.getElementById('soltech-motion-lab');
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const models=[];
+  const ns='http://www.w3.org/2000/svg';
+  const sourceName=s=>s==='x'?'X post':'New pair';
+  const durations=[1600,800,1100,1200,800,1600,1100,1500];
+  const cycle=durations.reduce((a,b)=>a+b,0);
+  const restored=window.openai?.widgetState?.privateContent?.scanners||{};
+  function save(){try{window.openai?.setWidgetState({modelContent:{preview:'Animated scanner concepts',running:models.filter(m=>m.playing).map(m=>m.name)},privateContent:{scanners:Object.fromEntries(models.map(m=>[m.name,{sources:m.sources,speed:m.speed}]))}})?.catch(()=>{});}catch{}}
+  function visible(m){return !m.variant.hidden&&!document.hidden;}
+  function pickSource(m,n){const pool=['x','pairs'].filter(s=>m.sources[s]);return pool.length?pool[(n-1)%pool.length]:null;}
+  function status(m){const on=m.playing;m.el.querySelector('.sl-status').classList.toggle('sl-off',!on);m.el.querySelector('.sl-status b').textContent=on?'Active':'Inactive';m.el.querySelector('.sl-toggle-text').textContent=on?'Pause':m.started?'Resume':'Run demo';m.el.querySelector('.sl-toggle-icon').textContent=on?'Ⅱ':'▷';if(!on&&m.started){m.el.querySelector('.sl-current').textContent='Paused';m.el.querySelector('.sl-detail').textContent='Your place in the demo is preserved.';}}
+  function caption(m,title,detail){if(!m.playing)return;m.el.querySelector('.sl-current').textContent=title;m.el.querySelector('.sl-detail').textContent=detail;}
+  function say(m,s){m.el.querySelector('.sl-announcement').textContent=s;}
+  function count(m){Object.entries(m.counts).forEach(([k,v])=>{const out=m.el.querySelector('[data-count="'+k+'"]');if(out)out.textContent=v;});}
+  function makePaths(m){if(m.name!=='flow'||!visible(m))return;const box=m.scene.getBoundingClientRect();if(!box.width)return;const point=(id,bottom)=>{const r=m.el.querySelector('[data-node="'+id+'"]').getBoundingClientRect();return{x:r.left-box.left+r.width/2,y:(bottom?r.bottom:r.top)-box.top};};const curve=(a,b)=>'M '+a.x+' '+a.y+' C '+a.x+' '+((a.y+b.y)/2)+', '+b.x+' '+((a.y+b.y)/2)+', '+b.x+' '+b.y;const defs={x:curve(point('x',true),point('match',false)),pairs:curve(point('pairs',true),point('match',false)),middle:curve(point('match',true),point('check',false)),filtered:curve(point('check',true),point('filtered',false)),finds:curve(point('check',true),point('finds',false))};const svg=m.el.querySelector('.sl-wires');svg.setAttribute('viewBox','0 0 '+box.width+' '+box.height);const group=svg.querySelector('.sl-paths');group.replaceChildren();m.paths={};Object.entries(defs).forEach(([id,d])=>{const p=document.createElementNS(ns,'path');p.setAttribute('d',d);group.append(p);m.paths[id]=p;});}
+  function phaseAt(time){let t=time%cycle;for(let i=0;i<durations.length;i++){if(t<durations[i])return{phase:i,fraction:t/durations[i]};t-=durations[i];}return{phase:0,fraction:0};}
+  function renderFlow(m){const n=Math.floor(m.time/cycle)+1;const src=pickSource(m,n);const {phase,fraction}=phaseAt(m.time);const result=n%3===0?'filtered':'finds';const tag=n+':'+phase;const packet=m.el.querySelector('.sl-packet');if(!src){packet.setAttribute('hidden','');caption(m,'No sources selected','Choose a source in Customize.');return;}if(tag!==m.tag){m.tag=tag;m.el.querySelectorAll('.sl-node').forEach(node=>node.classList.remove('sl-lit'));const target=phase===1?src:phase===3?'match':phase===5?'check':phase===7?result:null;if(target)m.el.querySelector('[data-node="'+target+'"]').classList.add('sl-lit');const labels=[['Waiting for signals','The scanner is ready for the next demo event.'],['Signal received',sourceName(src)+' · Demo '+String(n).padStart(2,'0')],['Connecting the signal','Demo '+String(n).padStart(2,'0')+' moves into matching.'],['Matching signals','Looking for a token connection.'],['Preparing coin checks','The same candidate continues through the flow.'],['Checking the coin','Applying the demo preset.'],['Routing the result',result==='finds'?'Matches the demo preset.':'Outside the demo preset.'],[result==='finds'?'Added to Finds':'Filtered out','Demo '+String(n).padStart(2,'0')+' · '+(result==='finds'?'Match found':'Preset did not match')]];caption(m,...labels[phase]);if(phase===1&&!m.received.has(n)){m.received.add(n);m.counts[src]++;count(m);}if(phase===7&&!m.finished.has(n)){m.finished.add(n);m.counts[result]++;count(m);say(m,'Demo signal '+n+(result==='finds'?' added to Finds.':' filtered out.'));}}const route=phase===2?src:phase===4?'middle':phase===6?result:null;if(route&&m.paths?.[route]&&!reduce.matches){const p=m.paths[route],pt=p.getPointAtLength(p.getTotalLength()*fraction);packet.setAttribute('cx',pt.x);packet.setAttribute('cy',pt.y);packet.removeAttribute('hidden');}else packet.setAttribute('hidden','');}
+  function addQueueItem(m,n){const src=pickSource(m,n);if(!src)return;const row=document.createElement('div');row.className='sl-queue-row';const result=n%3===0?'Filtered':'Finds';row.innerHTML='<div class="sl-queue-meta"><strong>Demo '+String(n).padStart(2,'0')+' · '+sourceName(src)+'</strong><span class="sl-item-state">Received</span></div><div class="sl-lane"><span class="sl-lane-label">Receive</span><span class="sl-lane-label">Match</span><span class="sl-lane-label">Check</span><span class="sl-lane-label">'+result+'</span><span class="sl-lane-dot" aria-hidden="true"></span></div>';const list=m.el.querySelector('.sl-queue-items');list.querySelector('.sl-queue-empty')?.remove();list.prepend(row);m.items.unshift({row,born:m.time,n,result,done:false});while(m.items.length>4)m.items.pop().row.remove();}
+  function renderQueue(m){const n=Math.floor(m.time/3200)+1;if(n!==m.queueSerial){m.queueSerial=n;addQueueItem(m,n);}let processing=0;for(const item of m.items){const age=m.time-item.born;const step=Math.min(3,Math.floor(age/2200));item.row.querySelectorAll('.sl-lane-label').forEach((e,i)=>e.classList.toggle('sl-lit',i===step));item.row.querySelector('.sl-item-state').textContent=['Received','Matching','Checking',item.result][step];const lane=item.row.querySelector('.sl-lane');const pct=Math.min(1,age/6600);item.row.querySelector('.sl-lane-dot').style.transform='translateX('+(pct*Math.max(0,lane.clientWidth-5))+'px)';if(step<3)processing++;else if(!item.done){item.done=true;m.counts[item.result==='Finds'?'finds':'filtered']++;say(m,'Demo signal '+item.n+' completed: '+item.result+'.');}}caption(m,m.items.length?'Following incoming signals':'No sources selected',m.items.length?processing+' processing · '+m.counts.finds+' finds · '+m.counts.filtered+' filtered':'Choose a source in Customize.');}
+  function renderSteps(m){const n=Math.floor(m.time/11000)+1;const t=m.time%11000;const src=pickSource(m,n);const phase=t<1600?-1:Math.min(3,Math.floor((t-1600)/2200));const tag=n+':'+phase;if(tag===m.tag)return;m.tag=tag;if(!src){caption(m,'No sources selected','Choose a source in Customize.');return;}m.el.querySelector('.sl-candidate-id').textContent=phase<0?'Waiting for a signal':'Demo candidate '+String(n).padStart(2,'0');m.el.querySelector('.sl-candidate-source').textContent=phase<0?'SCANNER READY':sourceName(src).toUpperCase();m.el.querySelectorAll('[data-step]').forEach((row,i)=>{row.classList.toggle('sl-lit',i===phase);row.querySelector('.sl-step-dot').textContent=i<phase?'✓':String(i+1);});const found=n%3!==0;m.el.querySelector('.sl-outcome-title').textContent=phase===3?(found?'Added to Finds':'Filtered out'):'Finds or filtered';m.el.querySelector('.sl-outcome-detail').textContent=phase===3?(found?'Matches your demo preset':'Outside your demo preset'):'Route the result';const labels=[['Listening for signals','An enabled scanner can be quiet between events.'],['Signal received',sourceName(src)+' enters the scanner.'],['Matching the token','Connecting the source to a candidate.'],['Applying coin checks','Checking the demo candidate against your filters.'],[found?'Added to Finds':'Filtered out',found?'This candidate matches the demo preset.':'This candidate does not match the demo preset.']];caption(m,...labels[phase+1]);if(phase===3)say(m,'Demo candidate '+n+' '+(found?'added to Finds.':'filtered out.'));}
+  root.querySelectorAll('.sl-product').forEach(el=>{const name=el.dataset.design;const saved=restored[name]||{};const m={el,name,variant:el.closest('[data-variant]'),scene:el.querySelector('.sl-scene'),playing:name==='flow',started:name==='flow',time:0,tag:'',counts:{x:0,pairs:0,finds:0,filtered:0},received:new Set(),finished:new Set(),sources:{x:saved.sources?.x!==false,pairs:saved.sources?.pairs!==false},speed:Number(saved.speed)||1,items:[],queueSerial:0};models.push(m);el.querySelector('.sl-toggle').addEventListener('click',()=>{m.playing=!m.playing;m.started=true;m.tag='';status(m);say(m,m.playing?'Demo resumed.':'Demo paused.');save();});const panel=el.querySelector('.sl-settings');panel.innerHTML='<h3>Demo sources</h3><p>These settings only affect this preview.</p><label><input type="checkbox" data-source="x">X posts</label><label><input type="checkbox" data-source="pairs">New pairs</label><button type="button" class="sl-button sl-done">Done</button>';panel.querySelectorAll('input').forEach(input=>{input.checked=m.sources[input.dataset.source];input.addEventListener('change',()=>{m.sources[input.dataset.source]=input.checked;m.tag='';save();});});const customize=el.querySelector('.sl-customize');customize.setAttribute('aria-expanded','false');customize.addEventListener('click',()=>{panel.hidden=!panel.hidden;customize.setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)panel.querySelector('input').focus();});panel.querySelector('.sl-done').addEventListener('click',()=>{panel.hidden=true;customize.setAttribute('aria-expanded','false');customize.focus();});panel.addEventListener('keydown',e=>{if(e.key==='Escape'){panel.hidden=true;customize.setAttribute('aria-expanded','false');customize.focus();}});status(m);if(name==='flow')new ResizeObserver(()=>makePaths(m)).observe(m.scene);if(globalThis.Tweak){const tweak=new Tweak({container:el,onChange:()=>{m.speed=Math.max(.6,Math.min(1.5,m.speed));save();}});tweak.addSlider(m,'speed',{label:'Demo pace',min:.6,max:1.5,step:.1});}});
+  new MutationObserver(records=>{for(const rec of records){const m=models.find(v=>v.variant===rec.target);if(!m)continue;if(m.variant.hidden&&m.playing){m.playing=false;m.started=true;status(m);}else if(!m.variant.hidden){makePaths(m);m.tag='';}}}).observe(root.querySelector('.viz-carousel'),{subtree:true,attributes:true,attributeFilter:['hidden']});
+  let previous=performance.now();function frame(now){const delta=Math.min(100,now-previous);previous=now;for(const m of models){if(!visible(m)||!m.playing||!m.el.querySelector('.sl-settings').hidden)continue;if(m.sources.x||m.sources.pairs)m.time+=delta*m.speed;if(m.name==='flow')renderFlow(m);else if(m.name==='queue')renderQueue(m);else renderSteps(m);}if(root.isConnected)requestAnimationFrame(frame);}requestAnimationFrame(frame);
+  window.addEventListener('openai:set_globals',event=>{const saved=event.detail?.globals?.widgetState?.privateContent?.scanners;if(!saved)return;models.forEach(m=>{const s=saved[m.name];if(!s)return;m.sources={x:s.sources?.x!==false,pairs:s.sources?.pairs!==false};m.speed=Number(s.speed)||1;m.el.querySelectorAll('[data-source]').forEach(input=>input.checked=m.sources[input.dataset.source]);m.tag='';});});
+})();
+</script>

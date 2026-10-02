@@ -1,0 +1,130 @@
+/* Soltech's blue-violet glass: color at the edges, quiet surfaces for reading. */
+@layer blue-glass {
+ :root {
+  --tint-glass:linear-gradient(128deg,#e5f2ffdf 0%,#f4f8ffdd 43%,#ece5ffdf 100%);
+  --tint-edge:linear-gradient(128deg,#a5c3ed 0%,#e7f2ff 30%,#bac8ed 60%,#b8a2df 100%);
+  --tint-control:linear-gradient(145deg,#fffffff2 0%,#eef5ffdf 48%,#ece7fade 100%);
+  --tint-shadow:0 5px 18px #526ca314,inset 0 1px 1px #fff,inset 0 -1px 1px #9c91bd25;
+  --tint-blur:blur(16px) saturate(130%);
+  --tint-track:#ffffffdc;
+  --tint-slide:300ms cubic-bezier(.2,.75,.2,1);
+ }
+
+ .brand-period,h1>.accent {
+  color:#697bb8;
+ }
+ @supports ((background-clip:text) or (-webkit-background-clip:text)) {
+  .brand-period,h1>.accent {
+   background:linear-gradient(100deg,#5298cf 5%,#7861b6 95%);
+   background-clip:text;
+   -webkit-background-clip:text;
+   -webkit-text-fill-color:transparent;
+  }
+ }
+
+ .coin-check-form {
+  border-color:transparent;
+  background:var(--tint-glass) padding-box,var(--tint-edge) border-box;
+  box-shadow:0 7px 24px #697dbb16,inset 0 1px 1px #ffffffef,inset 0 -1px 2px #b5a9d733;
+  backdrop-filter:var(--tint-blur);
+  -webkit-backdrop-filter:var(--tint-blur);
+ }
+
+ .scanner-choice,.purpose-option {
+  border-color:transparent;
+  background:linear-gradient(#ffffffed,#ffffffed) padding-box,var(--tint-edge) border-box;
+  box-shadow:var(--tint-shadow);
+  backdrop-filter:var(--tint-blur);
+  -webkit-backdrop-filter:var(--tint-blur);
+ }
+ .scanner-choice:hover,.purpose-option:hover {
+  border-color:transparent;
+  background:linear-gradient(#ffffffed,#ffffffed) padding-box,linear-gradient(125deg,#91b8ed,#b29bd6) border-box;
+  box-shadow:0 7px 22px #526ca320,inset 0 1px 0 #fff;
+ }
+ .scanner-choice.selected,.purpose-option:has(input:checked) {
+  border-color:#7c86b6;
+  background:linear-gradient(#fff,#fff) padding-box,var(--tint-edge) border-box;
+  box-shadow:0 5px 20px #526ca319,inset 0 0 0 1px #dbe2fa,inset 0 1px 0 #fff;
+ }
+ .scanner-board {
+  border-color:transparent;
+  background:linear-gradient(#fff,#fff) padding-box,var(--tint-edge) border-box;
+  box-shadow:var(--tint-shadow);
+ }
+ .scanner-board .board-head {
+  background:var(--tint-glass);
+  border-bottom-color:#dce1f0;
+  box-shadow:inset 0 1px 1px #fff;
+ }
+
+ .button:not(.danger):not(.clear-address),.icon-button,.text-link.new-scanner-link {
+  background:var(--tint-control);
+  border-color:#a7b3cf;
+  box-shadow:var(--tint-shadow);
+  backdrop-filter:var(--tint-blur);
+  -webkit-backdrop-filter:var(--tint-blur);
+ }
+ .button:not(.danger):not(.clear-address):hover:not(:disabled),.icon-button:hover,.text-link.new-scanner-link:hover {
+  background:linear-gradient(135deg,#f6fbff,#eaefff 55%,#e9e1fa);
+  border-color:#7f8db4;
+ }
+ .main-nav,.report-tabs,.history-ranges {
+  background:var(--tint-track);
+  border-color:#d8dce7;
+  box-shadow:var(--tint-shadow);
+  backdrop-filter:var(--tint-blur);
+  -webkit-backdrop-filter:var(--tint-blur);
+ }
+ .nav-glass,.report-tabs::before,.history-ranges::before {
+  background:var(--tint-glass);
+  border:1px solid #b1bad5;
+  box-shadow:0 2px 8px #47598120,inset 0 1px 1px #fff;
+  transition:transform var(--tint-slide);
+ }
+ .main-nav a,.main-nav a:hover,.main-nav a[aria-current=page] {
+  color:var(--muted);
+  transition:none;
+ }
+ .main-nav a svg {transition:none;}
+ .report-tabs,.history-ranges {position:relative;isolation:isolate;gap:0;}
+ .report-tabs {--selection-index:0;}
+ .history-ranges {--selection-index:4;display:inline-grid;grid-template-columns:repeat(5,minmax(44px,1fr));}
+ .report-tabs::before,.history-ranges::before {
+  content:'';position:absolute;z-index:0;pointer-events:none;box-sizing:border-box;
+  left:4px;top:4px;bottom:4px;width:calc((100% - 8px)/3);
+  border-radius:12px;transform:translateX(calc(var(--selection-index)*100%));
+ }
+ .history-ranges::before {left:3px;top:3px;bottom:3px;width:calc((100% - 6px)/5);border-radius:10px;}
+ .report-tabs button,.history-ranges button {position:relative;z-index:1;}
+ .history-ranges button {padding-inline:8px;}
+ .report-tabs button[aria-selected=true],.history-ranges button[aria-pressed=true] {
+  color:var(--accent-ink);background:transparent;border-color:transparent;box-shadow:none;font-weight:750;
+ }
+ .history-ranges button[aria-pressed=true]:hover {background:transparent;}
+ .report-tabs:has(button:nth-child(2)[aria-selected=true]) {--selection-index:1;}
+ .report-tabs:has(button:nth-child(3)[aria-selected=true]) {--selection-index:2;}
+ .history-ranges:has(button:nth-child(1)[aria-pressed=true]) {--selection-index:0;}
+ .history-ranges:has(button:nth-child(2)[aria-pressed=true]) {--selection-index:1;}
+ .history-ranges:has(button:nth-child(3)[aria-pressed=true]) {--selection-index:2;}
+ .history-ranges:has(button:nth-child(4)[aria-pressed=true]) {--selection-index:3;}
+ @media(prefers-reduced-motion:reduce) {
+  .nav-glass,.report-tabs::before,.history-ranges::before {transition:none;}
+ }
+
+ @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  :root {--tint-glass:linear-gradient(128deg,#e9f3ff,#f0edfc);--tint-control:linear-gradient(145deg,#fff,#edf1fc);--tint-track:#fff;}
+ }
+ @media(prefers-reduced-transparency:reduce) {
+  :root {--tint-glass:linear-gradient(#edf1fc,#edf1fc);--tint-control:#f4f6fc;--tint-track:#fff;--tint-blur:none;}
+  .scanner-choice,.purpose-option {background:#fff;border-color:#a7b3cf;}
+ }
+ @media(forced-colors:active) {
+  .brand-period,h1>.accent {background:none;color:CanvasText;-webkit-text-fill-color:CanvasText;}
+  .coin-check-form,.scanner-choice,.purpose-option,.scanner-board,.main-nav,.report-tabs,.history-ranges {background:Canvas;border-color:ButtonText;box-shadow:none;}
+  .scanner-board .board-head {background:Canvas;}
+  .scanner-choice.selected,.purpose-option:has(input:checked) {border-color:Highlight;outline:1px solid Highlight;}
+  .scanner-choice:focus-visible,.purpose-option:focus-within {outline:3px solid Highlight;outline-offset:4px;}
+  .nav-glass,.report-tabs::before,.history-ranges::before {background:Canvas;border-color:Highlight;outline:1px solid Highlight;}
+ }
+}

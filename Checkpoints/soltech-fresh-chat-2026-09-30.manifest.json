@@ -1,0 +1,3509 @@
+{
+  "created": "2026-09-30T00:35:23.7131636-05:00",
+  "root": "C:\\Users\\jayde\\OneDrive\\Desktop\\SolTech",
+  "activeProject": "soltech-refined",
+  "activePort": 4183,
+  "browserDataIncluded": false,
+  "runtimeKeysIncluded": false,
+  "excluded": [
+    "Prior root Checkpoints archives",
+    "Browser profile and storage",
+    "Runtime-only keys",
+    "node_modules",
+    ".git",
+    ".env files",
+    "pem and key files"
+  ],
+  "files": [
+    {
+      "path": ".skill-drafts/reference-led-ui-ux/agents/openai.yaml",
+      "bytes": 291,
+      "sha256": "b0e6a06596914ccc4912443ec5bdf0530045b4dce0ac0f4433044206d12df334"
+    },
+    {
+      "path": ".skill-drafts/reference-led-ui-ux/references/soltech.md",
+      "bytes": 2867,
+      "sha256": "1aebf6d3bd771706cecb9158aac41079c1e1590740d43201d24901e24e6e351e"
+    },
+    {
+      "path": ".skill-drafts/reference-led-ui-ux/SKILL.md",
+      "bytes": 6461,
+      "sha256": "918a58333c7d17c87af65aca319698df28ff1b14175c4e1fcdfa0bc6022eea2e"
+    },
+    {
+      "path": "design-concepts/market-tile-studies-2026-09-30/01-original-options.png",
+      "bytes": 1275746,
+      "sha256": "d4f9128713a0b0bcc57c93747708603c6872e381e8c2d0f3502228bc854e5bbc"
+    },
+    {
+      "path": "design-concepts/market-tile-studies-2026-09-30/02-cool-gray-blue-white.png",
+      "bytes": 1361121,
+      "sha256": "a9c03f5ffc4448d3d6469481311dcec29d014c832fc96c4502247209a565517d"
+    },
+    {
+      "path": "design-concepts/market-tile-studies-2026-09-30/M1-SHARP-PROMPT.txt",
+      "bytes": 1724,
+      "sha256": "a25f160177abdc7db973411d228f33aa92a005d5c72007ec1ddabf53bc7cb605"
+    },
+    {
+      "path": "design-concepts/market-tile-studies-2026-09-30/PROMPTS.txt",
+      "bytes": 6014,
+      "sha256": "e1cea8d29644440713e2bfcb5e72e074419d5aacf508008cc5aba88d766e2b47"
+    },
+    {
+      "path": "design-concepts/market-tile-studies-2026-09-30/README.txt",
+      "bytes": 769,
+      "sha256": "1ffa878507e718d0c056ddae6d1085d24b9c1f32cdd5689d35943544c92c104c"
+    },
+    {
+      "path": "design-concepts/silver-explorations-2026-09-29/01-edge-studies.png",
+      "bytes": 1526033,
+      "sha256": "7dec60754f6efc465f103f6dfe3cfa9084dc2c4f500b0a37df8db3962daabf18"
+    },
+    {
+      "path": "design-concepts/silver-explorations-2026-09-29/02-material-studies.png",
+      "bytes": 1378407,
+      "sha256": "86c81ce6c98c56964d24c9cc2b8f6eb8d8911abee978983ab724f944a9fe1408"
+    },
+    {
+      "path": "design-concepts/silver-explorations-2026-09-29/03-in-context.png",
+      "bytes": 1324770,
+      "sha256": "b9670d7a9c410e4eb4654459faebfca1fd46c41c3c3d5e408169461025876d91"
+    },
+    {
+      "path": "design-concepts/silver-explorations-2026-09-29/PROMPTS.txt",
+      "bytes": 7655,
+      "sha256": "c61be38c13076625c127988660e7d7b5f926da951c3b2957bb6a06753ac63403"
+    },
+    {
+      "path": "design-concepts/silver-explorations-2026-09-29/README.txt",
+      "bytes": 1488,
+      "sha256": "5543f90da22f7a4d1e0164fe3e2f916bdeec031ec9da0ded9d463c2e719a7379"
+    },
+    {
+      "path": "design-references/check-coin-2026-09-29/coinbase-detail.png",
+      "bytes": 97111,
+      "sha256": "d5a2227cb0fb2c1c2b697b9651d5beb75658269b5cf6fd3258dc730e4331fe72"
+    },
+    {
+      "path": "design-references/check-coin-2026-09-29/coingecko-overview.png",
+      "bytes": 87392,
+      "sha256": "8845e7b3dcd6c9a3181b46033a83207608543f3c6b15340486eeff03da3bed5e"
+    },
+    {
+      "path": "design-references/check-coin-2026-09-29/mobile-check-simplified.png",
+      "bytes": 39177,
+      "sha256": "2dcbfe7a53df72fbb7e2caab56c5146e81ec049d3b0d191547da7fab261bc86b"
+    },
+    {
+      "path": "design-references/check-coin-2026-09-29/mobile-preview-open.png",
+      "bytes": 43871,
+      "sha256": "4df0345a45b3d78b10f5080136c6b78aa69e6a5c514021067c0271989ff68fd5"
+    },
+    {
+      "path": "design-references/check-coin-2026-09-29/phantom-info.png",
+      "bytes": 83526,
+      "sha256": "9803aaffabc1e3f31ea27c0c0bd67f47fc846e33bd90ad853babba582cb1a19c"
+    },
+    {
+      "path": "design-references/check-coin-2026-09-29/soltech-current-mobile.png",
+      "bytes": 30187,
+      "sha256": "21a004b0c01ce4a7438849ca58d0a7486c49ab4ff3019e33904f8b622ee621af"
+    },
+    {
+      "path": "OPEN-SOLTECH.md",
+      "bytes": 3862,
+      "sha256": "78b7e4bac1ebb4a6402c5eca65cc843c57270073012ebd180790f97319409a69"
+    },
+    {
+      "path": "soltech-a3/backups/current-draft.json",
+      "bytes": 986,
+      "sha256": "67ef22a566acda4582ff5834e0a131f29ae91507bd57453aaa2a6216777513b4"
+    },
+    {
+      "path": "soltech-a3/bundler-api.mjs",
+      "bytes": 2516,
+      "sha256": "bab8aee1fe8fc6acb60ad8846b36074a6f354880bbecd0ab0c55adfebe6ef972"
+    },
+    {
+      "path": "soltech-a3/bundler-setup.mjs",
+      "bytes": 5657,
+      "sha256": "bc943d1ac5661c84afebc4a91f527f9c7193c13539293171c70d17bd4b93338a"
+    },
+    {
+      "path": "soltech-a3/checkpoint-manifest.json",
+      "bytes": 29603,
+      "sha256": "e8774971857ea78d46de3ef2aa09e36b14d0c175a4a156032aad0804d9bb18b6"
+    },
+    {
+      "path": "soltech-a3/comparison-baseline.json",
+      "bytes": 24660,
+      "sha256": "6d77b600b9ed49620391c53919b7297e1422855724ebac72c26782c86bf25000"
+    },
+    {
+      "path": "soltech-a3/DESIGN-NOTES.md",
+      "bytes": 1406,
+      "sha256": "25e2725a143a8ceee962bf838b1767979b6dc49e18f471349234bbd488608f24"
+    },
+    {
+      "path": "soltech-a3/design-review/desktop-check.png",
+      "bytes": 34988,
+      "sha256": "3e6ace91041e148d70fc6c7a37d1ece48e4330f2fb4a7d6f2eeb479f48211856"
+    },
+    {
+      "path": "soltech-a3/design-review/mobile-320.png",
+      "bytes": 21203,
+      "sha256": "bfefe7f4e723a8a15d8e9616b3790d38a39f206ef7930a2fef18f33a3ef76a71"
+    },
+    {
+      "path": "soltech-a3/design-review/mobile-check.png",
+      "bytes": 39179,
+      "sha256": "4da6b1b9931e7d6c33d1096497f5ca4363ff149b4545bece70b67d1f5230befd"
+    },
+    {
+      "path": "soltech-a3/design-review/mobile-report.png",
+      "bytes": 56267,
+      "sha256": "1d475f99c10ccdaa3528666a0fdc55be7b11695547259a2f420fb8fcb5b2dd36"
+    },
+    {
+      "path": "soltech-a3/dist/a3-checker.css",
+      "bytes": 3417,
+      "sha256": "c765ccf370e4d198b61ab047681473efb2a951e47abeb041965f07c88de59990"
+    },
+    {
+      "path": "soltech-a3/dist/app.css",
+      "bytes": 35245,
+      "sha256": "90f25d356c053e8660afef686843ded7e72175a4f806fc3c36b37674d7956117"
+    },
+    {
+      "path": "soltech-a3/dist/app.js",
+      "bytes": 37489,
+      "sha256": "acd5751998174d855ca4eb3be8a4103eee51d72fe7a055316eae6bdcf0054e1f"
+    },
+    {
+      "path": "soltech-a3/dist/assets/a3-button-frame.svg",
+      "bytes": 947,
+      "sha256": "2b1be0440c1d9f591855ea3cf22bfb314598768343fe54974813838f034ec50a"
+    },
+    {
+      "path": "soltech-a3/dist/assets/a3-input-frame.svg",
+      "bytes": 1452,
+      "sha256": "1d8905be50d2df60bc33ec8f467aac29e75a452c85d9e6b522c5562353467ca0"
+    },
+    {
+      "path": "soltech-a3/dist/assets/phosphor-license.txt",
+      "bytes": 1071,
+      "sha256": "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"
+    },
+    {
+      "path": "soltech-a3/dist/assets/soltech-logo.png",
+      "bytes": 1234305,
+      "sha256": "90394bdef6dfaa2c803de97342a72a5bdfe39fc3be5e54f9d401301cae2bcb71"
+    },
+    {
+      "path": "soltech-a3/dist/blue-glass.css",
+      "bytes": 6063,
+      "sha256": "c2966cf060281d99620d50735c25a2a833eeb1abb364a9bf4058e2acaf3b02a8"
+    },
+    {
+      "path": "soltech-a3/dist/coin-checker-data.js",
+      "bytes": 23272,
+      "sha256": "f45c9bceb0615c6c09006443df79cb9bde1e4ca198d35a3cda7f267d0393ad6c"
+    },
+    {
+      "path": "soltech-a3/dist/coin-checker.css",
+      "bytes": 16101,
+      "sha256": "6814db66cd36d8478cba1dde7c3763c67a895cc1e49b6adb2b448f26eb2d6736"
+    },
+    {
+      "path": "soltech-a3/dist/coin-checker.js",
+      "bytes": 24251,
+      "sha256": "8652934182dedb99d0aa43b3ec864a02f4c340c180d8667676f108ced116209e"
+    },
+    {
+      "path": "soltech-a3/dist/coin-history.js",
+      "bytes": 14953,
+      "sha256": "297f80d1bbdd63156b9da0daeea820440be9f4dd0925585d737923f365fe1e7f"
+    },
+    {
+      "path": "soltech-a3/dist/coin-networks.js",
+      "bytes": 1102,
+      "sha256": "a2bf66b4fc4204cb5aaa0a5bf3155dfe92cb09c0b69e23ac84e5f03188988f31"
+    },
+    {
+      "path": "soltech-a3/dist/daily-recap.css",
+      "bytes": 2252,
+      "sha256": "79acf5730f4b72310e4efa7180879a6731bc2c0b4eb6983940af520fb30fb258"
+    },
+    {
+      "path": "soltech-a3/dist/daily-recap.js",
+      "bytes": 2412,
+      "sha256": "ae2f90524a83a82710ccf23d27dd230de5218ea067d303cc2804c835bcde4ac5"
+    },
+    {
+      "path": "soltech-a3/dist/data.js",
+      "bytes": 4724,
+      "sha256": "e10bcc952fb07ba968b6819e15dd48487d5a1916d7456be0d10337be67dc4e66"
+    },
+    {
+      "path": "soltech-a3/dist/index.html",
+      "bytes": 3685,
+      "sha256": "7d9d2818dfaffbe461dad52d84544ef61b11d93d0dc5b4401a92690f55ae9c58"
+    },
+    {
+      "path": "soltech-a3/dist/personal-scanner-store.js",
+      "bytes": 5047,
+      "sha256": "7924c6d9eac32c4e9399bd5f6942bc7b9f63f0432ad5f2c4a3836ada3477ffaf"
+    },
+    {
+      "path": "soltech-a3/dist/personal-scanner.css",
+      "bytes": 6433,
+      "sha256": "6f808fe5311453d618814ecbf13b859aea810a2b1997999069de62a5b9dcd244"
+    },
+    {
+      "path": "soltech-a3/dist/personal-scanner.js",
+      "bytes": 18113,
+      "sha256": "b0e239da679ac1b384f194fe2a0817718237587d70870fdc9137c0f93e4c002a"
+    },
+    {
+      "path": "soltech-a3/dist/photo-crop.js",
+      "bytes": 8129,
+      "sha256": "f07fd03f50a110f9fcb5a15cda117a88e833ed7e0010a05bb8f3388b2bf7662d"
+    },
+    {
+      "path": "soltech-a3/dist/profile-shortcut-icons.js",
+      "bytes": 930,
+      "sha256": "cf06062c535de1ec357e974071b2aa9a87fabe531b188653e6538f606d2432fd"
+    },
+    {
+      "path": "soltech-a3/dist/profile-store.js",
+      "bytes": 5114,
+      "sha256": "f51ddf6af64be7666b6617b5ea023f593fd9dd90f34d4a8a6d630824e0ce00d9"
+    },
+    {
+      "path": "soltech-a3/dist/profile.css",
+      "bytes": 11908,
+      "sha256": "f4535c625340cf985588b5c630d20529ecbb71f926e34eb9af5e5b0c9263ced4"
+    },
+    {
+      "path": "soltech-a3/dist/profile.js",
+      "bytes": 15085,
+      "sha256": "4041d3420b636f75d24f7206e75724aac26d2f01e83849a55dafad703f8a96f9"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-appearance.js",
+      "bytes": 1549,
+      "sha256": "661a16aa2805f330fb909e447d06bcb3e9f94dabbb77d04a9f5f833e594a5596"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-builder.css",
+      "bytes": 12632,
+      "sha256": "4c73d911594df7263ba50b37f36ed1ff6f34337ef76691bf3dbaa120f099c59d"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-builder.js",
+      "bytes": 8229,
+      "sha256": "686124d029faa2e22e35afb8758747b3984ba69aad0b3d4451f224f0d8045a2c"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-editor.css",
+      "bytes": 4511,
+      "sha256": "b848ee1df217a6d33adc9ea95afcfe9502720f02928cfabcd7912f48d7341d8c"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-editor.js",
+      "bytes": 10422,
+      "sha256": "89e1d7917823c2ae1e2c542e36901dfef4ac323fb7b2fb4ccf840e2208dccb62"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-findings.css",
+      "bytes": 2817,
+      "sha256": "bb46df536c403728fcd084e398f689074c939f5085cac988e537c3c80283490a"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-findings.js",
+      "bytes": 813,
+      "sha256": "7c56317924c4a81167c14ec1edb3ac08c0403a2b6a8c28dc1e783be89a6e73b4"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-guidance.js",
+      "bytes": 3247,
+      "sha256": "97c0a205450a154c8cd7d29eee04da0dbf2228af4d67ac795995c52f21d82235"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-icons.js",
+      "bytes": 1496,
+      "sha256": "c6e8bb0f17249bbfd6d93871e5700879a29bae9b7b99aebb8f7af180a4d1f070"
+    },
+    {
+      "path": "soltech-a3/dist/scanner-settings.js",
+      "bytes": 8932,
+      "sha256": "fd719d0f5cc1452880cd83b939e4daa24f36e6fe5f5bdc97e146701421dcaf19"
+    },
+    {
+      "path": "soltech-a3/dist/soltech-identity.css",
+      "bytes": 27010,
+      "sha256": "262971887011d74da07613432fc4175ad00a22a3499fd951d0351089d6d994cb"
+    },
+    {
+      "path": "soltech-a3/dist/workspace.js",
+      "bytes": 8195,
+      "sha256": "097626c9c81623310ecec73d5930f0d25ca99443b6d26ce614cb49740d5c55c7"
+    },
+    {
+      "path": "soltech-a3/mobile-preview.html",
+      "bytes": 831,
+      "sha256": "93ab1e02ac9863d79283397fdeffb288351697a310d021d7136709492354a38b"
+    },
+    {
+      "path": "soltech-a3/mobile-preview.mjs",
+      "bytes": 2411,
+      "sha256": "840b971af0b20e8104dddc31913239b71f6e6562d033a13d3d83e4398399e8c9"
+    },
+    {
+      "path": "soltech-a3/preview.mjs",
+      "bytes": 951,
+      "sha256": "b75158e75b4ca12e8187046c0b65b921dd8504924cd1ffae1e83d0e4f60e6b98"
+    },
+    {
+      "path": "soltech-a3/README.md",
+      "bytes": 1127,
+      "sha256": "eb436f3a78933e0c9bc67b8b0ba7d6cf407e2982ff25417b1576614db1055483"
+    },
+    {
+      "path": "soltech-a3/research/coin-checker-data-expansion.md",
+      "bytes": 5586,
+      "sha256": "6663f1e67ca4ef65bbcf384579c4f8c66e9a55868d9815dde1018f4eace82436"
+    },
+    {
+      "path": "soltech-a3/research/default-scanner-2026-09-28.md",
+      "bytes": 8901,
+      "sha256": "1fbc9a4c4487f5bd370f7ee1ba7c09cb4c5c01c75171f213e8f3afc3772f01d8"
+    },
+    {
+      "path": "soltech-a3/research/profile-experience.md",
+      "bytes": 3277,
+      "sha256": "4663ba1528db023607844bb7fe8459cc43aef7c4064a94fde1a4794f24e5f852"
+    },
+    {
+      "path": "soltech-a3/research/psychology-motivation-sources.md",
+      "bytes": 17555,
+      "sha256": "e703a6b33c69ad0e7ae97122a101a6a5b7e80d0feee24cbb39ce09f9cdd78643"
+    },
+    {
+      "path": "soltech-a3/research/psychology-trust-sources.md",
+      "bytes": 9989,
+      "sha256": "c89b2cbf0cb8f275971e4aca41cef06ad1dd12f3ded9015bd0488198a45d0db6"
+    },
+    {
+      "path": "soltech-a3/research/psychology-visual-sources.md",
+      "bytes": 18196,
+      "sha256": "9fb1c145d149c8eba3466239bb866c12dce7622dc30a4af597ef08544bbef7e1"
+    },
+    {
+      "path": "soltech-a3/research/scanner-builder-current-audit-2026-09-28.md",
+      "bytes": 14700,
+      "sha256": "25b46fa5256792c6c7437e86f3c3c42ebebe409a506e602f37c307aed0accaf6"
+    },
+    {
+      "path": "soltech-a3/research/scanner-builder-direction-2026-09-28.md",
+      "bytes": 20765,
+      "sha256": "2573d8175d942a2fb363ee23ddc9e9d431332b944095f90a561f5659384f0663"
+    },
+    {
+      "path": "soltech-a3/research/scanner-builder-ux-research-2026-09-28.md",
+      "bytes": 28751,
+      "sha256": "b178fcd92e1bb413b9d8f0a13089005fb22cbf9582f52d71e9d325720ac6bbc7"
+    },
+    {
+      "path": "soltech-a3/research/single-scanner-direction-2026-09-28.md",
+      "bytes": 8694,
+      "sha256": "fa53283f394bb593ad8b63c2f8c4539a3b5a81fa35868915b410252191c6a64d"
+    },
+    {
+      "path": "soltech-a3/research/soltech-opportunities-research-2026-09-26.md",
+      "bytes": 19439,
+      "sha256": "5024fd35bd7f13e90ae9481ba96d68f0f83b83ca67a46acb8f76fba2c8a1e55f"
+    },
+    {
+      "path": "soltech-a3/research/soltech-product-design-research-2026-09-26.md",
+      "bytes": 17495,
+      "sha256": "418130d77e39ba5846b79e7a34cfba03f13e3e410a6d6ac4514b149d5b2b5023"
+    },
+    {
+      "path": "soltech-a3/research/soltech-psychology-and-signature-design-2026-09-28.md",
+      "bytes": 20646,
+      "sha256": "4e4fd42d825e097bea1947dbd9802b797a7a3f9eff9d07f28958eb6bf81368fb"
+    },
+    {
+      "path": "soltech-a3/research/soltech-scanner-research-2026-09-25.md",
+      "bytes": 26026,
+      "sha256": "acff0ef615f5b6f5c81eef2624dc8689dfa12417e13837e355ad0cdc057e54a2"
+    },
+    {
+      "path": "soltech-a3/research/x-scanner-source-research-2026-09-28.md",
+      "bytes": 21954,
+      "sha256": "b72e3fa3632ee7071cc18e6b2938c874c4b7c099e9f148230ed9e3959f6790f7"
+    },
+    {
+      "path": "soltech-a3/review/active-scan-icon-mobile.png",
+      "bytes": 35119,
+      "sha256": "8ac26213cbc80b3a42a204fcd192d578bd499bd7b59b561a6aea95181edaef57"
+    },
+    {
+      "path": "soltech-a3/review/app-add-sheet-mobile.png",
+      "bytes": 25645,
+      "sha256": "d9f347effb702148cb869361f127152bddfe4c4779332717df7280bba0b6b3b2"
+    },
+    {
+      "path": "soltech-a3/review/app-chart-mobile.png",
+      "bytes": 32275,
+      "sha256": "7aeacf10308a6746d2253b670e96881a2b5dc5924afd4644b43ab6d3daa40397"
+    },
+    {
+      "path": "soltech-a3/review/app-clear-320.png",
+      "bytes": 24110,
+      "sha256": "d5d15371588bb0df1a5e5c71704b1dce4f6b9a92ed7b7bf98ea249f356faada5"
+    },
+    {
+      "path": "soltech-a3/review/app-experience-review.md",
+      "bytes": 11370,
+      "sha256": "4fff8f16b5647235fd9c319057684b35920691829869a87344c4064f9ad1fab6"
+    },
+    {
+      "path": "soltech-a3/review/app-find-desktop.png",
+      "bytes": 47850,
+      "sha256": "d372c1a1c7dfb9c90e8a6f2b55593138ba50c507013c6bae2ccf1b46eaa3ab00"
+    },
+    {
+      "path": "soltech-a3/review/app-find-mobile.png",
+      "bytes": 20826,
+      "sha256": "2a9d43de7c234f5146b1a44de7f4d432111014afce75b66ff3590fba43d24915"
+    },
+    {
+      "path": "soltech-a3/review/app-overview-mobile.png",
+      "bytes": 29744,
+      "sha256": "6fb3e2d8ac1a15d4ed4b38981e63ac7b481f4366a7e90b84418525691fc7e862"
+    },
+    {
+      "path": "soltech-a3/review/app-profile-mobile.png",
+      "bytes": 18245,
+      "sha256": "407fc2a19da3ee7a1e73d4c52db7fcba3b44ef2c4721f503e4ae30963d4c354f"
+    },
+    {
+      "path": "soltech-a3/review/blue-glass-report-mobile.png",
+      "bytes": 27599,
+      "sha256": "5df1f15429f505674f44646473628c367e888bac81d8220fc8524470106aee54"
+    },
+    {
+      "path": "soltech-a3/review/blue-glass-scanners-mobile.png",
+      "bytes": 45111,
+      "sha256": "ee2534bde14642e6d1fc6a2dd310b6d82c3c3f9645c181b1a76c68057f0dd6f9"
+    },
+    {
+      "path": "soltech-a3/review/blue-glass-scanners-web.png",
+      "bytes": 20525,
+      "sha256": "591a170ab25c26f9169256f6d761f4c668fdaaf8ca4b8342f6e4589fa0dc7a9e"
+    },
+    {
+      "path": "soltech-a3/review/blue-glass-theme-2026-09-28.md",
+      "bytes": 1947,
+      "sha256": "ae6edf3ebaf69102eaac75def76a3ecaed51e2fbb71fd79373e4b10103f07c66"
+    },
+    {
+      "path": "soltech-a3/review/boost-labels-mobile.png",
+      "bytes": 33982,
+      "sha256": "dc2f55fda97adf4c934ad7322e4b4bb26c4ce4c565ec083065c649db870f4888"
+    },
+    {
+      "path": "soltech-a3/review/builder-current-mobile.png",
+      "bytes": 49644,
+      "sha256": "5ec2e7a98ce8fb0ba424c4891076e9ae3993f2dd6b67b2a59ac18aeac75c02ea"
+    },
+    {
+      "path": "soltech-a3/review/builder-purpose-desktop.png",
+      "bytes": 50514,
+      "sha256": "e03da30394796dd2a07bbdbd91001269ebce4d263d05873fb360862955b5cafc"
+    },
+    {
+      "path": "soltech-a3/review/builder-purpose-mobile.png",
+      "bytes": 41598,
+      "sha256": "afcbb61f05d240a8df400f6342e05b8c84bc27b8c0939c3fc6f2041614f5b0c1"
+    },
+    {
+      "path": "soltech-a3/review/builder-refined-review-desktop.png",
+      "bytes": 71838,
+      "sha256": "8dac42bb777589a0a9bad2925b02f56f2240ed4c57a04a2211ab12a19ba49f50"
+    },
+    {
+      "path": "soltech-a3/review/builder-refined-setup-mobile.png",
+      "bytes": 39160,
+      "sha256": "99a579cc55e97b0ac0b68dd91f6886df9f8a7908dff48f5693c3bca319a4f960"
+    },
+    {
+      "path": "soltech-a3/review/builder-review-320.png",
+      "bytes": 47839,
+      "sha256": "5bb332d4fa52da6016fcb77cd9b5311c784ea3248b28a0fc50026ff24023f90c"
+    },
+    {
+      "path": "soltech-a3/review/builder-review-desktop.png",
+      "bytes": 70275,
+      "sha256": "d5c7e0f51db4206c1373826653d0ba250245437b99f09340daa7bf3e677eb5b0"
+    },
+    {
+      "path": "soltech-a3/review/builder-three-choices-desktop.png",
+      "bytes": 63706,
+      "sha256": "d88ede894a95f74ac6ae798fd1b46db7836fe89366b1f853c9257e6cdf69788b"
+    },
+    {
+      "path": "soltech-a3/review/bundler-connection-mobile.png",
+      "bytes": 47114,
+      "sha256": "a8e7888b925a70849401e0f801decdbc509db76a9ebe7dcc359706fa93763771"
+    },
+    {
+      "path": "soltech-a3/review/coin-chart-cap-mobile.png",
+      "bytes": 17012,
+      "sha256": "8006b2a33710109cda8db312ddcac3c436614047ce4b6bf35352c8ce57b21808"
+    },
+    {
+      "path": "soltech-a3/review/coin-chart-mobile.png",
+      "bytes": 49982,
+      "sha256": "efcc17649c1dbae4f1ff58e79e6d8df004b5f63afbba0c21070816214c546d33"
+    },
+    {
+      "path": "soltech-a3/review/coin-checker-empty-mobile.png",
+      "bytes": 42563,
+      "sha256": "f4ea71106e17c115fe578136643a21713edb7cf7dc23f6561d42b30d08420db4"
+    },
+    {
+      "path": "soltech-a3/review/coin-report-caution-320.png",
+      "bytes": 70435,
+      "sha256": "8bd64c7dec8ea2a19c2645274db29af69daaa9e558e6ed5ec5dd681d2b28f669"
+    },
+    {
+      "path": "soltech-a3/review/coin-report-clear.png",
+      "bytes": 51742,
+      "sha256": "9e7f0e8d8a65bc247d51250fd9dbea2aec6204d6c1bb5cb9b3c1c988815552c0"
+    },
+    {
+      "path": "soltech-a3/review/coin-report-desktop.png",
+      "bytes": 135131,
+      "sha256": "83d1a0eca568a606eb5d61701729c8bfb43b9c04818d8692658c932257e7ded6"
+    },
+    {
+      "path": "soltech-a3/review/coin-report-review.md",
+      "bytes": 8953,
+      "sha256": "e79ff5f83fb13294594d9846551a347a7b9775302eb78b08aaac89b22cf4a890"
+    },
+    {
+      "path": "soltech-a3/review/custom-scanner-badge-mobile.png",
+      "bytes": 15486,
+      "sha256": "69a281aa7a9e33b976c9a74cf9125c11b9fc805d38bc8bc4b4dd3633d35ac316"
+    },
+    {
+      "path": "soltech-a3/review/deactivate-stays-active.png",
+      "bytes": 23633,
+      "sha256": "e6c45d55de8a7eaa7183df1b1d350125355f2bbb1e897743333dd3db04a8c81d"
+    },
+    {
+      "path": "soltech-a3/review/default-scanner-desktop.png",
+      "bytes": 33155,
+      "sha256": "c8fa042c2b87b47ccb1af9277a572a7c4f82e18f57e2cf66021d977b69094aab"
+    },
+    {
+      "path": "soltech-a3/review/default-scanner-mobile.png",
+      "bytes": 24244,
+      "sha256": "d78b00f6a900b5351894ff9db4c33ba34a3743a90e37dd21d7f8c7ad6bd5d3e7"
+    },
+    {
+      "path": "soltech-a3/review/default-scanner-original-mobile.png",
+      "bytes": 38888,
+      "sha256": "599d9d30b5b802b14abb4fc9588bf9c47619f9f4654d5f093f9b22c09f0f1ad8"
+    },
+    {
+      "path": "soltech-a3/review/default-scanner-review-2026-09-28.md",
+      "bytes": 3801,
+      "sha256": "d9998937ff1ef77d6a17081f491726f74ebdbab43a7942fec287d2b9972329a1"
+    },
+    {
+      "path": "soltech-a3/review/desktop-find.png",
+      "bytes": 74777,
+      "sha256": "e31f7ce973ba05e18be360418da25e3291bc6eaddeeb4e5dff586f78cfbb3b39"
+    },
+    {
+      "path": "soltech-a3/review/dex-paid-boosts-mobile.png",
+      "bytes": 28508,
+      "sha256": "98a44e26c587d35d9b4081bdb5463302c228a951a0a6e8b70f7a17d1797d29f4"
+    },
+    {
+      "path": "soltech-a3/review/dex-status-explanation-mobile.png",
+      "bytes": 35109,
+      "sha256": "57ad5037cf1f5dd26d68b19c42466486124d3b084bdef874342bd5b6d8bf0d8d"
+    },
+    {
+      "path": "soltech-a3/review/find-create-mobile.png",
+      "bytes": 21396,
+      "sha256": "d71200c37848675f672a9244efab01080489eae4184addacc7b2e69d3fe788e3"
+    },
+    {
+      "path": "soltech-a3/review/finds-scanner-nav-icons.png",
+      "bytes": 49350,
+      "sha256": "4c3f42e045340166f4fd968f777e350d2806935bdd1a658f772809f8c1159e72"
+    },
+    {
+      "path": "soltech-a3/review/insider-signal-mobile.png",
+      "bytes": 44372,
+      "sha256": "db8b1bc5bfaf5d9ec1e8b05fad11efd9ebbf99ddc0193756c3b2b2d5cf5c6354"
+    },
+    {
+      "path": "soltech-a3/review/joined-clear-mobile.png",
+      "bytes": 23892,
+      "sha256": "e23a000a2ff0733668b2adb2f94be928db512ba10de4f6bdcbc8cbe34ad03c64"
+    },
+    {
+      "path": "soltech-a3/review/live-bundles-mobile.png",
+      "bytes": 46800,
+      "sha256": "191eda203211b2748a7031f77022fdb9d9e5750983c2dd1b29dc329beedd462e"
+    },
+    {
+      "path": "soltech-a3/review/live-check-desktop.png",
+      "bytes": 65626,
+      "sha256": "6955f5d16a31541323d71a3e8c718d71e6e34958b77721e02497e1b95b049061"
+    },
+    {
+      "path": "soltech-a3/review/live-check-mobile-results.png",
+      "bytes": 30339,
+      "sha256": "0207f9ec21aa642ded73f0590d1a52bc432ea82fbcde244bdeec40f8063fe10b"
+    },
+    {
+      "path": "soltech-a3/review/live-check-mobile.png",
+      "bytes": 32958,
+      "sha256": "58b3963abf340e1e99ce9b68e972ccb09a4d5641d1fdc737750e44f6cc45bbf9"
+    },
+    {
+      "path": "soltech-a3/review/live-check-review.md",
+      "bytes": 6623,
+      "sha256": "d1c53fe6e7bd18b348fb8750802cfc0da611804d9acb40f5e72991129deced6c"
+    },
+    {
+      "path": "soltech-a3/review/market-cap-default-mobile.png",
+      "bytes": 46003,
+      "sha256": "5f1ce8580e328c23819bc4828da14049f44f60b502b26a2e8ae26838d2b5249c"
+    },
+    {
+      "path": "soltech-a3/review/mobile-active.png",
+      "bytes": 32439,
+      "sha256": "50f154b57633597fe432d3f2e9bfd41fa982352b71cad7db1b361d0d4083132f"
+    },
+    {
+      "path": "soltech-a3/review/mobile-find.png",
+      "bytes": 34766,
+      "sha256": "be4b8ea770cc165f76908631b1518ee4a789241934f7175d5a0f43832bf149d8"
+    },
+    {
+      "path": "soltech-a3/review/notifications-profile-return-mobile.png",
+      "bytes": 38772,
+      "sha256": "c188d90f6e345571ed691f2b3996812587bee88b961733e078024bb1f469d82a"
+    },
+    {
+      "path": "soltech-a3/review/personal-profile-mobile.png",
+      "bytes": 34115,
+      "sha256": "0bc0b08227d59ed24f32062fd100f18d9dd9da2464d40b1e72e3c1d438a89523"
+    },
+    {
+      "path": "soltech-a3/review/personal-profile-web.png",
+      "bytes": 32910,
+      "sha256": "ba86618201f918ea45c41a2ae34109bb7c1d5c6cf5a0627b8fc9b25177b1d6c8"
+    },
+    {
+      "path": "soltech-a3/review/personal-settings-mobile.png",
+      "bytes": 34755,
+      "sha256": "861dc26915c70c69c87a24331e6c7e9613e76d2412632648f3827a0703b86dc2"
+    },
+    {
+      "path": "soltech-a3/review/private-bundle-setup.png",
+      "bytes": 31433,
+      "sha256": "04cb6c7d0ea78728ee74aa2f54bb546a0ea5eaa9a5e2f7ca5df1f1a580f91f51"
+    },
+    {
+      "path": "soltech-a3/review/profile-compact-mobile.png",
+      "bytes": 38814,
+      "sha256": "b29f0b0bb16ae1fe15ce4fa2c8c4c6b7627514e57b706b8f038f61f638fc80fd"
+    },
+    {
+      "path": "soltech-a3/review/profile-compact-review.md",
+      "bytes": 1312,
+      "sha256": "d50c06bbf9c3472b876678e4af5ad172b50baf3713cdb40015d9eaccd54bf362"
+    },
+    {
+      "path": "soltech-a3/review/profile-compact-test-results.txt",
+      "bytes": 10377,
+      "sha256": "80f10d10148c6d643c7634f3d347ec18f9474d57b109705e0db1299cbc775d96"
+    },
+    {
+      "path": "soltech-a3/review/profile-compact-web.png",
+      "bytes": 38383,
+      "sha256": "5722fefbeba15d3885e4be9a48fecb2973b1191781c51a93b7247c250c15c9f5"
+    },
+    {
+      "path": "soltech-a3/review/profile-photo-crop-mobile.png",
+      "bytes": 18980,
+      "sha256": "f85482b664dd9f1a719d3133e23a2eb3a0d7f261ddb027a4a78c33021b5bca43"
+    },
+    {
+      "path": "soltech-a3/review/profile-photo-crop-review.md",
+      "bytes": 2584,
+      "sha256": "a205f110b91f233c9a8b882ebf15b6361b0da6c1f261045a5c922cfc79fa2531"
+    },
+    {
+      "path": "soltech-a3/review/profile-photo-crop-tests.txt",
+      "bytes": 11046,
+      "sha256": "51615395fd0b6bf42f36ac6676c580209024d9c273c1246bf12c407b873028b2"
+    },
+    {
+      "path": "soltech-a3/review/profile-settings-review.md",
+      "bytes": 3119,
+      "sha256": "8a62f720b3ca5c2edde666bcac527e06eaf0260ee84e9dfc7ea188d4b16a0f5d"
+    },
+    {
+      "path": "soltech-a3/review/profile-shortcut-icons-mobile.png",
+      "bytes": 40741,
+      "sha256": "102e445ee2e7346cb68726539b995f001eaa48e857932380db2ffb1dac246191"
+    },
+    {
+      "path": "soltech-a3/review/profile-shortcut-icons-refined-mobile.png",
+      "bytes": 41168,
+      "sha256": "51ddc46ec000a3be372f2ce5d36e09f40ac187090ce18c8feb7d3e9d5f06a3f4"
+    },
+    {
+      "path": "soltech-a3/review/profile-test-results.txt",
+      "bytes": 10257,
+      "sha256": "e7cd858b670d9f597631a880e0a10e1a816aefbcacf7bb788b4579febb0cf874"
+    },
+    {
+      "path": "soltech-a3/review/redesign-review.md",
+      "bytes": 3887,
+      "sha256": "5b9ba35d2cc85115f31968f4816c4db483c1e22148db4e14bc22b0ef49ee1527"
+    },
+    {
+      "path": "soltech-a3/review/refined-chart-cap-mobile.png",
+      "bytes": 27256,
+      "sha256": "41c079c454efb17668b1a3883c32524a6af357509b845b039e9aabf01f1915a5"
+    },
+    {
+      "path": "soltech-a3/review/refined-chart-desktop.png",
+      "bytes": 44061,
+      "sha256": "3ab8eba6a178521b6f9efb36aa5b248c97adce126a641383404f4474378ea5d9"
+    },
+    {
+      "path": "soltech-a3/review/refined-chart-price-mobile.png",
+      "bytes": 27048,
+      "sha256": "d1a8e4ceb23ab049bffbccebed07510536c43387ad67b57354898803534a0527"
+    },
+    {
+      "path": "soltech-a3/review/saved-active-status-mobile.png",
+      "bytes": 36391,
+      "sha256": "5d58ae3f1af56d174066c444ed4182ad623f52715de0da4b9aecc06e5d6c68cd"
+    },
+    {
+      "path": "soltech-a3/review/scanner-builder-review.md",
+      "bytes": 3417,
+      "sha256": "74d88ba1f57974259adc6b1224a4e80c68b65255e02d46fac7fcdbcdcd7029b5"
+    },
+    {
+      "path": "soltech-a3/review/scanner-colored-silver-mobile.png",
+      "bytes": 34800,
+      "sha256": "5d1a0f783679bed33e26c1ca0e6faeceabdb958d56bd0b4b3b590ffe0feb79e5"
+    },
+    {
+      "path": "soltech-a3/review/scanner-deactivate-mobile.png",
+      "bytes": 26947,
+      "sha256": "5e04d5117bbd34d8988e1fa366e4dd40248d4c2c3cd7464dbdad143184343129"
+    },
+    {
+      "path": "soltech-a3/review/scanner-flow-refinement-2026-09-28.md",
+      "bytes": 3448,
+      "sha256": "dcfb3018312972ef84fe2bdcd9aeb451dce935c065a175bf34c8d1e4bdc20c31"
+    },
+    {
+      "path": "soltech-a3/review/scanner-icon-picker-mobile.png",
+      "bytes": 39700,
+      "sha256": "97f6744205a3a9847be37f19e2a8ed2a8ca0c05c0bb5236923d34bca17a05c6d"
+    },
+    {
+      "path": "soltech-a3/review/scanner-launch-icons-mobile.png",
+      "bytes": 34787,
+      "sha256": "98ac2b993f347c391e8501bcc99c8c0d7d0521c297008796891a7f2fb8e698ac"
+    },
+    {
+      "path": "soltech-a3/review/scanner-launch-icons-web.png",
+      "bytes": 60627,
+      "sha256": "ddd84a2324864d280d6fc6098b3232348e314b5869b3e65dae3e15ab0e5cdfc2"
+    },
+    {
+      "path": "soltech-a3/review/scanner-marks-mobile.png",
+      "bytes": 33864,
+      "sha256": "fb9f6e8e8ba9a02e624f8a8e1f36fcf6c8aa98b97bcf460cc7e7df2fecf5ac2c"
+    },
+    {
+      "path": "soltech-a3/review/scanner-marks-web.png",
+      "bytes": 60537,
+      "sha256": "260c907f939aa06350245795fc8281055bece33bd72b2777021d18fe25865838"
+    },
+    {
+      "path": "soltech-a3/review/scanner-silver-icons-mobile.png",
+      "bytes": 34711,
+      "sha256": "f5aebbbd829e9a7d496886dd4f01fe7051ca51b24c19173875de583b225f0953"
+    },
+    {
+      "path": "soltech-a3/review/scanner-silver-icons-web.png",
+      "bytes": 60551,
+      "sha256": "88609689482dfc47af1a8271d00954563fc10b5e7403a31aec72d5ec2f8fdc71"
+    },
+    {
+      "path": "soltech-a3/review/scanner-solana-accents-mobile.png",
+      "bytes": 34803,
+      "sha256": "630b881c6a5eed2cd0dc24b94f20c87748f32af9db3d17cfb77395486a609982"
+    },
+    {
+      "path": "soltech-a3/review/scanner-white-silver-facets-mobile.png",
+      "bytes": 35121,
+      "sha256": "b2550c7d058847c68dd6394e08f9bf744e0cf0836c97da6e8a3a3491e9c6f59c"
+    },
+    {
+      "path": "soltech-a3/review/single-scanner-mobile.png",
+      "bytes": 35053,
+      "sha256": "868a9b987238ef507452b68f408c24fa77cbf69d9eedcb1066883291fd9ebcf8"
+    },
+    {
+      "path": "soltech-a3/review/single-scanner-preview.png",
+      "bytes": 49380,
+      "sha256": "cdecff87718ff0f14d1b5cd49ef888aeeb6e52a756c66b7ee7b0083f9d562696"
+    },
+    {
+      "path": "soltech-a3/review/single-scanner-review-2026-09-28.md",
+      "bytes": 4196,
+      "sha256": "09a71bef404c87445efe5a7445f55acc97bc20f12a8e57033804352e7e39fb5e"
+    },
+    {
+      "path": "soltech-a3/review/single-scanner-save-exit-mobile.png",
+      "bytes": 7415,
+      "sha256": "52e758dd03b5e98110a027ec4c05ad6bfba7f65d92924304c1e82c632d16ec77"
+    },
+    {
+      "path": "soltech-a3/review/single-scanner-setup-320.png",
+      "bytes": 28821,
+      "sha256": "5eaee6241bd9ee57c3c4e59411a5ae53c169b70c54b69ad50c11c8f079ca6bf4"
+    },
+    {
+      "path": "soltech-a3/review/single-scanner-web.png",
+      "bytes": 45962,
+      "sha256": "2db3516da7f67eb4014ff492e8890e366f9d2ea728f03890ae399ebf1e92436f"
+    },
+    {
+      "path": "soltech-a3/server.cjs",
+      "bytes": 105,
+      "sha256": "19e41e9dc311166641bd66852cb5ed6c2803f05c4bf78c5f000c02e835ec8b02"
+    },
+    {
+      "path": "soltech-a3/START-HERE.md",
+      "bytes": 1127,
+      "sha256": "eb436f3a78933e0c9bc67b8b0ba7d6cf407e2982ff25417b1576614db1055483"
+    },
+    {
+      "path": "soltech-a3/tests/bundler-setup.test.mjs",
+      "bytes": 6264,
+      "sha256": "c5676e76329c2c719cf9b0d78bbf98d79c567841ac04801ce832ca6f32c0324b"
+    },
+    {
+      "path": "soltech-a3/tests/bundlers.test.mjs",
+      "bytes": 6756,
+      "sha256": "df5b2e424e9ef41ecdbb6850728049d023a1046663f9dc0a60970beeef400523"
+    },
+    {
+      "path": "soltech-a3/tests/coin-checker-render.test.mjs",
+      "bytes": 4837,
+      "sha256": "157578e8e61222cc00b8325f560f32b47530105c3576c421c33b56a43a6859e7"
+    },
+    {
+      "path": "soltech-a3/tests/coin-checker.test.mjs",
+      "bytes": 28201,
+      "sha256": "63b3f0d31008fd23eaf0c981c64d4fc985abc5c94a37b6eae75b217ee0255630"
+    },
+    {
+      "path": "soltech-a3/tests/coin-history.test.mjs",
+      "bytes": 6710,
+      "sha256": "8230e9d12087a06295b4bd38982914562ad1ebe84067398c8f2604c46e5c88a6"
+    },
+    {
+      "path": "soltech-a3/tests/daily-recap.test.mjs",
+      "bytes": 1912,
+      "sha256": "d09f280bf587a716d64ad7be715fab92efde1299d1de5909767debfc82859706"
+    },
+    {
+      "path": "soltech-a3/tests/personal-scanner.test.mjs",
+      "bytes": 8914,
+      "sha256": "74f97ab97f93d4af3eba298fa3d16ef5269f501dbc7705c529e6aaed229691e0"
+    },
+    {
+      "path": "soltech-a3/tests/photo-crop.test.mjs",
+      "bytes": 4165,
+      "sha256": "eac29cc28ec042862670816d848f7e347428941942adbdd2a873e47b755a6c54"
+    },
+    {
+      "path": "soltech-a3/tests/profile-store.test.mjs",
+      "bytes": 6285,
+      "sha256": "3a75a3bdf394562014174ea4fb749d2079ea40d0cd564b577422e73cad1d789c"
+    },
+    {
+      "path": "soltech-a3/tests/scanner-builder.test.mjs",
+      "bytes": 12133,
+      "sha256": "4b8ccc4cf46e27c5938324351e8c374c085a125fb146abe4d39cfad8af9f15b4"
+    },
+    {
+      "path": "soltech-a3/tests/scanner-findings.test.mjs",
+      "bytes": 3109,
+      "sha256": "18568f853886a036244a5610c87970d0da21d9329d3b060f860baebb12cbec71"
+    },
+    {
+      "path": "soltech-a3/tests/scanner-settings.test.mjs",
+      "bytes": 4476,
+      "sha256": "6444ade36a0acb46f9a3267262d75426307b491f8326afd44a10558f5660cbcd"
+    },
+    {
+      "path": "soltech-a3/tests/workspace.test.mjs",
+      "bytes": 8669,
+      "sha256": "78fa2002bd1276af1d07073bfcaa8fb57f5ae1741752d2bf8d79ce960c38bd29"
+    },
+    {
+      "path": "SOLTECH-DESIGN-HANDOFF.txt",
+      "bytes": 3762,
+      "sha256": "9a3a9cf0506f3ee0705f03b5f749de64792b7b722e321f175b2b0d8b7e8b6290"
+    },
+    {
+      "path": "soltech-refined/.openai/hosting.json",
+      "bytes": 106,
+      "sha256": "10683ac113bf2c08e19884254db42a911840cfcfed3f00b90deaa9bb1f0fb85e"
+    },
+    {
+      "path": "soltech-refined/backups/current-draft.json",
+      "bytes": 986,
+      "sha256": "67ef22a566acda4582ff5834e0a131f29ae91507bd57453aaa2a6216777513b4"
+    },
+    {
+      "path": "soltech-refined/bundler-api.mjs",
+      "bytes": 2516,
+      "sha256": "bab8aee1fe8fc6acb60ad8846b36074a6f354880bbecd0ab0c55adfebe6ef972"
+    },
+    {
+      "path": "soltech-refined/bundler-setup.mjs",
+      "bytes": 5657,
+      "sha256": "bc943d1ac5661c84afebc4a91f527f9c7193c13539293171c70d17bd4b93338a"
+    },
+    {
+      "path": "soltech-refined/checkpoint-manifest.json",
+      "bytes": 30247,
+      "sha256": "9984b7e07efcee6d1047653f9d1ab12804d1e28c2e99da60452e32428e03fe16"
+    },
+    {
+      "path": "soltech-refined/DESIGN-NOTES.md",
+      "bytes": 11571,
+      "sha256": "2f87537166beb89467e969b6dece5053a6ea33a898b7828a461029d0487b722a"
+    },
+    {
+      "path": "soltech-refined/design-review/address-detail.png",
+      "bytes": 15629,
+      "sha256": "891b0da314a317409aca0b521f0b4b7dd93c92f8d6e9d74aaf97b5f3863f4992"
+    },
+    {
+      "path": "soltech-refined/design-review/check-silver-rim-desktop.png",
+      "bytes": 35856,
+      "sha256": "4642a1b213229a6194fc48ceddb0c7702b6749da3d138a2f4b837c228035550e"
+    },
+    {
+      "path": "soltech-refined/design-review/check-silver-rim-mobile.png",
+      "bytes": 27638,
+      "sha256": "b0d9669ef0369502b697345dfb6a471a3618c4943edf5ebceedf61df566db559"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-check-silver.png",
+      "bytes": 42701,
+      "sha256": "bb79134d4e796c586a593538b4e02dabbd1cca6386649082b9a90bfe7da2f3ba"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-clear-glass-silver-tracks.png",
+      "bytes": 78835,
+      "sha256": "cf51ce70c32c510d66632b38eaebe3ac01497d0c09e27b212c2286e0e8781933"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-glass-chart-slider.png",
+      "bytes": 60316,
+      "sha256": "738be9aa59dbe4d64b65aaae1f196885a498c63c770059a0b6d84703e1bc3818"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-individual-metric-colors.png",
+      "bytes": 78909,
+      "sha256": "a77facc48d48feb219c3358ee8577d110404211af4ee13a689df38e83d0d7dee"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-m1-sharp-tiles.png",
+      "bytes": 71558,
+      "sha256": "91847847800dca7d75de33bbcab888a7504f2bb02f5321992b211ca426948a60"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-m1-soft-tiles.png",
+      "bytes": 71824,
+      "sha256": "729050486e47a1f3cc714c5f35a0dd3a1bc9ee9e5b979fd93be241c557cf5549"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-overview-blue-silver.png",
+      "bytes": 81888,
+      "sha256": "9bca70f82a2aba837384fce529a9210371b76d200de0c4a1582c68665afd2ec2"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-readable-labels.png",
+      "bytes": 80957,
+      "sha256": "e205f3123af9e61dfd284d7d66f3ed4ce1f6bd8990eae0e261bf85d620b58a8b"
+    },
+    {
+      "path": "soltech-refined/design-review/desktop-silver-metric-tiles.png",
+      "bytes": 82616,
+      "sha256": "f3a7d15b8ecbea011ab083afda64ebce43a88e16f1d62bbf42124c5b42ecb5bc"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-address-cut-corner.png",
+      "bytes": 40123,
+      "sha256": "18824a0a00dace713a9467bc7c15f0ebe5d1386535bf5fbefece0eea8813bd9a"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-charcoal-button.png",
+      "bytes": 39422,
+      "sha256": "8086e7332c85b8ef89d04851faf2c6de910130357fd4006cfe03e3c161435a22"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-chart-silver.png",
+      "bytes": 35543,
+      "sha256": "7ed957f7bc4a430bd6cd2d9f493c8bc1d9d929baac1a0321abd6fbe564057311"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-check-silver.png",
+      "bytes": 44291,
+      "sha256": "e949f05f99bab15f4577a47d8b9fe72c623d9eaa7d13d08f64adae2fed1dfa99"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-clear-glass-silver-tracks.png",
+      "bytes": 51817,
+      "sha256": "06d5c6832c28a65c0d85de8f2a6abee936dd079be1268d39fe71543c29c412e6"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-clear-glass.png",
+      "bytes": 55371,
+      "sha256": "a3a0ef6216e1569cff1158bd4529089fb2783fd2e61d947806d7730ba11928ea"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-glass-chart-slider.png",
+      "bytes": 47081,
+      "sha256": "979069f83be82e14cf06a44a0cae4212645efbd6de4c97f871f470278cbec4e6"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-individual-metric-colors.png",
+      "bytes": 53254,
+      "sha256": "5cedb4f260d942bf0c5f17725cf76f3590e16cf9adf2399987659eafa80ebe10"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-m1-sharp-tiles.png",
+      "bytes": 54889,
+      "sha256": "e6980deebda2f7b537571b9fc9bbf6e6c88a8213d7640cf5247618e2fd8fe5dd"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-m1-soft-tiles.png",
+      "bytes": 53469,
+      "sha256": "a19d82d7050dd8aac12f23b59b7e83a14ff9a58a6a2772e49a5770858fca7d73"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-overview-blue-silver.png",
+      "bytes": 53211,
+      "sha256": "0acf149a7690aa8f17edd2245b4dc76ec9a8aefa0f514054add5d62b0c837359"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-profile-silver.png",
+      "bytes": 40212,
+      "sha256": "ff63863115ae2ad968db839b2548be3e68b61d2cfd018350d305c68b904ca09d"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-readable-labels.png",
+      "bytes": 57673,
+      "sha256": "90b031a7d6736f3904c343e0c8a536bd270624054ecb6f7099c13e8e45e0d8e8"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-scanner-silver.png",
+      "bytes": 39855,
+      "sha256": "8f276598a2213b2a0c7fda18c7da75f6fa91c1bdfc0593f6f58502c82b3aba32"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-scanner.png",
+      "bytes": 36290,
+      "sha256": "a0216f0de908efd82a37ff627b1cb021c5bc1d39db0cab84352f22ba97141c36"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-silver-metric-tiles.png",
+      "bytes": 55417,
+      "sha256": "6bc073457d40fd083c62d828f9d1e0240f611da04c2395f1bee754c10dc6479d"
+    },
+    {
+      "path": "soltech-refined/design-review/mobile-silver-panel-subtle.png",
+      "bytes": 55369,
+      "sha256": "5e7f746ce25414df29d402fc8419f3ee4de94d27802902ad411a09c8acc687d8"
+    },
+    {
+      "path": "soltech-refined/design-review/overview-320.png",
+      "bytes": 24536,
+      "sha256": "100a3ec07ee95d0e4f440e9a64b4320630cbbb53c890481002bc4f91a037e0bb"
+    },
+    {
+      "path": "soltech-refined/dist/app.css",
+      "bytes": 35245,
+      "sha256": "90f25d356c053e8660afef686843ded7e72175a4f806fc3c36b37674d7956117"
+    },
+    {
+      "path": "soltech-refined/dist/app.js",
+      "bytes": 37489,
+      "sha256": "acd5751998174d855ca4eb3be8a4103eee51d72fe7a055316eae6bdcf0054e1f"
+    },
+    {
+      "path": "soltech-refined/dist/assets/address-cut-corner-error.svg",
+      "bytes": 268,
+      "sha256": "8db4534a5e74ba7ed2e4d327db7fc3109be6281f36c47cdccd39a078fe494444"
+    },
+    {
+      "path": "soltech-refined/dist/assets/address-cut-corner.svg",
+      "bytes": 268,
+      "sha256": "1ac1463d35dd3b5e18a84eea362ded51eef0c29c70f56baafbc28a5a1f62ae55"
+    },
+    {
+      "path": "soltech-refined/dist/assets/phosphor-license.txt",
+      "bytes": 1071,
+      "sha256": "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"
+    },
+    {
+      "path": "soltech-refined/dist/assets/soltech-logo.png",
+      "bytes": 1234305,
+      "sha256": "90394bdef6dfaa2c803de97342a72a5bdfe39fc3be5e54f9d401301cae2bcb71"
+    },
+    {
+      "path": "soltech-refined/dist/blue-glass.css",
+      "bytes": 6063,
+      "sha256": "c2966cf060281d99620d50735c25a2a833eeb1abb364a9bf4058e2acaf3b02a8"
+    },
+    {
+      "path": "soltech-refined/dist/coin-checker-data.js",
+      "bytes": 23272,
+      "sha256": "f45c9bceb0615c6c09006443df79cb9bde1e4ca198d35a3cda7f267d0393ad6c"
+    },
+    {
+      "path": "soltech-refined/dist/coin-checker.css",
+      "bytes": 16101,
+      "sha256": "6814db66cd36d8478cba1dde7c3763c67a895cc1e49b6adb2b448f26eb2d6736"
+    },
+    {
+      "path": "soltech-refined/dist/coin-checker.js",
+      "bytes": 24251,
+      "sha256": "8652934182dedb99d0aa43b3ec864a02f4c340c180d8667676f108ced116209e"
+    },
+    {
+      "path": "soltech-refined/dist/coin-history.js",
+      "bytes": 14953,
+      "sha256": "297f80d1bbdd63156b9da0daeea820440be9f4dd0925585d737923f365fe1e7f"
+    },
+    {
+      "path": "soltech-refined/dist/coin-networks.js",
+      "bytes": 1102,
+      "sha256": "a2bf66b4fc4204cb5aaa0a5bf3155dfe92cb09c0b69e23ac84e5f03188988f31"
+    },
+    {
+      "path": "soltech-refined/dist/daily-recap.css",
+      "bytes": 2252,
+      "sha256": "79acf5730f4b72310e4efa7180879a6731bc2c0b4eb6983940af520fb30fb258"
+    },
+    {
+      "path": "soltech-refined/dist/daily-recap.js",
+      "bytes": 2412,
+      "sha256": "ae2f90524a83a82710ccf23d27dd230de5218ea067d303cc2804c835bcde4ac5"
+    },
+    {
+      "path": "soltech-refined/dist/data.js",
+      "bytes": 4724,
+      "sha256": "e10bcc952fb07ba968b6819e15dd48487d5a1916d7456be0d10337be67dc4e66"
+    },
+    {
+      "path": "soltech-refined/dist/index.html",
+      "bytes": 3640,
+      "sha256": "14692c4b5149a000f0d254043464d87ef39ba2b290b6795a71abdf400add6481"
+    },
+    {
+      "path": "soltech-refined/dist/personal-scanner-store.js",
+      "bytes": 5047,
+      "sha256": "7924c6d9eac32c4e9399bd5f6942bc7b9f63f0432ad5f2c4a3836ada3477ffaf"
+    },
+    {
+      "path": "soltech-refined/dist/personal-scanner.css",
+      "bytes": 6433,
+      "sha256": "6f808fe5311453d618814ecbf13b859aea810a2b1997999069de62a5b9dcd244"
+    },
+    {
+      "path": "soltech-refined/dist/personal-scanner.js",
+      "bytes": 18113,
+      "sha256": "b0e239da679ac1b384f194fe2a0817718237587d70870fdc9137c0f93e4c002a"
+    },
+    {
+      "path": "soltech-refined/dist/photo-crop.js",
+      "bytes": 8129,
+      "sha256": "f07fd03f50a110f9fcb5a15cda117a88e833ed7e0010a05bb8f3388b2bf7662d"
+    },
+    {
+      "path": "soltech-refined/dist/profile-shortcut-icons.js",
+      "bytes": 930,
+      "sha256": "cf06062c535de1ec357e974071b2aa9a87fabe531b188653e6538f606d2432fd"
+    },
+    {
+      "path": "soltech-refined/dist/profile-store.js",
+      "bytes": 5114,
+      "sha256": "f51ddf6af64be7666b6617b5ea023f593fd9dd90f34d4a8a6d630824e0ce00d9"
+    },
+    {
+      "path": "soltech-refined/dist/profile.css",
+      "bytes": 11908,
+      "sha256": "f4535c625340cf985588b5c630d20529ecbb71f926e34eb9af5e5b0c9263ced4"
+    },
+    {
+      "path": "soltech-refined/dist/profile.js",
+      "bytes": 15085,
+      "sha256": "4041d3420b636f75d24f7206e75724aac26d2f01e83849a55dafad703f8a96f9"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-appearance.js",
+      "bytes": 1549,
+      "sha256": "661a16aa2805f330fb909e447d06bcb3e9f94dabbb77d04a9f5f833e594a5596"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-builder.css",
+      "bytes": 12632,
+      "sha256": "4c73d911594df7263ba50b37f36ed1ff6f34337ef76691bf3dbaa120f099c59d"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-builder.js",
+      "bytes": 8229,
+      "sha256": "686124d029faa2e22e35afb8758747b3984ba69aad0b3d4451f224f0d8045a2c"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-editor.css",
+      "bytes": 4511,
+      "sha256": "b848ee1df217a6d33adc9ea95afcfe9502720f02928cfabcd7912f48d7341d8c"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-editor.js",
+      "bytes": 10422,
+      "sha256": "89e1d7917823c2ae1e2c542e36901dfef4ac323fb7b2fb4ccf840e2208dccb62"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-findings.css",
+      "bytes": 2817,
+      "sha256": "bb46df536c403728fcd084e398f689074c939f5085cac988e537c3c80283490a"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-findings.js",
+      "bytes": 813,
+      "sha256": "7c56317924c4a81167c14ec1edb3ac08c0403a2b6a8c28dc1e783be89a6e73b4"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-guidance.js",
+      "bytes": 3247,
+      "sha256": "97c0a205450a154c8cd7d29eee04da0dbf2228af4d67ac795995c52f21d82235"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-icons.js",
+      "bytes": 1496,
+      "sha256": "c6e8bb0f17249bbfd6d93871e5700879a29bae9b7b99aebb8f7af180a4d1f070"
+    },
+    {
+      "path": "soltech-refined/dist/scanner-settings.js",
+      "bytes": 8932,
+      "sha256": "fd719d0f5cc1452880cd83b939e4daa24f36e6fe5f5bdc97e146701421dcaf19"
+    },
+    {
+      "path": "soltech-refined/dist/soltech-identity.css",
+      "bytes": 32279,
+      "sha256": "e23f2980525a070f263888273ddfbb1206d2f21194c28e8aed2e8df24be5a9ee"
+    },
+    {
+      "path": "soltech-refined/dist/workspace.js",
+      "bytes": 8195,
+      "sha256": "097626c9c81623310ecec73d5930f0d25ca99443b6d26ce614cb49740d5c55c7"
+    },
+    {
+      "path": "soltech-refined/mobile-preview.html",
+      "bytes": 825,
+      "sha256": "a4675a90f98d5f0c80479b994f5212b922fc22a6d8ef3d9a472a787be603e602"
+    },
+    {
+      "path": "soltech-refined/mobile-preview.mjs",
+      "bytes": 2411,
+      "sha256": "bd7329fd1df757b57ccf3d0604847d044a2e7d489de7dc787555162275070d34"
+    },
+    {
+      "path": "soltech-refined/original-baseline.json",
+      "bytes": 22807,
+      "sha256": "57de65cd2790a365720ab7c2c25ecff24db60838bc955b732f609a27963d49ff"
+    },
+    {
+      "path": "soltech-refined/preview.mjs",
+      "bytes": 951,
+      "sha256": "b75158e75b4ca12e8187046c0b65b921dd8504924cd1ffae1e83d0e4f60e6b98"
+    },
+    {
+      "path": "soltech-refined/README.md",
+      "bytes": 2918,
+      "sha256": "0bbacc75e5382031281339f12d28a9319a00be8699096e99a05065559d5db020"
+    },
+    {
+      "path": "soltech-refined/research/coin-checker-data-expansion.md",
+      "bytes": 5586,
+      "sha256": "6663f1e67ca4ef65bbcf384579c4f8c66e9a55868d9815dde1018f4eace82436"
+    },
+    {
+      "path": "soltech-refined/research/default-scanner-2026-09-28.md",
+      "bytes": 8901,
+      "sha256": "1fbc9a4c4487f5bd370f7ee1ba7c09cb4c5c01c75171f213e8f3afc3772f01d8"
+    },
+    {
+      "path": "soltech-refined/research/profile-experience.md",
+      "bytes": 3277,
+      "sha256": "4663ba1528db023607844bb7fe8459cc43aef7c4064a94fde1a4794f24e5f852"
+    },
+    {
+      "path": "soltech-refined/research/psychology-motivation-sources.md",
+      "bytes": 17555,
+      "sha256": "e703a6b33c69ad0e7ae97122a101a6a5b7e80d0feee24cbb39ce09f9cdd78643"
+    },
+    {
+      "path": "soltech-refined/research/psychology-trust-sources.md",
+      "bytes": 9989,
+      "sha256": "c89b2cbf0cb8f275971e4aca41cef06ad1dd12f3ded9015bd0488198a45d0db6"
+    },
+    {
+      "path": "soltech-refined/research/psychology-visual-sources.md",
+      "bytes": 18196,
+      "sha256": "9fb1c145d149c8eba3466239bb866c12dce7622dc30a4af597ef08544bbef7e1"
+    },
+    {
+      "path": "soltech-refined/research/scanner-builder-current-audit-2026-09-28.md",
+      "bytes": 14700,
+      "sha256": "25b46fa5256792c6c7437e86f3c3c42ebebe409a506e602f37c307aed0accaf6"
+    },
+    {
+      "path": "soltech-refined/research/scanner-builder-direction-2026-09-28.md",
+      "bytes": 20765,
+      "sha256": "2573d8175d942a2fb363ee23ddc9e9d431332b944095f90a561f5659384f0663"
+    },
+    {
+      "path": "soltech-refined/research/scanner-builder-ux-research-2026-09-28.md",
+      "bytes": 28751,
+      "sha256": "b178fcd92e1bb413b9d8f0a13089005fb22cbf9582f52d71e9d325720ac6bbc7"
+    },
+    {
+      "path": "soltech-refined/research/single-scanner-direction-2026-09-28.md",
+      "bytes": 8694,
+      "sha256": "fa53283f394bb593ad8b63c2f8c4539a3b5a81fa35868915b410252191c6a64d"
+    },
+    {
+      "path": "soltech-refined/research/soltech-opportunities-research-2026-09-26.md",
+      "bytes": 19439,
+      "sha256": "5024fd35bd7f13e90ae9481ba96d68f0f83b83ca67a46acb8f76fba2c8a1e55f"
+    },
+    {
+      "path": "soltech-refined/research/soltech-product-design-research-2026-09-26.md",
+      "bytes": 17495,
+      "sha256": "418130d77e39ba5846b79e7a34cfba03f13e3e410a6d6ac4514b149d5b2b5023"
+    },
+    {
+      "path": "soltech-refined/research/soltech-psychology-and-signature-design-2026-09-28.md",
+      "bytes": 20646,
+      "sha256": "4e4fd42d825e097bea1947dbd9802b797a7a3f9eff9d07f28958eb6bf81368fb"
+    },
+    {
+      "path": "soltech-refined/research/soltech-scanner-research-2026-09-25.md",
+      "bytes": 26026,
+      "sha256": "acff0ef615f5b6f5c81eef2624dc8689dfa12417e13837e355ad0cdc057e54a2"
+    },
+    {
+      "path": "soltech-refined/research/x-scanner-source-research-2026-09-28.md",
+      "bytes": 21954,
+      "sha256": "b72e3fa3632ee7071cc18e6b2938c874c4b7c099e9f148230ed9e3959f6790f7"
+    },
+    {
+      "path": "soltech-refined/review/active-scan-icon-mobile.png",
+      "bytes": 35119,
+      "sha256": "8ac26213cbc80b3a42a204fcd192d578bd499bd7b59b561a6aea95181edaef57"
+    },
+    {
+      "path": "soltech-refined/review/app-add-sheet-mobile.png",
+      "bytes": 25645,
+      "sha256": "d9f347effb702148cb869361f127152bddfe4c4779332717df7280bba0b6b3b2"
+    },
+    {
+      "path": "soltech-refined/review/app-chart-mobile.png",
+      "bytes": 32275,
+      "sha256": "7aeacf10308a6746d2253b670e96881a2b5dc5924afd4644b43ab6d3daa40397"
+    },
+    {
+      "path": "soltech-refined/review/app-clear-320.png",
+      "bytes": 24110,
+      "sha256": "d5d15371588bb0df1a5e5c71704b1dce4f6b9a92ed7b7bf98ea249f356faada5"
+    },
+    {
+      "path": "soltech-refined/review/app-experience-review.md",
+      "bytes": 11370,
+      "sha256": "4fff8f16b5647235fd9c319057684b35920691829869a87344c4064f9ad1fab6"
+    },
+    {
+      "path": "soltech-refined/review/app-find-desktop.png",
+      "bytes": 47850,
+      "sha256": "d372c1a1c7dfb9c90e8a6f2b55593138ba50c507013c6bae2ccf1b46eaa3ab00"
+    },
+    {
+      "path": "soltech-refined/review/app-find-mobile.png",
+      "bytes": 20826,
+      "sha256": "2a9d43de7c234f5146b1a44de7f4d432111014afce75b66ff3590fba43d24915"
+    },
+    {
+      "path": "soltech-refined/review/app-overview-mobile.png",
+      "bytes": 29744,
+      "sha256": "6fb3e2d8ac1a15d4ed4b38981e63ac7b481f4366a7e90b84418525691fc7e862"
+    },
+    {
+      "path": "soltech-refined/review/app-profile-mobile.png",
+      "bytes": 18245,
+      "sha256": "407fc2a19da3ee7a1e73d4c52db7fcba3b44ef2c4721f503e4ae30963d4c354f"
+    },
+    {
+      "path": "soltech-refined/review/blue-glass-report-mobile.png",
+      "bytes": 27599,
+      "sha256": "5df1f15429f505674f44646473628c367e888bac81d8220fc8524470106aee54"
+    },
+    {
+      "path": "soltech-refined/review/blue-glass-scanners-mobile.png",
+      "bytes": 45111,
+      "sha256": "ee2534bde14642e6d1fc6a2dd310b6d82c3c3f9645c181b1a76c68057f0dd6f9"
+    },
+    {
+      "path": "soltech-refined/review/blue-glass-scanners-web.png",
+      "bytes": 20525,
+      "sha256": "591a170ab25c26f9169256f6d761f4c668fdaaf8ca4b8342f6e4589fa0dc7a9e"
+    },
+    {
+      "path": "soltech-refined/review/blue-glass-theme-2026-09-28.md",
+      "bytes": 1947,
+      "sha256": "ae6edf3ebaf69102eaac75def76a3ecaed51e2fbb71fd79373e4b10103f07c66"
+    },
+    {
+      "path": "soltech-refined/review/boost-labels-mobile.png",
+      "bytes": 33982,
+      "sha256": "dc2f55fda97adf4c934ad7322e4b4bb26c4ce4c565ec083065c649db870f4888"
+    },
+    {
+      "path": "soltech-refined/review/builder-current-mobile.png",
+      "bytes": 49644,
+      "sha256": "5ec2e7a98ce8fb0ba424c4891076e9ae3993f2dd6b67b2a59ac18aeac75c02ea"
+    },
+    {
+      "path": "soltech-refined/review/builder-purpose-desktop.png",
+      "bytes": 50514,
+      "sha256": "e03da30394796dd2a07bbdbd91001269ebce4d263d05873fb360862955b5cafc"
+    },
+    {
+      "path": "soltech-refined/review/builder-purpose-mobile.png",
+      "bytes": 41598,
+      "sha256": "afcbb61f05d240a8df400f6342e05b8c84bc27b8c0939c3fc6f2041614f5b0c1"
+    },
+    {
+      "path": "soltech-refined/review/builder-refined-review-desktop.png",
+      "bytes": 71838,
+      "sha256": "8dac42bb777589a0a9bad2925b02f56f2240ed4c57a04a2211ab12a19ba49f50"
+    },
+    {
+      "path": "soltech-refined/review/builder-refined-setup-mobile.png",
+      "bytes": 39160,
+      "sha256": "99a579cc55e97b0ac0b68dd91f6886df9f8a7908dff48f5693c3bca319a4f960"
+    },
+    {
+      "path": "soltech-refined/review/builder-review-320.png",
+      "bytes": 47839,
+      "sha256": "5bb332d4fa52da6016fcb77cd9b5311c784ea3248b28a0fc50026ff24023f90c"
+    },
+    {
+      "path": "soltech-refined/review/builder-review-desktop.png",
+      "bytes": 70275,
+      "sha256": "d5c7e0f51db4206c1373826653d0ba250245437b99f09340daa7bf3e677eb5b0"
+    },
+    {
+      "path": "soltech-refined/review/builder-three-choices-desktop.png",
+      "bytes": 63706,
+      "sha256": "d88ede894a95f74ac6ae798fd1b46db7836fe89366b1f853c9257e6cdf69788b"
+    },
+    {
+      "path": "soltech-refined/review/bundler-connection-mobile.png",
+      "bytes": 47114,
+      "sha256": "a8e7888b925a70849401e0f801decdbc509db76a9ebe7dcc359706fa93763771"
+    },
+    {
+      "path": "soltech-refined/review/coin-chart-cap-mobile.png",
+      "bytes": 17012,
+      "sha256": "8006b2a33710109cda8db312ddcac3c436614047ce4b6bf35352c8ce57b21808"
+    },
+    {
+      "path": "soltech-refined/review/coin-chart-mobile.png",
+      "bytes": 49982,
+      "sha256": "efcc17649c1dbae4f1ff58e79e6d8df004b5f63afbba0c21070816214c546d33"
+    },
+    {
+      "path": "soltech-refined/review/coin-checker-empty-mobile.png",
+      "bytes": 42563,
+      "sha256": "f4ea71106e17c115fe578136643a21713edb7cf7dc23f6561d42b30d08420db4"
+    },
+    {
+      "path": "soltech-refined/review/coin-report-caution-320.png",
+      "bytes": 70435,
+      "sha256": "8bd64c7dec8ea2a19c2645274db29af69daaa9e558e6ed5ec5dd681d2b28f669"
+    },
+    {
+      "path": "soltech-refined/review/coin-report-clear.png",
+      "bytes": 51742,
+      "sha256": "9e7f0e8d8a65bc247d51250fd9dbea2aec6204d6c1bb5cb9b3c1c988815552c0"
+    },
+    {
+      "path": "soltech-refined/review/coin-report-desktop.png",
+      "bytes": 135131,
+      "sha256": "83d1a0eca568a606eb5d61701729c8bfb43b9c04818d8692658c932257e7ded6"
+    },
+    {
+      "path": "soltech-refined/review/coin-report-review.md",
+      "bytes": 8953,
+      "sha256": "e79ff5f83fb13294594d9846551a347a7b9775302eb78b08aaac89b22cf4a890"
+    },
+    {
+      "path": "soltech-refined/review/custom-scanner-badge-mobile.png",
+      "bytes": 15486,
+      "sha256": "69a281aa7a9e33b976c9a74cf9125c11b9fc805d38bc8bc4b4dd3633d35ac316"
+    },
+    {
+      "path": "soltech-refined/review/deactivate-stays-active.png",
+      "bytes": 23633,
+      "sha256": "e6c45d55de8a7eaa7183df1b1d350125355f2bbb1e897743333dd3db04a8c81d"
+    },
+    {
+      "path": "soltech-refined/review/default-scanner-desktop.png",
+      "bytes": 33155,
+      "sha256": "c8fa042c2b87b47ccb1af9277a572a7c4f82e18f57e2cf66021d977b69094aab"
+    },
+    {
+      "path": "soltech-refined/review/default-scanner-mobile.png",
+      "bytes": 24244,
+      "sha256": "d78b00f6a900b5351894ff9db4c33ba34a3743a90e37dd21d7f8c7ad6bd5d3e7"
+    },
+    {
+      "path": "soltech-refined/review/default-scanner-original-mobile.png",
+      "bytes": 38888,
+      "sha256": "599d9d30b5b802b14abb4fc9588bf9c47619f9f4654d5f093f9b22c09f0f1ad8"
+    },
+    {
+      "path": "soltech-refined/review/default-scanner-review-2026-09-28.md",
+      "bytes": 3801,
+      "sha256": "d9998937ff1ef77d6a17081f491726f74ebdbab43a7942fec287d2b9972329a1"
+    },
+    {
+      "path": "soltech-refined/review/desktop-find.png",
+      "bytes": 74777,
+      "sha256": "e31f7ce973ba05e18be360418da25e3291bc6eaddeeb4e5dff586f78cfbb3b39"
+    },
+    {
+      "path": "soltech-refined/review/dex-paid-boosts-mobile.png",
+      "bytes": 28508,
+      "sha256": "98a44e26c587d35d9b4081bdb5463302c228a951a0a6e8b70f7a17d1797d29f4"
+    },
+    {
+      "path": "soltech-refined/review/dex-status-explanation-mobile.png",
+      "bytes": 35109,
+      "sha256": "57ad5037cf1f5dd26d68b19c42466486124d3b084bdef874342bd5b6d8bf0d8d"
+    },
+    {
+      "path": "soltech-refined/review/find-create-mobile.png",
+      "bytes": 21396,
+      "sha256": "d71200c37848675f672a9244efab01080489eae4184addacc7b2e69d3fe788e3"
+    },
+    {
+      "path": "soltech-refined/review/finds-scanner-nav-icons.png",
+      "bytes": 49350,
+      "sha256": "4c3f42e045340166f4fd968f777e350d2806935bdd1a658f772809f8c1159e72"
+    },
+    {
+      "path": "soltech-refined/review/insider-signal-mobile.png",
+      "bytes": 44372,
+      "sha256": "db8b1bc5bfaf5d9ec1e8b05fad11efd9ebbf99ddc0193756c3b2b2d5cf5c6354"
+    },
+    {
+      "path": "soltech-refined/review/joined-clear-mobile.png",
+      "bytes": 23892,
+      "sha256": "e23a000a2ff0733668b2adb2f94be928db512ba10de4f6bdcbc8cbe34ad03c64"
+    },
+    {
+      "path": "soltech-refined/review/live-bundles-mobile.png",
+      "bytes": 46800,
+      "sha256": "191eda203211b2748a7031f77022fdb9d9e5750983c2dd1b29dc329beedd462e"
+    },
+    {
+      "path": "soltech-refined/review/live-check-desktop.png",
+      "bytes": 65626,
+      "sha256": "6955f5d16a31541323d71a3e8c718d71e6e34958b77721e02497e1b95b049061"
+    },
+    {
+      "path": "soltech-refined/review/live-check-mobile-results.png",
+      "bytes": 30339,
+      "sha256": "0207f9ec21aa642ded73f0590d1a52bc432ea82fbcde244bdeec40f8063fe10b"
+    },
+    {
+      "path": "soltech-refined/review/live-check-mobile.png",
+      "bytes": 32958,
+      "sha256": "58b3963abf340e1e99ce9b68e972ccb09a4d5641d1fdc737750e44f6cc45bbf9"
+    },
+    {
+      "path": "soltech-refined/review/live-check-review.md",
+      "bytes": 6623,
+      "sha256": "d1c53fe6e7bd18b348fb8750802cfc0da611804d9acb40f5e72991129deced6c"
+    },
+    {
+      "path": "soltech-refined/review/market-cap-default-mobile.png",
+      "bytes": 46003,
+      "sha256": "5f1ce8580e328c23819bc4828da14049f44f60b502b26a2e8ae26838d2b5249c"
+    },
+    {
+      "path": "soltech-refined/review/mobile-active.png",
+      "bytes": 32439,
+      "sha256": "50f154b57633597fe432d3f2e9bfd41fa982352b71cad7db1b361d0d4083132f"
+    },
+    {
+      "path": "soltech-refined/review/mobile-find.png",
+      "bytes": 34766,
+      "sha256": "be4b8ea770cc165f76908631b1518ee4a789241934f7175d5a0f43832bf149d8"
+    },
+    {
+      "path": "soltech-refined/review/notifications-profile-return-mobile.png",
+      "bytes": 38772,
+      "sha256": "c188d90f6e345571ed691f2b3996812587bee88b961733e078024bb1f469d82a"
+    },
+    {
+      "path": "soltech-refined/review/personal-profile-mobile.png",
+      "bytes": 34115,
+      "sha256": "0bc0b08227d59ed24f32062fd100f18d9dd9da2464d40b1e72e3c1d438a89523"
+    },
+    {
+      "path": "soltech-refined/review/personal-profile-web.png",
+      "bytes": 32910,
+      "sha256": "ba86618201f918ea45c41a2ae34109bb7c1d5c6cf5a0627b8fc9b25177b1d6c8"
+    },
+    {
+      "path": "soltech-refined/review/personal-settings-mobile.png",
+      "bytes": 34755,
+      "sha256": "861dc26915c70c69c87a24331e6c7e9613e76d2412632648f3827a0703b86dc2"
+    },
+    {
+      "path": "soltech-refined/review/private-bundle-setup.png",
+      "bytes": 31433,
+      "sha256": "04cb6c7d0ea78728ee74aa2f54bb546a0ea5eaa9a5e2f7ca5df1f1a580f91f51"
+    },
+    {
+      "path": "soltech-refined/review/profile-compact-mobile.png",
+      "bytes": 38814,
+      "sha256": "b29f0b0bb16ae1fe15ce4fa2c8c4c6b7627514e57b706b8f038f61f638fc80fd"
+    },
+    {
+      "path": "soltech-refined/review/profile-compact-review.md",
+      "bytes": 1312,
+      "sha256": "d50c06bbf9c3472b876678e4af5ad172b50baf3713cdb40015d9eaccd54bf362"
+    },
+    {
+      "path": "soltech-refined/review/profile-compact-test-results.txt",
+      "bytes": 10377,
+      "sha256": "80f10d10148c6d643c7634f3d347ec18f9474d57b109705e0db1299cbc775d96"
+    },
+    {
+      "path": "soltech-refined/review/profile-compact-web.png",
+      "bytes": 38383,
+      "sha256": "5722fefbeba15d3885e4be9a48fecb2973b1191781c51a93b7247c250c15c9f5"
+    },
+    {
+      "path": "soltech-refined/review/profile-photo-crop-mobile.png",
+      "bytes": 18980,
+      "sha256": "f85482b664dd9f1a719d3133e23a2eb3a0d7f261ddb027a4a78c33021b5bca43"
+    },
+    {
+      "path": "soltech-refined/review/profile-photo-crop-review.md",
+      "bytes": 2584,
+      "sha256": "a205f110b91f233c9a8b882ebf15b6361b0da6c1f261045a5c922cfc79fa2531"
+    },
+    {
+      "path": "soltech-refined/review/profile-photo-crop-tests.txt",
+      "bytes": 11046,
+      "sha256": "51615395fd0b6bf42f36ac6676c580209024d9c273c1246bf12c407b873028b2"
+    },
+    {
+      "path": "soltech-refined/review/profile-settings-review.md",
+      "bytes": 3119,
+      "sha256": "8a62f720b3ca5c2edde666bcac527e06eaf0260ee84e9dfc7ea188d4b16a0f5d"
+    },
+    {
+      "path": "soltech-refined/review/profile-shortcut-icons-mobile.png",
+      "bytes": 40741,
+      "sha256": "102e445ee2e7346cb68726539b995f001eaa48e857932380db2ffb1dac246191"
+    },
+    {
+      "path": "soltech-refined/review/profile-shortcut-icons-refined-mobile.png",
+      "bytes": 41168,
+      "sha256": "51ddc46ec000a3be372f2ce5d36e09f40ac187090ce18c8feb7d3e9d5f06a3f4"
+    },
+    {
+      "path": "soltech-refined/review/profile-test-results.txt",
+      "bytes": 10257,
+      "sha256": "e7cd858b670d9f597631a880e0a10e1a816aefbcacf7bb788b4579febb0cf874"
+    },
+    {
+      "path": "soltech-refined/review/redesign-review.md",
+      "bytes": 3887,
+      "sha256": "5b9ba35d2cc85115f31968f4816c4db483c1e22148db4e14bc22b0ef49ee1527"
+    },
+    {
+      "path": "soltech-refined/review/refined-chart-cap-mobile.png",
+      "bytes": 27256,
+      "sha256": "41c079c454efb17668b1a3883c32524a6af357509b845b039e9aabf01f1915a5"
+    },
+    {
+      "path": "soltech-refined/review/refined-chart-desktop.png",
+      "bytes": 44061,
+      "sha256": "3ab8eba6a178521b6f9efb36aa5b248c97adce126a641383404f4474378ea5d9"
+    },
+    {
+      "path": "soltech-refined/review/refined-chart-price-mobile.png",
+      "bytes": 27048,
+      "sha256": "d1a8e4ceb23ab049bffbccebed07510536c43387ad67b57354898803534a0527"
+    },
+    {
+      "path": "soltech-refined/review/saved-active-status-mobile.png",
+      "bytes": 36391,
+      "sha256": "5d58ae3f1af56d174066c444ed4182ad623f52715de0da4b9aecc06e5d6c68cd"
+    },
+    {
+      "path": "soltech-refined/review/scanner-builder-review.md",
+      "bytes": 3417,
+      "sha256": "74d88ba1f57974259adc6b1224a4e80c68b65255e02d46fac7fcdbcdcd7029b5"
+    },
+    {
+      "path": "soltech-refined/review/scanner-colored-silver-mobile.png",
+      "bytes": 34800,
+      "sha256": "5d1a0f783679bed33e26c1ca0e6faeceabdb958d56bd0b4b3b590ffe0feb79e5"
+    },
+    {
+      "path": "soltech-refined/review/scanner-deactivate-mobile.png",
+      "bytes": 26947,
+      "sha256": "5e04d5117bbd34d8988e1fa366e4dd40248d4c2c3cd7464dbdad143184343129"
+    },
+    {
+      "path": "soltech-refined/review/scanner-flow-refinement-2026-09-28.md",
+      "bytes": 3448,
+      "sha256": "dcfb3018312972ef84fe2bdcd9aeb451dce935c065a175bf34c8d1e4bdc20c31"
+    },
+    {
+      "path": "soltech-refined/review/scanner-icon-picker-mobile.png",
+      "bytes": 39700,
+      "sha256": "97f6744205a3a9847be37f19e2a8ed2a8ca0c05c0bb5236923d34bca17a05c6d"
+    },
+    {
+      "path": "soltech-refined/review/scanner-launch-icons-mobile.png",
+      "bytes": 34787,
+      "sha256": "98ac2b993f347c391e8501bcc99c8c0d7d0521c297008796891a7f2fb8e698ac"
+    },
+    {
+      "path": "soltech-refined/review/scanner-launch-icons-web.png",
+      "bytes": 60627,
+      "sha256": "ddd84a2324864d280d6fc6098b3232348e314b5869b3e65dae3e15ab0e5cdfc2"
+    },
+    {
+      "path": "soltech-refined/review/scanner-marks-mobile.png",
+      "bytes": 33864,
+      "sha256": "fb9f6e8e8ba9a02e624f8a8e1f36fcf6c8aa98b97bcf460cc7e7df2fecf5ac2c"
+    },
+    {
+      "path": "soltech-refined/review/scanner-marks-web.png",
+      "bytes": 60537,
+      "sha256": "260c907f939aa06350245795fc8281055bece33bd72b2777021d18fe25865838"
+    },
+    {
+      "path": "soltech-refined/review/scanner-silver-icons-mobile.png",
+      "bytes": 34711,
+      "sha256": "f5aebbbd829e9a7d496886dd4f01fe7051ca51b24c19173875de583b225f0953"
+    },
+    {
+      "path": "soltech-refined/review/scanner-silver-icons-web.png",
+      "bytes": 60551,
+      "sha256": "88609689482dfc47af1a8271d00954563fc10b5e7403a31aec72d5ec2f8fdc71"
+    },
+    {
+      "path": "soltech-refined/review/scanner-solana-accents-mobile.png",
+      "bytes": 34803,
+      "sha256": "630b881c6a5eed2cd0dc24b94f20c87748f32af9db3d17cfb77395486a609982"
+    },
+    {
+      "path": "soltech-refined/review/scanner-white-silver-facets-mobile.png",
+      "bytes": 35121,
+      "sha256": "b2550c7d058847c68dd6394e08f9bf744e0cf0836c97da6e8a3a3491e9c6f59c"
+    },
+    {
+      "path": "soltech-refined/review/single-scanner-mobile.png",
+      "bytes": 35053,
+      "sha256": "868a9b987238ef507452b68f408c24fa77cbf69d9eedcb1066883291fd9ebcf8"
+    },
+    {
+      "path": "soltech-refined/review/single-scanner-preview.png",
+      "bytes": 49380,
+      "sha256": "cdecff87718ff0f14d1b5cd49ef888aeeb6e52a756c66b7ee7b0083f9d562696"
+    },
+    {
+      "path": "soltech-refined/review/single-scanner-review-2026-09-28.md",
+      "bytes": 4196,
+      "sha256": "09a71bef404c87445efe5a7445f55acc97bc20f12a8e57033804352e7e39fb5e"
+    },
+    {
+      "path": "soltech-refined/review/single-scanner-save-exit-mobile.png",
+      "bytes": 7415,
+      "sha256": "52e758dd03b5e98110a027ec4c05ad6bfba7f65d92924304c1e82c632d16ec77"
+    },
+    {
+      "path": "soltech-refined/review/single-scanner-setup-320.png",
+      "bytes": 28821,
+      "sha256": "5eaee6241bd9ee57c3c4e59411a5ae53c169b70c54b69ad50c11c8f079ca6bf4"
+    },
+    {
+      "path": "soltech-refined/review/single-scanner-web.png",
+      "bytes": 45962,
+      "sha256": "2db3516da7f67eb4014ff492e8890e366f9d2ea728f03890ae399ebf1e92436f"
+    },
+    {
+      "path": "soltech-refined/server.cjs",
+      "bytes": 105,
+      "sha256": "19e41e9dc311166641bd66852cb5ed6c2803f05c4bf78c5f000c02e835ec8b02"
+    },
+    {
+      "path": "soltech-refined/START-HERE.md",
+      "bytes": 2915,
+      "sha256": "3df739d355a396678c57bd7a39a93c504f43c00cce4ef9eee9034aee70d98dd4"
+    },
+    {
+      "path": "soltech-refined/tests/bundler-setup.test.mjs",
+      "bytes": 6264,
+      "sha256": "c5676e76329c2c719cf9b0d78bbf98d79c567841ac04801ce832ca6f32c0324b"
+    },
+    {
+      "path": "soltech-refined/tests/bundlers.test.mjs",
+      "bytes": 6756,
+      "sha256": "df5b2e424e9ef41ecdbb6850728049d023a1046663f9dc0a60970beeef400523"
+    },
+    {
+      "path": "soltech-refined/tests/coin-checker-render.test.mjs",
+      "bytes": 4837,
+      "sha256": "157578e8e61222cc00b8325f560f32b47530105c3576c421c33b56a43a6859e7"
+    },
+    {
+      "path": "soltech-refined/tests/coin-checker.test.mjs",
+      "bytes": 28201,
+      "sha256": "63b3f0d31008fd23eaf0c981c64d4fc985abc5c94a37b6eae75b217ee0255630"
+    },
+    {
+      "path": "soltech-refined/tests/coin-history.test.mjs",
+      "bytes": 6710,
+      "sha256": "8230e9d12087a06295b4bd38982914562ad1ebe84067398c8f2604c46e5c88a6"
+    },
+    {
+      "path": "soltech-refined/tests/daily-recap.test.mjs",
+      "bytes": 1912,
+      "sha256": "d09f280bf587a716d64ad7be715fab92efde1299d1de5909767debfc82859706"
+    },
+    {
+      "path": "soltech-refined/tests/personal-scanner.test.mjs",
+      "bytes": 8914,
+      "sha256": "74f97ab97f93d4af3eba298fa3d16ef5269f501dbc7705c529e6aaed229691e0"
+    },
+    {
+      "path": "soltech-refined/tests/photo-crop.test.mjs",
+      "bytes": 4165,
+      "sha256": "eac29cc28ec042862670816d848f7e347428941942adbdd2a873e47b755a6c54"
+    },
+    {
+      "path": "soltech-refined/tests/profile-store.test.mjs",
+      "bytes": 6285,
+      "sha256": "3a75a3bdf394562014174ea4fb749d2079ea40d0cd564b577422e73cad1d789c"
+    },
+    {
+      "path": "soltech-refined/tests/scanner-builder.test.mjs",
+      "bytes": 12133,
+      "sha256": "4b8ccc4cf46e27c5938324351e8c374c085a125fb146abe4d39cfad8af9f15b4"
+    },
+    {
+      "path": "soltech-refined/tests/scanner-findings.test.mjs",
+      "bytes": 3109,
+      "sha256": "18568f853886a036244a5610c87970d0da21d9329d3b060f860baebb12cbec71"
+    },
+    {
+      "path": "soltech-refined/tests/scanner-settings.test.mjs",
+      "bytes": 4476,
+      "sha256": "6444ade36a0acb46f9a3267262d75426307b491f8326afd44a10558f5660cbcd"
+    },
+    {
+      "path": "soltech-refined/tests/workspace.test.mjs",
+      "bytes": 8669,
+      "sha256": "78fa2002bd1276af1d07073bfcaa8fb57f5ae1741752d2bf8d79ce960c38bd29"
+    },
+    {
+      "path": "SOLTECH-RESUME.txt",
+      "bytes": 9266,
+      "sha256": "1ef130435a1c0412786d538ebb33f364e054d5850156fb1594bdbff71d869cc6"
+    },
+    {
+      "path": "soltech-signature/backups/current-draft.json",
+      "bytes": 986,
+      "sha256": "67ef22a566acda4582ff5834e0a131f29ae91507bd57453aaa2a6216777513b4"
+    },
+    {
+      "path": "soltech-signature/bundler-api.mjs",
+      "bytes": 2516,
+      "sha256": "bab8aee1fe8fc6acb60ad8846b36074a6f354880bbecd0ab0c55adfebe6ef972"
+    },
+    {
+      "path": "soltech-signature/bundler-setup.mjs",
+      "bytes": 5657,
+      "sha256": "bc943d1ac5661c84afebc4a91f527f9c7193c13539293171c70d17bd4b93338a"
+    },
+    {
+      "path": "soltech-signature/checkpoint-manifest.json",
+      "bytes": 24453,
+      "sha256": "919f64b15cdfcb0572210395de6486c3380643285817cff4f415cff7b668268f"
+    },
+    {
+      "path": "soltech-signature/COMPARISON-STATUS.md",
+      "bytes": 400,
+      "sha256": "a37a6868477d44ec2f676e01b4d695b3b4eee2c3b8ab19cb58ba154d29c1826b"
+    },
+    {
+      "path": "soltech-signature/dist/app.css",
+      "bytes": 35255,
+      "sha256": "fb08ad557d9964fe0e5fee09c349173e53e921a1fa892dbecc9eaa4830407e0b"
+    },
+    {
+      "path": "soltech-signature/dist/app.js",
+      "bytes": 37246,
+      "sha256": "ffeda135779e6224e295e2a3e106304fd64c52eea7719b58b506d8c8dcd08bd1"
+    },
+    {
+      "path": "soltech-signature/dist/assets/phosphor-license.txt",
+      "bytes": 1071,
+      "sha256": "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"
+    },
+    {
+      "path": "soltech-signature/dist/assets/soltech-logo.png",
+      "bytes": 1234305,
+      "sha256": "90394bdef6dfaa2c803de97342a72a5bdfe39fc3be5e54f9d401301cae2bcb71"
+    },
+    {
+      "path": "soltech-signature/dist/coin-checker-data.js",
+      "bytes": 23272,
+      "sha256": "f45c9bceb0615c6c09006443df79cb9bde1e4ca198d35a3cda7f267d0393ad6c"
+    },
+    {
+      "path": "soltech-signature/dist/coin-checker.css",
+      "bytes": 16101,
+      "sha256": "6814db66cd36d8478cba1dde7c3763c67a895cc1e49b6adb2b448f26eb2d6736"
+    },
+    {
+      "path": "soltech-signature/dist/coin-checker.js",
+      "bytes": 26368,
+      "sha256": "7d609781347e0184cb517cb395d23a679070b172dbde0cc32f2923034417a210"
+    },
+    {
+      "path": "soltech-signature/dist/coin-history.js",
+      "bytes": 14953,
+      "sha256": "297f80d1bbdd63156b9da0daeea820440be9f4dd0925585d737923f365fe1e7f"
+    },
+    {
+      "path": "soltech-signature/dist/coin-networks.js",
+      "bytes": 1102,
+      "sha256": "a2bf66b4fc4204cb5aaa0a5bf3155dfe92cb09c0b69e23ac84e5f03188988f31"
+    },
+    {
+      "path": "soltech-signature/dist/compare.html",
+      "bytes": 4042,
+      "sha256": "114fbc54a7b6a6796775e44db88adba5bb7957a71c223b5620e824bdeb69de69"
+    },
+    {
+      "path": "soltech-signature/dist/daily-recap.css",
+      "bytes": 2252,
+      "sha256": "79acf5730f4b72310e4efa7180879a6731bc2c0b4eb6983940af520fb30fb258"
+    },
+    {
+      "path": "soltech-signature/dist/daily-recap.js",
+      "bytes": 2412,
+      "sha256": "ae2f90524a83a82710ccf23d27dd230de5218ea067d303cc2804c835bcde4ac5"
+    },
+    {
+      "path": "soltech-signature/dist/data.js",
+      "bytes": 4740,
+      "sha256": "35cbb1ee47819694741cd37f05fd989f89d172f559d0b28b7229de3125a08954"
+    },
+    {
+      "path": "soltech-signature/dist/index.html",
+      "bytes": 3561,
+      "sha256": "778c3cc64df3b0a8f21f756fde70c7342e22d8171c5db850642f2690b94f3c20"
+    },
+    {
+      "path": "soltech-signature/dist/photo-crop.js",
+      "bytes": 8129,
+      "sha256": "f07fd03f50a110f9fcb5a15cda117a88e833ed7e0010a05bb8f3388b2bf7662d"
+    },
+    {
+      "path": "soltech-signature/dist/profile-shortcut-icons.js",
+      "bytes": 930,
+      "sha256": "cf06062c535de1ec357e974071b2aa9a87fabe531b188653e6538f606d2432fd"
+    },
+    {
+      "path": "soltech-signature/dist/profile-store.js",
+      "bytes": 5124,
+      "sha256": "adb99c6b815edb2c00d9d94475a15896264816dcbc2f33b8a9269f79deb9cb4f"
+    },
+    {
+      "path": "soltech-signature/dist/profile.css",
+      "bytes": 11908,
+      "sha256": "f4535c625340cf985588b5c630d20529ecbb71f926e34eb9af5e5b0c9263ced4"
+    },
+    {
+      "path": "soltech-signature/dist/profile.js",
+      "bytes": 15543,
+      "sha256": "153b11c95459ddf0592f1d8e4153a0adb5a1de9ccdaae0fb24333eadc4638b44"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-appearance.js",
+      "bytes": 1549,
+      "sha256": "661a16aa2805f330fb909e447d06bcb3e9f94dabbb77d04a9f5f833e594a5596"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-builder.css",
+      "bytes": 9927,
+      "sha256": "30549524b23dc5c3c13afcd1488f66dd6f1cd5f9a5b11ae44a5d8ba112102ac3"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-builder.js",
+      "bytes": 7822,
+      "sha256": "3c31270a0ce3a9533580abfa9e601aad0e5655d91058724ce2b893188deea57a"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-editor.css",
+      "bytes": 4511,
+      "sha256": "b848ee1df217a6d33adc9ea95afcfe9502720f02928cfabcd7912f48d7341d8c"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-editor.js",
+      "bytes": 9463,
+      "sha256": "035a616515a03262f66d00395951237ae46f2d4eac7af5b364dbbbf88af5c58d"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-findings.css",
+      "bytes": 2817,
+      "sha256": "bb46df536c403728fcd084e398f689074c939f5085cac988e537c3c80283490a"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-findings.js",
+      "bytes": 813,
+      "sha256": "7c56317924c4a81167c14ec1edb3ac08c0403a2b6a8c28dc1e783be89a6e73b4"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-icons.js",
+      "bytes": 1496,
+      "sha256": "c6e8bb0f17249bbfd6d93871e5700879a29bae9b7b99aebb8f7af180a4d1f070"
+    },
+    {
+      "path": "soltech-signature/dist/scanner-settings.js",
+      "bytes": 8754,
+      "sha256": "d354b79cb63fa9d53a28f9c96769847c690098c5e834b0fc46f6a16da86ff5cd"
+    },
+    {
+      "path": "soltech-signature/dist/signature.css",
+      "bytes": 18604,
+      "sha256": "78201fe5a9f02df00f22aec49fcb6d43d12ec60399fcbd662b88c03a0fc1446d"
+    },
+    {
+      "path": "soltech-signature/dist/workspace.js",
+      "bytes": 8260,
+      "sha256": "c497deeeca1a9ec3e33a700c3231e8610b6177695eae1cfef459a4ce35757646"
+    },
+    {
+      "path": "soltech-signature/mobile-preview.html",
+      "bytes": 829,
+      "sha256": "eddc09f60544284d794074469e944a4d50743045c93774d39808b51849341281"
+    },
+    {
+      "path": "soltech-signature/mobile-preview.mjs",
+      "bytes": 2411,
+      "sha256": "53160ccac1b573f7f138162438b08d52ee897def0f6203761ce58abc16acc96f"
+    },
+    {
+      "path": "soltech-signature/preview.mjs",
+      "bytes": 951,
+      "sha256": "b75158e75b4ca12e8187046c0b65b921dd8504924cd1ffae1e83d0e4f60e6b98"
+    },
+    {
+      "path": "soltech-signature/README.md",
+      "bytes": 3980,
+      "sha256": "816e0950da9cfe2e38da11adc38d94b6b2e2065b955018fcf43622e65ec65741"
+    },
+    {
+      "path": "soltech-signature/research/coin-checker-data-expansion.md",
+      "bytes": 5586,
+      "sha256": "6663f1e67ca4ef65bbcf384579c4f8c66e9a55868d9815dde1018f4eace82436"
+    },
+    {
+      "path": "soltech-signature/research/profile-experience.md",
+      "bytes": 3277,
+      "sha256": "4663ba1528db023607844bb7fe8459cc43aef7c4064a94fde1a4794f24e5f852"
+    },
+    {
+      "path": "soltech-signature/research/psychology-motivation-sources.md",
+      "bytes": 17555,
+      "sha256": "e703a6b33c69ad0e7ae97122a101a6a5b7e80d0feee24cbb39ce09f9cdd78643"
+    },
+    {
+      "path": "soltech-signature/research/psychology-trust-sources.md",
+      "bytes": 9989,
+      "sha256": "c89b2cbf0cb8f275971e4aca41cef06ad1dd12f3ded9015bd0488198a45d0db6"
+    },
+    {
+      "path": "soltech-signature/research/psychology-visual-sources.md",
+      "bytes": 18196,
+      "sha256": "9fb1c145d149c8eba3466239bb866c12dce7622dc30a4af597ef08544bbef7e1"
+    },
+    {
+      "path": "soltech-signature/research/scanner-builder-current-audit-2026-09-28.md",
+      "bytes": 14700,
+      "sha256": "25b46fa5256792c6c7437e86f3c3c42ebebe409a506e602f37c307aed0accaf6"
+    },
+    {
+      "path": "soltech-signature/research/scanner-builder-direction-2026-09-28.md",
+      "bytes": 20765,
+      "sha256": "2573d8175d942a2fb363ee23ddc9e9d431332b944095f90a561f5659384f0663"
+    },
+    {
+      "path": "soltech-signature/research/scanner-builder-ux-research-2026-09-28.md",
+      "bytes": 28751,
+      "sha256": "b178fcd92e1bb413b9d8f0a13089005fb22cbf9582f52d71e9d325720ac6bbc7"
+    },
+    {
+      "path": "soltech-signature/research/soltech-opportunities-research-2026-09-26.md",
+      "bytes": 19439,
+      "sha256": "5024fd35bd7f13e90ae9481ba96d68f0f83b83ca67a46acb8f76fba2c8a1e55f"
+    },
+    {
+      "path": "soltech-signature/research/soltech-product-design-research-2026-09-26.md",
+      "bytes": 17495,
+      "sha256": "418130d77e39ba5846b79e7a34cfba03f13e3e410a6d6ac4514b149d5b2b5023"
+    },
+    {
+      "path": "soltech-signature/research/soltech-psychology-and-signature-design-2026-09-28.md",
+      "bytes": 20646,
+      "sha256": "4e4fd42d825e097bea1947dbd9802b797a7a3f9eff9d07f28958eb6bf81368fb"
+    },
+    {
+      "path": "soltech-signature/research/soltech-scanner-research-2026-09-25.md",
+      "bytes": 26026,
+      "sha256": "acff0ef615f5b6f5c81eef2624dc8689dfa12417e13837e355ad0cdc057e54a2"
+    },
+    {
+      "path": "soltech-signature/research/x-scanner-source-research-2026-09-28.md",
+      "bytes": 21954,
+      "sha256": "b72e3fa3632ee7071cc18e6b2938c874c4b7c099e9f148230ed9e3959f6790f7"
+    },
+    {
+      "path": "soltech-signature/review/active-scan-icon-mobile.png",
+      "bytes": 35119,
+      "sha256": "8ac26213cbc80b3a42a204fcd192d578bd499bd7b59b561a6aea95181edaef57"
+    },
+    {
+      "path": "soltech-signature/review/app-add-sheet-mobile.png",
+      "bytes": 25645,
+      "sha256": "d9f347effb702148cb869361f127152bddfe4c4779332717df7280bba0b6b3b2"
+    },
+    {
+      "path": "soltech-signature/review/app-chart-mobile.png",
+      "bytes": 32275,
+      "sha256": "7aeacf10308a6746d2253b670e96881a2b5dc5924afd4644b43ab6d3daa40397"
+    },
+    {
+      "path": "soltech-signature/review/app-clear-320.png",
+      "bytes": 24110,
+      "sha256": "d5d15371588bb0df1a5e5c71704b1dce4f6b9a92ed7b7bf98ea249f356faada5"
+    },
+    {
+      "path": "soltech-signature/review/app-experience-review.md",
+      "bytes": 11370,
+      "sha256": "4fff8f16b5647235fd9c319057684b35920691829869a87344c4064f9ad1fab6"
+    },
+    {
+      "path": "soltech-signature/review/app-find-desktop.png",
+      "bytes": 47850,
+      "sha256": "d372c1a1c7dfb9c90e8a6f2b55593138ba50c507013c6bae2ccf1b46eaa3ab00"
+    },
+    {
+      "path": "soltech-signature/review/app-find-mobile.png",
+      "bytes": 20826,
+      "sha256": "2a9d43de7c234f5146b1a44de7f4d432111014afce75b66ff3590fba43d24915"
+    },
+    {
+      "path": "soltech-signature/review/app-overview-mobile.png",
+      "bytes": 29744,
+      "sha256": "6fb3e2d8ac1a15d4ed4b38981e63ac7b481f4366a7e90b84418525691fc7e862"
+    },
+    {
+      "path": "soltech-signature/review/app-profile-mobile.png",
+      "bytes": 18245,
+      "sha256": "407fc2a19da3ee7a1e73d4c52db7fcba3b44ef2c4721f503e4ae30963d4c354f"
+    },
+    {
+      "path": "soltech-signature/review/boost-labels-mobile.png",
+      "bytes": 33982,
+      "sha256": "dc2f55fda97adf4c934ad7322e4b4bb26c4ce4c565ec083065c649db870f4888"
+    },
+    {
+      "path": "soltech-signature/review/builder-current-mobile.png",
+      "bytes": 49644,
+      "sha256": "5ec2e7a98ce8fb0ba424c4891076e9ae3993f2dd6b67b2a59ac18aeac75c02ea"
+    },
+    {
+      "path": "soltech-signature/review/builder-purpose-desktop.png",
+      "bytes": 50514,
+      "sha256": "e03da30394796dd2a07bbdbd91001269ebce4d263d05873fb360862955b5cafc"
+    },
+    {
+      "path": "soltech-signature/review/builder-purpose-mobile.png",
+      "bytes": 41598,
+      "sha256": "afcbb61f05d240a8df400f6342e05b8c84bc27b8c0939c3fc6f2041614f5b0c1"
+    },
+    {
+      "path": "soltech-signature/review/builder-refined-review-desktop.png",
+      "bytes": 71838,
+      "sha256": "8dac42bb777589a0a9bad2925b02f56f2240ed4c57a04a2211ab12a19ba49f50"
+    },
+    {
+      "path": "soltech-signature/review/builder-refined-setup-mobile.png",
+      "bytes": 39160,
+      "sha256": "99a579cc55e97b0ac0b68dd91f6886df9f8a7908dff48f5693c3bca319a4f960"
+    },
+    {
+      "path": "soltech-signature/review/builder-review-320.png",
+      "bytes": 47839,
+      "sha256": "5bb332d4fa52da6016fcb77cd9b5311c784ea3248b28a0fc50026ff24023f90c"
+    },
+    {
+      "path": "soltech-signature/review/builder-review-desktop.png",
+      "bytes": 70275,
+      "sha256": "d5c7e0f51db4206c1373826653d0ba250245437b99f09340daa7bf3e677eb5b0"
+    },
+    {
+      "path": "soltech-signature/review/builder-three-choices-desktop.png",
+      "bytes": 63706,
+      "sha256": "d88ede894a95f74ac6ae798fd1b46db7836fe89366b1f853c9257e6cdf69788b"
+    },
+    {
+      "path": "soltech-signature/review/bundler-connection-mobile.png",
+      "bytes": 47114,
+      "sha256": "a8e7888b925a70849401e0f801decdbc509db76a9ebe7dcc359706fa93763771"
+    },
+    {
+      "path": "soltech-signature/review/coin-chart-cap-mobile.png",
+      "bytes": 17012,
+      "sha256": "8006b2a33710109cda8db312ddcac3c436614047ce4b6bf35352c8ce57b21808"
+    },
+    {
+      "path": "soltech-signature/review/coin-chart-mobile.png",
+      "bytes": 49982,
+      "sha256": "efcc17649c1dbae4f1ff58e79e6d8df004b5f63afbba0c21070816214c546d33"
+    },
+    {
+      "path": "soltech-signature/review/coin-checker-empty-mobile.png",
+      "bytes": 42563,
+      "sha256": "f4ea71106e17c115fe578136643a21713edb7cf7dc23f6561d42b30d08420db4"
+    },
+    {
+      "path": "soltech-signature/review/coin-report-caution-320.png",
+      "bytes": 70435,
+      "sha256": "8bd64c7dec8ea2a19c2645274db29af69daaa9e558e6ed5ec5dd681d2b28f669"
+    },
+    {
+      "path": "soltech-signature/review/coin-report-clear.png",
+      "bytes": 51742,
+      "sha256": "9e7f0e8d8a65bc247d51250fd9dbea2aec6204d6c1bb5cb9b3c1c988815552c0"
+    },
+    {
+      "path": "soltech-signature/review/coin-report-desktop.png",
+      "bytes": 135131,
+      "sha256": "83d1a0eca568a606eb5d61701729c8bfb43b9c04818d8692658c932257e7ded6"
+    },
+    {
+      "path": "soltech-signature/review/coin-report-review.md",
+      "bytes": 8953,
+      "sha256": "e79ff5f83fb13294594d9846551a347a7b9775302eb78b08aaac89b22cf4a890"
+    },
+    {
+      "path": "soltech-signature/review/custom-scanner-badge-mobile.png",
+      "bytes": 15486,
+      "sha256": "69a281aa7a9e33b976c9a74cf9125c11b9fc805d38bc8bc4b4dd3633d35ac316"
+    },
+    {
+      "path": "soltech-signature/review/deactivate-stays-active.png",
+      "bytes": 23633,
+      "sha256": "e6c45d55de8a7eaa7183df1b1d350125355f2bbb1e897743333dd3db04a8c81d"
+    },
+    {
+      "path": "soltech-signature/review/desktop-find.png",
+      "bytes": 74777,
+      "sha256": "e31f7ce973ba05e18be360418da25e3291bc6eaddeeb4e5dff586f78cfbb3b39"
+    },
+    {
+      "path": "soltech-signature/review/dex-paid-boosts-mobile.png",
+      "bytes": 28508,
+      "sha256": "98a44e26c587d35d9b4081bdb5463302c228a951a0a6e8b70f7a17d1797d29f4"
+    },
+    {
+      "path": "soltech-signature/review/dex-status-explanation-mobile.png",
+      "bytes": 35109,
+      "sha256": "57ad5037cf1f5dd26d68b19c42466486124d3b084bdef874342bd5b6d8bf0d8d"
+    },
+    {
+      "path": "soltech-signature/review/find-create-mobile.png",
+      "bytes": 21396,
+      "sha256": "d71200c37848675f672a9244efab01080489eae4184addacc7b2e69d3fe788e3"
+    },
+    {
+      "path": "soltech-signature/review/insider-signal-mobile.png",
+      "bytes": 44372,
+      "sha256": "db8b1bc5bfaf5d9ec1e8b05fad11efd9ebbf99ddc0193756c3b2b2d5cf5c6354"
+    },
+    {
+      "path": "soltech-signature/review/joined-clear-mobile.png",
+      "bytes": 23892,
+      "sha256": "e23a000a2ff0733668b2adb2f94be928db512ba10de4f6bdcbc8cbe34ad03c64"
+    },
+    {
+      "path": "soltech-signature/review/live-bundles-mobile.png",
+      "bytes": 46800,
+      "sha256": "191eda203211b2748a7031f77022fdb9d9e5750983c2dd1b29dc329beedd462e"
+    },
+    {
+      "path": "soltech-signature/review/live-check-desktop.png",
+      "bytes": 65626,
+      "sha256": "6955f5d16a31541323d71a3e8c718d71e6e34958b77721e02497e1b95b049061"
+    },
+    {
+      "path": "soltech-signature/review/live-check-mobile-results.png",
+      "bytes": 30339,
+      "sha256": "0207f9ec21aa642ded73f0590d1a52bc432ea82fbcde244bdeec40f8063fe10b"
+    },
+    {
+      "path": "soltech-signature/review/live-check-mobile.png",
+      "bytes": 32958,
+      "sha256": "58b3963abf340e1e99ce9b68e972ccb09a4d5641d1fdc737750e44f6cc45bbf9"
+    },
+    {
+      "path": "soltech-signature/review/live-check-review.md",
+      "bytes": 6623,
+      "sha256": "d1c53fe6e7bd18b348fb8750802cfc0da611804d9acb40f5e72991129deced6c"
+    },
+    {
+      "path": "soltech-signature/review/market-cap-default-mobile.png",
+      "bytes": 46003,
+      "sha256": "5f1ce8580e328c23819bc4828da14049f44f60b502b26a2e8ae26838d2b5249c"
+    },
+    {
+      "path": "soltech-signature/review/mobile-active.png",
+      "bytes": 32439,
+      "sha256": "50f154b57633597fe432d3f2e9bfd41fa982352b71cad7db1b361d0d4083132f"
+    },
+    {
+      "path": "soltech-signature/review/mobile-find.png",
+      "bytes": 34766,
+      "sha256": "be4b8ea770cc165f76908631b1518ee4a789241934f7175d5a0f43832bf149d8"
+    },
+    {
+      "path": "soltech-signature/review/notifications-profile-return-mobile.png",
+      "bytes": 38772,
+      "sha256": "c188d90f6e345571ed691f2b3996812587bee88b961733e078024bb1f469d82a"
+    },
+    {
+      "path": "soltech-signature/review/personal-profile-mobile.png",
+      "bytes": 34115,
+      "sha256": "0bc0b08227d59ed24f32062fd100f18d9dd9da2464d40b1e72e3c1d438a89523"
+    },
+    {
+      "path": "soltech-signature/review/personal-profile-web.png",
+      "bytes": 32910,
+      "sha256": "ba86618201f918ea45c41a2ae34109bb7c1d5c6cf5a0627b8fc9b25177b1d6c8"
+    },
+    {
+      "path": "soltech-signature/review/personal-settings-mobile.png",
+      "bytes": 34755,
+      "sha256": "861dc26915c70c69c87a24331e6c7e9613e76d2412632648f3827a0703b86dc2"
+    },
+    {
+      "path": "soltech-signature/review/private-bundle-setup.png",
+      "bytes": 31433,
+      "sha256": "04cb6c7d0ea78728ee74aa2f54bb546a0ea5eaa9a5e2f7ca5df1f1a580f91f51"
+    },
+    {
+      "path": "soltech-signature/review/profile-compact-mobile.png",
+      "bytes": 38814,
+      "sha256": "b29f0b0bb16ae1fe15ce4fa2c8c4c6b7627514e57b706b8f038f61f638fc80fd"
+    },
+    {
+      "path": "soltech-signature/review/profile-compact-review.md",
+      "bytes": 1312,
+      "sha256": "d50c06bbf9c3472b876678e4af5ad172b50baf3713cdb40015d9eaccd54bf362"
+    },
+    {
+      "path": "soltech-signature/review/profile-compact-test-results.txt",
+      "bytes": 10377,
+      "sha256": "80f10d10148c6d643c7634f3d347ec18f9474d57b109705e0db1299cbc775d96"
+    },
+    {
+      "path": "soltech-signature/review/profile-compact-web.png",
+      "bytes": 38383,
+      "sha256": "5722fefbeba15d3885e4be9a48fecb2973b1191781c51a93b7247c250c15c9f5"
+    },
+    {
+      "path": "soltech-signature/review/profile-photo-crop-mobile.png",
+      "bytes": 18980,
+      "sha256": "f85482b664dd9f1a719d3133e23a2eb3a0d7f261ddb027a4a78c33021b5bca43"
+    },
+    {
+      "path": "soltech-signature/review/profile-photo-crop-review.md",
+      "bytes": 2584,
+      "sha256": "a205f110b91f233c9a8b882ebf15b6361b0da6c1f261045a5c922cfc79fa2531"
+    },
+    {
+      "path": "soltech-signature/review/profile-photo-crop-tests.txt",
+      "bytes": 11046,
+      "sha256": "51615395fd0b6bf42f36ac6676c580209024d9c273c1246bf12c407b873028b2"
+    },
+    {
+      "path": "soltech-signature/review/profile-settings-review.md",
+      "bytes": 3119,
+      "sha256": "8a62f720b3ca5c2edde666bcac527e06eaf0260ee84e9dfc7ea188d4b16a0f5d"
+    },
+    {
+      "path": "soltech-signature/review/profile-shortcut-icons-mobile.png",
+      "bytes": 40741,
+      "sha256": "102e445ee2e7346cb68726539b995f001eaa48e857932380db2ffb1dac246191"
+    },
+    {
+      "path": "soltech-signature/review/profile-shortcut-icons-refined-mobile.png",
+      "bytes": 41168,
+      "sha256": "51ddc46ec000a3be372f2ce5d36e09f40ac187090ce18c8feb7d3e9d5f06a3f4"
+    },
+    {
+      "path": "soltech-signature/review/profile-test-results.txt",
+      "bytes": 10257,
+      "sha256": "e7cd858b670d9f597631a880e0a10e1a816aefbcacf7bb788b4579febb0cf874"
+    },
+    {
+      "path": "soltech-signature/review/redesign-review.md",
+      "bytes": 3887,
+      "sha256": "5b9ba35d2cc85115f31968f4816c4db483c1e22148db4e14bc22b0ef49ee1527"
+    },
+    {
+      "path": "soltech-signature/review/refined-chart-cap-mobile.png",
+      "bytes": 27256,
+      "sha256": "41c079c454efb17668b1a3883c32524a6af357509b845b039e9aabf01f1915a5"
+    },
+    {
+      "path": "soltech-signature/review/refined-chart-desktop.png",
+      "bytes": 44061,
+      "sha256": "3ab8eba6a178521b6f9efb36aa5b248c97adce126a641383404f4474378ea5d9"
+    },
+    {
+      "path": "soltech-signature/review/refined-chart-price-mobile.png",
+      "bytes": 27048,
+      "sha256": "d1a8e4ceb23ab049bffbccebed07510536c43387ad67b57354898803534a0527"
+    },
+    {
+      "path": "soltech-signature/review/saved-active-status-mobile.png",
+      "bytes": 36391,
+      "sha256": "5d58ae3f1af56d174066c444ed4182ad623f52715de0da4b9aecc06e5d6c68cd"
+    },
+    {
+      "path": "soltech-signature/review/scanner-builder-review.md",
+      "bytes": 3417,
+      "sha256": "74d88ba1f57974259adc6b1224a4e80c68b65255e02d46fac7fcdbcdcd7029b5"
+    },
+    {
+      "path": "soltech-signature/review/scanner-colored-silver-mobile.png",
+      "bytes": 34800,
+      "sha256": "5d1a0f783679bed33e26c1ca0e6faeceabdb958d56bd0b4b3b590ffe0feb79e5"
+    },
+    {
+      "path": "soltech-signature/review/scanner-deactivate-mobile.png",
+      "bytes": 26947,
+      "sha256": "5e04d5117bbd34d8988e1fa366e4dd40248d4c2c3cd7464dbdad143184343129"
+    },
+    {
+      "path": "soltech-signature/review/scanner-flow-refinement-2026-09-28.md",
+      "bytes": 3448,
+      "sha256": "dcfb3018312972ef84fe2bdcd9aeb451dce935c065a175bf34c8d1e4bdc20c31"
+    },
+    {
+      "path": "soltech-signature/review/scanner-icon-picker-mobile.png",
+      "bytes": 39700,
+      "sha256": "97f6744205a3a9847be37f19e2a8ed2a8ca0c05c0bb5236923d34bca17a05c6d"
+    },
+    {
+      "path": "soltech-signature/review/scanner-launch-icons-mobile.png",
+      "bytes": 34787,
+      "sha256": "98ac2b993f347c391e8501bcc99c8c0d7d0521c297008796891a7f2fb8e698ac"
+    },
+    {
+      "path": "soltech-signature/review/scanner-launch-icons-web.png",
+      "bytes": 60627,
+      "sha256": "ddd84a2324864d280d6fc6098b3232348e314b5869b3e65dae3e15ab0e5cdfc2"
+    },
+    {
+      "path": "soltech-signature/review/scanner-marks-mobile.png",
+      "bytes": 33864,
+      "sha256": "fb9f6e8e8ba9a02e624f8a8e1f36fcf6c8aa98b97bcf460cc7e7df2fecf5ac2c"
+    },
+    {
+      "path": "soltech-signature/review/scanner-marks-web.png",
+      "bytes": 60537,
+      "sha256": "260c907f939aa06350245795fc8281055bece33bd72b2777021d18fe25865838"
+    },
+    {
+      "path": "soltech-signature/review/scanner-silver-icons-mobile.png",
+      "bytes": 34711,
+      "sha256": "f5aebbbd829e9a7d496886dd4f01fe7051ca51b24c19173875de583b225f0953"
+    },
+    {
+      "path": "soltech-signature/review/scanner-silver-icons-web.png",
+      "bytes": 60551,
+      "sha256": "88609689482dfc47af1a8271d00954563fc10b5e7403a31aec72d5ec2f8fdc71"
+    },
+    {
+      "path": "soltech-signature/review/scanner-solana-accents-mobile.png",
+      "bytes": 34803,
+      "sha256": "630b881c6a5eed2cd0dc24b94f20c87748f32af9db3d17cfb77395486a609982"
+    },
+    {
+      "path": "soltech-signature/review/scanner-white-silver-facets-mobile.png",
+      "bytes": 35121,
+      "sha256": "b2550c7d058847c68dd6394e08f9bf744e0cf0836c97da6e8a3a3491e9c6f59c"
+    },
+    {
+      "path": "soltech-signature/server.cjs",
+      "bytes": 105,
+      "sha256": "19e41e9dc311166641bd66852cb5ed6c2803f05c4bf78c5f000c02e835ec8b02"
+    },
+    {
+      "path": "soltech-signature/START-HERE.md",
+      "bytes": 24106,
+      "sha256": "d3d661fff24fbe2ede5b4058e36b115a6482e4f3159abc96d379dd98175da801"
+    },
+    {
+      "path": "soltech-signature/tests/bundler-setup.test.mjs",
+      "bytes": 6264,
+      "sha256": "c5676e76329c2c719cf9b0d78bbf98d79c567841ac04801ce832ca6f32c0324b"
+    },
+    {
+      "path": "soltech-signature/tests/bundlers.test.mjs",
+      "bytes": 6756,
+      "sha256": "df5b2e424e9ef41ecdbb6850728049d023a1046663f9dc0a60970beeef400523"
+    },
+    {
+      "path": "soltech-signature/tests/coin-checker-render.test.mjs",
+      "bytes": 4837,
+      "sha256": "157578e8e61222cc00b8325f560f32b47530105c3576c421c33b56a43a6859e7"
+    },
+    {
+      "path": "soltech-signature/tests/coin-checker.test.mjs",
+      "bytes": 28201,
+      "sha256": "63b3f0d31008fd23eaf0c981c64d4fc985abc5c94a37b6eae75b217ee0255630"
+    },
+    {
+      "path": "soltech-signature/tests/coin-history.test.mjs",
+      "bytes": 6710,
+      "sha256": "8230e9d12087a06295b4bd38982914562ad1ebe84067398c8f2604c46e5c88a6"
+    },
+    {
+      "path": "soltech-signature/tests/daily-recap.test.mjs",
+      "bytes": 1912,
+      "sha256": "d09f280bf587a716d64ad7be715fab92efde1299d1de5909767debfc82859706"
+    },
+    {
+      "path": "soltech-signature/tests/photo-crop.test.mjs",
+      "bytes": 4165,
+      "sha256": "eac29cc28ec042862670816d848f7e347428941942adbdd2a873e47b755a6c54"
+    },
+    {
+      "path": "soltech-signature/tests/profile-store.test.mjs",
+      "bytes": 6285,
+      "sha256": "3a75a3bdf394562014174ea4fb749d2079ea40d0cd564b577422e73cad1d789c"
+    },
+    {
+      "path": "soltech-signature/tests/scanner-builder.test.mjs",
+      "bytes": 8390,
+      "sha256": "2b020b2419aef789c61b3629a1c7a9c1db99da177d3adff7a1aca7bef15a0e21"
+    },
+    {
+      "path": "soltech-signature/tests/scanner-findings.test.mjs",
+      "bytes": 3109,
+      "sha256": "18568f853886a036244a5610c87970d0da21d9329d3b060f860baebb12cbec71"
+    },
+    {
+      "path": "soltech-signature/tests/scanner-settings.test.mjs",
+      "bytes": 4476,
+      "sha256": "6444ade36a0acb46f9a3267262d75426307b491f8326afd44a10558f5660cbcd"
+    },
+    {
+      "path": "soltech-signature/tests/signature-comparison.test.mjs",
+      "bytes": 2640,
+      "sha256": "2178714d558e2399f57d7968bfe8fa68b9269585d8badedcb388f596001b1dad"
+    },
+    {
+      "path": "soltech-signature/tests/workspace.test.mjs",
+      "bytes": 8669,
+      "sha256": "78fa2002bd1276af1d07073bfcaa8fb57f5ae1741752d2bf8d79ce960c38bd29"
+    },
+    {
+      "path": "soltech-ui/.openai/hosting.json",
+      "bytes": 106,
+      "sha256": "10683ac113bf2c08e19884254db42a911840cfcfed3f00b90deaa9bb1f0fb85e"
+    },
+    {
+      "path": "soltech-ui/backups/current-draft.json",
+      "bytes": 986,
+      "sha256": "67ef22a566acda4582ff5834e0a131f29ae91507bd57453aaa2a6216777513b4"
+    },
+    {
+      "path": "soltech-ui/bundler-api.mjs",
+      "bytes": 2516,
+      "sha256": "bab8aee1fe8fc6acb60ad8846b36074a6f354880bbecd0ab0c55adfebe6ef972"
+    },
+    {
+      "path": "soltech-ui/bundler-setup.mjs",
+      "bytes": 5657,
+      "sha256": "bc943d1ac5661c84afebc4a91f527f9c7193c13539293171c70d17bd4b93338a"
+    },
+    {
+      "path": "soltech-ui/checkpoint-manifest.json",
+      "bytes": 27997,
+      "sha256": "88953f3c0850093f4295a58722371712fdd1e3cd91a22a46556d313ff0e4b8d1"
+    },
+    {
+      "path": "soltech-ui/dist/app.css",
+      "bytes": 35245,
+      "sha256": "90f25d356c053e8660afef686843ded7e72175a4f806fc3c36b37674d7956117"
+    },
+    {
+      "path": "soltech-ui/dist/app.js",
+      "bytes": 37489,
+      "sha256": "acd5751998174d855ca4eb3be8a4103eee51d72fe7a055316eae6bdcf0054e1f"
+    },
+    {
+      "path": "soltech-ui/dist/assets/phosphor-license.txt",
+      "bytes": 1071,
+      "sha256": "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"
+    },
+    {
+      "path": "soltech-ui/dist/assets/soltech-logo.png",
+      "bytes": 1234305,
+      "sha256": "90394bdef6dfaa2c803de97342a72a5bdfe39fc3be5e54f9d401301cae2bcb71"
+    },
+    {
+      "path": "soltech-ui/dist/blue-glass.css",
+      "bytes": 6063,
+      "sha256": "c2966cf060281d99620d50735c25a2a833eeb1abb364a9bf4058e2acaf3b02a8"
+    },
+    {
+      "path": "soltech-ui/dist/coin-checker-data.js",
+      "bytes": 23272,
+      "sha256": "f45c9bceb0615c6c09006443df79cb9bde1e4ca198d35a3cda7f267d0393ad6c"
+    },
+    {
+      "path": "soltech-ui/dist/coin-checker.css",
+      "bytes": 16101,
+      "sha256": "6814db66cd36d8478cba1dde7c3763c67a895cc1e49b6adb2b448f26eb2d6736"
+    },
+    {
+      "path": "soltech-ui/dist/coin-checker.js",
+      "bytes": 24333,
+      "sha256": "5f35728b164b1af40ac6bc2c96a8c0cbac64809eca90412b748c83ee23cb184b"
+    },
+    {
+      "path": "soltech-ui/dist/coin-history.js",
+      "bytes": 14953,
+      "sha256": "297f80d1bbdd63156b9da0daeea820440be9f4dd0925585d737923f365fe1e7f"
+    },
+    {
+      "path": "soltech-ui/dist/coin-networks.js",
+      "bytes": 1102,
+      "sha256": "a2bf66b4fc4204cb5aaa0a5bf3155dfe92cb09c0b69e23ac84e5f03188988f31"
+    },
+    {
+      "path": "soltech-ui/dist/daily-recap.css",
+      "bytes": 2252,
+      "sha256": "79acf5730f4b72310e4efa7180879a6731bc2c0b4eb6983940af520fb30fb258"
+    },
+    {
+      "path": "soltech-ui/dist/daily-recap.js",
+      "bytes": 2412,
+      "sha256": "ae2f90524a83a82710ccf23d27dd230de5218ea067d303cc2804c835bcde4ac5"
+    },
+    {
+      "path": "soltech-ui/dist/data.js",
+      "bytes": 4724,
+      "sha256": "e10bcc952fb07ba968b6819e15dd48487d5a1916d7456be0d10337be67dc4e66"
+    },
+    {
+      "path": "soltech-ui/dist/index.html",
+      "bytes": 3589,
+      "sha256": "e6cb07a8f4382971c267e6e7e9817c4b3ef862fea4a4bd7c99745662ff302c12"
+    },
+    {
+      "path": "soltech-ui/dist/personal-scanner-store.js",
+      "bytes": 5047,
+      "sha256": "7924c6d9eac32c4e9399bd5f6942bc7b9f63f0432ad5f2c4a3836ada3477ffaf"
+    },
+    {
+      "path": "soltech-ui/dist/personal-scanner.css",
+      "bytes": 6433,
+      "sha256": "6f808fe5311453d618814ecbf13b859aea810a2b1997999069de62a5b9dcd244"
+    },
+    {
+      "path": "soltech-ui/dist/personal-scanner.js",
+      "bytes": 18113,
+      "sha256": "b0e239da679ac1b384f194fe2a0817718237587d70870fdc9137c0f93e4c002a"
+    },
+    {
+      "path": "soltech-ui/dist/photo-crop.js",
+      "bytes": 8129,
+      "sha256": "f07fd03f50a110f9fcb5a15cda117a88e833ed7e0010a05bb8f3388b2bf7662d"
+    },
+    {
+      "path": "soltech-ui/dist/profile-shortcut-icons.js",
+      "bytes": 930,
+      "sha256": "cf06062c535de1ec357e974071b2aa9a87fabe531b188653e6538f606d2432fd"
+    },
+    {
+      "path": "soltech-ui/dist/profile-store.js",
+      "bytes": 5114,
+      "sha256": "f51ddf6af64be7666b6617b5ea023f593fd9dd90f34d4a8a6d630824e0ce00d9"
+    },
+    {
+      "path": "soltech-ui/dist/profile.css",
+      "bytes": 11908,
+      "sha256": "f4535c625340cf985588b5c630d20529ecbb71f926e34eb9af5e5b0c9263ced4"
+    },
+    {
+      "path": "soltech-ui/dist/profile.js",
+      "bytes": 15085,
+      "sha256": "4041d3420b636f75d24f7206e75724aac26d2f01e83849a55dafad703f8a96f9"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-appearance.js",
+      "bytes": 1549,
+      "sha256": "661a16aa2805f330fb909e447d06bcb3e9f94dabbb77d04a9f5f833e594a5596"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-builder.css",
+      "bytes": 12632,
+      "sha256": "4c73d911594df7263ba50b37f36ed1ff6f34337ef76691bf3dbaa120f099c59d"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-builder.js",
+      "bytes": 8229,
+      "sha256": "686124d029faa2e22e35afb8758747b3984ba69aad0b3d4451f224f0d8045a2c"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-editor.css",
+      "bytes": 4511,
+      "sha256": "b848ee1df217a6d33adc9ea95afcfe9502720f02928cfabcd7912f48d7341d8c"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-editor.js",
+      "bytes": 10422,
+      "sha256": "89e1d7917823c2ae1e2c542e36901dfef4ac323fb7b2fb4ccf840e2208dccb62"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-findings.css",
+      "bytes": 2817,
+      "sha256": "bb46df536c403728fcd084e398f689074c939f5085cac988e537c3c80283490a"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-findings.js",
+      "bytes": 813,
+      "sha256": "7c56317924c4a81167c14ec1edb3ac08c0403a2b6a8c28dc1e783be89a6e73b4"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-guidance.js",
+      "bytes": 3247,
+      "sha256": "97c0a205450a154c8cd7d29eee04da0dbf2228af4d67ac795995c52f21d82235"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-icons.js",
+      "bytes": 1496,
+      "sha256": "c6e8bb0f17249bbfd6d93871e5700879a29bae9b7b99aebb8f7af180a4d1f070"
+    },
+    {
+      "path": "soltech-ui/dist/scanner-settings.js",
+      "bytes": 8932,
+      "sha256": "fd719d0f5cc1452880cd83b939e4daa24f36e6fe5f5bdc97e146701421dcaf19"
+    },
+    {
+      "path": "soltech-ui/dist/workspace.js",
+      "bytes": 8195,
+      "sha256": "097626c9c81623310ecec73d5930f0d25ca99443b6d26ce614cb49740d5c55c7"
+    },
+    {
+      "path": "soltech-ui/mobile-preview.html",
+      "bytes": 817,
+      "sha256": "8ccc04a205a1266c60ff0bb465347d87d1837b84d94a12d28dd78904824d1236"
+    },
+    {
+      "path": "soltech-ui/mobile-preview.mjs",
+      "bytes": 2411,
+      "sha256": "86d491f810f2e27e1a5d2ff60d838e023571f75056a84749e9a2893e7c438eb5"
+    },
+    {
+      "path": "soltech-ui/preview.mjs",
+      "bytes": 951,
+      "sha256": "b75158e75b4ca12e8187046c0b65b921dd8504924cd1ffae1e83d0e4f60e6b98"
+    },
+    {
+      "path": "soltech-ui/README.md",
+      "bytes": 3980,
+      "sha256": "816e0950da9cfe2e38da11adc38d94b6b2e2065b955018fcf43622e65ec65741"
+    },
+    {
+      "path": "soltech-ui/research/coin-checker-data-expansion.md",
+      "bytes": 5586,
+      "sha256": "6663f1e67ca4ef65bbcf384579c4f8c66e9a55868d9815dde1018f4eace82436"
+    },
+    {
+      "path": "soltech-ui/research/default-scanner-2026-09-28.md",
+      "bytes": 8901,
+      "sha256": "1fbc9a4c4487f5bd370f7ee1ba7c09cb4c5c01c75171f213e8f3afc3772f01d8"
+    },
+    {
+      "path": "soltech-ui/research/profile-experience.md",
+      "bytes": 3277,
+      "sha256": "4663ba1528db023607844bb7fe8459cc43aef7c4064a94fde1a4794f24e5f852"
+    },
+    {
+      "path": "soltech-ui/research/psychology-motivation-sources.md",
+      "bytes": 17555,
+      "sha256": "e703a6b33c69ad0e7ae97122a101a6a5b7e80d0feee24cbb39ce09f9cdd78643"
+    },
+    {
+      "path": "soltech-ui/research/psychology-trust-sources.md",
+      "bytes": 9989,
+      "sha256": "c89b2cbf0cb8f275971e4aca41cef06ad1dd12f3ded9015bd0488198a45d0db6"
+    },
+    {
+      "path": "soltech-ui/research/psychology-visual-sources.md",
+      "bytes": 18196,
+      "sha256": "9fb1c145d149c8eba3466239bb866c12dce7622dc30a4af597ef08544bbef7e1"
+    },
+    {
+      "path": "soltech-ui/research/scanner-builder-current-audit-2026-09-28.md",
+      "bytes": 14700,
+      "sha256": "25b46fa5256792c6c7437e86f3c3c42ebebe409a506e602f37c307aed0accaf6"
+    },
+    {
+      "path": "soltech-ui/research/scanner-builder-direction-2026-09-28.md",
+      "bytes": 20765,
+      "sha256": "2573d8175d942a2fb363ee23ddc9e9d431332b944095f90a561f5659384f0663"
+    },
+    {
+      "path": "soltech-ui/research/scanner-builder-ux-research-2026-09-28.md",
+      "bytes": 28751,
+      "sha256": "b178fcd92e1bb413b9d8f0a13089005fb22cbf9582f52d71e9d325720ac6bbc7"
+    },
+    {
+      "path": "soltech-ui/research/single-scanner-direction-2026-09-28.md",
+      "bytes": 8694,
+      "sha256": "fa53283f394bb593ad8b63c2f8c4539a3b5a81fa35868915b410252191c6a64d"
+    },
+    {
+      "path": "soltech-ui/research/soltech-opportunities-research-2026-09-26.md",
+      "bytes": 19439,
+      "sha256": "5024fd35bd7f13e90ae9481ba96d68f0f83b83ca67a46acb8f76fba2c8a1e55f"
+    },
+    {
+      "path": "soltech-ui/research/soltech-product-design-research-2026-09-26.md",
+      "bytes": 17495,
+      "sha256": "418130d77e39ba5846b79e7a34cfba03f13e3e410a6d6ac4514b149d5b2b5023"
+    },
+    {
+      "path": "soltech-ui/research/soltech-psychology-and-signature-design-2026-09-28.md",
+      "bytes": 20646,
+      "sha256": "4e4fd42d825e097bea1947dbd9802b797a7a3f9eff9d07f28958eb6bf81368fb"
+    },
+    {
+      "path": "soltech-ui/research/soltech-scanner-research-2026-09-25.md",
+      "bytes": 26026,
+      "sha256": "acff0ef615f5b6f5c81eef2624dc8689dfa12417e13837e355ad0cdc057e54a2"
+    },
+    {
+      "path": "soltech-ui/research/x-scanner-source-research-2026-09-28.md",
+      "bytes": 21954,
+      "sha256": "b72e3fa3632ee7071cc18e6b2938c874c4b7c099e9f148230ed9e3959f6790f7"
+    },
+    {
+      "path": "soltech-ui/review/active-scan-icon-mobile.png",
+      "bytes": 35119,
+      "sha256": "8ac26213cbc80b3a42a204fcd192d578bd499bd7b59b561a6aea95181edaef57"
+    },
+    {
+      "path": "soltech-ui/review/app-add-sheet-mobile.png",
+      "bytes": 25645,
+      "sha256": "d9f347effb702148cb869361f127152bddfe4c4779332717df7280bba0b6b3b2"
+    },
+    {
+      "path": "soltech-ui/review/app-chart-mobile.png",
+      "bytes": 32275,
+      "sha256": "7aeacf10308a6746d2253b670e96881a2b5dc5924afd4644b43ab6d3daa40397"
+    },
+    {
+      "path": "soltech-ui/review/app-clear-320.png",
+      "bytes": 24110,
+      "sha256": "d5d15371588bb0df1a5e5c71704b1dce4f6b9a92ed7b7bf98ea249f356faada5"
+    },
+    {
+      "path": "soltech-ui/review/app-experience-review.md",
+      "bytes": 11370,
+      "sha256": "4fff8f16b5647235fd9c319057684b35920691829869a87344c4064f9ad1fab6"
+    },
+    {
+      "path": "soltech-ui/review/app-find-desktop.png",
+      "bytes": 47850,
+      "sha256": "d372c1a1c7dfb9c90e8a6f2b55593138ba50c507013c6bae2ccf1b46eaa3ab00"
+    },
+    {
+      "path": "soltech-ui/review/app-find-mobile.png",
+      "bytes": 20826,
+      "sha256": "2a9d43de7c234f5146b1a44de7f4d432111014afce75b66ff3590fba43d24915"
+    },
+    {
+      "path": "soltech-ui/review/app-overview-mobile.png",
+      "bytes": 29744,
+      "sha256": "6fb3e2d8ac1a15d4ed4b38981e63ac7b481f4366a7e90b84418525691fc7e862"
+    },
+    {
+      "path": "soltech-ui/review/app-profile-mobile.png",
+      "bytes": 18245,
+      "sha256": "407fc2a19da3ee7a1e73d4c52db7fcba3b44ef2c4721f503e4ae30963d4c354f"
+    },
+    {
+      "path": "soltech-ui/review/blue-glass-report-mobile.png",
+      "bytes": 27599,
+      "sha256": "5df1f15429f505674f44646473628c367e888bac81d8220fc8524470106aee54"
+    },
+    {
+      "path": "soltech-ui/review/blue-glass-scanners-mobile.png",
+      "bytes": 45111,
+      "sha256": "ee2534bde14642e6d1fc6a2dd310b6d82c3c3f9645c181b1a76c68057f0dd6f9"
+    },
+    {
+      "path": "soltech-ui/review/blue-glass-scanners-web.png",
+      "bytes": 20525,
+      "sha256": "591a170ab25c26f9169256f6d761f4c668fdaaf8ca4b8342f6e4589fa0dc7a9e"
+    },
+    {
+      "path": "soltech-ui/review/blue-glass-theme-2026-09-28.md",
+      "bytes": 1947,
+      "sha256": "ae6edf3ebaf69102eaac75def76a3ecaed51e2fbb71fd79373e4b10103f07c66"
+    },
+    {
+      "path": "soltech-ui/review/boost-labels-mobile.png",
+      "bytes": 33982,
+      "sha256": "dc2f55fda97adf4c934ad7322e4b4bb26c4ce4c565ec083065c649db870f4888"
+    },
+    {
+      "path": "soltech-ui/review/builder-current-mobile.png",
+      "bytes": 49644,
+      "sha256": "5ec2e7a98ce8fb0ba424c4891076e9ae3993f2dd6b67b2a59ac18aeac75c02ea"
+    },
+    {
+      "path": "soltech-ui/review/builder-purpose-desktop.png",
+      "bytes": 50514,
+      "sha256": "e03da30394796dd2a07bbdbd91001269ebce4d263d05873fb360862955b5cafc"
+    },
+    {
+      "path": "soltech-ui/review/builder-purpose-mobile.png",
+      "bytes": 41598,
+      "sha256": "afcbb61f05d240a8df400f6342e05b8c84bc27b8c0939c3fc6f2041614f5b0c1"
+    },
+    {
+      "path": "soltech-ui/review/builder-refined-review-desktop.png",
+      "bytes": 71838,
+      "sha256": "8dac42bb777589a0a9bad2925b02f56f2240ed4c57a04a2211ab12a19ba49f50"
+    },
+    {
+      "path": "soltech-ui/review/builder-refined-setup-mobile.png",
+      "bytes": 39160,
+      "sha256": "99a579cc55e97b0ac0b68dd91f6886df9f8a7908dff48f5693c3bca319a4f960"
+    },
+    {
+      "path": "soltech-ui/review/builder-review-320.png",
+      "bytes": 47839,
+      "sha256": "5bb332d4fa52da6016fcb77cd9b5311c784ea3248b28a0fc50026ff24023f90c"
+    },
+    {
+      "path": "soltech-ui/review/builder-review-desktop.png",
+      "bytes": 70275,
+      "sha256": "d5c7e0f51db4206c1373826653d0ba250245437b99f09340daa7bf3e677eb5b0"
+    },
+    {
+      "path": "soltech-ui/review/builder-three-choices-desktop.png",
+      "bytes": 63706,
+      "sha256": "d88ede894a95f74ac6ae798fd1b46db7836fe89366b1f853c9257e6cdf69788b"
+    },
+    {
+      "path": "soltech-ui/review/bundler-connection-mobile.png",
+      "bytes": 47114,
+      "sha256": "a8e7888b925a70849401e0f801decdbc509db76a9ebe7dcc359706fa93763771"
+    },
+    {
+      "path": "soltech-ui/review/coin-chart-cap-mobile.png",
+      "bytes": 17012,
+      "sha256": "8006b2a33710109cda8db312ddcac3c436614047ce4b6bf35352c8ce57b21808"
+    },
+    {
+      "path": "soltech-ui/review/coin-chart-mobile.png",
+      "bytes": 49982,
+      "sha256": "efcc17649c1dbae4f1ff58e79e6d8df004b5f63afbba0c21070816214c546d33"
+    },
+    {
+      "path": "soltech-ui/review/coin-checker-empty-mobile.png",
+      "bytes": 42563,
+      "sha256": "f4ea71106e17c115fe578136643a21713edb7cf7dc23f6561d42b30d08420db4"
+    },
+    {
+      "path": "soltech-ui/review/coin-report-caution-320.png",
+      "bytes": 70435,
+      "sha256": "8bd64c7dec8ea2a19c2645274db29af69daaa9e558e6ed5ec5dd681d2b28f669"
+    },
+    {
+      "path": "soltech-ui/review/coin-report-clear.png",
+      "bytes": 51742,
+      "sha256": "9e7f0e8d8a65bc247d51250fd9dbea2aec6204d6c1bb5cb9b3c1c988815552c0"
+    },
+    {
+      "path": "soltech-ui/review/coin-report-desktop.png",
+      "bytes": 135131,
+      "sha256": "83d1a0eca568a606eb5d61701729c8bfb43b9c04818d8692658c932257e7ded6"
+    },
+    {
+      "path": "soltech-ui/review/coin-report-review.md",
+      "bytes": 8953,
+      "sha256": "e79ff5f83fb13294594d9846551a347a7b9775302eb78b08aaac89b22cf4a890"
+    },
+    {
+      "path": "soltech-ui/review/custom-scanner-badge-mobile.png",
+      "bytes": 15486,
+      "sha256": "69a281aa7a9e33b976c9a74cf9125c11b9fc805d38bc8bc4b4dd3633d35ac316"
+    },
+    {
+      "path": "soltech-ui/review/deactivate-stays-active.png",
+      "bytes": 23633,
+      "sha256": "e6c45d55de8a7eaa7183df1b1d350125355f2bbb1e897743333dd3db04a8c81d"
+    },
+    {
+      "path": "soltech-ui/review/default-scanner-desktop.png",
+      "bytes": 33155,
+      "sha256": "c8fa042c2b87b47ccb1af9277a572a7c4f82e18f57e2cf66021d977b69094aab"
+    },
+    {
+      "path": "soltech-ui/review/default-scanner-mobile.png",
+      "bytes": 24244,
+      "sha256": "d78b00f6a900b5351894ff9db4c33ba34a3743a90e37dd21d7f8c7ad6bd5d3e7"
+    },
+    {
+      "path": "soltech-ui/review/default-scanner-original-mobile.png",
+      "bytes": 38888,
+      "sha256": "599d9d30b5b802b14abb4fc9588bf9c47619f9f4654d5f093f9b22c09f0f1ad8"
+    },
+    {
+      "path": "soltech-ui/review/default-scanner-review-2026-09-28.md",
+      "bytes": 3801,
+      "sha256": "d9998937ff1ef77d6a17081f491726f74ebdbab43a7942fec287d2b9972329a1"
+    },
+    {
+      "path": "soltech-ui/review/desktop-find.png",
+      "bytes": 74777,
+      "sha256": "e31f7ce973ba05e18be360418da25e3291bc6eaddeeb4e5dff586f78cfbb3b39"
+    },
+    {
+      "path": "soltech-ui/review/dex-paid-boosts-mobile.png",
+      "bytes": 28508,
+      "sha256": "98a44e26c587d35d9b4081bdb5463302c228a951a0a6e8b70f7a17d1797d29f4"
+    },
+    {
+      "path": "soltech-ui/review/dex-status-explanation-mobile.png",
+      "bytes": 35109,
+      "sha256": "57ad5037cf1f5dd26d68b19c42466486124d3b084bdef874342bd5b6d8bf0d8d"
+    },
+    {
+      "path": "soltech-ui/review/find-create-mobile.png",
+      "bytes": 21396,
+      "sha256": "d71200c37848675f672a9244efab01080489eae4184addacc7b2e69d3fe788e3"
+    },
+    {
+      "path": "soltech-ui/review/finds-scanner-nav-icons.png",
+      "bytes": 49350,
+      "sha256": "4c3f42e045340166f4fd968f777e350d2806935bdd1a658f772809f8c1159e72"
+    },
+    {
+      "path": "soltech-ui/review/insider-signal-mobile.png",
+      "bytes": 44372,
+      "sha256": "db8b1bc5bfaf5d9ec1e8b05fad11efd9ebbf99ddc0193756c3b2b2d5cf5c6354"
+    },
+    {
+      "path": "soltech-ui/review/joined-clear-mobile.png",
+      "bytes": 23892,
+      "sha256": "e23a000a2ff0733668b2adb2f94be928db512ba10de4f6bdcbc8cbe34ad03c64"
+    },
+    {
+      "path": "soltech-ui/review/live-bundles-mobile.png",
+      "bytes": 46800,
+      "sha256": "191eda203211b2748a7031f77022fdb9d9e5750983c2dd1b29dc329beedd462e"
+    },
+    {
+      "path": "soltech-ui/review/live-check-desktop.png",
+      "bytes": 65626,
+      "sha256": "6955f5d16a31541323d71a3e8c718d71e6e34958b77721e02497e1b95b049061"
+    },
+    {
+      "path": "soltech-ui/review/live-check-mobile-results.png",
+      "bytes": 30339,
+      "sha256": "0207f9ec21aa642ded73f0590d1a52bc432ea82fbcde244bdeec40f8063fe10b"
+    },
+    {
+      "path": "soltech-ui/review/live-check-mobile.png",
+      "bytes": 32958,
+      "sha256": "58b3963abf340e1e99ce9b68e972ccb09a4d5641d1fdc737750e44f6cc45bbf9"
+    },
+    {
+      "path": "soltech-ui/review/live-check-review.md",
+      "bytes": 6623,
+      "sha256": "d1c53fe6e7bd18b348fb8750802cfc0da611804d9acb40f5e72991129deced6c"
+    },
+    {
+      "path": "soltech-ui/review/market-cap-default-mobile.png",
+      "bytes": 46003,
+      "sha256": "5f1ce8580e328c23819bc4828da14049f44f60b502b26a2e8ae26838d2b5249c"
+    },
+    {
+      "path": "soltech-ui/review/mobile-active.png",
+      "bytes": 32439,
+      "sha256": "50f154b57633597fe432d3f2e9bfd41fa982352b71cad7db1b361d0d4083132f"
+    },
+    {
+      "path": "soltech-ui/review/mobile-find.png",
+      "bytes": 34766,
+      "sha256": "be4b8ea770cc165f76908631b1518ee4a789241934f7175d5a0f43832bf149d8"
+    },
+    {
+      "path": "soltech-ui/review/notifications-profile-return-mobile.png",
+      "bytes": 38772,
+      "sha256": "c188d90f6e345571ed691f2b3996812587bee88b961733e078024bb1f469d82a"
+    },
+    {
+      "path": "soltech-ui/review/personal-profile-mobile.png",
+      "bytes": 34115,
+      "sha256": "0bc0b08227d59ed24f32062fd100f18d9dd9da2464d40b1e72e3c1d438a89523"
+    },
+    {
+      "path": "soltech-ui/review/personal-profile-web.png",
+      "bytes": 32910,
+      "sha256": "ba86618201f918ea45c41a2ae34109bb7c1d5c6cf5a0627b8fc9b25177b1d6c8"
+    },
+    {
+      "path": "soltech-ui/review/personal-settings-mobile.png",
+      "bytes": 34755,
+      "sha256": "861dc26915c70c69c87a24331e6c7e9613e76d2412632648f3827a0703b86dc2"
+    },
+    {
+      "path": "soltech-ui/review/private-bundle-setup.png",
+      "bytes": 31433,
+      "sha256": "04cb6c7d0ea78728ee74aa2f54bb546a0ea5eaa9a5e2f7ca5df1f1a580f91f51"
+    },
+    {
+      "path": "soltech-ui/review/profile-compact-mobile.png",
+      "bytes": 38814,
+      "sha256": "b29f0b0bb16ae1fe15ce4fa2c8c4c6b7627514e57b706b8f038f61f638fc80fd"
+    },
+    {
+      "path": "soltech-ui/review/profile-compact-review.md",
+      "bytes": 1312,
+      "sha256": "d50c06bbf9c3472b876678e4af5ad172b50baf3713cdb40015d9eaccd54bf362"
+    },
+    {
+      "path": "soltech-ui/review/profile-compact-test-results.txt",
+      "bytes": 10377,
+      "sha256": "80f10d10148c6d643c7634f3d347ec18f9474d57b109705e0db1299cbc775d96"
+    },
+    {
+      "path": "soltech-ui/review/profile-compact-web.png",
+      "bytes": 38383,
+      "sha256": "5722fefbeba15d3885e4be9a48fecb2973b1191781c51a93b7247c250c15c9f5"
+    },
+    {
+      "path": "soltech-ui/review/profile-photo-crop-mobile.png",
+      "bytes": 18980,
+      "sha256": "f85482b664dd9f1a719d3133e23a2eb3a0d7f261ddb027a4a78c33021b5bca43"
+    },
+    {
+      "path": "soltech-ui/review/profile-photo-crop-review.md",
+      "bytes": 2584,
+      "sha256": "a205f110b91f233c9a8b882ebf15b6361b0da6c1f261045a5c922cfc79fa2531"
+    },
+    {
+      "path": "soltech-ui/review/profile-photo-crop-tests.txt",
+      "bytes": 11046,
+      "sha256": "51615395fd0b6bf42f36ac6676c580209024d9c273c1246bf12c407b873028b2"
+    },
+    {
+      "path": "soltech-ui/review/profile-settings-review.md",
+      "bytes": 3119,
+      "sha256": "8a62f720b3ca5c2edde666bcac527e06eaf0260ee84e9dfc7ea188d4b16a0f5d"
+    },
+    {
+      "path": "soltech-ui/review/profile-shortcut-icons-mobile.png",
+      "bytes": 40741,
+      "sha256": "102e445ee2e7346cb68726539b995f001eaa48e857932380db2ffb1dac246191"
+    },
+    {
+      "path": "soltech-ui/review/profile-shortcut-icons-refined-mobile.png",
+      "bytes": 41168,
+      "sha256": "51ddc46ec000a3be372f2ce5d36e09f40ac187090ce18c8feb7d3e9d5f06a3f4"
+    },
+    {
+      "path": "soltech-ui/review/profile-test-results.txt",
+      "bytes": 10257,
+      "sha256": "e7cd858b670d9f597631a880e0a10e1a816aefbcacf7bb788b4579febb0cf874"
+    },
+    {
+      "path": "soltech-ui/review/redesign-review.md",
+      "bytes": 3887,
+      "sha256": "5b9ba35d2cc85115f31968f4816c4db483c1e22148db4e14bc22b0ef49ee1527"
+    },
+    {
+      "path": "soltech-ui/review/refined-chart-cap-mobile.png",
+      "bytes": 27256,
+      "sha256": "41c079c454efb17668b1a3883c32524a6af357509b845b039e9aabf01f1915a5"
+    },
+    {
+      "path": "soltech-ui/review/refined-chart-desktop.png",
+      "bytes": 44061,
+      "sha256": "3ab8eba6a178521b6f9efb36aa5b248c97adce126a641383404f4474378ea5d9"
+    },
+    {
+      "path": "soltech-ui/review/refined-chart-price-mobile.png",
+      "bytes": 27048,
+      "sha256": "d1a8e4ceb23ab049bffbccebed07510536c43387ad67b57354898803534a0527"
+    },
+    {
+      "path": "soltech-ui/review/saved-active-status-mobile.png",
+      "bytes": 36391,
+      "sha256": "5d58ae3f1af56d174066c444ed4182ad623f52715de0da4b9aecc06e5d6c68cd"
+    },
+    {
+      "path": "soltech-ui/review/scanner-builder-review.md",
+      "bytes": 3417,
+      "sha256": "74d88ba1f57974259adc6b1224a4e80c68b65255e02d46fac7fcdbcdcd7029b5"
+    },
+    {
+      "path": "soltech-ui/review/scanner-colored-silver-mobile.png",
+      "bytes": 34800,
+      "sha256": "5d1a0f783679bed33e26c1ca0e6faeceabdb958d56bd0b4b3b590ffe0feb79e5"
+    },
+    {
+      "path": "soltech-ui/review/scanner-deactivate-mobile.png",
+      "bytes": 26947,
+      "sha256": "5e04d5117bbd34d8988e1fa366e4dd40248d4c2c3cd7464dbdad143184343129"
+    },
+    {
+      "path": "soltech-ui/review/scanner-flow-refinement-2026-09-28.md",
+      "bytes": 3448,
+      "sha256": "dcfb3018312972ef84fe2bdcd9aeb451dce935c065a175bf34c8d1e4bdc20c31"
+    },
+    {
+      "path": "soltech-ui/review/scanner-icon-picker-mobile.png",
+      "bytes": 39700,
+      "sha256": "97f6744205a3a9847be37f19e2a8ed2a8ca0c05c0bb5236923d34bca17a05c6d"
+    },
+    {
+      "path": "soltech-ui/review/scanner-launch-icons-mobile.png",
+      "bytes": 34787,
+      "sha256": "98ac2b993f347c391e8501bcc99c8c0d7d0521c297008796891a7f2fb8e698ac"
+    },
+    {
+      "path": "soltech-ui/review/scanner-launch-icons-web.png",
+      "bytes": 60627,
+      "sha256": "ddd84a2324864d280d6fc6098b3232348e314b5869b3e65dae3e15ab0e5cdfc2"
+    },
+    {
+      "path": "soltech-ui/review/scanner-marks-mobile.png",
+      "bytes": 33864,
+      "sha256": "fb9f6e8e8ba9a02e624f8a8e1f36fcf6c8aa98b97bcf460cc7e7df2fecf5ac2c"
+    },
+    {
+      "path": "soltech-ui/review/scanner-marks-web.png",
+      "bytes": 60537,
+      "sha256": "260c907f939aa06350245795fc8281055bece33bd72b2777021d18fe25865838"
+    },
+    {
+      "path": "soltech-ui/review/scanner-silver-icons-mobile.png",
+      "bytes": 34711,
+      "sha256": "f5aebbbd829e9a7d496886dd4f01fe7051ca51b24c19173875de583b225f0953"
+    },
+    {
+      "path": "soltech-ui/review/scanner-silver-icons-web.png",
+      "bytes": 60551,
+      "sha256": "88609689482dfc47af1a8271d00954563fc10b5e7403a31aec72d5ec2f8fdc71"
+    },
+    {
+      "path": "soltech-ui/review/scanner-solana-accents-mobile.png",
+      "bytes": 34803,
+      "sha256": "630b881c6a5eed2cd0dc24b94f20c87748f32af9db3d17cfb77395486a609982"
+    },
+    {
+      "path": "soltech-ui/review/scanner-white-silver-facets-mobile.png",
+      "bytes": 35121,
+      "sha256": "b2550c7d058847c68dd6394e08f9bf744e0cf0836c97da6e8a3a3491e9c6f59c"
+    },
+    {
+      "path": "soltech-ui/review/single-scanner-mobile.png",
+      "bytes": 35053,
+      "sha256": "868a9b987238ef507452b68f408c24fa77cbf69d9eedcb1066883291fd9ebcf8"
+    },
+    {
+      "path": "soltech-ui/review/single-scanner-preview.png",
+      "bytes": 49380,
+      "sha256": "cdecff87718ff0f14d1b5cd49ef888aeeb6e52a756c66b7ee7b0083f9d562696"
+    },
+    {
+      "path": "soltech-ui/review/single-scanner-review-2026-09-28.md",
+      "bytes": 4196,
+      "sha256": "09a71bef404c87445efe5a7445f55acc97bc20f12a8e57033804352e7e39fb5e"
+    },
+    {
+      "path": "soltech-ui/review/single-scanner-save-exit-mobile.png",
+      "bytes": 7415,
+      "sha256": "52e758dd03b5e98110a027ec4c05ad6bfba7f65d92924304c1e82c632d16ec77"
+    },
+    {
+      "path": "soltech-ui/review/single-scanner-setup-320.png",
+      "bytes": 28821,
+      "sha256": "5eaee6241bd9ee57c3c4e59411a5ae53c169b70c54b69ad50c11c8f079ca6bf4"
+    },
+    {
+      "path": "soltech-ui/review/single-scanner-web.png",
+      "bytes": 45962,
+      "sha256": "2db3516da7f67eb4014ff492e8890e366f9d2ea728f03890ae399ebf1e92436f"
+    },
+    {
+      "path": "soltech-ui/server.cjs",
+      "bytes": 105,
+      "sha256": "19e41e9dc311166641bd66852cb5ed6c2803f05c4bf78c5f000c02e835ec8b02"
+    },
+    {
+      "path": "soltech-ui/START-HERE.md",
+      "bytes": 27289,
+      "sha256": "c7afd3506e5bc230d080d7dab783fb6fa3a83ae24336d0af50afdf93dd65e80b"
+    },
+    {
+      "path": "soltech-ui/tests/bundler-setup.test.mjs",
+      "bytes": 6264,
+      "sha256": "c5676e76329c2c719cf9b0d78bbf98d79c567841ac04801ce832ca6f32c0324b"
+    },
+    {
+      "path": "soltech-ui/tests/bundlers.test.mjs",
+      "bytes": 6756,
+      "sha256": "df5b2e424e9ef41ecdbb6850728049d023a1046663f9dc0a60970beeef400523"
+    },
+    {
+      "path": "soltech-ui/tests/coin-checker-render.test.mjs",
+      "bytes": 4837,
+      "sha256": "157578e8e61222cc00b8325f560f32b47530105c3576c421c33b56a43a6859e7"
+    },
+    {
+      "path": "soltech-ui/tests/coin-checker.test.mjs",
+      "bytes": 28201,
+      "sha256": "63b3f0d31008fd23eaf0c981c64d4fc985abc5c94a37b6eae75b217ee0255630"
+    },
+    {
+      "path": "soltech-ui/tests/coin-history.test.mjs",
+      "bytes": 6710,
+      "sha256": "8230e9d12087a06295b4bd38982914562ad1ebe84067398c8f2604c46e5c88a6"
+    },
+    {
+      "path": "soltech-ui/tests/daily-recap.test.mjs",
+      "bytes": 1912,
+      "sha256": "d09f280bf587a716d64ad7be715fab92efde1299d1de5909767debfc82859706"
+    },
+    {
+      "path": "soltech-ui/tests/personal-scanner.test.mjs",
+      "bytes": 8914,
+      "sha256": "74f97ab97f93d4af3eba298fa3d16ef5269f501dbc7705c529e6aaed229691e0"
+    },
+    {
+      "path": "soltech-ui/tests/photo-crop.test.mjs",
+      "bytes": 4165,
+      "sha256": "eac29cc28ec042862670816d848f7e347428941942adbdd2a873e47b755a6c54"
+    },
+    {
+      "path": "soltech-ui/tests/profile-store.test.mjs",
+      "bytes": 6285,
+      "sha256": "3a75a3bdf394562014174ea4fb749d2079ea40d0cd564b577422e73cad1d789c"
+    },
+    {
+      "path": "soltech-ui/tests/scanner-builder.test.mjs",
+      "bytes": 12133,
+      "sha256": "4b8ccc4cf46e27c5938324351e8c374c085a125fb146abe4d39cfad8af9f15b4"
+    },
+    {
+      "path": "soltech-ui/tests/scanner-findings.test.mjs",
+      "bytes": 3109,
+      "sha256": "18568f853886a036244a5610c87970d0da21d9329d3b060f860baebb12cbec71"
+    },
+    {
+      "path": "soltech-ui/tests/scanner-settings.test.mjs",
+      "bytes": 4476,
+      "sha256": "6444ade36a0acb46f9a3267262d75426307b491f8326afd44a10558f5660cbcd"
+    },
+    {
+      "path": "soltech-ui/tests/workspace.test.mjs",
+      "bytes": 8669,
+      "sha256": "78fa2002bd1276af1d07073bfcaa8fb57f5ae1741752d2bf8d79ce960c38bd29"
+    }
+  ]
+}

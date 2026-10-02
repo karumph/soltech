@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reference-led UI/UX"
+  short_description: "Find visual references and shape a focused UI preview"
+  default_prompt: "Use $reference-led-ui-ux to find relevant visual examples, recommend a coherent direction, and create a small preview within my requested scope."

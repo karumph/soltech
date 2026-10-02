@@ -1,0 +1,815 @@
+{
+  "created": "2026-09-28T23:49:59.8645019-05:00",
+  "files": [
+    {
+      "path": ".openai/hosting.json",
+      "length": 106,
+      "sha256": "10683AC113BF2C08E19884254DB42A911840CFCFED3F00B90DEAA9BB1F0FB85E"
+    },
+    {
+      "path": "backups/current-draft.json",
+      "length": 986,
+      "sha256": "67EF22A566ACDA4582FF5834E0A131F29AE91507BD57453AAA2A6216777513B4"
+    },
+    {
+      "path": "bundler-api.mjs",
+      "length": 2516,
+      "sha256": "BAB8AEE1FE8FC6ACB60AD8846B36074A6F354880BBECD0AB0C55ADFEBE6EF972"
+    },
+    {
+      "path": "bundler-setup.mjs",
+      "length": 5657,
+      "sha256": "BC943D1AC5661C84AFEBC4A91F527F9C7193C13539293171C70D17BD4B93338A"
+    },
+    {
+      "path": "dist/app.css",
+      "length": 35245,
+      "sha256": "90F25D356C053E8660AFEF686843DED7E72175A4F806FC3C36B37674D7956117"
+    },
+    {
+      "path": "dist/app.js",
+      "length": 37489,
+      "sha256": "ACD5751998174D855CA4EB3BE8A4103EEE51D72FE7A055316EAE6BDCF0054E1F"
+    },
+    {
+      "path": "dist/assets/phosphor-license.txt",
+      "length": 1071,
+      "sha256": "B5B1F1DA112D18EA2147DECFD48DDC1BF2B5AEB6C265381579340E95B15A2BB2"
+    },
+    {
+      "path": "dist/assets/soltech-logo.png",
+      "length": 1234305,
+      "sha256": "90394BDEF6DFAA2C803DE97342A72A5BDFE39FC3BE5E54F9D401301CAE2BCB71"
+    },
+    {
+      "path": "dist/blue-glass.css",
+      "length": 6063,
+      "sha256": "C2966CF060281D99620D50735C25A2A833EEB1ABB364A9BF4058E2ACAF3B02A8"
+    },
+    {
+      "path": "dist/coin-checker-data.js",
+      "length": 23272,
+      "sha256": "F45C9BCEB0615C6C09006443DF79CB9BDE1E4CA198D35A3CDA7F267D0393AD6C"
+    },
+    {
+      "path": "dist/coin-checker.css",
+      "length": 16101,
+      "sha256": "6814DB66CD36D8478CBA1DDE7C3763C67A895CC1E49B6ADB2B448F26EB2D6736"
+    },
+    {
+      "path": "dist/coin-checker.js",
+      "length": 24333,
+      "sha256": "5F35728B164B1AF40AC6BC2C96A8C0CBAC64809ECA90412B748C83EE23CB184B"
+    },
+    {
+      "path": "dist/coin-history.js",
+      "length": 14953,
+      "sha256": "297F80D1BBDD63156B9DA0DAEEA820440BE9F4DD0925585D737923F365FE1E7F"
+    },
+    {
+      "path": "dist/coin-networks.js",
+      "length": 1102,
+      "sha256": "A2BF66B4FC4204CB5AAA0A5BF3155DFE92CB09C0B69E23AC84E5F03188988F31"
+    },
+    {
+      "path": "dist/daily-recap.css",
+      "length": 2252,
+      "sha256": "79ACF5730F4B72310E4EFA7180879A6731BC2C0B4EB6983940AF520FB30FB258"
+    },
+    {
+      "path": "dist/daily-recap.js",
+      "length": 2412,
+      "sha256": "AE2F90524A83A82710CCF23D27DD230DE5218EA067D303CC2804C835BCDE4AC5"
+    },
+    {
+      "path": "dist/data.js",
+      "length": 4724,
+      "sha256": "E10BCC952FB07BA968B6819E15DD48487D5A1916D7456BE0D10337BE67DC4E66"
+    },
+    {
+      "path": "dist/index.html",
+      "length": 3589,
+      "sha256": "E6CB07A8F4382971C267E6E7E9817C4B3EF862FEA4A4BD7C99745662FF302C12"
+    },
+    {
+      "path": "dist/personal-scanner-store.js",
+      "length": 5047,
+      "sha256": "7924C6D9EAC32C4E9399BD5F6942BC7B9F63F0432AD5F2C4A3836ADA3477FFAF"
+    },
+    {
+      "path": "dist/personal-scanner.css",
+      "length": 6433,
+      "sha256": "6F808FE5311453D618814ECBF13B859AEA810A2B1997999069DE62A5B9DCD244"
+    },
+    {
+      "path": "dist/personal-scanner.js",
+      "length": 18113,
+      "sha256": "B0E239DA679AC1B384F194FE2A0817718237587D70870FDC9137C0F93E4C002A"
+    },
+    {
+      "path": "dist/photo-crop.js",
+      "length": 8129,
+      "sha256": "F07FD03F50A110F9FCB5A15CDA117A88E833ED7E0010A05BB8F3388B2BF7662D"
+    },
+    {
+      "path": "dist/profile-shortcut-icons.js",
+      "length": 930,
+      "sha256": "CF06062C535DE1EC357E974071B2AA9A87FABE531B188653E6538F606D2432FD"
+    },
+    {
+      "path": "dist/profile-store.js",
+      "length": 5114,
+      "sha256": "F51DDF6AF64BE7666B6617B5EA023F593FD9DD90F34D4A8A6D630824E0CE00D9"
+    },
+    {
+      "path": "dist/profile.css",
+      "length": 11908,
+      "sha256": "F4535C625340CF985588B5C630D20529ECBB71F926E34EB9AF5E5B0C9263CED4"
+    },
+    {
+      "path": "dist/profile.js",
+      "length": 15085,
+      "sha256": "4041D3420B636F75D24F7206E75724AAC26D2F01E83849A55DAFAD703F8A96F9"
+    },
+    {
+      "path": "dist/scanner-appearance.js",
+      "length": 1549,
+      "sha256": "661A16AA2805F330FB909E447D06BCB3E9F94DABBB77D04A9F5F833E594A5596"
+    },
+    {
+      "path": "dist/scanner-builder.css",
+      "length": 12632,
+      "sha256": "4C73D911594DF7263BA50B37F36ED1FF6F34337EF76691BF3DBAA120F099C59D"
+    },
+    {
+      "path": "dist/scanner-builder.js",
+      "length": 8229,
+      "sha256": "686124D029FAA2E22E35AFB8758747B3984BA69AAD0B3D4451F224F0D8045A2C"
+    },
+    {
+      "path": "dist/scanner-editor.css",
+      "length": 4511,
+      "sha256": "B848EE1DF217A6D33ADC9EA95AFCFE9502720F02928CFABCD7912F48D7341D8C"
+    },
+    {
+      "path": "dist/scanner-editor.js",
+      "length": 10422,
+      "sha256": "89E1D7917823C2AE1E2C542E36901DFEF4AC323FB7B2FB4CCF840E2208DCCB62"
+    },
+    {
+      "path": "dist/scanner-findings.css",
+      "length": 2817,
+      "sha256": "BB46DF536C403728FCD084E398F689074C939F5085CAC988E537C3C80283490A"
+    },
+    {
+      "path": "dist/scanner-findings.js",
+      "length": 813,
+      "sha256": "7C56317924C4A81167C14EC1EDB3AC08C0403A2B6A8C28DC1E783BE89A6E73B4"
+    },
+    {
+      "path": "dist/scanner-guidance.js",
+      "length": 3247,
+      "sha256": "97C0A205450A154C8CD7D29EEE04DA0DBF2228AF4D67AC795995C52F21D82235"
+    },
+    {
+      "path": "dist/scanner-icons.js",
+      "length": 1496,
+      "sha256": "C6E8BB0F17249BBFD6D93871E5700879A29BAE9B7B99AEBB8F7AF180A4D1F070"
+    },
+    {
+      "path": "dist/scanner-settings.js",
+      "length": 8932,
+      "sha256": "FD719D0F5CC1452880CD83B939E4DAA24F36E6FE5F5BDC97E146701421DCAF19"
+    },
+    {
+      "path": "dist/workspace.js",
+      "length": 8195,
+      "sha256": "097626C9C81623310ECEC73D5930F0D25CA99443B6D26CE614CB49740D5C55C7"
+    },
+    {
+      "path": "mobile-preview.html",
+      "length": 817,
+      "sha256": "8CCC04A205A1266C60FF0BB465347D87D1837B84D94A12D28DD78904824D1236"
+    },
+    {
+      "path": "mobile-preview.mjs",
+      "length": 2411,
+      "sha256": "86D491F810F2E27E1A5D2FF60D838E023571F75056A84749E9A2893E7C438EB5"
+    },
+    {
+      "path": "preview.mjs",
+      "length": 951,
+      "sha256": "B75158E75B4CA12E8187046C0B65B921DD8504924CD1FFAE1E83D0E4F60E6B98"
+    },
+    {
+      "path": "README.md",
+      "length": 3980,
+      "sha256": "816E0950DA9CFE2E38DA11ADC38D94B6B2E2065B955018FCF43622E65EC65741"
+    },
+    {
+      "path": "research/coin-checker-data-expansion.md",
+      "length": 5586,
+      "sha256": "6663F1E67CA4EF65BBCF384579C4F8C66E9A55868D9815DDE1018F4EACE82436"
+    },
+    {
+      "path": "research/default-scanner-2026-09-28.md",
+      "length": 8901,
+      "sha256": "1FBC9A4C4487F5BD370F7EE1BA7C09CB4C5C01C75171F213E8F3AFC3772F01D8"
+    },
+    {
+      "path": "research/profile-experience.md",
+      "length": 3277,
+      "sha256": "4663BA1528DB023607844BB7FE8459CC43AEF7C4064A94FDE1A4794F24E5F852"
+    },
+    {
+      "path": "research/psychology-motivation-sources.md",
+      "length": 17555,
+      "sha256": "E703A6B33C69AD0E7AE97122A101A6A5B7E80D0FEEE24CBB39CE09F9CDD78643"
+    },
+    {
+      "path": "research/psychology-trust-sources.md",
+      "length": 9989,
+      "sha256": "C89B2CBF0CB8F275971E4ACA41CEF06AD1DD12F3DED9015BD0488198A45D0DB6"
+    },
+    {
+      "path": "research/psychology-visual-sources.md",
+      "length": 18196,
+      "sha256": "9FB1C145D149C8EBA3466239BB866C12DCE7622DC30A4AF597EF08544BBEF7E1"
+    },
+    {
+      "path": "research/scanner-builder-current-audit-2026-09-28.md",
+      "length": 14700,
+      "sha256": "25B46FA5256792C6C7437E86F3C3C42EBEBE409A506E602F37C307AED0ACCAF6"
+    },
+    {
+      "path": "research/scanner-builder-direction-2026-09-28.md",
+      "length": 20765,
+      "sha256": "2573D8175D942A2FB363EE23DDC9E9D431332B944095F90A561F5659384F0663"
+    },
+    {
+      "path": "research/scanner-builder-ux-research-2026-09-28.md",
+      "length": 28751,
+      "sha256": "B178FCD92E1BB413B9D8F0A13089005FB22CBF9582F52D71E9D325720AC6BBC7"
+    },
+    {
+      "path": "research/single-scanner-direction-2026-09-28.md",
+      "length": 8694,
+      "sha256": "FA53283F394BB593AD8B63C2F8C4539A3B5A81FA35868915B410252191C6A64D"
+    },
+    {
+      "path": "research/soltech-opportunities-research-2026-09-26.md",
+      "length": 19439,
+      "sha256": "5024FD35BD7F13E90AE9481BA96D68F0F83B83CA67A46ACB8F76FBA2C8A1E55F"
+    },
+    {
+      "path": "research/soltech-product-design-research-2026-09-26.md",
+      "length": 17495,
+      "sha256": "418130D77E39BA5846B79E7A34CFBA03F13E3E410A6D6AC4514B149D5B2B5023"
+    },
+    {
+      "path": "research/soltech-psychology-and-signature-design-2026-09-28.md",
+      "length": 20646,
+      "sha256": "4E4FD42D825E097BEA1947DBD9802B797A7A3F9EFF9D07F28958EB6BF81368FB"
+    },
+    {
+      "path": "research/soltech-scanner-research-2026-09-25.md",
+      "length": 26026,
+      "sha256": "ACFF0EF615F5B6F5C81EEF2624DC8689DFA12417E13837E355AD0CDC057E54A2"
+    },
+    {
+      "path": "research/x-scanner-source-research-2026-09-28.md",
+      "length": 21954,
+      "sha256": "B72E3FA3632EE7071CC18E6B2938C874C4B7C099E9F148230ED9E3959F6790F7"
+    },
+    {
+      "path": "review/active-scan-icon-mobile.png",
+      "length": 35119,
+      "sha256": "8AC26213CBC80B3A42A204FCD192D578BD499BD7B59B561A6AEA95181EDAEF57"
+    },
+    {
+      "path": "review/app-add-sheet-mobile.png",
+      "length": 25645,
+      "sha256": "D9F347EFFB702148CB869361F127152BDDFE4C4779332717DF7280BBA0B6B3B2"
+    },
+    {
+      "path": "review/app-chart-mobile.png",
+      "length": 32275,
+      "sha256": "7AEACF10308A6746D2253B670E96881A2B5DC5924AFD4644B43AB6D3DAA40397"
+    },
+    {
+      "path": "review/app-clear-320.png",
+      "length": 24110,
+      "sha256": "D5D15371588BB0DF1A5E5C71704B1DCE4F6B9A92ED7B7BF98EA249F356FAADA5"
+    },
+    {
+      "path": "review/app-experience-review.md",
+      "length": 11370,
+      "sha256": "4FFF8F16B5647235FD9C319057684B35920691829869A87344C4064F9AD1FAB6"
+    },
+    {
+      "path": "review/app-find-desktop.png",
+      "length": 47850,
+      "sha256": "D372C1A1C7DFB9C90E8A6F2B55593138BA50C507013C6BAE2CCF1B46EAA3AB00"
+    },
+    {
+      "path": "review/app-find-mobile.png",
+      "length": 20826,
+      "sha256": "2A9D43DE7C234F5146B1A44DE7F4D432111014AFCE75B66FF3590FBA43D24915"
+    },
+    {
+      "path": "review/app-overview-mobile.png",
+      "length": 29744,
+      "sha256": "6FB3E2D8AC1A15D4ED4B38981E63AC7B481F4366A7E90B84418525691FC7E862"
+    },
+    {
+      "path": "review/app-profile-mobile.png",
+      "length": 18245,
+      "sha256": "407FC2A19DA3EE7A1E73D4C52DB7FCBA3B44EF2C4721F503E4AE30963D4C354F"
+    },
+    {
+      "path": "review/blue-glass-report-mobile.png",
+      "length": 27599,
+      "sha256": "5DF1F15429F505674F44646473628C367E888BAC81D8220FC8524470106AEE54"
+    },
+    {
+      "path": "review/blue-glass-scanners-mobile.png",
+      "length": 45111,
+      "sha256": "EE2534BDE14642E6D1FC6A2DD310B6D82C3C3F9645C181B1A76C68057F0DD6F9"
+    },
+    {
+      "path": "review/blue-glass-scanners-web.png",
+      "length": 20525,
+      "sha256": "591A170AB25C26F9169256F6D761F4C668FDAAF8CA4B8342F6E4589FA0DC7A9E"
+    },
+    {
+      "path": "review/blue-glass-theme-2026-09-28.md",
+      "length": 1947,
+      "sha256": "AE6EDF3EBAF69102EAAC75DEF76A3ECAED51E2FBB71FD79373E4B10103F07C66"
+    },
+    {
+      "path": "review/boost-labels-mobile.png",
+      "length": 33982,
+      "sha256": "DC2F55FDA97ADF4C934AD7322E4B4BB26C4CE4C565EC083065C649DB870F4888"
+    },
+    {
+      "path": "review/builder-current-mobile.png",
+      "length": 49644,
+      "sha256": "5EC2E7A98CE8FB0BA424C4891076E9AE3993F2DD6B67B2A59AC18AEAC75C02EA"
+    },
+    {
+      "path": "review/builder-purpose-desktop.png",
+      "length": 50514,
+      "sha256": "E03DA30394796DD2A07BBDBD91001269EBCE4D263D05873FB360862955B5CAFC"
+    },
+    {
+      "path": "review/builder-purpose-mobile.png",
+      "length": 41598,
+      "sha256": "AFCBB61F05D240A8DF400F6342E05B8C84BC27B8C0939C3FC6F2041614F5B0C1"
+    },
+    {
+      "path": "review/builder-refined-review-desktop.png",
+      "length": 71838,
+      "sha256": "8DAC42BB777589A0A9BAD2925B02F56F2240ED4C57A04A2211AB12A19BA49F50"
+    },
+    {
+      "path": "review/builder-refined-setup-mobile.png",
+      "length": 39160,
+      "sha256": "99A579CC55E97B0AC0B68DD91F6886DF9F8A7908DFF48F5693C3BCA319A4F960"
+    },
+    {
+      "path": "review/builder-review-320.png",
+      "length": 47839,
+      "sha256": "5BB332D4FA52DA6016FCB77CD9B5311C784EA3248B28A0FC50026FF24023F90C"
+    },
+    {
+      "path": "review/builder-review-desktop.png",
+      "length": 70275,
+      "sha256": "D5C7E0F51DB4206C1373826653D0BA250245437B99F09340DAA7BF3E677EB5B0"
+    },
+    {
+      "path": "review/builder-three-choices-desktop.png",
+      "length": 63706,
+      "sha256": "D88EDE894A95F74AC6AE798FD1B46DB7836FE89366B1F853C9257E6CDF69788B"
+    },
+    {
+      "path": "review/bundler-connection-mobile.png",
+      "length": 47114,
+      "sha256": "A8E7888B925A70849401E0F801DECDBC509DB76A9EBE7DCC359706FA93763771"
+    },
+    {
+      "path": "review/coin-chart-cap-mobile.png",
+      "length": 17012,
+      "sha256": "8006B2A33710109CDA8DB312DDCAC3C436614047CE4B6BF35352C8CE57B21808"
+    },
+    {
+      "path": "review/coin-chart-mobile.png",
+      "length": 49982,
+      "sha256": "EFCC17649C1DBAE4F1FF58E79E6D8DF004B5F63AFBBA0C21070816214C546D33"
+    },
+    {
+      "path": "review/coin-checker-empty-mobile.png",
+      "length": 42563,
+      "sha256": "F4EA71106E17C115FE578136643A21713EDB7CF7DC23F6561D42B30D08420DB4"
+    },
+    {
+      "path": "review/coin-report-caution-320.png",
+      "length": 70435,
+      "sha256": "8BD64C7DEC8EA2A19C2645274DB29AF69DAAA9E558E6ED5EC5DD681D2B28F669"
+    },
+    {
+      "path": "review/coin-report-clear.png",
+      "length": 51742,
+      "sha256": "9E7F0E8D8A65BC247D51250FD9DBEA2AEC6204D6C1BB5CB9B3C1C988815552C0"
+    },
+    {
+      "path": "review/coin-report-desktop.png",
+      "length": 135131,
+      "sha256": "83D1A0ECA568A606EB5D61701729C8BFB43B9C04818D8692658C932257E7DED6"
+    },
+    {
+      "path": "review/coin-report-review.md",
+      "length": 8953,
+      "sha256": "E79FF5F83FB13294594D9846551A347A7B9775302EB78B08AAAC89B22CF4A890"
+    },
+    {
+      "path": "review/custom-scanner-badge-mobile.png",
+      "length": 15486,
+      "sha256": "69A281AA7A9E33B976C9A74CF9125C11B9FC805D38BC8BC4B4DD3633D35AC316"
+    },
+    {
+      "path": "review/deactivate-stays-active.png",
+      "length": 23633,
+      "sha256": "E6C45D55DE8A7EAA7183DF1B1D350125355F2BBB1E897743333DD3DB04A8C81D"
+    },
+    {
+      "path": "review/default-scanner-desktop.png",
+      "length": 33155,
+      "sha256": "C8FA042C2B87B47CCB1AF9277A572A7C4F82E18F57E2CF66021D977B69094AAB"
+    },
+    {
+      "path": "review/default-scanner-mobile.png",
+      "length": 24244,
+      "sha256": "D78B00F6A900B5351894FF9DB4C33BA34A3743A90E37DD21D7F8C7AD6BD5D3E7"
+    },
+    {
+      "path": "review/default-scanner-original-mobile.png",
+      "length": 38888,
+      "sha256": "599D9D30B5B802B14ABB4FC9588BF9C47619F9F4654D5F093F9B22C09F0F1AD8"
+    },
+    {
+      "path": "review/default-scanner-review-2026-09-28.md",
+      "length": 3801,
+      "sha256": "D9998937FF1EF77D6A17081F491726F74EBDBAB43A7942FEC287D2B9972329A1"
+    },
+    {
+      "path": "review/desktop-find.png",
+      "length": 74777,
+      "sha256": "E31F7CE973BA05E18BE360418DA25E3291BC6EADDEEB4E5DFF586F78CFBB3B39"
+    },
+    {
+      "path": "review/dex-paid-boosts-mobile.png",
+      "length": 28508,
+      "sha256": "98A44E26C587D35D9B4081BDB5463302C228A951A0A6E8B70F7A17D1797D29F4"
+    },
+    {
+      "path": "review/dex-status-explanation-mobile.png",
+      "length": 35109,
+      "sha256": "57AD5037CF1F5DD26D68B19C42466486124D3B084BDEF874342BD5B6D8BF0D8D"
+    },
+    {
+      "path": "review/find-create-mobile.png",
+      "length": 21396,
+      "sha256": "D71200C37848675F672A9244EFAB01080489EAE4184ADDACC7B2E69D3FE788E3"
+    },
+    {
+      "path": "review/finds-scanner-nav-icons.png",
+      "length": 49350,
+      "sha256": "4C3F42E045340166F4FD968F777E350D2806935BDD1A658F772809F8C1159E72"
+    },
+    {
+      "path": "review/insider-signal-mobile.png",
+      "length": 44372,
+      "sha256": "DB8B1BC5BFAF5D9EC1E8B05FAD11EFD9EBBF99DDC0193756C3B2B2D5CF5C6354"
+    },
+    {
+      "path": "review/joined-clear-mobile.png",
+      "length": 23892,
+      "sha256": "E23A000A2FF0733668B2ADB2F94BE928DB512BA10DE4F6BDCBC8CBE34AD03C64"
+    },
+    {
+      "path": "review/live-bundles-mobile.png",
+      "length": 46800,
+      "sha256": "191EDA203211B2748A7031F77022FDB9D9E5750983C2DD1B29DC329BEEDD462E"
+    },
+    {
+      "path": "review/live-check-desktop.png",
+      "length": 65626,
+      "sha256": "6955F5D16A31541323D71A3E8C718D71E6E34958B77721E02497E1B95B049061"
+    },
+    {
+      "path": "review/live-check-mobile-results.png",
+      "length": 30339,
+      "sha256": "0207F9EC21AA642DED73F0590D1A52BC432EA82FBCDE244BDEEC40F8063FE10B"
+    },
+    {
+      "path": "review/live-check-mobile.png",
+      "length": 32958,
+      "sha256": "58B3963ABF340E1E99CE9B68E972CCB09A4D5641D1FDC737750E44F6CC45BBF9"
+    },
+    {
+      "path": "review/live-check-review.md",
+      "length": 6623,
+      "sha256": "D1C53FE6E7BD18B348FB8750802CFC0DA611804D9ACB40F5E72991129DECED6C"
+    },
+    {
+      "path": "review/market-cap-default-mobile.png",
+      "length": 46003,
+      "sha256": "5F1CE8580E328C23819BC4828DA14049F44F60B502B26A2E8AE26838D2B5249C"
+    },
+    {
+      "path": "review/mobile-active.png",
+      "length": 32439,
+      "sha256": "50F154B57633597FE432D3F2E9BFD41FA982352B71CAD7DB1B361D0D4083132F"
+    },
+    {
+      "path": "review/mobile-find.png",
+      "length": 34766,
+      "sha256": "BE4B8EA770CC165F76908631B1518EE4A789241934F7175D5A0F43832BF149D8"
+    },
+    {
+      "path": "review/notifications-profile-return-mobile.png",
+      "length": 38772,
+      "sha256": "C188D90F6E345571ED691F2B3996812587BEE88B961733E078024BB1F469D82A"
+    },
+    {
+      "path": "review/personal-profile-mobile.png",
+      "length": 34115,
+      "sha256": "0BC0B08227D59ED24F32062FD100F18D9DD9DA2464D40B1E72E3C1D438A89523"
+    },
+    {
+      "path": "review/personal-profile-web.png",
+      "length": 32910,
+      "sha256": "BA86618201F918EA45C41A2AE34109BB7C1D5C6CF5A0627B8FC9B25177B1D6C8"
+    },
+    {
+      "path": "review/personal-settings-mobile.png",
+      "length": 34755,
+      "sha256": "861DC26915C70C69C87A24331E6C7E9613E76D2412632648F3827A0703B86DC2"
+    },
+    {
+      "path": "review/private-bundle-setup.png",
+      "length": 31433,
+      "sha256": "04CB6C7D0EA78728EE74AA2F54BB546A0EA5EAA9A5E2F7CA5DF1F1A580F91F51"
+    },
+    {
+      "path": "review/profile-compact-mobile.png",
+      "length": 38814,
+      "sha256": "B29F0B0BB16AE1FE15CE4FA2C8C4C6B7627514E57B706B8F038F61F638FC80FD"
+    },
+    {
+      "path": "review/profile-compact-review.md",
+      "length": 1312,
+      "sha256": "D50C06BBF9C3472B876678E4AF5AD172B50BAF3713CDB40015D9EACCD54BF362"
+    },
+    {
+      "path": "review/profile-compact-test-results.txt",
+      "length": 10377,
+      "sha256": "80F10D10148C6D643C7634F3D347EC18F9474D57B109705E0DB1299CBC775D96"
+    },
+    {
+      "path": "review/profile-compact-web.png",
+      "length": 38383,
+      "sha256": "5722FEFBEBA15D3885E4BE9A48FECB2973B1191781C51A93B7247C250C15C9F5"
+    },
+    {
+      "path": "review/profile-photo-crop-mobile.png",
+      "length": 18980,
+      "sha256": "F85482B664DD9F1A719D3133E23A2EB3A0D7F261DDB027A4A78C33021B5BCA43"
+    },
+    {
+      "path": "review/profile-photo-crop-review.md",
+      "length": 2584,
+      "sha256": "A205F110B91F233C9A8B882EBF15B6361B0DA6C1F261045A5C922CFC79FA2531"
+    },
+    {
+      "path": "review/profile-photo-crop-tests.txt",
+      "length": 11046,
+      "sha256": "51615395FD0B6BF42F36AC6676C580209024D9C273C1246BF12C407B873028B2"
+    },
+    {
+      "path": "review/profile-settings-review.md",
+      "length": 3119,
+      "sha256": "8A62F720B3CA5C2EDDE666BCAC527E06EAF0260EE84E9DFC7EA188D4B16A0F5D"
+    },
+    {
+      "path": "review/profile-shortcut-icons-mobile.png",
+      "length": 40741,
+      "sha256": "102E445EE2E7346CB68726539B995F001EAA48E857932380DB2FFB1DAC246191"
+    },
+    {
+      "path": "review/profile-shortcut-icons-refined-mobile.png",
+      "length": 41168,
+      "sha256": "51DDC46EC000A3BE372F2CE5D36E09F40AC187090CE18C8FEB7D3E9D5F06A3F4"
+    },
+    {
+      "path": "review/profile-test-results.txt",
+      "length": 10257,
+      "sha256": "E7CD858B670D9F597631A880E0A10E1A816AEFBCACF7BB788B4579FEBB0CF874"
+    },
+    {
+      "path": "review/redesign-review.md",
+      "length": 3887,
+      "sha256": "5B9BA35D2CC85115F31968F4816C4DB483C1E22148DB4E14BC22B0EF49EE1527"
+    },
+    {
+      "path": "review/refined-chart-cap-mobile.png",
+      "length": 27256,
+      "sha256": "41C079C454EFB17668B1A3883C32524A6AF357509B845B039E9AABF01F1915A5"
+    },
+    {
+      "path": "review/refined-chart-desktop.png",
+      "length": 44061,
+      "sha256": "3AB8EBA6A178521B6F9EFB36AA5B248C97ADCE126A641383404F4474378EA5D9"
+    },
+    {
+      "path": "review/refined-chart-price-mobile.png",
+      "length": 27048,
+      "sha256": "D1A8E4CEB23AB049BFFBCCEBED07510536C43387AD67B57354898803534A0527"
+    },
+    {
+      "path": "review/saved-active-status-mobile.png",
+      "length": 36391,
+      "sha256": "5D58AE3F1AF56D174066C444ED4182AD623F52715DE0DA4B9AECC06E5D6C68CD"
+    },
+    {
+      "path": "review/scanner-builder-review.md",
+      "length": 3417,
+      "sha256": "74D88BA1F57974259ADC6B1224A4E80C68B65255E02D46FAC7FCDBCDCD7029B5"
+    },
+    {
+      "path": "review/scanner-colored-silver-mobile.png",
+      "length": 34800,
+      "sha256": "5D1A0F783679BED33E26C1CA0E6FAECEABDB958D56BD0B4B3B590FFE0FEB79E5"
+    },
+    {
+      "path": "review/scanner-deactivate-mobile.png",
+      "length": 26947,
+      "sha256": "5E04D5117BBD34D8988E1FA366E4DD40248D4C2C3CD7464DBDAD143184343129"
+    },
+    {
+      "path": "review/scanner-flow-refinement-2026-09-28.md",
+      "length": 3448,
+      "sha256": "DCFB3018312972EF84FE2BDCD9AEB451DCE935C065A175BF34C8D1E4BDC20C31"
+    },
+    {
+      "path": "review/scanner-icon-picker-mobile.png",
+      "length": 39700,
+      "sha256": "97F6744205A3A9847BE37F19E2A8ED2A8CA0C05C0BB5236923D34BCA17A05C6D"
+    },
+    {
+      "path": "review/scanner-launch-icons-mobile.png",
+      "length": 34787,
+      "sha256": "98AC2B993F347C391E8501BCC99C8C0D7D0521C297008796891A7F2FB8E698AC"
+    },
+    {
+      "path": "review/scanner-launch-icons-web.png",
+      "length": 60627,
+      "sha256": "DDD84A2324864D280D6FC6098B3232348E314B5869B3E65DAE3E15AB0E5CDFC2"
+    },
+    {
+      "path": "review/scanner-marks-mobile.png",
+      "length": 33864,
+      "sha256": "FB9F6E8E8BA9A02E624F8A8E1F36FCF6C8AA98B97BCF460CC7E7DF2FECF5AC2C"
+    },
+    {
+      "path": "review/scanner-marks-web.png",
+      "length": 60537,
+      "sha256": "260C907F939AA06350245795FC8281055BECE33BD72B2777021D18FE25865838"
+    },
+    {
+      "path": "review/scanner-silver-icons-mobile.png",
+      "length": 34711,
+      "sha256": "F5AEBBBD829E9A7D496886DD4F01FE7051CA51B24C19173875DE583B225F0953"
+    },
+    {
+      "path": "review/scanner-silver-icons-web.png",
+      "length": 60551,
+      "sha256": "88609689482DFC47AF1A8271D00954563FC10B5E7403A31AEC72D5EC2F8FDC71"
+    },
+    {
+      "path": "review/scanner-solana-accents-mobile.png",
+      "length": 34803,
+      "sha256": "630B881C6A5EED2CD0DC24B94F20C87748F32AF9DB3D17CFB77395486A609982"
+    },
+    {
+      "path": "review/scanner-white-silver-facets-mobile.png",
+      "length": 35121,
+      "sha256": "B2550C7D058847C68DD6394E08F9BF744E0CF0836C97DA6E8A3A3491E9C6F59C"
+    },
+    {
+      "path": "review/single-scanner-mobile.png",
+      "length": 35053,
+      "sha256": "868A9B987238EF507452B68F408C24FA77CBF69D9EEDCB1066883291FD9EBCF8"
+    },
+    {
+      "path": "review/single-scanner-preview.png",
+      "length": 49380,
+      "sha256": "CDECFF87718FF0F14D1B5CD49EF888AEEB6E52A756C66B7EE7B0083F9D562696"
+    },
+    {
+      "path": "review/single-scanner-review-2026-09-28.md",
+      "length": 4196,
+      "sha256": "09A71BEF404C87445EFE5A7445F55ACC97BC20F12A8E57033804352E7E39FB5E"
+    },
+    {
+      "path": "review/single-scanner-save-exit-mobile.png",
+      "length": 7415,
+      "sha256": "52E758DD03B5E98110A027EC4C05AD6BFBA7F65D92924304C1E82C632D16EC77"
+    },
+    {
+      "path": "review/single-scanner-setup-320.png",
+      "length": 28821,
+      "sha256": "5EAEE6241BD9EE57C3C4E59411A5AE53C169B70C54B69AD50C11C8F079CA6BF4"
+    },
+    {
+      "path": "review/single-scanner-web.png",
+      "length": 45962,
+      "sha256": "2DB3516DA7F67EB4014FF492E8890E366F9D2EA728F03890AE399EBF1E92436F"
+    },
+    {
+      "path": "server.cjs",
+      "length": 105,
+      "sha256": "19E41E9DC311166641BD66852CB5ED6C2803F05C4BF78C5F000C02E835EC8B02"
+    },
+    {
+      "path": "START-HERE.md",
+      "length": 27289,
+      "sha256": "C7AFD3506E5BC230D080D7DAB783FB6FA3A83AE24336D0AF50AFDF93DD65E80B"
+    },
+    {
+      "path": "tests/bundler-setup.test.mjs",
+      "length": 6264,
+      "sha256": "C5676E76329C2C719CF9B0D78BBF98D79C567841AC04801CE832CA6F32C0324B"
+    },
+    {
+      "path": "tests/bundlers.test.mjs",
+      "length": 6756,
+      "sha256": "DF5B2E424E9EF41ECDBB6850728049D023A1046663F9DC0A60970BEEEF400523"
+    },
+    {
+      "path": "tests/coin-checker-render.test.mjs",
+      "length": 4837,
+      "sha256": "157578E8E61222CC00B8325F560F32B47530105C3576C421C33B56A43A6859E7"
+    },
+    {
+      "path": "tests/coin-checker.test.mjs",
+      "length": 28201,
+      "sha256": "63B3F0D31008FD23EAF0C981C64D4FC985ABC5C94A37B6EAE75B217EE0255630"
+    },
+    {
+      "path": "tests/coin-history.test.mjs",
+      "length": 6710,
+      "sha256": "8230E9D12087A06295B4BD38982914562AD1EBE84067398C8F2604C46E5C88A6"
+    },
+    {
+      "path": "tests/daily-recap.test.mjs",
+      "length": 1912,
+      "sha256": "D09F280BF587A716D64AD7BE715FAB92EFDE1299D1DE5909767DEBFC82859706"
+    },
+    {
+      "path": "tests/personal-scanner.test.mjs",
+      "length": 8914,
+      "sha256": "74F97AB97F93D4AF3EBA298FA3D16EF5269F501DBC7705C529E6AAED229691E0"
+    },
+    {
+      "path": "tests/photo-crop.test.mjs",
+      "length": 4165,
+      "sha256": "EAC29CC28EC042862670816D848F7E347428941942ADBDD2A873E47B755A6C54"
+    },
+    {
+      "path": "tests/profile-store.test.mjs",
+      "length": 6285,
+      "sha256": "3A75A3BDF394562014174EA4FB749D2079EA40D0CD564B577422E73CAD1D789C"
+    },
+    {
+      "path": "tests/scanner-builder.test.mjs",
+      "length": 12133,
+      "sha256": "4B8CCC4CF46E27C5938324351E8C374C085A125FB146ABE4D39CFAD8AF9F15B4"
+    },
+    {
+      "path": "tests/scanner-findings.test.mjs",
+      "length": 3109,
+      "sha256": "18568F853886A036244A5610C87970D0DA21D9329D3B060F860BAEBB12CBEC71"
+    },
+    {
+      "path": "tests/scanner-settings.test.mjs",
+      "length": 4476,
+      "sha256": "6444ADE36A0ACB46F9A3267262D75426307B491F8326AFD44A10558F5660CBCD"
+    },
+    {
+      "path": "tests/workspace.test.mjs",
+      "length": 8669,
+      "sha256": "78FA2002BD1276AF1D07073BFCAA8FB57F5AE1741752D2BF8D79CE960C38BD29"
+    }
+  ]
+}

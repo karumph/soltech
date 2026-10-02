@@ -1,0 +1,17 @@
+Tool: built-in image generation
+Purpose: concept only, not applied to the website
+
+Use case: ui-mockup. Edit the supplied scanner design into a drastically simpler replacement CARD ONLY.
+The user disliked the artificial, overdesigned look and extra wording. Make it look like an understated real product interface built with ordinary CSS.
+Exactly five content elements inside ONE card:
+1. The exact title "X scanner" at upper left.
+2. A small green dot followed by the exact word "Active" at upper right.
+3. One recognizable X platform logo, large and flat, understated monochrome light gray, centered in the open middle of the card, functioning as its quiet background visual. Its full silhouette is visible.
+4. A small bottom control with a simple pause icon and exact word "Pause".
+5. A small bottom control with a sliders icon and exact word "Customize".
+No other words anywhere in the image. No other icons except the two button icons and status dot. No decorative scan line, no waveform, no monitoring line, no categories, no extra heading, no caption, no Soltech logo, no navigation, no phone outline.
+Visual design: one plain dark charcoal card on a clean white canvas, generous restrained spacing. Flat solid charcoal surface, one thin silver-gray border, modest 18px corner radius, extremely subtle ordinary shadow. White title. Muted, small flat status treatment. Quiet compact outlined buttons together on the bottom right, normal practical touch sizes, about 42 logical pixels tall, equal visual weight. Put Customize then Pause left-to-right. Natural clean sans-serif text, normal medium weight, do not make all lettering oversized.
+Card aspect ratio about 1.25:1, roughly 400 logical pixels wide and 320 high. Center the single card on a white canvas with a comfortable small margin so it is the only focus.
+Remove every metallic bevel, chrome effect, brushed texture, glow, gradient, heavy shadow, 3D rendering, fake hardware, neon, futuristic flourish and background decoration from the reference. The only green is the small status dot and Active text. The X is a simple flat white/light-gray platform mark, NOT metallic or glowing. This should feel calm, minimal, and completely achievable as a real webpage.
+
+User palette clarification received after generation: black, gray and white; green remains reserved for Active. Optional accents may use a tiny amount of light/baby/tech blue. Keep only X scanner, Active, X logo, Pause and Customize. The current generated version has no blue accent.

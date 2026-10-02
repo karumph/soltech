@@ -1,0 +1,61 @@
+Soltech scanner themes
+Generated with the built-in image generation tool.
+Reference: Screenshot 2026-10-01 225027.png
+
+1. Silver Precision
+
+Use case: ui-mockup.
+Create one polished raster UI design image of the Soltech scanner in the reference screenshot. Image 1 is the existing UI and establishes the content and vertical information flow. Redesign its visual styling professionally with significantly better contrast, spacing, hierarchy, icon consistency, and finish.
+Composition: one complete narrow portrait scanner card viewed perfectly straight-on, very crisp readable UI typography, no perspective, no phone hardware, no desktop shell, no collage. Use a tall portrait canvas with small exterior margins; the scanner fills the image. Maintain a compact mobile component, not an entire app dashboard.
+Keep the recognizable top-to-bottom flow: header, two adjacent source cards, two merging connectors, a larger signal matching module with fine connecting traces and small nodes, coin checks, results row, quiet disclaimer and two footer controls.
+Exact UI text: header "Soltech scanner"; subtitle "X posts + new pairs"; small badge "Demo"; source titles "X posts" and "New pairs"; source captions "Scanning posts" and "Scanning pairs"; middle title "Match signals"; lower title "Coin checks"; results row "Finds" with count "0"; disclaimer "Demo preview · Live scanning isn’t connected."; footer controls "Customize" and "Pause".
+Use X glyph only for X posts; a refined paired-coins icon for New pairs. No invented numbers, extra metrics, new navigation, marketing copy, giant badges, or branding unrelated to Soltech. Keep exact words legible. Restrained, high-quality fintech design.
+Theme direction: Soltech SILVER PRECISION theme. Premium clean WHITE + SILVER design with charcoal type, hairline cool gray outlines, softly rounded 12px modules inside an 18px outer card. Brushed silver edge highlights with realistic but restrained dimensionality. White source cards, crisp silver branching wires, one restrained icy steel-blue activity highlight. Matching panel slightly raised on soft pale-silver background. Result row a handsome silver-white gradient with charcoal label. A quiet, airy technical instrument feel; extremely refined flat-first design. Avoid pastel rainbow, overly pale text, exaggerated glossy 3D, and neon.
+
+--------------------
+
+2. Graphite Contrast
+
+Use case: ui-mockup.
+Create one polished raster UI design image of the Soltech scanner in the reference screenshot. Image 1 is the existing UI and establishes the content and vertical information flow. Redesign its visual styling professionally with significantly better contrast, spacing, hierarchy, icon consistency, and finish.
+Composition: one complete narrow portrait scanner card viewed perfectly straight-on, very crisp readable UI typography, no perspective, no phone hardware, no desktop shell, no collage. Use a tall portrait canvas with small exterior margins; the scanner fills the image. Maintain a compact mobile component, not an entire app dashboard.
+Keep the recognizable top-to-bottom flow: header, two adjacent source cards, two merging connectors, a larger signal matching module with fine connecting traces and small nodes, coin checks, results row, quiet disclaimer and two footer controls.
+Exact UI text: header "Soltech scanner"; subtitle "X posts + new pairs"; small badge "Demo"; source titles "X posts" and "New pairs"; source captions "Scanning posts" and "Scanning pairs"; middle title "Match signals"; lower title "Coin checks"; results row "Finds" with count "0"; disclaimer "Demo preview · Live scanning isn’t connected."; footer controls "Customize" and "Pause".
+Use X glyph only for X posts; a refined paired-coins icon for New pairs. No invented numbers, extra metrics, new navigation, marketing copy, giant badges, or branding unrelated to Soltech. Keep exact words legible. Restrained, high-quality fintech design.
+Theme direction: Soltech GRAPHITE CONTRAST theme. Rich graphite-black outer card and header with white type, contrasting porcelain-white source cards and white match panel with charcoal type. Silver/chrome fine connector lines stand out against graphite. Coin checks in a slightly lighter charcoal inset with three polished silver circular indicators. Result bar is luminous silver with dark label. Delicate cold-blue indicator sparingly. Outer frame soft18px corners, interior12px corners. Strong black/white and polished silver identity, luxurious yet practical. No purple, no gradients of neon, no gaming interface.
+
+--------------------
+
+3. Blue Steel
+
+Use case: ui-mockup.
+Create one polished raster UI design image of the Soltech scanner in the reference screenshot. Image 1 is the existing UI and establishes the content and vertical information flow. Redesign its visual styling professionally with significantly better contrast, spacing, hierarchy, icon consistency, and finish.
+Composition: one complete narrow portrait scanner card viewed perfectly straight-on, very crisp readable UI typography, no perspective, no phone hardware, no desktop shell, no collage. Use a tall portrait canvas with small exterior margins; the scanner fills the image. Maintain a compact mobile component, not an entire app dashboard.
+Keep the recognizable top-to-bottom flow: header, two adjacent source cards, two merging connectors, a larger signal matching module with fine connecting traces and small nodes, coin checks, results row, quiet disclaimer and two footer controls.
+Exact UI text: header "Soltech scanner"; subtitle "X posts + new pairs"; small badge "Demo"; source titles "X posts" and "New pairs"; source captions "Scanning posts" and "Scanning pairs"; middle title "Match signals"; lower title "Coin checks"; results row "Finds" with count "0"; disclaimer "Demo preview · Live scanning isn’t connected."; footer controls "Customize" and "Pause".
+Use X glyph only for X posts; a refined paired-coins icon for New pairs. No invented numbers, extra metrics, new navigation, marketing copy, giant badges, or branding unrelated to Soltech. Keep exact words legible. Restrained, high-quality fintech design.
+Theme direction: Soltech BLUE STEEL theme. Matte cool gray-blue card with slate typography, very crisp moderate-steel-blue activity traces and small points. Source cards have softly raised cool silver-blue faces; matching module features precise technical circuit-like routing with right-angle softened corners rather than swoopy strings. Brushed silver border, modest10px internal corners. Coin checks horizontal inset, clean white results panel with a single tiny blue leading accent. Sophisticated engineered hardware / precision dashboard feeling, excellent contrast and clear hierarchy. Keep colors restrained and metallic, avoid saturated blue background, purple, neon, or childish pastel.
+
+--------------------
+
+4. Facet Edge
+
+Use case: ui-mockup.
+Create one polished raster UI design image of the Soltech scanner in the reference screenshot. Image 1 is the existing UI and establishes the content and vertical information flow. Redesign its visual styling professionally with significantly better contrast, spacing, hierarchy, icon consistency, and finish.
+Composition: one complete narrow portrait scanner card viewed perfectly straight-on, very crisp readable UI typography, no perspective, no phone hardware, no desktop shell, no collage. Use a tall portrait canvas with small exterior margins; the scanner fills the image. Maintain a compact mobile component, not an entire app dashboard.
+Keep the recognizable top-to-bottom flow: header, two adjacent source cards, two merging connectors, a larger signal matching module with fine connecting traces and small nodes, coin checks, results row, quiet disclaimer and two footer controls.
+Exact UI text: header "Soltech scanner"; subtitle "X posts + new pairs"; small badge "Demo"; source titles "X posts" and "New pairs"; source captions "Scanning posts" and "Scanning pairs"; middle title "Match signals"; lower title "Coin checks"; results row "Finds" with count "0"; disclaimer "Demo preview · Live scanning isn’t connected."; footer controls "Customize" and "Pause".
+Use X glyph only for X posts; a refined paired-coins icon for New pairs. No invented numbers, extra metrics, new navigation, marketing copy, giant badges, or branding unrelated to Soltech. Keep exact words legible. Restrained, high-quality fintech design.
+Theme direction: Soltech FACET EDGE theme. Mostly white, silver, charcoal, with subtle faceted geometry inspired by a precision-cut silver object. Outer container and larger matching module have a SINGLE neatly clipped upper-right corner, with restrained two-tone silver bevel edges. Other corners softly rounded and smaller cards simple clean rectangles. Source modules bright white; graph paths and nodes polished steel with a tiny cool-blue active connection. Strong dark header, white-silver finds bar with charcoal 'Finds'. Premium futuristic but understated, almost architectural. No decorative faces, crystals, excessive polygons, holograms, rainbow colors, or invented icons. Faceting only influences edge shape and silver surface finish.
+
+--------------------
+
+5. Silver Glass
+
+Use case: ui-mockup.
+Create one polished raster UI design image of the Soltech scanner in the reference screenshot. Image 1 is the existing UI and establishes the content and vertical information flow. Redesign its visual styling professionally with significantly better contrast, spacing, hierarchy, icon consistency, and finish.
+Composition: one complete narrow portrait scanner card viewed perfectly straight-on, very crisp readable UI typography, no perspective, no phone hardware, no desktop shell, no collage. Use a tall portrait canvas with small exterior margins; the scanner fills the image. Maintain a compact mobile component, not an entire app dashboard.
+Keep the recognizable top-to-bottom flow: header, two adjacent source cards, two merging connectors, a larger signal matching module with fine connecting traces and small nodes, coin checks, results row, quiet disclaimer and two footer controls.
+Exact UI text: header "Soltech scanner"; subtitle "X posts + new pairs"; small badge "Demo"; source titles "X posts" and "New pairs"; source captions "Scanning posts" and "Scanning pairs"; middle title "Match signals"; lower title "Coin checks"; results row "Finds" with count "0"; disclaimer "Demo preview · Live scanning isn’t connected."; footer controls "Customize" and "Pause".
+Use X glyph only for X posts; a refined paired-coins icon for New pairs. No invented numbers, extra metrics, new navigation, marketing copy, giant badges, or branding unrelated to Soltech. Keep exact words legible. Restrained, high-quality fintech design.
+Theme direction: Soltech SILVER GLASS theme. A deeply elegant layered silver backing beneath frosted translucent WHITE panels; neutral grayscale-silver colors with only subtle ice-blue signal highlights. Large soft20px outer corners, refined glass bevels and thin shiny rims, soft restrained dimensional shadows. Source panels appear like milky glass set over brushed silver, connector pipes extremely thin translucent silver-blue, central matching module frosted white and visually elevated. Matching traces crisp and readable. Coin checks and finds panel show beautiful luminous pearl-silver rims. Text always dark charcoal with excellent contrast. Visually distinct material depth while remaining a plausible production fintech UI. No excessive blur, see-through text, colored rainbow gradients, or decorative background objects.

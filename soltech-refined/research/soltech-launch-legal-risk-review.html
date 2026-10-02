@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soltech — preliminary launch review</title>
+<style>
+:root{color-scheme:light;--ink:#19232e;--muted:#526172;--line:#dce3e9;--accent:#185d50}*{box-sizing:border-box}body{margin:0;background:#edf1f4;color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:1000px;margin:32px auto;background:white;padding:52px 60px;border:1px solid var(--line);border-radius:18px}h1{font-size:36px;line-height:1.15;margin:8px 0 18px;letter-spacing:-1px}h2{font-size:23px;margin:38px 0 12px;line-height:1.3}h3{font-size:18px;margin:24px 0 8px}p{margin:10px 0 16px}.eyebrow{color:var(--accent);font-size:12px;font-weight:750;letter-spacing:1.4px;text-transform:uppercase}.meta,.note,small{color:var(--muted);font-size:14px}.verdict{border-left:4px solid var(--accent);background:#eef7f4;padding:16px 22px;margin:24px 0}.verdict p{margin:5px 0}a{color:#125f84;text-underline-offset:3px}table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:13px 12px}th{background:#f2f5f7}th:first-child,td:first-child{padding-left:8px}ul,ol{padding-left:24px}li{margin:8px 0}.evidence{font-size:13px;color:var(--muted);overflow-wrap:anywhere}code{font-size:.9em;background:#f1f4f6;padding:2px 4px;border-radius:3px}.footer{border-top:1px solid var(--line);margin-top:35px;padding-top:18px}@media(max-width:700px){main{margin:0;border:0;border-radius:0;padding:26px 20px}h1{font-size:29px}table{font-size:13px}th,td{padding:10px 7px}}@media print{body{background:#fff}main{margin:0;padding:0;border:0;max-width:none}h2,h3{break-after:avoid}tr,.verdict{break-inside:avoid}a{color:inherit}body{font-size:11pt}.meta,.note,.evidence{font-size:9pt}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">Soltech · product and launch review</div>
+<h1>A plausible launch path, with permissions still to resolve</h1>
+<p class="meta">Reviewed September 30, 2026 · U.S. operator · intended international availability · trading contemplated later</p>
+<div class="verdict"><p><strong>The concept is not categorically prohibited.</strong> An X discovery service with coin research has a conditional path forward. This review does not establish that Soltech already has the necessary permissions or is ready for release.</p><p><strong>Resolve the data licenses before investing heavily in live monitoring.</strong> Have qualified counsel assess the final business model and launch markets. This is a preliminary code-and-policy review, not legal sign-off.</p></div>
+
+<h2>What is actually built</h2>
+<p>The current web app performs user-triggered token lookups. It shows market data, provider-reported risk findings, DEX paid-profile status and active boosts. Solana and several EVM networks are supported. Risk labels map provider findings; they are not proof that a coin is safe.</p>
+<p>The scanner currently saves settings. It has no connected X ingestion, background monitoring, live finds or notifications. There is no implemented wallet connection, custody, trading, payment collection or subscription system. Generated designs showing “Active” or “Scanning X” are concepts, not evidence of a working feed.</p>
+<p>Useful safeguards already exist: “No flags reported” instead of a safety guarantee, unavailable states for missing data, provider attribution, and “Paid promotion, not a safety check” beside the DEX fields. Keep these distinctions.</p>
+<p class="evidence">Code evidence: <code>dist/coin-checker-data.js</code> (normalization and provider requests), <code>dist/coin-checker.js</code> (risk labels and promotion disclosure), <code>dist/personal-scanner.js</code> (Inactive / Not connected), <code>dist/app.js</code> (routes and unconnected wallet control).</p>
+
+<h2>1. X discovery: authorized access and an approved use case</h2>
+<p>X’s agreement permits API integration, analysis and limited display within approved scope. Commercial use is conditional; self-service access covers specified early-stage uses, with Enterprise required beyond that scope. Buying access alone does not settle approval for Soltech’s monetized discovery product. Confirm the plan, audience, volume and intended outputs with X. <a href="https://docs.x.com/developer-terms/agreement">Developer Agreement, II and III</a>.</p>
+<p>Use an authorized API or another expressly licensed source. Public visibility is not permission to scrape: the currently effective X terms restrict scraping without prior written consent. This is a contractual restriction; it is not a finding that every form of scraping is criminal. The terms page also displays an upcoming October 9 version, which must be distinguished from the version effective today. <a href="https://x.com/en/tos">X Terms of Service</a>.</p>
+<p>The official filtered stream supports matching keywords and accounts, making the intended discovery workflow technically plausible. That technical support does not establish Soltech’s license. <a href="https://docs.x.com/x-api/posts/filtered-stream/introduction">Filtered stream documentation</a>.</p>
+<ul>
+<li>Plan for deleted or restricted posts, retention, privacy disclosures and limits on exporting or redistributing content. Do not assume users can download full post datasets. <a href="https://docs.x.com/developer-terms/policy">Developer Policy</a>.</li>
+<li>Preserve required post attribution and links; distinguish Soltech’s commentary from the original post. Use official brand assets within their permitted scope. An AI-generated metallic X mark is only a design concept. <a href="https://docs.x.com/developer-terms/display-requirements">Display requirements</a> · <a href="https://about.x.com/content/dam/about-twitter/x/brand-toolkit/x-brand-guidelines.pdf">Brand guidelines</a>.</li>
+<li>Match explicit crypto mentions without turning “public figures” into sensitive profiling or unsupported accusations. Public status does not waive restricted-use rules. <a href="https://docs.x.com/developer-terms/restricted-use-cases">Restricted use cases</a>.</li>
+</ul>
+
+<h2>2. DEX paid and boosts: permitted in principle, conditional in context</h2>
+<p><strong>Those two indicators are not categorically forbidden.</strong> DEX Screener’s API terms permit commercial use, but prohibit products whose primary purpose directly competes with DEX Screener or its API, and restrict unauthorized resale or redistribution. Whether Soltech’s whole product falls within those restrictions is unresolved. <a href="https://docs.dexscreener.com/api/api-terms-and-conditions">API terms, sections 1–4</a>.</p>
+<p>Soltech uses the documented order-status and token-pair routes. Its boost number comes from the selected pair’s active-boost field; it is not historical spending or a safety score. <a href="https://docs.dexscreener.com/api/reference">API reference</a>.</p>
+<p>My recommendation is written scope clarification using screenshots of the complete coin checker and scanner. Include charts, price and liquidity—not just the two promotion badges—so the response addresses the actual product. No provider permission has been verified in this review.</p>
+
+<h2>3. Other data sources also need review</h2>
+<table><thead><tr><th>Source</th><th>Current use</th><th>Unresolved launch question</th></tr></thead><tbody>
+<tr><td>Rugcheck</td><td>Solana risk reports and descriptions.</td><td>Commercial display, storage and attribution rights were not established. Obtain the applicable agreement.</td></tr>
+<tr><td>GoPlus</td><td>EVM token security flags.</td><td>Its site describes open, license-free APIs. Verify the full terms for production redisplay, limits and attribution. <a href="https://gopluslabs.io/en/security-api">Security API</a>.</td></tr>
+<tr><td>GeckoTerminal</td><td>Historical price candles.</td><td>The public API is described as free beta access. That alone does not settle every commercial redistribution right; confirm the actual service and plan. <a href="https://apiguide.geckoterminal.com/">API guide</a>.</td></tr>
+<tr><td>Solana Tracker</td><td>Optional backend bundle lookup; live configuration unverified.</td><td>Terms allow analytics applications but distinguish derived output from raw redistribution and restrict direct competition. Confirm the wallet-level output and plan. <a href="https://www.solanatracker.io/terms">Terms</a>.</td></tr>
+</tbody></table>
+<p class="note">Review token images, project social links and provider-written descriptions as well as numeric fields. An API response does not automatically clear every third party’s copyright or trademark. Soltech’s own name and logo ownership have not been cleared. Preserve the included Phosphor MIT notice.</p>
+
+<h2>4. Financial rules depend on the service and audience</h2>
+<p>The current absence of transactions or custody narrows the review, but does not exempt every paid analytics service. Compensation for a regular business of securities advice or analysis can raise investment-adviser questions even without personalized recommendations. Counsel should review rankings, alerts, marketing, subscriptions and referral compensation against the assets involved. A “not financial advice” label is not a substitute. <a href="https://www.nasaa.org/industry-resources/investment-advisers/investment-adviser-guide/">NASAA adviser guide</a>.</p>
+<p>Treat future buying and selling as a separate launch decision. Holding keys or funds, transmitting value, handling orders and transaction-based fees can change federal and state obligations. Software development alone is distinct from operating a money-transmission business. <a href="https://www.fincen.gov/sites/default/files/2019-05/FinCEN%20CVC%20Guidance%20FINAL.pdf">FinCEN guidance</a> · <a href="https://www.dfs.ny.gov/apps_and_licensing/virtual_currency_businesses">New York virtual-currency licensing</a> · <a href="https://www.sec.gov/about/divisions-offices/division-trading-markets/division-trading-markets-compliance-guides/guide-broker-dealer-registration">SEC broker-dealer guide</a>.</p>
+<p>Choose reviewed launch countries instead of assuming a U.S. base permits worldwide distribution. UK crypto-promotion rules can reach overseas businesses; later EU crypto services may engage MiCA. These are scope-dependent issues, not a claim that every informational page requires a financial license. <a href="https://www.fca.org.uk/firms/cryptoassets/marketing-uk-consumers">FCA guidance</a> · <a href="https://eur-lex.europa.eu/eli/reg/2023/1114">MiCA regulation</a>.</p>
+<p>Keep safety, performance and live-monitoring claims supportable. If paid placements or affiliate relationships are introduced, disclose them clearly. <a href="https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business">FTC advertising guidance</a> · <a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking">Endorsement guidance</a>.</p>
+
+<h2>5. Privacy and launch documentation are unfinished</h2>
+<p>Profiles, photos, preferences and scanner settings are stored locally. External providers still receive network requests, including the user’s IP address and token queries; token-image hosts also receive requests. “Stored on your device” must not become “nothing is shared.” Hosting logs and future infrastructure were not available for review.</p>
+<p>The app itself says a published privacy policy is still needed and terms are unpublished. Before release, document the operator, purposes, providers, retention, deletion and rights processes, security practices and contact details. Assess applicable state and international privacy requirements and age restrictions against the actual audience. <a href="https://www.ftc.gov/business-guidance/resources/start-security-guide-business">FTC data-security guidance</a> · <a href="https://oag.ca.gov/sites/all/files/agweb/pdfs/cybersecurity/making_your_privacy_practices_public.pdf">California privacy-policy guidance</a>.</p>
+<p class="evidence">Code evidence: <code>dist/profile.js:45</code> and <code>:47</code>; <code>dist/profile-store.js</code>; <code>dist/personal-scanner-store.js</code>; <code>dist/coin-checker.js:102</code>. This was not a penetration test or a complete production infrastructure audit.</p>
+
+<h2>6. App Store: possible, with additional conditions</h2>
+<p>Apple does not categorically ban this concept, but approval is not guaranteed. Its rules require permission for third-party services and allow Apple to request proof (5.2.2). A complete, useful app must offer more than a thin website wrapper (2.1, 4.2). Privacy disclosures are required (5.1.1); displaying an X content feed also needs assessment against user-generated-content safeguards (1.2).</p>
+<p>Digital subscriptions need a payment design compliant with the applicable storefront rules and exceptions (3.1). Future exchange, wallet or investment services introduce separate eligibility, licensing and geographic restrictions (3.1.5, 3.2.1). The current web preview is not a completed App Store submission. <a href="https://developer.apple.com/app-store/review/guidelines/">Apple App Review Guidelines</a>.</p>
+
+<h2>The next decisions, before building the live engine</h2>
+<ol>
+<li><strong>Define the first release:</strong> discovery and research functions, monetization, intended users and launch countries. Keep future trading separately specified.</li>
+<li><strong>Get provider scope clarified:</strong> give X and DEX Screener the actual screens, data flows, pricing model and expected scale. Resolve the other providers’ applicable rights too.</li>
+<li><strong>Obtain a focused legal review:</strong> U.S. state/entity, assets covered, advisory and promotion boundaries, international availability, privacy, contracts and branding.</li>
+<li><strong>Build to the resolved requirements:</strong> compliant display and deletion, honest status labels, retention controls, production security, published policies and an appropriate App Store package.</li>
+</ol>
+<h3>Questions to include in a provider request</h3>
+<ul>
+<li>Does the described commercial Soltech service fit your permitted use, including the combined discovery and token-research screens?</li>
+<li>Which agreement or plan covers the proposed user count, request volume, countries and monetization?</li>
+<li>Which raw fields, images, text and derived results may be displayed, cached, exported or used in notifications, and for how long?</li>
+<li>What attribution, deletion, branding and downstream-service requirements apply, and can you provide confirmation suitable for app review?</li>
+</ul>
+<p class="footer note">No vendors were contacted, agreements accepted, accounts purchased or application files changed for this review. Provider approval, trademark clearance and a jurisdiction-specific legal opinion remain unverified. Recheck terms before launch; policies can change.</p>
+</main></body></html>

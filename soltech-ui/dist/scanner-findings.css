@@ -1,0 +1,43 @@
+@layer components {
+ .collection-context {margin:-12px 0 21px;color:var(--muted);font-size:.875rem;text-align:center;}
+ .saved-choice {--choice-side:62px;}
+ .choice-trailing {display:flex;align-items:center;justify-content:center;min-width:0;}
+ .new-findings-badge {display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:5px 9px;border-radius:20px;background:#eeebff;border:1px solid #d8d0f3;color:#53418e;font-size:.8125rem;line-height:1.3;font-weight:700;white-space:nowrap;}
+ .card-open-arrow svg {width:18px;}
+ .finding-new {font-size:.75rem;font-weight:650;color:#53418e;background:#eeebff;padding:3px 6px;border-radius:5px;margin-left:5px;}
+ .finding-row {min-height:84px;}
+ .finding-row .coin-info>span {font-size:.875rem;}
+ .coin-summary {margin-top:20px;}
+ .coin-summary p {font-size:1rem;}
+ .match-list,.excluded-list {list-style:none;padding:0;margin:0;}
+ .match-list li,.excluded-list li {padding:16px 0;border-top:1px solid var(--paper-line);}
+ .match-list strong {display:block;font-size:.9375rem;}
+ .match-list .match-time {display:block;color:var(--muted);font-size:.875rem;margin:5px 0;}
+ .match-list li p {margin-top:6px;}
+ .excluded-list {margin-top:20px;}
+ .excluded-list li>div {display:flex;align-items:center;justify-content:space-between;gap:10px;}
+ .excluded-list p {font-size:.9375rem;}
+ .setup-note,.recovery-note {background:#f5f3fc;border:1px solid var(--paper-line);border-radius:12px;padding:12px 14px;font-size:.875rem;margin-bottom:18px;}
+ .setup-note .text-link {font-size:.875rem;display:block;padding:4px 0;min-height:44px;}
+ .recovery-note {color:var(--ink);}
+ .settings-group {margin-top:18px;border:1px solid var(--card-border);border-radius:14px;padding:0 15px;background:#fff;}
+ .settings-group>summary {padding:15px 0;min-height:54px;cursor:pointer;font-size:1rem;font-weight:650;}
+ .settings-group>summary span {display:block;font-size:.875rem;font-weight:400;color:var(--muted);padding-left:17px;margin-top:3px;}
+ .settings-group[open] {padding-bottom:20px;}
+ .settings-group .editor-section {margin:0;padding:0;border:0;}
+ .settings-group .setting-choices {margin-top:10px;}
+ .settings-group .activity-settings {border:0;padding:0;margin:0;}
+ .settings-group h3 {margin:22px 0 8px;}
+ .scanner-builder .source-settings {margin-top:22px;padding-top:20px;}
+ .always-risk-note {font-size:.875rem;color:var(--muted);margin:18px 0;}
+}
+@layer responsive {
+ @media(max-width:800px) {.saved-choice {--choice-side:60px;}}
+ @media(max-width:500px) {
+  .saved-choice {--choice-side:58px;gap:8px;padding:18px 12px;}
+  .saved-choice .scanner-mark {width:43px;justify-self:center;}
+  .saved-choice .choice-copy strong {font-size:1rem;}
+  .saved-choice .choice-copy small {font-size:.8125rem;}
+  .settings-group {padding-left:12px;padding-right:12px;}
+ }
+}

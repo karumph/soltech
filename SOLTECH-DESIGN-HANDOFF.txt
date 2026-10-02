@@ -1,0 +1,28 @@
+Use my SolTech brand brief below as the visual direction. Before redesigning anything, find and visually inspect two or three real interface examples yourself. I want concrete references, not another interpretation based only on words like premium or clean.
+
+FIRST RESPONSE
+Inspect the current SolTech interface and its actual logo. Identify the page or section I have asked to improve and preserve the parts and behavior I already like. If no target is clear from this conversation, ask which screen to start with.
+
+Find examples relevant to that screen's actual job and information density. Prefer real product interfaces, official galleries, design-system examples, or design files I have provided access to. Show the visual examples when possible, include their source links, and briefly explain which specific patterns would help SolTech. Don't treat a search snippet or a famous brand name as an inspected example.
+
+Recommend one coherent direction. Explain the visible choices: layout and density, type hierarchy, spacing, color roles, component shapes, and one or two recognizable SolTech details. Explain what will change from the current page. Don't copy another product's branding or combine unrelated styles.
+
+For this first pass, stop after showing those references and your recommendation so I can pick the direction. Do not change the website yet. Once I choose, build one small, reversible preview of the agreed page or section before extending it elsewhere. Keep existing functionality and content. Check the rendered desktop and narrow-screen layouts and exercise the main control. Don't add new screens or features to make the design feel complete.
+
+If you cannot inspect a reference, say so. If I later ask for a small change or delegate a choice to you, use that direction without restarting the whole reference-selection process. This request does not authorize deployment or account changes.
+
+SOLTECH BRAND DIRECTION
+Preserve the existing logo. Its connected dual profiles, faceted geometry, symmetry, and black-and-white contrast should inspire subtle details, not repeated faces, polygon backgrounds, or forced symmetry.
+
+Combine clarity, simplicity, and careful detail with a distinct SolTech identity. Aim for custom and approachable rather than an Apple copy, a generic dashboard, or a recolored template.
+
+Use black, white, charcoal, silver, and cool gray as the starting palette. Explore one signature accent, potentially a refined blue. Choose exact shades through the recommended direction. Keep brand accents distinct from warning and status colors. Avoid a washed-out or aggressively neon appearance.
+
+Use readable typography, deliberate spacing, clear hierarchy, consistent icons, and restrained comfortable rounding. Let content determine the layout. Scanner cards, result lists, and detail views can have different appropriate treatments while remaining visually related. Avoid identical oversized cards everywhere.
+
+Keep information surfaces readable. Use shadows, layering, occasional glass, and short transitions only where they improve hierarchy or interaction. Avoid excessive glow, blur, decorative animation, random gradients, and generic futuristic styling. Respect reduced-motion preferences.
+
+Carry the chosen language into relevant controls and states as work expands. Prioritize usability and cohesion over including every suggestion. The design should have recognizable traits even when the logo is not repeated.
+
+SUCCESS FOR THIS WORK
+I can point to the references and understand why the proposed direction fits my request. The eventual preview makes the promised changes visible, remains usable on desktop and mobile, preserves existing behavior, and feels intentionally composed rather than merely recolored.

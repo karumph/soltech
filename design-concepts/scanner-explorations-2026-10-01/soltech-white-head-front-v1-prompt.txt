@@ -1,0 +1,7 @@
+Generated with the built-in image-generation tool.
+Reference: the white head on the right side of the supplied Soltech logo.
+
+Final prompt:
+Use case: logo-brand. Create one complete front-facing version of the WHITE head on the RIGHT side of the supplied Soltech logo reference. Treat the reference as the exact identity and material/style guide: sculptural bald humanoid head built from large crisp triangular low-poly facets, white and pale silver polygon surfaces, angular brow, narrow recessed dark geometric eyes, sharp straight nose, restrained closed mouth, chiseled cheeks and jaw. Reconstruct that same white character viewed directly from the front, both sides of its full head visible, symmetrically posed and centered, looking straight at the viewer. Include the whole crown, jaw and a short tapered neck, with comfortable transparent margins around the silhouette; no shoulders or torso. White/silver faceted treatment across BOTH halves, no black half. Neutral inactive eyes in dark charcoal, no green or glow yet. Keep the distinctive sparse faceting and severe clean geometry of the supplied head, do not turn it into a rounded robot, human photograph, skull or armor helmet. Soft controlled studio shading makes white facets legible. Create a single standalone high-quality square brand asset on a genuinely transparent background. Remove the original second head, circular badge/rings and all background. No text, no watermark, no extra objects. The full head must not be cropped.
+
+Transparent background requested and preserved in the saved PNG.

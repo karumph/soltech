@@ -1,0 +1,13 @@
+Mode: Built-in image generator, edit of 02-cool-gray-blue-white.png.
+User selected M1 and requested sharp corners. Website unchanged.
+
+Use case: ui-mockup. Edit the supplied Soltech market-tile concept sheet into a focused, enlarged view of ONLY M1 (the upper-left Fine outline option).
+The user chose M1 and asks to make its corners sharp. Keep M1's four separate flat tiles, thin silver outline, dark charcoal labels and near-black values, exact same pale cool-gray / blue-gray / white colors, and the two-by-two arrangement. Change all four corners of each tile to perfectly sharp square 90-degree corners, zero border radius. Straight precise edges. Do NOT use clipped corners, folds, bevels, angled notches, inset frames, side stripes, rounded edges, or M2/M3/M4 details.
+Present a crisp front-facing flat UI concept on a white background. One single group of four generously sized metrics. No alternate options. Balanced outer whitespace and compact consistent gaps. Preserve M1's visual hierarchy and relative proportions, no excessive depth. Fine gray-silver 1px-style border.
+Top title: "Soltech — M1 / Sharp corners"
+Tile top-left: "Price" with "$0.00482", pale mist blue-gray face approximately #E6EDF4.
+Tile top-right: "Market cap" with "$2.4M", pearl white face approximately #FAFBFC.
+Tile bottom-left: "Liquidity" with "$186K", cool silver-gray face approximately #E5E8ED.
+Tile bottom-right: "Volume · 24h" with "$740K", soft blue-gray face approximately #DAE4EF.
+Footer: "Visual concept · Sample values"
+Only these texts. No website screenshot, extra controls, logo, illustrations, background decorations, colored labels, warm colors, purple, teal or neon. This is a concept image, not an implementation.

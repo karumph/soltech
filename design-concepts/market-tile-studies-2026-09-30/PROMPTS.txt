@@ -1,0 +1,56 @@
+Mode: Built-in image generator. Concept board only; no website changes.
+
+INITIAL BOARD
+Use case: ui-mockup.
+Create ONE high-resolution design comparison board for Soltech's four market metric tiles. This is an offsite visual exploration, not a full app redesign. Precisely composed front-facing UI samples, not a photograph, no perspective, no device frames. White artboard, refined readable sans-serif, black/charcoal type, silver material details. Wide whitespace between four option groups in a 2 by 2 board. Large legible group labels outside the sample groups.
+
+Title: "Soltech — Market tile studies".
+Each option contains exactly four INDIVIDUAL compact tiles with clear equal gaps in the same 2x2 grid: Price top left, Market cap top right, Liquidity bottom left, Volume · 24h bottom right. All sixteen tiles use consistent dimensions and text hierarchy. Strong dark figures, smaller but readable labels, restrained comfortable rounding. Same exact content in EACH option:
+"Price" "$0.00482"
+"Market cap" "$2.4M"
+"Liquidity" "$186K"
+"Volume · 24h" "$740K"
+Footer in small readable text: "Visual concepts · Sample values".
+
+Soltech's actual brand mark is connected black-and-white dual human profiles made of flat silver facets. Do NOT draw or repeat faces or logos on this board. Translate only its material contrast, precise cut planes and silver edges. Favor WHITE surfaces over dark backgrounds. The user rejected a rainbow of full pastel-filled tiles, but wants personality and some restrained color. Avoid four colored fill blocks, gradients across faces, neon, status colors, decorative extra symbols, charts, trends, buttons, or any additional metrics.
+
+Top left group heading "M1 — Fine outline".
+Four FLAT WHITE tiles with simple near-square corners softened subtly, one hairline silver outline, essentially no elevation. Put the only color in the small metric labels: Price refined blue, Market cap dark indigo, Liquidity deep blue-teal, Volume muted dark plum. Values charcoal. This is the clean and light baseline.
+
+Top right group heading "M2 — Cut corner".
+Four bright white tiles with a clearly CLIPPED UPPER-RIGHT CORNER each, a precise slim directional silver bevel, other corners softly rounded. Inspired by a fine cut crystal's edge and the previously selected A3 cut-corner search control. Confine a tiny colored facet to the clipped edge (same corresponding blue/indigo/teal/plum colors). Labels and values charcoal. The clipped shape must be unmistakable but refined; thin metal rim, no oversized metallic frame.
+
+Bottom left group heading "M3 — Inset silver".
+Four compact rectangular SATIN SILVER outer frames with visibly RECESSED WHITE centers, a broad but restrained machined bevel and soft inset shadow, comfortable rounded outer corners. Entirely monochrome, charcoal type. These should feel like small precisely made objects with real material depth, but still practical readable UI. No giant shadows or 3D extrusions.
+
+Bottom right group heading "M4 — Split side".
+Four crisp white flat tiles with gently rounded corners and an ASYMMETRIC LAYERED LEFT EDGE: a narrow polished silver rail plus a smaller colored seam immediately beside it. Price blue, Market cap indigo, Liquidity deep blue-teal, Volume muted plum, same colors as M1. Keep ALL tile faces white and ALL text charcoal. No cut corners here. The slim layered edge gives distinction without colored backgrounds.
+
+Four clearly different constructions, not recolors of the same card. Must be distinguishable in grayscale: flat outline / clipped bevel / recessed silver frame / layered side rail. Keep all figures and text exact, evenly aligned, and comfortably inside the tiles. No invented content. A polished 2D product-designer comparison sheet with carefully restrained material rendering.
+
+COOL PALETTE REVISION
+Use case: ui-mockup.
+Edit target: the provided Soltech Market tile studies board. Revise ONLY the palette, preserving all four option labels, tile construction, grid layout, typography, exact sample values, readable text, and the front-facing high-quality UI presentation.
+
+User direction: make ALL tiles different shades of gray-ish, blue-ish, white-ish colors. The palette must be one cohesive family of white, silver, cool gray and desaturated blue-gray. Remove purple, lilac, teal, aqua, pink, magenta, rose and saturated blue. No rainbow-colored labels or seams. Use dark charcoal labels and near-black numbers on every tile.
+
+Apply the same coordinated four light surface shades within every option:
+Price: light mist blue-gray, around #E6EDF4.
+Market cap: pearl white, around #FAFBFC.
+Liquidity: cool silver gray, around #E5E8ED.
+Volume: soft powder blue-gray, around #DAE4EF.
+The four shades should be clearly but subtly different, light enough for excellent contrast, consistent across M1-M4. Make the SHADES visible on tile faces, not merely tiny labels. Silver rims neutral. Small corner facets and side seams can use deeper desaturated slate-blue and silver rather than separate hues.
+M1 Fine outline: flat fine silver border and subtle differentiated surface shades.
+M2 Cut corner: preserve upper-right angled silver corner detail, adjust facets to the same muted blue-gray family.
+M3 Inset silver: preserve inset satin silver frame, tint the central light faces with the same four subtle shades, no excessive chrome.
+M4 Split side: preserve narrow layered left edge, muted silver/slate-blue rails, same four subtle light surface shades.
+
+Preserve exact title: "Soltech — Market tile studies"
+Preserve labels: "M1 — Fine outline", "M2 — Cut corner", "M3 — Inset silver", "M4 — Split side"
+Every option uses:
+"Price" / "$0.00482"
+"Market cap" / "$2.4M"
+"Liquidity" / "$186K"
+"Volume · 24h" / "$740K"
+Footer: "Visual concepts · Sample values"
+White board background, crisp polished detail, retain spacing and image proportions. No website mockup, no extra data, no icons, no logo changes. This is a separate concept board, not a screenshot of implemented changes.
