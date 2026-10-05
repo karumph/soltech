@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mountScannerCustomize} from '../dist/scanner-customize.js';
 import {createPersonalScannerStore,PERSONAL_SCANNER_KEY} from '../dist/personal-scanner-store.js';
 
-const attributes=tag=>new Map([...tag.matchAll(/([\w-]+)="([^"]*)"/g)].map(([,name,value])=>[name,value]));
+const attributes=tag=>new Map([...tag.matchAll(/\s([\w-]+)(?:="([^"]*)")?/g)].map(([,name,value])=>[name,value??'']));
 function installDOM(t){
  const originals=['document','window'].map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)]);
  const bodyClasses=new Set(),document={activeElement:null,title:'',body:{classList:{add:value=>bodyClasses.add(value),remove:value=>bodyClasses.delete(value)}}};
@@ -15,14 +15,22 @@ function installDOM(t){
   constructor(){super();this.nodes=new Map();this.errors=[];this.scrolls=[];this.renders=0;this.feedback={innerHTML:''};this.apply={textContent:'',disabled:false};this.footer={textContent:''};this.banner={hidden:true};this.clear={dataset:{customizeAction:'clear'},closest:selector=>selector==='[data-customize-action]'?this.clear:null,focus:()=>{document.activeElement=this.clear;}};}
   set innerHTML(html){
    if([...this.nodes.values()].includes(document.activeElement))document.activeElement=null;
-   this.html=html;this.renders++;this.nodes=new Map();this.errors=[];
-   for(const match of html.matchAll(/<(?:input|textarea)\b[^>]*>/g)){
-    const attrs=attributes(match[0]),id=attrs.get('id');if(!id)continue;
+   this.html=html;this.renders++;this.nodes=new Map();this.errors=[];this.details=[];this.repairButtons=[];
+   const parents=[];
+   for(const match of html.matchAll(/<\/?details\b[^>]*>|<(?:input|textarea|select|button)\b[^>]*>/g)){
+    if(match[0].startsWith('</details')){parents.pop();continue;}
+    if(match[0].startsWith('<details')){
+     const attrs=attributes(match[0]),node={id:attrs.get('id'),tagName:'DETAILS',open:/\sopen(?:\s|>)/.test(match[0]),parentElement:parents.at(-1)||null};
+     this.details.push(node);parents.push(node);if(node.id)this.nodes.set(node.id,node);continue;
+    }
+    const attrs=attributes(match[0]),id=attrs.get('id');if(!id&&!attrs.has('data-repair-action'))continue;
     const dataset=Object.fromEntries([...attrs].filter(([name])=>name.startsWith('data-')).map(([name,value])=>[name.slice(5).replace(/-([a-z])/g,(_,letter)=>letter.toUpperCase()),value]));
-    const node={id,dataset,value:attrs.get('value')||'',selectionStart:0,selectionEnd:0,parentElement:null,
+    const node={id,dataset,value:attrs.get('value')||'',selectionStart:0,selectionEnd:0,parentElement:parents.at(-1)||null,
      matches:()=>true,hasAttribute:name=>attrs.has(name),getAttribute:name=>attrs.get(name)??null,setAttribute:(name,value)=>attrs.set(name,value),removeAttribute:name=>attrs.delete(name),
-     focus:()=>{document.activeElement=node;},scrollIntoView:options=>this.scrolls.push({id,options})};
-    this.nodes.set(id,node);
+     closest:selector=>selector===`[data-repair-action="${dataset.repairAction}"]`?node:null,
+     focus:()=>{for(let parent=node.parentElement;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS'&&!parent.open)return;document.activeElement=node;},scrollIntoView:options=>this.scrolls.push({id,options})};
+    if(attrs.has('data-repair-action'))this.repairButtons.push(node);
+    this.nodes.set(id||`repair-button-${this.repairButtons.length}`,node);
    }
    for(const match of html.matchAll(/<span class="(customize-field-error|field-error)" id="([^"]+)">([^<]*)<\/span>/g)){
     const node={className:match[1],id:match[2],textContent:match[3]};this.nodes.set(node.id,node);this.errors.push(node);
@@ -38,11 +46,14 @@ function installDOM(t){
    if(selector==='.customize-errors')return this.banner;
    if(selector==='.customize-clear')return this.clear;
    if(selector==='[data-customize-storage-status]')return this.html.includes('data-customize-storage-status')?this.feedback:null;
+   const repair=selector.match(/^\[data-repair-action="([^"]+)"\](?:\[data-value="([^"]*)"\])?$/);
+   if(repair)return this.repairButtons.find(node=>node.dataset.repairAction===repair[1]&&(repair[2]===undefined||node.dataset.value===repair[2]))||null;
    const match=selector.match(/^\[data-(setting|result-filter)="([^"]+)"\]$/);
    if(match)return [...this.nodes.values()].find(node=>node.dataset?.[match[1]==='setting'?'setting':'resultFilter']===match[2])||null;
    return null;
   }
   querySelectorAll(selector){
+   if(selector==='details[open]')return this.details.filter(node=>node.open);
    if(selector==='[aria-invalid]')return [...this.nodes.values()].filter(node=>node.getAttribute?.('aria-invalid'));
    const classes=selector.split(',').map(value=>value.trim().slice(1));return this.errors.filter(node=>classes.includes(node.className));
   }
@@ -93,4 +104,47 @@ test('correcting an earlier source setting clears its error and does not revive 
  emit(root,'click',root.clear);
  assert.equal(root.querySelector('#setting-capMax-error').textContent,'');assert.equal(root.querySelector('[data-setting="capMax"]').getAttribute('aria-invalid'),null);
  assert.equal(store.state.draft.config.sources.public.settings.capMax,'123');
+});
+
+test('changing an earlier source dropdown preserves focus and expanded settings',t=>{
+ const {root,document,cleanup}=installDOM(t),store=createPersonalScannerStore(disk());store.begin();
+ const config=store.state.draft.config;config.sources.public.settings.capMax='bad';store.update(config);
+ cleanup(mountScannerCustomize(root,{store,navigate:()=>{},toast:()=>{}}));
+ emit(root,'submit',{id:'scanner-customize-form'});
+ const select=root.querySelector('#setting-valuation');select.parentElement.open=true;select.focus();select.value='fdv';
+ emit(root,'change',select);
+ const next=root.querySelector('#setting-valuation');
+ assert.notEqual(next,select);assert.equal(document.activeElement,next);
+ assert.equal(root.querySelector('#market-settings').open,true);assert.equal(root.querySelector('#venue-settings').open,true);
+ assert.equal(store.state.draft.config.sources.public.settings.valuation,'fdv');
+});
+
+test('an invalid earlier scanner name has an associated error on its focused input',t=>{
+ const {root,document,cleanup}=installDOM(t),store=createPersonalScannerStore(disk());store.begin();
+ const config=store.state.draft.config;config.name='';store.update(config);
+ cleanup(mountScannerCustomize(root,{store,navigate:()=>{},toast:()=>{}}));
+ emit(root,'submit',{id:'scanner-customize-form'});
+ const input=root.querySelector('#customize-name');
+ assert.equal(document.activeElement,input);assert.equal(input.getAttribute('aria-invalid'),'true');
+ assert.equal(input.getAttribute('aria-describedby'),'customize-name-error');
+ assert.equal(root.querySelector('#customize-name-error').textContent,'Give your scanner a name.');
+ input.value='Updated scanner';emit(root,'input',input);
+ assert.equal(input.getAttribute('aria-invalid'),null);assert.equal(root.querySelector('#customize-name-error').textContent,'');
+});
+
+test('earlier age shortcuts preserve keyboard focus after updating the field',t=>{
+ const {root,document,cleanup}=installDOM(t),store=createPersonalScannerStore(disk());store.begin();
+ const config=store.state.draft.config;config.sources.projects.settings.ageMax='bad';store.update(config);
+ cleanup(mountScannerCustomize(root,{store,navigate:()=>{},toast:()=>{}}));emit(root,'submit',{id:'scanner-customize-form'});
+ const selector='[data-repair-action="age-shortcut"][data-value="6"]',button=root.querySelector(selector);button.focus();emit(root,'click',button);
+ assert.equal(store.state.draft.config.sources.projects.settings.ageMax,'6');assert.equal(document.activeElement,root.querySelector(selector));
+});
+
+test('View filters in earlier source recovery opens the available filter controls',t=>{
+ const {root,cleanup}=installDOM(t),store=createPersonalScannerStore(disk());store.begin();
+ const config=store.state.draft.config;config.sources.projects.settings.ageMax='bad';config.sources.projects.settings.capMax='100000';store.update(config);
+ cleanup(mountScannerCustomize(root,{store,navigate:()=>{},toast:()=>{}}));emit(root,'submit',{id:'scanner-customize-form'});
+ const button=root.querySelector('[data-repair-action="builder-step"]');assert.ok(button);emit(root,'click',button);
+ assert.ok(root.querySelector('#setting-capMax'));assert.ok(root.querySelector('#setting-ageMax'));
+ assert.equal(store.state.draft.config.sources.projects.settings.capMax,'100000');
 });

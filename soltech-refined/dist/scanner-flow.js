@@ -1,14 +1,14 @@
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const FLOW_PAUSE_KEY='soltech.scanner-demo-paused.v1';
-let rememberedPause;
+let rememberedPause,pauseWriteFailed=false;
 const readFlowPause=()=>{
- if(rememberedPause!==undefined)return rememberedPause;
- try{rememberedPause=window.localStorage.getItem(FLOW_PAUSE_KEY)==='true';}catch{rememberedPause=false;}
+ if(pauseWriteFailed)return rememberedPause;
+ try{rememberedPause=window.localStorage.getItem(FLOW_PAUSE_KEY)==='true';}catch{rememberedPause??=false;}
  return rememberedPause;
 };
 const saveFlowPause=paused=>{
  rememberedPause=paused;
- try{window.localStorage.setItem(FLOW_PAUSE_KEY,String(paused));}catch{/* Keep the choice across navigation when storage is unavailable. */}
+ try{window.localStorage.setItem(FLOW_PAUSE_KEY,String(paused));pauseWriteFailed=false;}catch{pauseWriteFailed=true;/* Keep the choice across navigation when storage is unavailable. */}
 };
 const icon=(paths,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
 const icons={
@@ -44,7 +44,7 @@ export function scannerFlowHTML(name='Soltech scanner'){
    <ol class="flow-stages">
     <li><div class="flow-stage flow-stage-match"><div class="flow-stage-copy"><h3>Match signals</h3>${matchingActivity()}</div><span class="flow-stage-total" aria-label="0 matched in this preview"><strong>0</strong><span>matched</span></span></div>${connector('match')}</li>
     <li><div class="flow-stage flow-stage-check"><div class="flow-stage-copy"><h3>Coin checks</h3><p>Apply your filters</p>${checkProgress()}</div><span class="flow-stage-total" aria-label="0 checked in this preview"><strong>0</strong><span>checked</span></span></div>${connector('check')}</li>
-    <li><a href="#finds" class="flow-stage flow-stage-finds" aria-label="Open Finds, 0 finds"><h3>Finds</h3><span class="flow-find-count" aria-hidden="true">0</span></a></li>
+    <li><a href="#finds" class="flow-stage flow-stage-finds" aria-label="Open Feed, 0 finds"><h3>Finds</h3><span class="flow-find-count" aria-hidden="true">0</span></a></li>
    </ol>
   </div>
   <footer class="engine-footer"><p class="engine-demo-note">Demo preview · Live scanning isn’t connected.</p><div class="engine-controls"><a href="#scanner/edit" class="engine-control">${icon(icons.sliders)}Customize</a><button type="button" class="engine-control" data-flow-pause aria-label="Pause demo">${icon(icons.pause)}<span>Pause</span></button></div></footer>
@@ -84,6 +84,12 @@ export function mountScannerFlow(root){
  };
  const toggle=()=>{if(reduced.matches)return;userPaused=!userPaused;saveFlowPause(userPaused);update();};
  const change=()=>update();
- button.addEventListener('click',toggle);reduced.addEventListener('change',change);update();
- return ()=>{sourceResize.disconnect();button.removeEventListener('click',toggle);reduced.removeEventListener('change',change);};
+ const storageChanged=event=>{
+  if(event.key!==FLOW_PAUSE_KEY&&event.key!==null)return;
+  try{if(event.storageArea&&event.storageArea!==window.localStorage)return;}catch{return;}
+  rememberedPause=event.key===null?false:event.newValue==='true';pauseWriteFailed=false;
+  userPaused=rememberedPause;update();
+ };
+ button.addEventListener('click',toggle);reduced.addEventListener('change',change);window.addEventListener('storage',storageChanged);update();
+ return ()=>{sourceResize.disconnect();button.removeEventListener('click',toggle);reduced.removeEventListener('change',change);window.removeEventListener('storage',storageChanged);};
 }

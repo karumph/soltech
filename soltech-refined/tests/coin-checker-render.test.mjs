@@ -61,6 +61,18 @@ test('risk stays outside switchable report panels and each panel has its labeled
   assert.ok(html.indexOf('High risk reported')<html.indexOf('role="tablist"'));
   assert.match(html,new RegExp('id="report-tab-'+section+'"[^>]*aria-selected="true"[^>]*tabindex="0"'));
   assert.match(html,new RegExp('id="report-panel-'+section+'"[^>]*aria-labelledby="report-tab-'+section+'"[^>]*tabindex="0" >'));
+  assert.match(html,new RegExp('role="tabpanel"[^>]*data-view-key="report-panel-'+section+'"'));
   assert.equal((html.match(/role="tabpanel"/g)||[]).length,3);
  }
+});
+
+test('a completed empty or failed lookup does not leave the report checking forever',()=>{
+ for(const status of ['empty','error']){
+  const input={mint,market:{status},risk:{status},listing:{status},history:{status:'empty'}};
+  const html=resultHTML(input);
+  assert.match(html,/<div class="report-meta"><span>Pool age unavailable<\/span><span>Check complete<\/span><\/div>/);
+  assert.doesNotMatch(html,/Checking…/);
+ }
+ const loading=resultHTML({mint,market:{status:'loading'},risk:{status:'loading'},listing:{status:'loading'},history:{status:'waiting'}});
+ assert.match(loading,/<div class="report-meta"><span>Pool age unavailable<\/span><span>Checking…<\/span><\/div>/);
 });

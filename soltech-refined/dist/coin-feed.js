@@ -17,16 +17,16 @@ export function coinFeedPreviewHTML(){
  const ordered=[...examples].sort((a,b)=>a.minutesAgo-b.minutesAgo);
  return `<section class="coin-feed" aria-labelledby="coin-feed-label" aria-describedby="feed-preview-note">
   <div class="feed-grid-heading"><h2 id="coin-feed-label">Sample feed</h2><span>Newest first</span></div>
-  <p class="feed-preview-note" id="feed-preview-note">Real coins · Oct 3 market-cap snapshot.<br>Fictional summaries &amp; discovery times.</p>
+  <p class="feed-preview-note" id="feed-preview-note">Real coins · Oct 3 market-cap snapshot. Fictional summaries &amp; discovery times.</p>
   <ol class="feed-grid" aria-label="Example coins, newest to oldest">${ordered.map(coin=>{
    return `<li><article class="feed-card" aria-labelledby="feed-coin-${coin.id}">
     <div class="feed-card-top">
      <img class="feed-coin-logo" src="assets/feed-coin-${coin.id}.png" alt="" width="36" height="36">
      <h3 class="feed-coin-name" id="feed-coin-${coin.id}">${esc(coin.name)}</h3>
      <dl class="feed-market-cap" title="Market cap"><dt><span aria-hidden="true">MC</span><span class="sr-only">Market cap</span></dt><dd>${esc(capFormat.format(coin.marketCap))}</dd></dl>
-     <div class="feed-coin-meta"><span class="feed-coin-symbol">${esc(coin.symbol)}</span><div class="feed-address"><span class="feed-address-label" aria-hidden="true">CA</span><span class="sr-only">Coin address ${esc(coin.address)}</span><code class="feed-address-text" title="${esc(coin.address)}" aria-hidden="true">${esc(coin.address.slice(0,4))}…${esc(coin.address.slice(-4))}</code><button class="feed-copy-button" type="button" data-feed-copy-address="${esc(coin.address)}" data-coin-name="${esc(coin.name)}" aria-label="Copy ${esc(coin.name)} coin address" title="Copy full coin address"><span class="feed-copy-default" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2 2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></span><span class="feed-copy-success" aria-hidden="true" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 4 4L19 6"/></svg></span></button></div></div>
+     <div class="feed-coin-meta"><span class="feed-coin-symbol">${esc(coin.symbol)}</span><div class="feed-address"><span class="feed-address-label" aria-hidden="true">CA</span><span class="sr-only">Coin address ${esc(coin.address)}</span><code class="feed-address-text" title="${esc(coin.address)}" aria-hidden="true">${esc(coin.address.slice(0,4))}…${esc(coin.address.slice(-4))}</code><button class="feed-copy-button" type="button" data-feed-copy-address="${esc(coin.address)}" data-coin-name="${esc(coin.name)}" aria-label="Copy ${esc(coin.name)} coin address" title="Copy full coin address"><span class="feed-copy-default" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></span><span class="feed-copy-success" aria-hidden="true" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 12 4 4L19 6"/></svg></span></button></div><span class="feed-found-age"><span class="sr-only">Found </span>${coin.minutesAgo}m ago<span class="sr-only"> in this example</span></span></div>
     </div>
-    <div class="feed-card-bottom"><p class="feed-summary">${esc(coin.summary)}</p><span class="feed-found-age"><span class="sr-only">Found </span>${coin.minutesAgo}m ago<span class="sr-only"> in this example</span></span></div>
+    <div class="feed-card-bottom"><p class="feed-summary">${esc(coin.summary)}</p></div>
    </article></li>`;
   }).join('')}</ol>
  </section>`;

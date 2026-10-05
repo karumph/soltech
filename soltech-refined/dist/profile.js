@@ -47,6 +47,7 @@ export function createProfileFeature({store,getScanners,getDraft,getScannerState
      body=`${back('settings','Settings')}<div class="page-intro"><h1>Terms of Service<span class="accent">.</span></h1></div><section class="personal-reading"><span class="personal-pending">Not published yet</span><h2>Before Soltech launches</h2><p>Reviewed terms will be available here. There’s nothing to accept in this preview.</p></section>`;
     }
     root.innerHTML=`<section class="personal-page page-width">${body}</section>`;
+    updateFeedback();
    }
    function feedback(){return `<p id="personal-feedback" class="personal-feedback ${error?'personal-error':''}" role="status" aria-live="polite">${esc(error||message)}</p><button type="button" class="text-link" data-profile-action="reload-saved" ${conflict?'':'hidden'}>Load saved version</button>`;}
    function updateFeedback(){const node=root.querySelector('#personal-feedback');if(node){node.textContent=error||message;node.classList.toggle('personal-error',!!error);}const reload=root.querySelector('[data-profile-action="reload-saved"]');if(reload)reload.hidden=!conflict;const save=root.querySelector('[data-profile-save]');if(save){save.disabled=busy||store.issue==='read';save.textContent=busy?'Preparing photo…':'Save changes';}}
@@ -65,7 +66,12 @@ export function createProfileFeature({store,getScanners,getDraft,getScannerState
     if(action==='remove-photo'){cancelPhoto();editDraft.photo='';error='';message='Photo removed. Save to keep this change.';updateAvatar();updateFeedback();}
     if(action==='cancel'){cancelPhoto();if(page==='edit')editDraft=null;else notificationDraft=null;navigate(returnView);}
     if(action==='retry'){store.retry();error='';message='';render();}
-    if(action==='reload-saved'){cancelPhoto();if(store.retry()){if(page==='edit'){editDraft=identity(store.value);editBase=identity(store.value);}else{notificationDraft=store.value.notifications;notificationBase=store.value.notifications;}error='';message='Saved version loaded.';conflict=false;render();}}
+    if(action==='reload-saved'){
+     cancelPhoto();
+     if(!store.retry()){error='Your saved profile couldn’t be loaded. Your unsaved changes are still here.';message='';render();return;}
+     if(page==='edit'){editDraft=identity(store.value);editBase=identity(store.value);}else{notificationDraft=store.value.notifications;notificationBase=store.value.notifications;}
+     error='';message='Saved version loaded.';conflict=false;render();
+    }
    },{signal:events.signal});
    root.addEventListener('input',event=>{
     const field=event.target.dataset.profileField;
