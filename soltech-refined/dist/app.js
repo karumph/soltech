@@ -147,7 +147,7 @@ function validateEditor(){
  if(entries.length){const key=entries[0][0];const control=key==='name'?document.getElementById('scanner-name'):document.getElementById('setting-'+key)||document.querySelector('[data-setting="'+key+'"]');control?.focus();control?.scrollIntoView({block:'center',behavior:'instant'});}
  return !entries.length;
 }
-function unavailable(){main.innerHTML=`<div class="page-intro"><h1>Let’s find your way back.</h1></div><div class="empty"><h2>This scanner isn’t here.</h2><p>It may have been removed or saved in another browser. Check Saved scanners and drafts.</p><a class="button glass" href="#saved">Open Saved scanners ${icon('arrow')}</a></div>`;}
+function unavailable(){document.title='Page not found · Soltech';main.innerHTML=`<div class="page-intro"><h1>Let’s find your way back.</h1></div><div class="empty"><h2>This page isn’t available.</h2><p>The link may be incomplete or out of date.</p><a class="button glass" href="#check">Back to Check ${icon('arrow')}</a></div>`;}
 function addScanner(id){const result=workspace.saveLibrary(id);if(!result)return;const alreadyActive=result.existing&&result.scanner.placement==='active';if(result.scanner.placement==='saved')workspace.move(result.scanner.id,'active');sync();successId=result.scanner.id;openSaved(result.scanner.id);toast(alreadyActive?'Already in Active scanners.':'Added to Active and Saved scanners.');}
 function removeScanner(id){const s=getSaved(id);if(!s)return;showDialog('Delete this scanner?',`<p><strong>${esc(s.name)}</strong> will be removed from ${s.placement==='active'?'Active and Saved scanners':'Saved scanners'}. ${workspace.state.draft?.editingId===id?'Your unfinished edit stays in Profile under Continue draft.':s.kind==='library'&&library.some(source=>source.id===s.sourceId&&source.listed!==false)?'You can add it again from Find scanners.':'These custom settings will be deleted.'}</p>`,`<button class="button secondary" data-action="close">Keep scanner</button><button class="button danger" data-action="confirm-remove" data-id="${id}">Delete scanner</button>`,'Your collection');}
 document.addEventListener('click',e=>{
@@ -223,8 +223,9 @@ function route(){
  else if(['finds','scanners','recap'].includes(view)){disposeScanner=personalScannerFeature.mount(main,'finds');currentNav='scanners';}
  else if(['saved','previous','preview','start'].includes(view)||(view==='scanner'&&id&&id!=='edit')){disposeScanner=personalScannerFeature.mount(main,'previous');currentNav='profile';}
  else if(view==='scanner'||view==='explore'||view==='builder'){disposeScanner=personalScannerFeature.mount(main,'scanner',view==='builder'?'edit':id);}
- else unavailable();
- const nav=document.querySelector('.main-nav');nav.style.setProperty('--nav-index',['check','scanners','explore','profile'].indexOf(currentNav));
+ else {unavailable();currentNav=null;}
+ const nav=document.querySelector('.main-nav'),navIndex=['check','scanners','explore','profile'].indexOf(currentNav);
+ nav.style.setProperty('--nav-index',Math.max(0,navIndex));nav.querySelector('.nav-glass').hidden=navIndex<0;
  document.querySelectorAll('[data-nav]').forEach(el=>{if(el.dataset.nav===currentNav)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
  sync();successId=null;main.setAttribute('aria-busy','false');
 }

@@ -89,12 +89,12 @@ export function resultHTML(state,section='overview'){
  const quickRisk=r?riskPill(level):riskPill('unknown',state.risk.status==='loading'?'Risk check pending':'Not assessed');
  const quickReason=r?(r.flags[0]?.name||(r.incomplete?'Some token checks are missing.':'This is not proof of safety.')):state.risk.status==='loading'?'Checking risk…':'Risk report unavailable.';
  return `<article class="live-coin"><header class="live-coin-head">${coinAvatar(m,name,symbol)}<div><h2 data-view-key="coin-title" tabindex="-1">${esc(name)}</h2><div class="coin-subline">${symbol?`<span>${esc(symbol)}</span><span aria-hidden="true">·</span>`:''}<span>${esc(network.name)}</span>${m?`<span aria-hidden="true">·</span><span>${esc(m.dex)}</span>`:''}</div></div></header>
- <div class="report-meta"><span>${m?esc(poolAge(m)):'Pool age unavailable'}</span><span>${m||r?'Checked '+esc(time(m?.retrievedAt||r.retrievedAt)):'Checking…'}</span></div>
+ <div class="report-meta"><span>${m?esc(poolAge(m)):'Pool age unavailable'}</span><span>${m||r?'Checked '+esc(time(m?.retrievedAt||r.retrievedAt)):pending(state)?'Checking…':'Check complete'}</span></div>
  <div class="quick-risk ${level}"><div>${quickRisk}<p>${esc(quickReason)}</p></div></div>
  <div class="report-tabs" role="tablist" aria-label="Coin report">${reportSections.map(id=>`<button type="button" role="tab" id="report-tab-${id}" data-report-section="${id}" data-view-key="report-tab-${id}" aria-controls="report-panel-${id}" aria-selected="${id===section}" tabindex="${id===section?0:-1}">${id[0].toUpperCase()+id.slice(1)}</button>`).join('')}</div>
- <section class="report-panel" role="tabpanel" id="report-panel-overview" aria-labelledby="report-tab-overview" tabindex="0" ${section==='overview'?'':'hidden'}><div class="live-data-columns"><section class="live-market" aria-labelledby="market-heading"><h3 id="market-heading">Market</h3>${marketSection(state.market)}</section>${projectSection(state)}</div></section>
- <section class="report-panel chart-panel" role="tabpanel" id="report-panel-chart" aria-labelledby="report-tab-chart" tabindex="0" ${section==='chart'?'':'hidden'}>${historyHTML(state.history,m)}</section>
- <section class="report-panel" role="tabpanel" id="report-panel-details" aria-labelledby="report-tab-details" tabindex="0" ${section==='details'?'':'hidden'}><section class="live-security" aria-labelledby="risk-heading"><h3 id="risk-heading">Holders & security</h3>${riskSection(state.risk,bundlesSection(state.bundles,chain))}</section>
+ <section class="report-panel" role="tabpanel" data-view-key="report-panel-overview" id="report-panel-overview" aria-labelledby="report-tab-overview" tabindex="0" ${section==='overview'?'':'hidden'}><div class="live-data-columns"><section class="live-market" aria-labelledby="market-heading"><h3 id="market-heading">Market</h3>${marketSection(state.market)}</section>${projectSection(state)}</div></section>
+ <section class="report-panel chart-panel" role="tabpanel" data-view-key="report-panel-chart" id="report-panel-chart" aria-labelledby="report-tab-chart" tabindex="0" ${section==='chart'?'':'hidden'}>${historyHTML(state.history,m)}</section>
+ <section class="report-panel" role="tabpanel" data-view-key="report-panel-details" id="report-panel-details" aria-labelledby="report-tab-details" tabindex="0" ${section==='details'?'':'hidden'}><section class="live-security" aria-labelledby="risk-heading"><h3 id="risk-heading">Holders & security</h3>${riskSection(state.risk,bundlesSection(state.bundles,chain))}</section>
  <details class="check-more report-sources" data-view-key="sources"><summary>Sources & coverage</summary><dl class="check-detail-list">${metric('Market data',m?'DEX Screener · '+esc(time(m.retrievedAt)):'Unavailable')}${metric('Holders & risk',r?esc(r.provider||'Rugcheck')+' · '+esc(time(r.retrievedAt)):'Unavailable')}${metric('Price history',state.history?.data?'GeckoTerminal · '+esc(time(state.history.data.retrievedAt)):'Unavailable')}${metric('Paid profile',state.listing?.data?'DEX Screener · '+esc(time(state.listing.data.retrievedAt)):'Unavailable')}</dl><p>Retrieval times shown. Source reports may be cached. Risk labels summarize available checks, not a full security audit.</p><p>Market stats use the highest-liquidity pool returned, not all exchanges.</p><p>Not available here: insider-held supply, all-time high, fresh-wallet percentages, social-account age, view counts, and circulating supply. Insider and bundler signals cover Solana only; bundler data needs a connected source.</p><div class="report-source-links">${m?sourceLink('https://dexscreener.com/'+chain+'/'+m.pair,'DEX Screener'):''}${sourceLink(chain==='solana'?'https://rugcheck.xyz/tokens/'+state.mint:'https://api.gopluslabs.io/api/v1/token_security/'+network.securityId+'?contract_addresses='+state.mint,chain==='solana'?'Rugcheck':'GoPlus report')}${sourceLink(network.explorer+'/token/'+state.mint,'Token explorer')}</div></details>
  <div class="check-address"><span>Token address</span><code>${esc(state.mint)}</code><span>Names and logos can be copied. Check the address.</span></div></section></article>`;
 }
@@ -147,13 +147,13 @@ export function mountChecker(main,{discover=discoverNetwork,createSession=create
  };
  const startLookup=(mint,chain)=>{
   const lookupKey=chain+':'+mint;
-  if(lookupKey===lastSubmitted&&pending(current||{})){status.textContent='Already checking this address.';return;}
-  if(lookupKey===lastSubmitted&&current?.market.status==='ready'&&current?.risk.status==='ready'&&current?.listing?.status==='ready'&&current?.history?.status==='ready'&&Date.now()-finishedAt<30000){status.textContent='Just updated. Wait a few seconds to refresh.';return;}
+  if(lookupKey===lastSubmitted&&(pending(current||{})||current?.bundles?.status==='loading')){status.textContent='Already checking this address.';return;}
+  if(lookupKey===lastSubmitted&&current?.market.status==='ready'&&current?.risk.status==='ready'&&current?.listing?.status==='ready'&&current?.history?.status==='ready'&&current?.bundles?.status!=='error'&&Date.now()-finishedAt<30000){status.textContent='Just updated. Wait a few seconds to refresh.';return;}
   lastSubmitted=lookupKey;remembered=null;networkSelect.removeAttribute('aria-invalid');session.lookup(mint,chain);
  };
  const submit=async e=>{
   e.preventDefault();input.value=input.value.trim();const mint=addressKey(input.value),evm=validEvmAddress(mint);
-  if(mint!==observedMint)updateClear();
+  updateClear();
   error.hidden=true;input.removeAttribute('aria-invalid');networkSelect.removeAttribute('aria-invalid');
   if(!evm&&!validTokenAddress(mint,'solana')){
    cancelDiscovery();clearReport();resetNetwork();
@@ -191,5 +191,5 @@ export function mountChecker(main,{discover=discoverNetwork,createSession=create
   status.textContent='Address cleared.';networkSelect.value='';networkSelect.removeAttribute('aria-invalid');updateClear();input.focus();
  };
  input.addEventListener('input',updateClear);clearButton.addEventListener('click',clear);
- return ()=>{if(remembered)rememberedChartView={...chartView};cancelDiscovery();session.dispose();disposeChart();form.removeEventListener('submit',submit);input.removeEventListener('input',updateClear);clearButton.removeEventListener('click',clear);output.removeEventListener('error',imageError,true);output.removeEventListener('click',sectionClick);output.removeEventListener('keydown',sectionKey);};
+ return ()=>{if(remembered){rememberedChartView={...chartView};if(remembered.bundles?.status==='loading')remembered={...remembered,bundles:{status:'error',message:'The bundler check was interrupted. Check the coin again to retry.'}};}cancelDiscovery();session.dispose();disposeChart();form.removeEventListener('submit',submit);input.removeEventListener('input',updateClear);clearButton.removeEventListener('click',clear);output.removeEventListener('error',imageError,true);output.removeEventListener('click',sectionClick);output.removeEventListener('keydown',sectionKey);};
 }

@@ -3,16 +3,18 @@
 <h1>Network lookup UI tests</h1><p id="summary">Running…</p><ol id="results"></ol><div id="fixture"></div>
 <script type="module">
 import {mountChecker} from '/coin-checker.js';
+import {normalizeMarket,normalizeRisk} from '/coin-checker-data.js';
 const root=document.querySelector('#fixture'),results=document.querySelector('#results'),summary=document.querySelector('#summary');
 const evm='0x4200000000000000000000000000000000000006',other='0x1111111111111111111111111111111111111111',sol='So11111111111111111111111111111111111111112';
 const assert=(ok,message)=>{if(!ok)throw Error(message);},tick=()=>new Promise(resolve=>setTimeout(resolve,0));
 const deferred=()=>{let resolve;const promise=new Promise(done=>resolve=done);return {resolve,promise};};
 let cleanup=()=>{},passes=0,failures=0;
 function setup(discover,emitResult=false){
- cleanup();root.replaceChildren();const calls=[],discoveries=[],signals=[];
- const dispose=mountChecker(root,{discover:(mint,options)=>{discoveries.push(mint);signals.push(options.signal);return discover(mint,options);},createSession:onChange=>({lookup(mint,chain){calls.push({mint,chain});if(emitResult)onChange({mint,chainId:chain,market:{status:'empty'},risk:{status:'empty'},listing:{status:'empty'},history:{status:'empty'},bundles:{status:'unsupported'}});},cancel(){},dispose(){}})});
+ cleanup();root.replaceChildren();const calls=[],discoveries=[],signals=[];let emit;
+ const createSession=onChange=>{emit=onChange;return {lookup(mint,chain){calls.push({mint,chain});if(emitResult)onChange({mint,chainId:chain,market:{status:'empty'},risk:{status:'empty'},listing:{status:'empty'},history:{status:'empty'},bundles:{status:'unsupported'}});},cancel(){},dispose(){}};};
+ const dispose=mountChecker(root,{discover:(mint,options)=>{discoveries.push(mint);signals.push(options.signal);return discover(mint,options);},createSession});
  const input=root.querySelector('#coin-address'),select=root.querySelector('#coin-network'),box=root.querySelector('.check-network'),form=root.querySelector('form');
- const h={calls,discoveries,signals,input,select,box,form,dispose,fill(value){input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},submit(){form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},clear(){root.querySelector('.clear-address').click();}};
+ const h={calls,discoveries,signals,input,select,box,form,dispose,emit:state=>emit(state),fill(value){input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},submit(){form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},clear(){root.querySelector('.clear-address').click();}};
  cleanup=()=>{h.clear();dispose();};return h;
 }
 async function test(name,run){try{await run();passes++;results.insertAdjacentHTML('beforeend','<li class="pass">PASS — '+name+'</li>');}catch(error){failures++;const li=document.createElement('li');li.className='fail';li.textContent='FAIL — '+name+': '+error.message;results.append(li);}summary.textContent=passes+' passed, '+failures+' failed';}
@@ -25,7 +27,25 @@ await test('Changing the address clears an automatically detected network',async
 for(const action of ['clear','edit','dispose'])await test(action+' cancels discovery and ignores late responses',async()=>{const d=deferred(),h=setup(()=>d.promise);h.fill(evm);h.submit();if(action==='clear')h.clear();if(action==='edit')h.fill(other);if(action==='dispose')h.dispose();assert(h.signals[0].aborted,'signal not aborted');d.resolve({status:'ambiguous',chainIds:['base','optimism']});await tick();assert(h.box.hidden&&h.calls.length===0,'late discovery changed UI');});
 await test('An old detection cannot replace a newer address lookup',async()=>{const a=deferred(),b=deferred(),h=setup(mint=>mint===evm?a.promise:b.promise);h.fill(evm);h.submit();h.fill(other);h.submit();b.resolve({status:'resolved',chainIds:['ethereum']});await tick();a.resolve({status:'resolved',chainIds:['base']});await tick();assert(h.calls.length===1&&h.calls[0].mint===other&&h.calls[0].chain==='ethereum','old request won');});
 await test('Invalid input makes no discovery request',async()=>{const h=setup(()=>{throw Error('unexpected discovery');});h.fill('not an address');h.submit();await tick();assert(h.discoveries.length===0&&h.calls.length===0&&h.input.getAttribute('aria-invalid')==='true'&&h.box.hidden,'invalid input accepted');});
+await test('Submitting only whitespace keeps the empty field and Clear state in sync',async()=>{const h=setup(()=>{throw Error('unexpected discovery');});h.fill('   ');h.submit();await tick();assert(h.input.value===''&&root.querySelector('.clear-address').disabled,'Clear stayed enabled after whitespace was trimmed');});
 await test('Whitespace or address case changes do not discard the same token lookup',async()=>{const h=setup(async()=>({status:'resolved',chainIds:['base']}));h.fill('0x'+'A'.repeat(40));h.submit();await tick();h.fill('  0x'+'a'.repeat(40)+'  ');h.submit();await tick();assert(h.discoveries.length===1,'same address rediscovered');});
 await test('Returning to a remembered EVM result keeps the picker hidden',async()=>{const h=setup(async()=>({status:'resolved',chainIds:['base']}),true);h.fill(evm);h.submit();await tick();h.dispose();root.replaceChildren();const dispose=mountChecker(root,{discover:async()=>{throw Error('unexpected discovery');},createSession:()=>({lookup(){},cancel(){},dispose(){}})});assert(root.querySelector('.check-network').hidden&&root.querySelector('#network-help').hidden,'picker visible on remount');assert(root.querySelector('#coin-address').value===evm,'result not remembered');root.querySelector('.clear-address').click();dispose();cleanup=()=>{};});
+await test('A focused report panel keeps focus when another source finishes',async()=>{
+ const h=setup(()=>{throw Error('unexpected discovery');},true);h.fill(sol);h.submit();await tick();
+ const panel=root.querySelector('#report-panel-overview');panel.focus();assert(document.activeElement===panel,'panel did not receive focus');
+ h.emit({mint:sol,chainId:'solana',market:{status:'empty'},risk:{status:'empty'},listing:{status:'empty'},history:{status:'empty'},bundles:{status:'not-connected'}});
+ assert(document.activeElement===root.querySelector('#report-panel-overview'),'async result dropped panel focus');
+});
+await test('Leaving during a bundle check preserves the report and allows an immediate retry',async()=>{
+ const h=setup(()=>{throw Error('unexpected discovery');});h.fill(sol);h.submit();
+ const now=Date.now(),point={timestamp:now,close:1};
+ h.emit({mint:sol,chainId:'solana',market:{status:'ready',data:normalizeMarket([{chainId:'solana',baseToken:{address:sol},pairAddress:sol}],sol)},risk:{status:'ready',data:normalizeRisk({mint:sol,tokenProgram:sol,risks:[],token:{mintAuthority:null,freezeAuthority:null}},sol)},listing:{status:'ready',data:{profilePaid:false,retrievedAt:now}},history:{status:'ready',data:{points:[point],from:now,through:now,observedHigh:1,pair:sol,retrievedAt:now}},bundles:{status:'loading'}});
+ h.submit();assert(h.calls.length===1,'pending bundle check restarted');
+ h.dispose();root.replaceChildren();let retries=0;
+ const dispose=mountChecker(root,{createSession:()=>({lookup(){retries++;},cancel(){},dispose(){}})});
+ const bundle=root.querySelector('[data-view-key="bundler-details"]');assert(bundle.textContent.includes('interrupted')&&!bundle.textContent.includes('Checking…'),'restored result contains a permanently pending check');
+ root.querySelector('form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));assert(retries===1,'interrupted bundle retry was throttled');
+ root.querySelector('.clear-address').click();dispose();cleanup=()=>{};
+});
 cleanup();root.replaceChildren();summary.dataset.complete='true';summary.dataset.failures=String(failures);document.title=failures?'FAIL — network UI':'PASS — network UI';
 </script>

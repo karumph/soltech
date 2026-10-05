@@ -1,14 +1,14 @@
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const FLOW_PAUSE_KEY='soltech.scanner-demo-paused.v1';
-let rememberedPause;
+let rememberedPause,pauseWriteFailed=false;
 const readFlowPause=()=>{
- if(rememberedPause!==undefined)return rememberedPause;
- try{rememberedPause=window.localStorage.getItem(FLOW_PAUSE_KEY)==='true';}catch{rememberedPause=false;}
+ if(pauseWriteFailed)return rememberedPause;
+ try{rememberedPause=window.localStorage.getItem(FLOW_PAUSE_KEY)==='true';}catch{rememberedPause??=false;}
  return rememberedPause;
 };
 const saveFlowPause=paused=>{
  rememberedPause=paused;
- try{window.localStorage.setItem(FLOW_PAUSE_KEY,String(paused));}catch{/* Keep the choice across navigation when storage is unavailable. */}
+ try{window.localStorage.setItem(FLOW_PAUSE_KEY,String(paused));pauseWriteFailed=false;}catch{pauseWriteFailed=true;/* Keep the choice across navigation when storage is unavailable. */}
 };
 const icon=(paths,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
 const icons={
@@ -18,8 +18,12 @@ const icons={
 };
 const pathLayer=(path,kind)=>`<path class="flow-channel-halo" d="${path}"/><path class="flow-channel-line" d="${path}"/>${kind?`<g class="flow-packet-veil"><path class="flow-packet ${kind}" pathLength="100" d="${path}"/></g>`:''}`;
 const connector=stage=>`<div class="flow-connector" aria-hidden="true"><svg viewBox="0 0 320 48" preserveAspectRatio="none" focusable="false">${pathLayer('M160 0V48','flow-packet-'+stage)}</svg></div>`;
-const source=(kind,title,caption)=>`<div class="flow-source flow-source-${kind}"><div class="flow-source-label"><img src="assets/x-logo.png" alt="X" class="flow-x-logo"><h3>${title}</h3></div><div class="flow-scan-window" aria-hidden="true"><span class="flow-scan-line"></span><i></i><i></i><i></i><span class="flow-scan-beam"></span></div><p>${caption}</p></div>`;
-const xCoin=()=>'<span class="flow-x-coin"><img src="assets/x-logo.png" alt=""></span>';
+const scanPattern=kind=>{
+ const heights=[5,10,7,15,9,18,12,6,15,8,17,10,14,6,12,18,8];
+ if(kind==='pairs')heights.reverse();
+ return `<svg class="flow-scan-pattern" viewBox="0 0 160 24" preserveAspectRatio="none" focusable="false">${heights.map((height,index)=>`<path d="M${8+index*9} ${(24-height)/2}v${height}"/>`).join('')}</svg>`;
+};
+const source=(kind,title,caption)=>`<div class="flow-source flow-source-${kind}"><div class="flow-source-label"><img src="assets/x-logo.png" alt="X" class="flow-x-logo"><h3>${title}</h3></div><div class="flow-scan-window" aria-hidden="true">${scanPattern(kind)}<span class="flow-scan-beam"></span></div><p data-flow-source-caption data-running-caption="${esc(caption)}">${readFlowPause()?'Paused':esc(caption)}</p></div>`;
 const matchingActivity=()=>{
  const routes=[
   {from:8,to:36,path:'M8 8H43C79 8 109 36 145 36H180'},
@@ -38,9 +42,9 @@ export function scannerFlowHTML(name='Soltech scanner'){
    <div class="flow-sources"><svg class="flow-source-link" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0L100 100M0 100L100 0"/></svg>${source('x','Post','Scanning posts')}${source('pairs','New projects','Scanning projects')}</div>
    <div class="flow-merge" aria-hidden="true"><svg viewBox="0 0 320 72" preserveAspectRatio="none" focusable="false">${pathLayer('M77 0V14Q77 32 95 32H160')}${pathLayer('M243 0V14Q243 32 225 32H160')}${pathLayer('M160 32V72')}<g class="flow-packet-veil"><path class="flow-packet flow-packet-source-x" pathLength="100" d="M77 0V14Q77 32 95 32H160V72"/><path class="flow-packet flow-packet-source-pairs" pathLength="100" d="M243 0V14Q243 32 225 32H160V72"/></g></svg></div>
    <ol class="flow-stages">
-    <li><div class="flow-stage flow-stage-match"><div class="flow-stage-copy"><h3>Match signals</h3>${matchingActivity()}</div></div>${connector('match')}</li>
-    <li><div class="flow-stage flow-stage-check"><span class="flow-activity-veil" aria-hidden="true"><span class="flow-check-coin">${xCoin()}<span class="flow-check-sweep"></span></span></span><div class="flow-stage-copy"><h3>Coin checks</h3><span class="sr-only">Apply your filters</span>${checkProgress()}</div></div>${connector('check')}</li>
-    <li><a href="#finds" class="flow-stage flow-stage-finds" aria-label="Open Finds, 0 finds"><h3>Finds</h3><span class="flow-find-count" aria-hidden="true">0</span></a></li>
+    <li><div class="flow-stage flow-stage-match"><div class="flow-stage-copy"><h3>Match signals</h3>${matchingActivity()}</div><span class="flow-stage-total" aria-label="0 matched in this preview"><strong>0</strong><span>matched</span></span></div>${connector('match')}</li>
+    <li><div class="flow-stage flow-stage-check"><div class="flow-stage-copy"><h3>Coin checks</h3><p>Apply your filters</p>${checkProgress()}</div><span class="flow-stage-total" aria-label="0 checked in this preview"><strong>0</strong><span>checked</span></span></div>${connector('check')}</li>
+    <li><a href="#finds" class="flow-stage flow-stage-finds" aria-label="Open Feed, 0 finds"><h3>Finds</h3><span class="flow-find-count" aria-hidden="true">0</span></a></li>
    </ol>
   </div>
   <footer class="engine-footer"><p class="engine-demo-note">Demo preview · Live scanning isn’t connected.</p><div class="engine-controls"><a href="#scanner/edit" class="engine-control">${icon(icons.sliders)}Customize</a><button type="button" class="engine-control" data-flow-pause aria-label="Pause demo">${icon(icons.pause)}<span>Pause</span></button></div></footer>
@@ -73,12 +77,19 @@ export function mountScannerFlow(root){
   const paused=userPaused||reduced.matches;
   engine.dataset.paused=String(paused);engine.dataset.reducedMotion=String(reduced.matches);
   status.textContent=paused?'Inactive':'Active';
+  engine.querySelectorAll('[data-flow-source-caption]').forEach(caption=>{caption.textContent=paused?'Paused':caption.dataset.runningCaption;});
   button.innerHTML=icon(paused?icons.play:icons.pause)+`<span>${paused?'Resume':'Pause'}</span>`;
   button.setAttribute('aria-label',paused?'Resume demo':'Pause demo');button.hidden=reduced.matches;
   note.textContent=reduced.matches?'Static preview · Live scanning isn’t connected.':paused?'Demo paused · Live scanning isn’t connected.':'Demo preview · Live scanning isn’t connected.';
  };
  const toggle=()=>{if(reduced.matches)return;userPaused=!userPaused;saveFlowPause(userPaused);update();};
  const change=()=>update();
- button.addEventListener('click',toggle);reduced.addEventListener('change',change);update();
- return ()=>{sourceResize.disconnect();button.removeEventListener('click',toggle);reduced.removeEventListener('change',change);};
+ const storageChanged=event=>{
+  if(event.key!==FLOW_PAUSE_KEY&&event.key!==null)return;
+  try{if(event.storageArea&&event.storageArea!==window.localStorage)return;}catch{return;}
+  rememberedPause=event.key===null?false:event.newValue==='true';pauseWriteFailed=false;
+  userPaused=rememberedPause;update();
+ };
+ button.addEventListener('click',toggle);reduced.addEventListener('change',change);window.addEventListener('storage',storageChanged);update();
+ return ()=>{sourceResize.disconnect();button.removeEventListener('click',toggle);reduced.removeEventListener('change',change);window.removeEventListener('storage',storageChanged);};
 }
