@@ -66,6 +66,28 @@ test('unrecognized saved data remains untouched',()=>{
  const disk=memory();disk.setItem(PERSONAL_SCANNER_KEY,'{"schemaVersion":999}');const s=createPersonalScannerStore(disk);assert.equal(s.issue,'read');assert.equal(s.effective,null);s.begin('both');assert.equal(disk.getItem(PERSONAL_SCANNER_KEY),'{"schemaVersion":999}');
 });
 
+test('runtime read failures retain existing draft edits without applying or overwriting saved data',()=>{
+ const disk=memory(),s=createPersonalScannerStore(disk);configure(s);assert.equal(s.save().ok,true);s.begin();
+ const saved=s.state.saved,revision=s.state.revision,get=disk.getItem,set=disk.setItem,raw=get(PERSONAL_SCANNER_KEY);
+ let unreadable=true,writes=0;
+ disk.getItem=key=>{if(unreadable)throw Error('Storage denied');return get(key);};
+ disk.setItem=(key,value)=>{writes++;set(key,value);};
+ assert.equal(s.detectConflict(),true);assert.equal(s.issue,'read');
+ const config=s.state.draft.config;config.resultFilters.capMax='123';config.sources.public.settings.accounts='@offline';
+ assert.equal(s.update(config),false);
+ assert.equal(s.state.draft.config.resultFilters.capMax,'123');assert.equal(s.state.draft.config.sources.public.settings.accounts,'@offline');
+ assert.equal(s.step('review','projects'),false);assert.equal(s.state.draft.screen,'review');assert.equal(s.state.draft.source,'projects');
+ const local=s.state;
+ assert.equal(s.save().ok,false);assert.equal(s.cancel(),false);assert.equal(s.retry(),false);
+ assert.deepEqual(s.state,local);assert.deepEqual(s.state.saved,saved);assert.equal(s.state.revision,revision);
+ assert.equal(writes,0);assert.equal(get(PERSONAL_SCANNER_KEY),raw);
+ assert.equal(JSON.parse(s.export()).draft.config.resultFilters.capMax,'123');
+ unreadable=false;set(PERSONAL_SCANNER_KEY,'{"schemaVersion":999}');assert.equal(s.reload(),false);
+ const next=s.state.draft.config;next.resultFilters.capMax='456';assert.equal(s.update(next),false);
+ assert.equal(s.state.draft.config.resultFilters.capMax,'456');assert.equal(s.retry(),false);
+ assert.equal(writes,0);assert.equal(get(PERSONAL_SCANNER_KEY),'{"schemaVersion":999}');assert.deepEqual(s.state.saved,saved);
+});
+
 test('storage-event conflicts retain the local draft without replacing it',()=>{
  const disk=memory(),a=createPersonalScannerStore(disk);configure(a);const b=createPersonalScannerStore(disk);const local=a.state.draft;
  const changed=b.state.draft.config;changed.name='Other tab';b.update(changed);const remote=disk.getItem(PERSONAL_SCANNER_KEY);

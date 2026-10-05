@@ -44,7 +44,12 @@ export function createPersonalScannerStore(storage){
   }catch{issue='read';return false;}
  }
  function write(next){
-  if(issue==='read')return false;
+  if(issue==='read'){
+   // Keep an existing draft editable and exportable while saved data is unreadable.
+   // Applying, discarding or starting a draft still requires successful recovery.
+   if(state.draft&&next.draft)state={...state,draft:next.draft};
+   return false;
+  }
   try{
    if(storage.getItem(PERSONAL_SCANNER_KEY)!==baseRaw){state=next;issue='conflict';return false;}
    const candidate={...next,revision:state.revision+1},raw=JSON.stringify(candidate);

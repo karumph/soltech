@@ -246,6 +246,24 @@
   .live-data-columns{grid-template-columns:1fr;gap:28px}.live-coin-head h2{font-size:1.6rem}.live-coin{padding-top:20px}
   .check-metrics dd{font-size:1.5rem}.check-metrics>div:nth-child(even){padding-left:18px}
   .history-readout strong{font-size:2.2rem}.history-plot{height:250px}.report-tabs{margin-block:20px}
+  /* Keep the selected value beside its slider when the chart is explored on a phone. */
+  .checker .price-history{display:flex;flex-direction:column}
+  .checker .history-heading{order:0}
+  .checker .history-coverage{order:1;margin-top:14px}
+  .checker .history-ranges{order:2;align-self:flex-start}
+  .checker .history-plot{order:3;flex:none}
+  .checker .history-dates{order:4}
+  .checker .history-readout{order:5;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin:16px 0 4px;padding-top:12px;border-top:1px solid var(--line)}
+  .checker .history-readout>span{grid-column:1;grid-row:1}
+  .checker .history-readout time{grid-column:2;grid-row:1;align-self:start;text-align:right;font-size:.75rem}
+  .checker .history-readout strong{grid-column:1/-1;grid-row:2;font-size:1.9rem}
+  .checker .history-scrubber{order:6}
+  .checker .history-scrubber:focus-visible{outline:2px solid #627f9b;outline-offset:0;border-radius:10px}
+  .checker .history-help{order:7}
+  .checker .history-estimate{order:8}
+  .checker .history-current{order:9}
+  .checker .history-high{order:10}
+  .checker .price-history>.check-more{order:11}
   .single-scanner-heading{gap:10px}.single-scanner-identity{gap:12px}.single-scanner-identity .scanner-mark{width:46px;height:46px}
   .single-scanner-identity h2{font-size:1.125rem}.single-scanner-identity div>span{font-size:.75rem}.single-scanner-card .scanner-customize{padding-inline:11px}
   .personal-identity{gap:13px}.personal-identity .personal-avatar{width:58px;height:58px}.personal-identity-copy h2{font-size:1.125rem}

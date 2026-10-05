@@ -1,0 +1,807 @@
+{
+  "retrievedAt": "2026-10-04T00:34:56.0153347Z",
+  "source": "DEX Screener public search API",
+  "results": [
+    {
+      "query": "BONK",
+      "pairs": [
+        {
+          "chainId": "solana",
+          "pairAddress": "5zpyutJu9ee6jFymDGoK7F6S5Kczqtc9FomP3ueKuyA9",
+          "baseToken": {
+            "address": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+            "name": "Bonk",
+            "symbol": "Bonk"
+          },
+          "marketCap": 336030809,
+          "liquidity": {
+            "usd": 428446.05,
+            "base": 72881049376,
+            "quote": 1251.6018
+          },
+          "volume": {
+            "h24": 548124.13,
+            "h6": 85760.31,
+            "h1": 10516.4,
+            "m5": 1471.83
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/ba03c0370670d176dc33bbd212eb023337a460ad7edfa053ca96ae22f31c3dcf?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/e2667fc59737e727f0fd18e7e534c67e371ee40689068e72d30b5bc12bf63c2d?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.bonkcoin.com",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/bonk_inu",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/Official_Bonk_Inu",
+                "type": "telegram"
+              },
+              {
+                "url": "https://discord.gg/qaQa6M6mN2",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/5zpyutju9ee6jfymdgok7f6s5kczqtc9fomp3uekuya9"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "31p1hptjhFo6ZD8oBqkfutNXQKGGPyi7YcEAfsyKW777",
+          "baseToken": {
+            "address": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+            "name": "Bonk",
+            "symbol": "Bonk"
+          },
+          "marketCap": 335911488,
+          "liquidity": {
+            "usd": 267404.65,
+            "base": 24317097082,
+            "quote": 174576
+          },
+          "volume": {
+            "h24": 227836.6,
+            "h6": 52350.18,
+            "h1": 3947.21,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/ba03c0370670d176dc33bbd212eb023337a460ad7edfa053ca96ae22f31c3dcf?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/e2667fc59737e727f0fd18e7e534c67e371ee40689068e72d30b5bc12bf63c2d?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.bonkcoin.com",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/bonk_inu",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/Official_Bonk_Inu",
+                "type": "telegram"
+              },
+              {
+                "url": "https://discord.gg/qaQa6M6mN2",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/31p1hptjhfo6zd8obqkfutnxqkggpyi7yceafsykw777"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "AtcGozT6i1GR3wJAjVwRwmt7qbHqZrBUqKs2DcMAKoVe",
+          "baseToken": {
+            "address": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+            "name": "Bonk",
+            "symbol": "Bonk"
+          },
+          "marketCap": 333675826,
+          "liquidity": {
+            "usd": 228847.55,
+            "base": 49308077999,
+            "quote": 349.8844
+          },
+          "volume": {
+            "h24": 39503.94,
+            "h6": 3557.44,
+            "h1": 0,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/ba03c0370670d176dc33bbd212eb023337a460ad7edfa053ca96ae22f31c3dcf?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/e2667fc59737e727f0fd18e7e534c67e371ee40689068e72d30b5bc12bf63c2d?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.bonkcoin.com",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/bonk_inu",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/Official_Bonk_Inu",
+                "type": "telegram"
+              },
+              {
+                "url": "https://discord.gg/qaQa6M6mN2",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/atcgozt6i1gr3wjajvwrwmt7qbhqzrbuqks2dcmakove"
+        }
+      ]
+    },
+    {
+      "query": "POPCAT",
+      "pairs": [
+        {
+          "chainId": "solana",
+          "pairAddress": "FRhB8L7Y9Qq41qZXYLtC2nw8An1RJfLLxRF2x9RwLLMo",
+          "baseToken": {
+            "address": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+            "name": "Popcat",
+            "symbol": "POPCAT"
+          },
+          "marketCap": 52486674,
+          "liquidity": {
+            "usd": 4130150.24,
+            "base": 38508897,
+            "quote": 17240
+          },
+          "volume": {
+            "h24": 163266.43,
+            "h6": 29989.65,
+            "h1": 6943.43,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/Pp6Fvh41hc0bHGK8?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/4bjrXigB55yPmy5R?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.popcatsolana.xyz/",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://x.com/popcatworld",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/popcatsolana",
+                "type": "telegram"
+              },
+              {
+                "url": "https://instagram.com/popcatonsolana",
+                "type": "instagram"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/frhb8l7y9qq41qzxyltc2nw8an1rjfllxrf2x9rwllmo"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "HBS7a3br8GMMWuqVa7VB3SMFa7xVi1tSFdoF5w4ZZ3kS",
+          "baseToken": {
+            "address": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+            "name": "Popcat",
+            "symbol": "POPCAT"
+          },
+          "marketCap": 52711578,
+          "liquidity": {
+            "usd": 646695.65,
+            "base": 6018926,
+            "quote": 322944
+          },
+          "volume": {
+            "h24": 33007.83,
+            "h6": 6025.26,
+            "h1": 1576.73,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/Pp6Fvh41hc0bHGK8?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/4bjrXigB55yPmy5R?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.popcatsolana.xyz/",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://x.com/popcatworld",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/popcatsolana",
+                "type": "telegram"
+              },
+              {
+                "url": "https://instagram.com/popcatonsolana",
+                "type": "instagram"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/hbs7a3br8gmmwuqva7vb3smfa7xvi1tsfdof5w4zz3ks"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "AHTTzwf3GmVMJdxWM8v2MSxyjZj8rQR6hyAC3g9477Yj",
+          "baseToken": {
+            "address": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+            "name": "Popcat",
+            "symbol": "POPCAT"
+          },
+          "marketCap": 52554909,
+          "liquidity": {
+            "usd": 19900.68,
+            "base": 327188,
+            "quote": 19.6227
+          },
+          "volume": {
+            "h24": 7902.92,
+            "h6": 2181.36,
+            "h1": 531.22,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/Pp6Fvh41hc0bHGK8?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/4bjrXigB55yPmy5R?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.popcatsolana.xyz/",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://x.com/popcatworld",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/popcatsolana",
+                "type": "telegram"
+              },
+              {
+                "url": "https://instagram.com/popcatonsolana",
+                "type": "instagram"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/ahttzwf3gmvmjdxwm8v2msxyjzj8rqr6hyac3g9477yj"
+        }
+      ]
+    },
+    {
+      "query": "WIF",
+      "pairs": [
+        {
+          "chainId": "solana",
+          "pairAddress": "EP2ib6dYdEeqD8MfE2ezHCxX3kP3K2eLKkirfPm5eyMx",
+          "baseToken": {
+            "address": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+            "name": "dogwifhat",
+            "symbol": "$WIF"
+          },
+          "marketCap": 252558622,
+          "liquidity": {
+            "usd": 6906313.09,
+            "base": 13673365,
+            "quote": 28753
+          },
+          "volume": {
+            "h24": 435210.26,
+            "h6": 86810.96,
+            "h1": 5026.26,
+            "m5": 721.04
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/c3788335fe7010d9c32ede4f211118f4a703e0b47fee61cd503c33cc9cde242a?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/1f234bc019b34703f77577917ab371d2c819ddffc609bd584eb02bfe119754c7?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?timestamp=1791074100000",
+            "websites": [
+              {
+                "url": "https://dogwifcoin.org",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/dogwifcoin",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/dogwifcoin",
+                "type": "telegram"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/ep2ib6dydeeqd8mfe2ezhcxx3kp3k2elkkirfpm5eymx"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "D6NdKrKNQPmRZCCnG1GqXtF7MMoHB7qR6GU5TkG59Qz1",
+          "baseToken": {
+            "address": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+            "name": "dogwifhat",
+            "symbol": "$WIF"
+          },
+          "marketCap": 252344746,
+          "liquidity": {
+            "usd": 181034.57,
+            "base": 545211,
+            "quote": 360.9308
+          },
+          "volume": {
+            "h24": 272871.11,
+            "h6": 74967.3,
+            "h1": 8373.73,
+            "m5": 386.61
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/c3788335fe7010d9c32ede4f211118f4a703e0b47fee61cd503c33cc9cde242a?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/1f234bc019b34703f77577917ab371d2c819ddffc609bd584eb02bfe119754c7?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?timestamp=1791074100000",
+            "websites": [
+              {
+                "url": "https://dogwifcoin.org",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/dogwifcoin",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/dogwifcoin",
+                "type": "telegram"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/d6ndkrknqpmrzccng1gqxtf7mmohb7qr6gu5tkg59qz1"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "6qgyDW4fHvpTAmfNZvPAuETEbVwRKFVAuuHfNzvEmPkY",
+          "baseToken": {
+            "address": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+            "name": "dogwifhat",
+            "symbol": "$WIF"
+          },
+          "marketCap": 250411687,
+          "liquidity": {
+            "usd": 24011.54,
+            "base": 46471,
+            "quote": 103.3187
+          },
+          "volume": {
+            "h24": 716.63,
+            "h6": 127.7,
+            "h1": 6.37,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/c3788335fe7010d9c32ede4f211118f4a703e0b47fee61cd503c33cc9cde242a?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/1f234bc019b34703f77577917ab371d2c819ddffc609bd584eb02bfe119754c7?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm?timestamp=1791074100000",
+            "websites": [
+              {
+                "url": "https://dogwifcoin.org",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/dogwifcoin",
+                "type": "twitter"
+              },
+              {
+                "url": "https://t.me/dogwifcoin",
+                "type": "telegram"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/6qgydw4fhvptamfnzvpauetebvwrkfvauuhfnzvempky"
+        }
+      ]
+    },
+    {
+      "query": "PENGU",
+      "pairs": [
+        {
+          "chainId": "solana",
+          "pairAddress": "DdMA1cHcHEqYfttc1z1sJEY978CcU1pyjNuTWTNmdvzU",
+          "baseToken": {
+            "address": "2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv",
+            "name": "Pudgy Penguins",
+            "symbol": "PENGU"
+          },
+          "marketCap": 580876361,
+          "liquidity": {
+            "usd": 4282689.28,
+            "base": 350398886,
+            "quote": 1044745
+          },
+          "volume": {
+            "h24": 1697565.15,
+            "h6": 220531.13,
+            "h1": 0,
+            "m5": 0
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/9d5188f603b49ab02f7a75e5d2c2959ec2947c98181501fb11688672e9394efd?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/5c3d41eabf98b63ce56ca14ca3ffe42c7426e0f1680647011d5991456516ba57?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.pudgypenguins.com",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://x.com/pudgypenguins",
+                "type": "twitter"
+              },
+              {
+                "url": "https://discord.gg/pudgypenguins",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/ddma1chcheqyfttc1z1sjey978ccu1pyjnutwtnmdvzu"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "FAqh648xeeaTqL7du49sztp9nfj5PjRQrfvaMccyd9cz",
+          "baseToken": {
+            "address": "2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv",
+            "name": "Pudgy Penguins",
+            "symbol": "PENGU"
+          },
+          "marketCap": 579425792,
+          "liquidity": {
+            "usd": 4131342.06,
+            "base": 269215621,
+            "quote": 13754
+          },
+          "volume": {
+            "h24": 781750.26,
+            "h6": 98804.12,
+            "h1": 14861.17,
+            "m5": 1124.82
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/9d5188f603b49ab02f7a75e5d2c2959ec2947c98181501fb11688672e9394efd?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/5c3d41eabf98b63ce56ca14ca3ffe42c7426e0f1680647011d5991456516ba57?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.pudgypenguins.com",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://x.com/pudgypenguins",
+                "type": "twitter"
+              },
+              {
+                "url": "https://discord.gg/pudgypenguins",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/faqh648xeeatql7du49sztp9nfj5pjrqrfvamccyd9cz"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "9qKxzRejsV6Bp2zkefXWCbGvg61c3hHei7ShXJ4FythA",
+          "baseToken": {
+            "address": "2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv",
+            "name": "Pudgy Penguins",
+            "symbol": "PENGU"
+          },
+          "marketCap": 579485674,
+          "liquidity": {
+            "usd": 1690336.71,
+            "base": 91543903,
+            "quote": 7055.926
+          },
+          "volume": {
+            "h24": 62554.21,
+            "h6": 10670.34,
+            "h1": 2126.47,
+            "m5": 122.45
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/9d5188f603b49ab02f7a75e5d2c2959ec2947c98181501fb11688672e9394efd?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/5c3d41eabf98b63ce56ca14ca3ffe42c7426e0f1680647011d5991456516ba57?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://www.pudgypenguins.com",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://x.com/pudgypenguins",
+                "type": "twitter"
+              },
+              {
+                "url": "https://discord.gg/pudgypenguins",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/9qkxzrejsv6bp2zkefxwcbgvg61c3hhei7shxj4fytha"
+        }
+      ]
+    },
+    {
+      "query": "JUP",
+      "pairs": [
+        {
+          "chainId": "solana",
+          "pairAddress": "C8Gr6AUuq9hEdSYJzoEpNcdjpojPZwqG5MtQbeouNNwg",
+          "baseToken": {
+            "address": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+            "name": "Jupiter",
+            "symbol": "JUP"
+          },
+          "marketCap": 1102471354,
+          "liquidity": {
+            "usd": 2316791.28,
+            "base": 4035258,
+            "quote": 8140.6264
+          },
+          "volume": {
+            "h24": 1407940.97,
+            "h6": 311140.94,
+            "h1": 120217.71,
+            "m5": 1091.02
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/4afaadf0f388adf44bd3a33cedfc601938f74ab7ede6d78e4063777bb0f64780?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/97669b5c651a5568520c92b0d265278d9368368e69fa88b9aeb3815e35f9c8ea?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://jup.ag",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/JupiterExchange",
+                "type": "twitter"
+              },
+              {
+                "url": "https://discord.gg/jup",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/c8gr6auuq9hedsyjzoepncdjpojpzwqg5mtqbeounnwg"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "C1MgLojNLWBKADvu9BHdtgzz1oZX4dZ5zGdGcgvvW8Wz",
+          "baseToken": {
+            "address": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+            "name": "Jupiter",
+            "symbol": "JUP"
+          },
+          "marketCap": 1095728759,
+          "liquidity": {
+            "usd": 843616.92,
+            "base": 1367992,
+            "quote": 3268.3669
+          },
+          "volume": {
+            "h24": 2989432.86,
+            "h6": 902692.15,
+            "h1": 132460.56,
+            "m5": 12461.83
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/4afaadf0f388adf44bd3a33cedfc601938f74ab7ede6d78e4063777bb0f64780?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/97669b5c651a5568520c92b0d265278d9368368e69fa88b9aeb3815e35f9c8ea?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://jup.ag",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/JupiterExchange",
+                "type": "twitter"
+              },
+              {
+                "url": "https://discord.gg/jup",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/c1mglojnlwbkadvu9bhdtgzz1ozx4dz5zgdgcgvvw8wz"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "HfgjZDmexhFVD28Vkb1NbQwWeXP3uDcVTLPjSGHmRHhL",
+          "baseToken": {
+            "address": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+            "name": "Jupiter",
+            "symbol": "JUP"
+          },
+          "marketCap": 1095860514,
+          "liquidity": {
+            "usd": 302784.22,
+            "base": 451226,
+            "quote": 153815
+          },
+          "volume": {
+            "h24": 536318.93,
+            "h6": 91190.52,
+            "h1": 15794.47,
+            "m5": 2890.62
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/4afaadf0f388adf44bd3a33cedfc601938f74ab7ede6d78e4063777bb0f64780?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/97669b5c651a5568520c92b0d265278d9368368e69fa88b9aeb3815e35f9c8ea?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN?timestamp=1791073800000",
+            "websites": [
+              {
+                "url": "https://jup.ag",
+                "label": "Website"
+              }
+            ],
+            "socials": [
+              {
+                "url": "https://twitter.com/JupiterExchange",
+                "type": "twitter"
+              },
+              {
+                "url": "https://discord.gg/jup",
+                "type": "discord"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/hfgjzdmexhfvd28vkb1nbqwwexp3udcvtlpjsghmrhhl"
+        }
+      ]
+    },
+    {
+      "query": "RAY",
+      "pairs": [
+        {
+          "chainId": "solana",
+          "pairAddress": "6UmmUiYoBjSrhakAobJw8BvkmJtDVxaeBtbt7rxWo1mg",
+          "baseToken": {
+            "address": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+            "name": "Raydium",
+            "symbol": "RAY"
+          },
+          "marketCap": 1155549364,
+          "liquidity": {
+            "usd": 6904485.02,
+            "base": 1656009,
+            "quote": 3456551
+          },
+          "volume": {
+            "h24": 946941.32,
+            "h6": 127567.07,
+            "h1": 5437.29,
+            "m5": 1347.21
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/654ec0cee3ecf3fd5d55c56302d82300ee114ee1ff91e52897798b486993f6c8?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/1da07e256a9a70fbdc532be8a1a78770de144c1d961bf565f7e3739341887db3?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R?timestamp=1791073800000",
+            "websites": [],
+            "socials": [
+              {
+                "url": "https://x.com/raydiumprotocol",
+                "type": "twitter"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/6ummuiyobjsrhakaobjw8bvkmjtdvxaebtbt7rxwo1mg"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "AVs9TA4nWDzfPJE9gGVNJMVhcQy3V9PGazuz33BfG2RA",
+          "baseToken": {
+            "address": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+            "name": "Raydium",
+            "symbol": "RAY"
+          },
+          "marketCap": 1155572614,
+          "liquidity": {
+            "usd": 5671667.16,
+            "base": 1360309,
+            "quote": 23669
+          },
+          "volume": {
+            "h24": 723125.7,
+            "h6": 101387.43,
+            "h1": 6926.44,
+            "m5": 1033.77
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/654ec0cee3ecf3fd5d55c56302d82300ee114ee1ff91e52897798b486993f6c8?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/1da07e256a9a70fbdc532be8a1a78770de144c1d961bf565f7e3739341887db3?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R?timestamp=1791073800000",
+            "websites": [],
+            "socials": [
+              {
+                "url": "https://x.com/raydiumprotocol",
+                "type": "twitter"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/avs9ta4nwdzfpje9ggvnjmvhcqy3v9pgazuz33bfg2ra"
+        },
+        {
+          "chainId": "solana",
+          "pairAddress": "2AXXcN6oN9bBT5owwmTH53C7QHUXvhLeu718Kqt8rvY2",
+          "baseToken": {
+            "address": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+            "name": "Raydium",
+            "symbol": "RAY"
+          },
+          "marketCap": 1155838046,
+          "liquidity": {
+            "usd": 4012338.08,
+            "base": 1039159,
+            "quote": 15408
+          },
+          "volume": {
+            "h24": 7809316.44,
+            "h6": 1076597.65,
+            "h1": 114509.46,
+            "m5": 4041.03
+          },
+          "info": {
+            "imageUrl": "https://cdn.dexscreener.com/cms/images/654ec0cee3ecf3fd5d55c56302d82300ee114ee1ff91e52897798b486993f6c8?width=800&height=800&quality=95&format=auto",
+            "header": "https://cdn.dexscreener.com/cms/images/1da07e256a9a70fbdc532be8a1a78770de144c1d961bf565f7e3739341887db3?width=1500&height=500&quality=95&format=auto",
+            "openGraph": "https://cdn.dexscreener.com/token-images/og/solana/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R?timestamp=1791073800000",
+            "websites": [],
+            "socials": [
+              {
+                "url": "https://x.com/raydiumprotocol",
+                "type": "twitter"
+              }
+            ]
+          },
+          "url": "https://dexscreener.com/solana/2axxcn6on9bbt5owwmth53c7qhuxvhleu718kqt8rvy2"
+        }
+      ]
+    }
+  ]
+}
