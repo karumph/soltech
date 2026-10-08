@@ -1,0 +1,45 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cognito-idp:SignUp",
+        "cognito-idp:ConfirmSignUp",
+        "cognito-idp:ResendConfirmationCode",
+        "cognito-idp:InitiateAuth",
+        "cognito-idp:ForgotPassword",
+        "cognito-idp:ConfirmForgotPassword"
+      ],
+      "Resource": "arn:aws:cognito-idp:us-east-1:942852434225:userpool/us-east-1_9z3I8k3dL"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cognito-idp:GetUser",
+        "cognito-idp:ChangePassword",
+        "cognito-idp:GlobalSignOut",
+        "cognito-idp:DeleteUser"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:942852434225:table/soltech-accounts"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:942852434225:table/soltech-watchlists"
+    }
+  ]
+}

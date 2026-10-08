@@ -164,3 +164,118 @@
   .flow-route-track,.flow-route-node{stroke:CanvasText}.flow-route-node,.flow-route-active circle{fill:Canvas}.flow-route-active{stroke:Highlight}.flow-route-active .flow-route-dot{fill:Highlight}
  }
 }
+/* Hosted: every cycle carries one real project from the latest server scan. Post stays idle until X is connected. */
+@layer scanner-flow {
+ .scanner-engine[data-live=true] .flow-packet-source-x,.scanner-engine[data-live=true] .flow-source-x .flow-scan-beam{display:none}
+ .scanner-engine[data-live=true] .flow-packet-source-pairs{animation:flow-travel-source-live var(--flow-cycle) linear infinite}
+ .scanner-engine[data-live=true] .flow-source>p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .scanner-engine[data-live=true] .engine-demo-note{min-height:3em}
+ /* A check that did not pass covers the green completed state with its own colour for the same moments. */
+ .flow-check-step[data-result]:not([data-result=pass])::before{content:"";position:absolute;inset:-1px;border:1px solid #929da9;border-radius:50%;background:#e5e8ed;opacity:var(--tick);transition:opacity .25s ease}
+ .flow-check-step[data-result=warn]::before{border-color:#c9a955;background:#fae9bb}
+ .flow-check-step[data-result=fail]::before{border-color:#c98a96;background:#f9dce1}
+ .flow-check-step[data-result=warn] svg{color:#715013}
+ .flow-check-step[data-result=fail] svg{color:#923044}
+ .flow-check-step[data-result=unknown] svg{color:#5d596a}
+ .scanner-engine[data-outcome=excluded] .flow-packet-check{visibility:hidden}
+ .scanner-engine[data-outcome=excluded]:not([data-paused=true]) .flow-stage-finds{border-color:#9ca9b5!important;box-shadow:inset 0 1px 0 #fff,0 2px 4px #26314414!important}
+ @keyframes flow-travel-source-live{0%,12.25%{stroke-dashoffset:17;opacity:0}12.5%{stroke-dashoffset:17;opacity:1}25%{stroke-dashoffset:-100;opacity:1}25.5%,100%{stroke-dashoffset:-100;opacity:0}}
+ @media(forced-colors:active){.flow-check-step[data-result]::before{display:none}}
+}
+/* Hosted Scanner page: the engine replays real coins with a shorter cycle, beside a live activity panel. */
+@layer scanner-flow {
+ .personal-scanner.scanner-flow-page.is-live{max-width:1180px}
+ .scanner-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+ @media(min-width:1000px){.scanner-layout{grid-template-columns:minmax(0,1fr) 340px;gap:24px}.scanner-layout .scanner-engine{min-height:min(720px,calc(100dvh - 200px))}}
+ .scanner-engine[data-live=true]{--flow-cycle:8s}
+ /* New projects is not an X source: a launch mark replaces the X logo. */
+ .flow-launch-mark{display:grid;place-items:center;width:var(--source-logo-size);height:var(--source-logo-size);flex:none;color:#f5f7f9}
+ .flow-launch-mark svg{width:100%;height:100%;stroke-width:1.6}
+ .flow-scan-coin{position:absolute;inset:0;display:flex;align-items:center;gap:6px;padding-left:8px;font-size:.75rem;font-weight:650;color:#1f2b36;opacity:0;transform:translateX(-6px);transition:opacity .3s ease,transform .3s ease;pointer-events:none}
+ .flow-scan-coin span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100% - 34px);background:#ffffffd9;border-radius:4px;padding:0 4px}
+ .scanner-engine[data-live=true][data-phase=receive] .flow-scan-coin{opacity:1;transform:none}
+ .flow-coin-badge,.activity-badge{position:relative;display:inline-grid;place-items:center;flex:none;width:18px;height:18px;border-radius:50%;overflow:hidden;background:#e7ecf1;color:#3b4a57;font-size:.625rem;font-weight:700;box-shadow:0 0 0 1px #0000001a}
+ .flow-coin-badge img,.activity-badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+ .flow-stage-note{font-size:.75rem;color:#4b5563;margin-top:3px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(260px,52vw)}
+ .scanner-engine[data-live=true] .flow-stage-check .flow-stage-copy>p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(240px,46vw)}
+ /* Live stages: a clean silver panel instead of the half-tint and diagonal sheen. The stage working on the
+    current coin lights up (driven by data-phase from the script) and a thin line along its base shows its step. */
+ .scanner-engine[data-live=true] .flow-stage-match,.scanner-engine[data-live=true] .flow-stage-check{animation:none;background:linear-gradient(180deg,#fbfcfd,#f1f4f7);box-shadow:inset 3px 0 #a9b6c2,inset 0 1px #d6dde4,inset 0 -1px #d6dde4;transition:background .35s ease,box-shadow .35s ease}
+ .scanner-engine[data-live=true][data-phase=match] .flow-stage-match,.scanner-engine[data-live=true][data-phase=check] .flow-stage-check{background:linear-gradient(180deg,#f7fbfe,#e9f3fa);box-shadow:inset 3px 0 #398fc9,inset 0 1px #bcd6e8,inset 0 -1px #bcd6e8,0 6px 16px -10px #398fc980}
+ .scanner-engine[data-live=true] .flow-stage-match h3,.scanner-engine[data-live=true] .flow-stage-check h3{transition:color .35s ease}
+ .scanner-engine[data-live=true][data-phase=match] .flow-stage-match h3,.scanner-engine[data-live=true][data-phase=check] .flow-stage-check h3{color:#1d5f8c}
+ .scanner-engine[data-live=true] .flow-stage-match::before,.scanner-engine[data-live=true] .flow-stage-check::before{content:"";position:absolute;left:3px;bottom:0;height:2px;width:0;border-radius:0 2px 2px 0;background:linear-gradient(90deg,#a8d1ee,#398fc9);box-shadow:0 0 8px #398fc999;pointer-events:none}
+ .scanner-engine[data-live=true] .flow-stage-match::before{animation:flow-line-match var(--flow-cycle) linear infinite}
+ .scanner-engine[data-live=true] .flow-stage-check::before{animation:flow-line-check var(--flow-cycle) linear infinite}
+ .scanner-engine[data-live=true] .flow-stage-copy,.scanner-engine[data-live=true] .flow-stage-total{position:relative}
+ .scanner-engine[data-live=true] .flow-stage-total strong{font-size:1rem}
+ @keyframes flow-line-match{0%,25%{width:0;opacity:1}49%{width:calc(100% - 3px);opacity:1}54%,100%{width:calc(100% - 3px);opacity:0}}
+ @keyframes flow-line-check{0%,50%{width:0;opacity:1}81%{width:calc(100% - 3px);opacity:1}86%,100%{width:calc(100% - 3px);opacity:0}}
+ /* Each tick lights when its check is read and keeps its result until the next coin. */
+ .scanner-engine[data-live=true] .flow-check-step-4{animation:flow-check-live-four var(--flow-cycle) linear infinite}
+ @keyframes flow-check-live-four{0%,76%,99%,100%{--tick:0;border-color:#929da9;background:#e5e8ed}78%,98%{--tick:1;border-color:#68a583;background:#daf0e3}}
+ .scanner-engine[data-live=true] .flow-check-step-1{animation-name:flow-check-live-one}
+ .scanner-engine[data-live=true] .flow-check-step-2{animation-name:flow-check-live-two}
+ .scanner-engine[data-live=true] .flow-check-step-3{animation-name:flow-check-live-three}
+ @keyframes flow-check-live-one{0%,54%,99%,100%{--tick:0;border-color:#929da9;background:#e5e8ed}56%,98%{--tick:1;border-color:#68a583;background:#daf0e3}}
+ @keyframes flow-check-live-two{0%,61%,99%,100%{--tick:0;border-color:#929da9;background:#e5e8ed}63%,98%{--tick:1;border-color:#68a583;background:#daf0e3}}
+ @keyframes flow-check-live-three{0%,68%,99%,100%{--tick:0;border-color:#929da9;background:#e5e8ed}70%,98%{--tick:1;border-color:#68a583;background:#daf0e3}}
+ .scanner-engine[data-live=true] .flow-check-step{width:18px;height:18px;background:#fff}
+ .flow-check-item{display:flex;flex-direction:column;align-items:center;gap:3px}
+ .flow-check-label{font-size:.5625rem;font-weight:650;letter-spacing:.04em;text-transform:uppercase;color:#5b6b78}
+ .scanner-engine[data-live=true] .flow-stage-check .flow-check-progress{position:static;transform:none;justify-content:flex-start;gap:12px;margin-top:6px}
+ /* Outcome: a find lights Finds and shows the coin; a skipped coin marks Coin checks instead. */
+ .flow-finds-arrival{position:absolute;left:14px;font-size:.75rem;color:#286484;opacity:0;transform:translateY(4px);transition:opacity .3s ease,transform .3s ease;white-space:nowrap;max-width:34%;overflow:hidden;text-overflow:ellipsis}
+ .scanner-engine[data-live=true][data-phase=deliver][data-outcome=kept] .flow-finds-arrival{opacity:1;transform:none}
+ .scanner-engine[data-live=true][data-phase=deliver][data-outcome=kept] .flow-find-count{background:#d8ecfa;border-color:#7fb5da}
+ .scanner-engine[data-live=true][data-phase=deliver][data-outcome=excluded] .flow-stage-check{box-shadow:inset 3px 0 #c06a7c,inset 0 1px #d9b4bd,inset 0 -1px #d9b4bd}
+ .scanner-engine[data-live=true][data-phase=deliver][data-outcome=excluded] .flow-stage-check .flow-stage-copy>p{color:#923044}
+ .scanner-engine[data-state=error] .engine-status,.scanner-engine[data-state=stale] .engine-status{color:#8a5a12;border-color:#efdcb5;background:#fbf4e4}
+ .scanner-engine[data-state=error] .engine-status-dot,.scanner-engine[data-state=stale] .engine-status-dot{background:#c98f2b}
+ .scanner-engine[data-live=true]:not([data-paused=true]) .engine-status-dot{animation:flow-live-dot 1.6s ease-in-out infinite}
+ @keyframes flow-live-dot{50%{box-shadow:0 0 0 4px #5ba87726}}
+ /* Footer meter: a real countdown to the server's next scan, labelled on both sides. */
+ .engine-scan-clock{display:flex;align-items:center;gap:10px;max-width:440px;margin:0 auto 8px;font-size:.6875rem;color:#5b6b78;font-variant-numeric:tabular-nums}
+ .engine-scan-label{flex:none;min-width:68px;font-weight:600;letter-spacing:.01em}
+ .engine-scan-time{flex:none;min-width:30px;text-align:right;font-weight:650;color:#334250}
+ .engine-scan-track{position:relative;flex:1;height:6px;border-radius:999px;background:#e4e9ee;box-shadow:inset 0 1px 2px #26314414;overflow:hidden}
+ .engine-scan-track>span{position:absolute;inset:0 auto 0 0;width:0;border-radius:inherit;background:linear-gradient(90deg,#b9dbf2,#5aa6d9 70%,#398fc9);transition:width .25s linear}
+ .engine-scan-track>span::after{content:"";position:absolute;right:0;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px #398fc9,0 0 8px #398fc9aa}
+ .engine-scan-clock[data-state=scanning] .engine-scan-track>span{background:linear-gradient(90deg,#d6eaf7 0 30%,#5aa6d9 50%,#d6eaf7 70%);background-size:200% 100%;animation:flow-scanning 1.1s linear infinite}
+ .engine-scan-clock[data-state=scanning] .engine-scan-track>span::after{display:none}
+ .engine-scan-clock[data-state=scanning] .engine-scan-label{color:#1d5f8c}
+ .engine-scan-clock[data-state=late] .engine-scan-track>span{background:#e3c486}
+ .engine-scan-clock[data-state=late] .engine-scan-label{color:#8a5a12}
+ @keyframes flow-scanning{to{background-position:-200% 0}}
+ .scanner-engine[data-live=true] .engine-demo-note{min-height:3em;font-variant-numeric:tabular-nums}
+ /* Activity panel */
+ .scanner-activity{display:grid;gap:14px}
+ .activity-card{border:1px solid #c9d1da;border-radius:14px;background:#fff;padding:14px 16px;box-shadow:0 2px 5px #0000000a}
+ .activity-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px}
+ .activity-head h2,.activity-card>h2{font-size:.9375rem;letter-spacing:-.015em}
+ .activity-head .text-link{font-size:.8125rem}
+ .activity-live{font-size:.6875rem;color:#5b6b78;font-variant-numeric:tabular-nums}
+ .activity-chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+ .activity-chips li{font-size:.75rem;line-height:1.3;padding:4px 9px;border:1px solid #d3dae3;border-radius:999px;background:#f5f7f9;color:#334250}
+ .activity-chips li.is-muted{color:#6b7785}
+ .activity-fine{font-size:.6875rem;color:#6b7785;margin-top:8px;line-height:1.45}
+ .activity-list{list-style:none;margin:0 -6px;padding:0;display:grid;gap:2px}
+ .activity-list>li{display:grid;grid-template-columns:26px minmax(0,1fr) auto;column-gap:9px;row-gap:1px;align-items:center;padding:7px 6px;border-radius:9px;transition:background .3s ease}
+ .activity-list>li.is-current{background:#eaf3fa}
+ .activity-list .activity-badge{grid-row:1/3;width:26px;height:26px;font-size:.6875rem}
+ .activity-copy{display:flex;flex-direction:column;min-width:0;grid-row:1/3}
+ .activity-copy strong{font-size:.8125rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .activity-copy span{font-size:.6875rem;line-height:1.35;color:#5b6b78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .activity-tag{grid-column:3;grid-row:1;font-size:.625rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:999px;justify-self:end}
+ .activity-tag.is-kept{background:#e2f2e8;color:#285b39}
+ .activity-tag.is-skipped{background:#eef0f3;color:#5b6b78}
+ .activity-list time{grid-column:3;grid-row:2;font-size:.625rem;color:#6b7785;justify-self:end;font-variant-numeric:tabular-nums}
+ .activity-empty{display:block!important;font-size:.8125rem;color:#5b6b78;padding:8px 6px}
+ .activity-more{display:inline-block;margin-top:8px;font-size:.8125rem;font-weight:600;color:#2d5f86}
+ .activity-totals dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+ .activity-totals dt{font-size:.6875rem;color:#5b6b78;line-height:1.3}
+ .activity-totals dd{margin:2px 0 0;font-size:1.125rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#1f2b36}
+ @media(min-width:640px) and (max-width:999px){.scanner-activity{grid-template-columns:repeat(2,minmax(0,1fr))}.activity-log{grid-row:span 2;grid-column:2}.activity-filters{grid-column:1}.activity-totals{grid-column:1}}
+ @media(prefers-reduced-motion:reduce){.flow-scan-coin,.flow-finds-arrival{transition:none}.scanner-engine[data-live=true] .flow-stage-match::before,.scanner-engine[data-live=true] .flow-stage-check::before{display:none}}
+ @media(forced-colors:active){.activity-card,.activity-chips li,.activity-tag{border:1px solid CanvasText;background:Canvas;color:CanvasText}.activity-list>li.is-current{outline:2px solid Highlight}.engine-scan-clock span{background:Highlight}}
+}

@@ -13,15 +13,56 @@ import {createProfileStore} from './profile-store.js';
 import {createProfileFeature} from './profile.js';
 import {createPersonalScannerStore} from './personal-scanner-store.js';
 import {createPersonalScannerFeature} from './personal-scanner.js';
+import {createAccount,ACCOUNT_DATA_KEYS} from './account.js';
+import {mountCheckSuggestions} from './check-suggestions.js';
+import {createWatchlist} from './watchlist.js';
+import {mountHowItWorks} from './how-it-works.js';
+import {mountSignals} from './signals.js';
+import {mountCheckVerdict} from './check-verdict.js';
+import {mountWalletCheck,checkTabsHTML} from './wallet-check.js';
 let disposeChecker=null,disposeProfile=null,disposeScanner=null;
 const main=document.querySelector('#main');
 const paths={arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',back:'<path d="M19 12H5m5-5-5 5 5 5"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/>',compass:'<circle cx="12" cy="12" r="9"/><path d="m16 8-2 6-6 2 2-6 6-2Z"/>',trend:'<path d="m3 17 6-6 4 4 8-10m-6 0h6v6"/>',layers:'<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',check:'<path d="m5 12 4 4L19 6"/>',close:'<path d="m6 6 12 12M6 18 18 6"/>',sliders:'<path d="M5 4v5m0 4v7M12 4v10m0 4v2M19 4v2m0 4v10M2 9h6m1 9h6m1-12h6"/>',folder:'<path d="M3 7V5h6l2 2h10v13H3V7Z"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/>',plus:'<path d="M12 5v14M5 12h14"/>'};
 const icon=n=>scannerIcons[n]||`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[n]||paths.compass}</svg>`;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const workspace=createWorkspace({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value)});
+const account=createAccount();
+window.soltechAccount=account;
+const watchlist=createWatchlist({account});
+window.soltechWatchlist=watchlist;
+let pushTimer;
+const readStored=key=>{try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}};
+// Signed in: every local save is sent to the account half a second later. A failed send is retried on the next save or reload.
+const pushAccount=()=>{
+ if(!account.signedIn())return;
+ clearTimeout(pushTimer);
+ pushTimer=setTimeout(()=>{
+  account.save({profile:readStored('soltech.profile.v1'),scanner:readStored('soltech.scanner.v1'),workspace:readStored('soltech.workspace.v1'),signals:readStored('soltech.signals.v1')})
+   .then(result=>{account.markSynced(result.updatedAt);try{localStorage.removeItem('soltech.account-unsynced');}catch{}const status=document.querySelector('[data-sync-status]');if(status)status.textContent='Synced just now';})
+   .catch(error=>{try{localStorage.setItem('soltech.account-unsynced','1');}catch{}if(error.code==='session')toast('Your session ended. Sign in again to keep saving to your account.');else if(error.code==='size')toast(error.message);});
+ },500);
+};
+// On load, pick up changes made on another device, or send changes that failed to save last time.
+async function syncOnLoad(){
+ if(!account.signedIn())return;
+ try{
+  let unsynced=false;try{unsynced=localStorage.getItem('soltech.account-unsynced')==='1';}catch{}
+  if(unsynced){pushAccount();return;}
+  const saved=await account.load();
+  if(!saved.updatedAt||saved.updatedAt<=account.lastSync())return;
+  const map={'soltech.profile.v1':saved.profile,'soltech.scanner.v1':saved.scanner,'soltech.workspace.v1':saved.workspace,'soltech.signals.v1':saved.signals};
+  let changed=false;
+  for(const key of ACCOUNT_DATA_KEYS){if(map[key]&&JSON.stringify(map[key])!==localStorage.getItem(key)){localStorage.setItem(key,JSON.stringify(map[key]));changed=true;}}
+  account.markSynced(saved.updatedAt);
+  // Stores read storage once at startup, so a reload is the safe way to show another device's changes.
+  if(changed&&!personalScannerStore.state.draft){location.reload();}
+ }catch(error){if(error.code==='session')toast('Your session ended. Sign in again to sync your profile and scanner.');}
+}
+account.onChange(session=>{if(!session&&location.hash.startsWith('#profile'))route();});
+const setStored=(key,value)=>{localStorage.setItem(key,value);pushAccount();};
+const workspace=createWorkspace({getItem:key=>localStorage.getItem(key),setItem:setStored});
 workspace.prepareWorkspace();
-const profileStore=createProfileStore({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value)});
-const personalScannerStore=createPersonalScannerStore({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value)});
+const profileStore=createProfileStore({getItem:key=>localStorage.getItem(key),setItem:setStored});
+const personalScannerStore=createPersonalScannerStore({getItem:key=>localStorage.getItem(key),setItem:setStored});
 window.addEventListener('beforeunload',event=>{if(personalScannerStore.issue&&personalScannerStore.state.draft){event.preventDefault();event.returnValue='';}});
 const getPrevious=()=>[...workspace.state.savedScanners,...(workspace.state.draft?[{...workspace.state.draft.fields,sourceId:workspace.state.draft.sourceId,draft:true}]:[])];
 const personalScannerFeature=createPersonalScannerFeature({store:personalScannerStore,getPrevious,navigate,toast});
@@ -164,7 +205,7 @@ document.addEventListener('click',e=>{
  if(a==='coin')coinDetails(id,b.dataset.scanner);
  if(a==='excluded')excludedCoins(id);
  if(a==='risk-help')riskHelp();
- if(a==='about')showDialog('A little clarity.',`<p><strong>Check a coin</strong> retrieves real token data from DEX Screener, Rugcheck or GoPlus, and GeckoTerminal. Supported networks appear in the checker. Data may be incomplete or delayed; it does not refresh automatically.</p><p><strong>Your scanner setup saves locally.</strong> Live monitoring, alerts, wallets, payments and trades aren’t connected.</p><p>Scanners and drafts stay in this browser, without account sync. Coin checks stay in this tab.</p>`,'','About Soltech');
+ if(a==='about')showDialog('A little clarity.',`<p><strong>Check a coin</strong> retrieves real token data from DEX Screener, Rugcheck or GoPlus, and GeckoTerminal. Supported networks appear in the checker. Data may be incomplete or delayed; it does not refresh automatically.</p><p><strong>The scanner checks new Solana and Base coins every minute</strong> and your filters decide which ones reach your Feed. X posts, alerts, wallets, payments and trades aren’t connected.</p><p>Without an account, scanners and drafts stay in this browser. Sign in to keep them on every device. Coin checks stay in this tab.</p>`,'','About Soltech');
  if(a==='add')addScanner(id);
  if(a==='activate'||a==='set-aside'){const scanner=workspace.move(id,a==='activate'?'active':'saved');if(scanner){sync();a==='activate'?openSaved(id):navigate('scanners');toast(a==='activate'?'Added to Active and Saved scanners.':'Deactivated. Kept in Saved scanners.');}}
  if(a==='customize')requestDraft('customize',library.find(s=>s.id===id));
@@ -218,17 +259,33 @@ function route(){
  const [view,id,origin]=(location.hash.slice(1)||'check').split('/');
  document.body.classList.remove('scanner-setup');if(dialog.open)dialog.close();main.setAttribute('aria-busy','true');
  let currentNav='explore';
- if(['check','home','main'].includes(view)){disposeChecker=mountChecker(main);currentNav='check';}
+ if(['check','home','main'].includes(view)){
+  const disposeLookup=mountChecker(main),disposeSuggestions=mountCheckSuggestions(main,{getConfig:()=>personalScannerStore.effective}),disposeVerdict=mountCheckVerdict(main,{getConfig:()=>personalScannerStore.effective});
+  if(window.SOLTECH_HOSTED)main.querySelector('.checker-intro')?.insertAdjacentHTML('afterbegin',checkTabsHTML('coin'));
+  disposeChecker=()=>{disposeVerdict();disposeSuggestions();disposeLookup?.();};currentNav='check';
+  // #check/<network>/<address> comes from a Feed card: fill the form and run the check once.
+  const address=view==='check'&&origin?decodeURIComponent(origin):'';
+  if(address&&/^[A-Za-z0-9]{32,64}$/.test(address)){
+   history.replaceState(null,'','#check');
+   const input=main.querySelector('#coin-address'),form=main.querySelector('.coin-check-form');
+   if(input&&form){input.value=address;input.dispatchEvent(new Event('input',{bubbles:true}));form.requestSubmit();}
+  }
+ }
+ else if(view==='wallet'){disposeChecker=mountWalletCheck(main);currentNav='check';}
+ else if(view==='how'){disposeScanner=mountHowItWorks(main);}
+ else if(view==='signals'){disposeScanner=mountSignals(main,{toast,onChange:pushAccount});currentNav='signals';}
  else if(['profile','settings'].includes(view)){disposeProfile=profileFeature.mount(main,view,id);currentNav='profile';}
  else if(['finds','scanners','recap'].includes(view)){disposeScanner=personalScannerFeature.mount(main,'finds');currentNav='scanners';}
  else if(['saved','previous','preview','start'].includes(view)||(view==='scanner'&&id&&id!=='edit')){disposeScanner=personalScannerFeature.mount(main,'previous');currentNav='profile';}
  else if(view==='scanner'||view==='explore'||view==='builder'){disposeScanner=personalScannerFeature.mount(main,'scanner',view==='builder'?'edit':id);}
  else unavailable();
- const nav=document.querySelector('.main-nav');nav.style.setProperty('--nav-index',['check','scanners','explore','profile'].indexOf(currentNav));
+ const nav=document.querySelector('.main-nav');nav.style.setProperty('--nav-index',['check','scanners','explore','signals','profile'].indexOf(currentNav));
  document.querySelectorAll('[data-nav]').forEach(el=>{if(el.dataset.nav===currentNav)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');});
  sync();successId=null;main.setAttribute('aria-busy','false');
 }
 window.addEventListener('hashchange',()=>{route();focusHeading();});
 if(document.modelContext?.registerTool){const lifecycle=new AbortController();try{Promise.resolve(document.modelContext.registerTool({name:'open_soltech_preview_view',title:'Open a Soltech preview view',description:'Navigate Soltech. Check opens the live coin lookup form without submitting it; scanners are previews. Does not create a scanner or start scanning.',inputSchema:{type:'object',properties:{view:{type:'string',enum:['check','finds','scanner','explore','scanners','profile','saved','builder']}},required:['view'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute(input){if(!input||!['check','finds','scanner','explore','scanners','profile','saved','builder'].includes(input.view)||Object.keys(input).length!==1)throw new Error('Choose check, finds, scanner, profile, saved, or builder.');navigate(input.view);return {view:input.view,mode:input.view==='check'?'Live lookup form':'Scanner preview',liveScanning:false};}},{signal:lifecycle.signal})).catch(()=>{});window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});}catch{}}
 route();
+syncOnLoad();
+watchlist.sync();
 

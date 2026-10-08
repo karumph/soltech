@@ -14,7 +14,7 @@ test('suspected insiders remain provider signals, not bundle percentages or a cl
   assert.match(html,/Insider-held supply is unavailable/);
   assert.doesNotMatch(html,/data-report-open|View risk checks/);
   if(value===0)assert.match(html,/does not rule out insiders/);
-  if(value===undefined)assert.match(html,/did not supply a usable count/);
+  if(value===undefined)assert.match(html,/didn’t return a holder count/);
  }
  const evm=resultHTML({...state({status:'ready',data:{...report({graphInsidersDetected:6}),chainId:'base'}}),chainId:'base'},'details');
  assert.doesNotMatch(evm,/Suspected insiders|6 reported/);

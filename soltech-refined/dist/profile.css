@@ -29,3 +29,25 @@
  .personal-page .personal-heading h1{max-width:none}
  @media(max-width:500px){.personal-page .page-intro h1{font-size:1.85rem}}
 }
+/* Account screens: password reveal, live password rules, keep-signed-in, and the delete warning. */
+@layer components {
+ .account-page .personal-info{margin-bottom:20px}
+ .account-input{position:relative}
+ .account-input.has-reveal input{padding-right:72px}
+ .account-reveal{position:absolute;right:6px;top:50%;transform:translateY(-50%);min-height:36px;padding:0 12px;border-radius:8px;background:transparent;color:#4b5563;font-size:.8125rem;font-weight:600}
+ .account-reveal:hover{background:#eef1f4}
+ .account-reveal:focus-visible{outline:2px solid #7b9fbd;outline-offset:1px}
+ .account-rules{list-style:none;margin:-14px 0 22px;padding:0;display:flex;flex-wrap:wrap;gap:6px 14px}
+ .account-rules li{font-size:.75rem;color:#6b7785;display:inline-flex;align-items:center;gap:6px}
+ .account-rules li::before{content:"";width:8px;height:8px;border-radius:50%;border:1.5px solid #a3adb9}
+ .account-rules li.is-met{color:#26724a}
+ .account-rules li.is-met::before{background:#3d9a68;border-color:#3d9a68}
+ .account-remember{display:flex;align-items:center;gap:10px;font-size:.875rem;color:#3b4652;margin:-8px 0 20px;cursor:pointer}
+ .account-remember input{width:18px;height:18px;accent-color:#2f6f9a}
+ .account-switch{margin-top:18px;font-size:.875rem;color:#4b5563;text-align:center}
+ .account-switch a,.account-switch .text-link{font-weight:600;color:#2d5f86}
+ .account-danger{border:1px solid #e7c3cb;background:#fdf5f6;border-radius:12px;padding:14px 16px;margin-bottom:22px;font-size:.875rem;line-height:1.55;color:#5c2632}
+ .account-danger p+p{margin-top:6px}
+ .personal-account-row{cursor:default}
+ @media(forced-colors:active){.account-rules li::before{border-color:CanvasText}.account-rules li.is-met::before{background:Highlight}.account-danger{border:1px solid CanvasText;background:Canvas;color:CanvasText}}
+}

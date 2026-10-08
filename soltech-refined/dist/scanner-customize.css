@@ -58,3 +58,18 @@
  @media(max-width:350px){.customize-sources{gap:6px;font-size:11px}.customize-account-choice span{font-size:12px}}
  @media(prefers-reduced-motion:reduce){.scanner-customize *{transition:none!important;scroll-behavior:auto!important}}
 }
+/* New coins: age, risk and network choices as pill toggles in the same style as the account choice. */
+@layer scanner-customize {
+ .customize-choice-group{border:0;margin:16px 0 0;padding:0;min-width:0}
+ .customize-choice-group legend{font-size:13px;font-weight:650;color:#26313d;margin-bottom:8px;padding:0}
+ .customize-pills{display:flex;flex-wrap:wrap;gap:6px}
+ .customize-pills label{position:relative;cursor:pointer}
+ .customize-pills input{position:absolute;opacity:0;width:1px;height:1px}
+ .customize-pills span{display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:550;color:#4f5a68;background:#f0f3f5;border:1px solid #e1e6ea}
+ .customize-pills input:checked+span{color:#1f4f6c;background:#fff;border-color:#9fc3da;box-shadow:0 1px 3px #182b3914}
+ .customize-pills input[type=checkbox]:checked+span::before{content:"";width:6px;height:10px;margin:-3px 8px 0 0;border:solid #2f7bae;border-width:0 2px 2px 0;transform:rotate(45deg)}
+ .customize-pills input:focus-visible+span{outline:2px solid #7bbce1;outline-offset:1px}
+ .customize-choice-group .customize-field-error{display:block;margin-top:6px}
+ .customize-choice-help{font-size:12px;color:#5f6976;margin-top:8px;line-height:1.45}
+ @media(forced-colors:active){.customize-pills span{border:1px solid CanvasText;background:Canvas;color:CanvasText}.customize-pills input:checked+span{outline:2px solid Highlight}}
+}

@@ -4,10 +4,11 @@ import {renderAppearance} from './scanner-builder.js';
 import {scannerBadge} from './scanner-appearance.js';
 import {scannerIntent,settingStep,stepErrors} from './scanner-guidance.js';
 import {activeSettingsRows,cleanSettings} from './scanner-settings.js';
-import {scannerFlowHTML,mountScannerFlow} from './scanner-flow.js';
+import {scannerFlowHTML,scannerActivityHTML,mountScannerFlow} from './scanner-flow.js';
 import {mountScannerCustomize} from './scanner-customize.js';
 import {coinFeedPreviewHTML} from './coin-feed.js';
 import {mountCoinFeedCopy} from './coin-feed-copy.js';
+import {coinFeedLoadingHTML,mountLiveFeed} from './coin-feed-live.js';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const marks={public:{badgeSymbol:'publicPosts',badgeColor:'mint'},projects:{badgeSymbol:'launch',badgeColor:'peach'},market:{badgeSymbol:'coin',badgeColor:'teal'}};
@@ -17,11 +18,13 @@ const sourceList=config=>enabledSources(config).map(key=>sourceNames[key]).join(
 const ruleRows=r=>activeSettingsRows(r).map(([key,value])=>`<div><dt>${esc(key)}</dt><dd>${esc(value)}</dd></div>`).join('');
 const steps=['sources','setup','filters','review'];
 
+const hosted=()=>typeof window!=='undefined'&&!!(window.SOLTECH_HOSTED&&window.SOLTECH_API);
+
 export function createPersonalScannerFeature({store,getPrevious,navigate,toast}){
  return {
   mount(root,view,subpage){
    if(view==='scanner'&&subpage==='edit')return mountScannerCustomize(root,{store,navigate,toast});
-   const events=new AbortController();let error='',cancelPrompt=false,disposeFlow=()=>{},disposeFeedCopy=()=>{};
+   const events=new AbortController();let error='',cancelPrompt=false,disposeFlow=()=>{},disposeFeedCopy=()=>{},disposeFeed=()=>{};
    if(view==='scanner'&&subpage==='edit'&&!store.state.draft&&!store.issue)store.begin();
    const editing=view==='scanner'&&subpage==='edit';
    document.body.classList.toggle('scanner-setup',editing);
@@ -33,12 +36,12 @@ export function createPersonalScannerFeature({store,getPrevious,navigate,toast})
    }
    function home(){
     const c=store.effective;
-    const heading='<div class="page-intro"><h1>Scanner<span class="accent">.</span></h1></div>';
+    const heading=`<div class="page-intro scanner-intro"><h1>Scanner<span class="accent">.</span></h1>${hosted()?'<a class="how-link" href="#how">How it works</a>':''}</div>`;
     if(!c)return heading+notice();
-    return heading+notice()+scannerFlowHTML(c.name);
+    return heading+notice()+(hosted()?`<div class="scanner-layout">${scannerFlowHTML(c.name,c)}${scannerActivityHTML()}</div>`:scannerFlowHTML(c.name));
    }
    function finds(){
-    return `<div class="page-intro"><h1>Feed<span class="accent">.</span></h1><a class="button glass" href="#scanner">Scanner</a></div>${notice()}${coinFeedPreviewHTML()}`;
+    return `<div class="page-intro"><h1>Feed<span class="accent">.</span></h1><a class="button glass" href="#scanner">Scanner</a></div>${notice()}${hosted()?coinFeedLoadingHTML():coinFeedPreviewHTML()}`;
    }
    function previous(){
     const previous=getPrevious();
@@ -65,11 +68,12 @@ export function createPersonalScannerFeature({store,getPrevious,navigate,toast})
     return `<div class="builder-top"><button type="button" class="button glass scanner-save-exit" data-primary-action="exit">Save draft &amp; exit</button><span class="builder-preview-label">Step ${step} of 4</span></div><ol class="builder-progress" aria-label="Scanner setup progress">${['Sources','Set up','Filters','Review'].map((label,i)=>`<li ${i+1===step?'aria-current="step"':''} class="${i+1<step?'complete':''}"><span>${i+1<step?'✓':i+1}</span>${label}</li>`).join('')}</ol><header class="builder-heading"><h1>${title}</h1><p>${intro}</p></header>${notice()}<form id="personal-scanner-form" novalidate><div class="form-error-summary" role="alert" id="primary-errors" ${error?'':'hidden'}>${esc(error)}</div>${body}<div class="builder-actions"><button type="button" class="text-link" data-primary-action="back">${d.screen==='sources'?'Cancel':'Back'}</button><button class="button glass" type="submit" ${store.issue==='read'||store.issue==='conflict'?'disabled':''}>${next}</button></div></form><p class="builder-connection-note">Setup preview · Live monitoring isn’t connected.</p><p class="personal-device-note">${store.issue?'Changes kept in this tab':'Draft saved on this device'}</p>`;
    }
    function render(focus=false){
-    disposeFlow();disposeFeedCopy();
+    disposeFlow();disposeFeedCopy();disposeFeed();
     document.title=(view==='finds'?'Feed':view==='previous'?'Previous setups':'Scanner')+' · Soltech';
-    root.innerHTML=`<div class="page-width personal-scanner ${editing?'scanner-builder guided-builder':view==='scanner'?'scanner-flow-page':view==='finds'?'coin-feed-page':''}">${editing?wizard():view==='finds'?finds():view==='previous'?previous():home()}</div>`;
-    disposeFlow=mountScannerFlow(root);
+    root.innerHTML=`<div class="page-width personal-scanner ${editing?'scanner-builder guided-builder':view==='scanner'?`scanner-flow-page${hosted()?' is-live':''}`:view==='finds'?'coin-feed-page':''}">${editing?wizard():view==='finds'?finds():view==='previous'?previous():home()}</div>`;
+    disposeFlow=mountScannerFlow(root,{getConfig:()=>store.effective});
     disposeFeedCopy=view==='finds'?mountCoinFeedCopy(root,{toast}):()=>{};
+    if(view==='finds'&&hosted()){const slot=root.querySelector('#live-feed');if(slot)disposeFeed=mountLiveFeed(slot,{getConfig:()=>store.effective,toast});}
     if(focus){const heading=root.querySelector('h1');heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
    }
    function routeError(item){
@@ -148,7 +152,7 @@ export function createPersonalScannerFeature({store,getPrevious,navigate,toast})
    },{signal:events.signal});
    const onStorage=e=>{if(e.key==='soltech.scanner.v1'||e.key===null){if(editing){store.detectConflict();error='This setup changed in another tab. Your local draft is still here.';}else if(!store.issue)store.reload();render();}};
    window.addEventListener('storage',onStorage,{signal:events.signal});
-   render();return ()=>{disposeFlow();disposeFeedCopy();events.abort();};
+   render();return ()=>{disposeFlow();disposeFeedCopy();disposeFeed();events.abort();};
   }
  };
 }

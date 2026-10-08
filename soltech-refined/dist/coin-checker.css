@@ -177,3 +177,23 @@
   .coin-check-form {padding:14px;}.check-input-row input {padding:12px 10px;font-size:1rem;}.checker-intro h1 {font-size:2rem;}.check-metrics dd {font-size:1.2rem;}.coin-monogram {width:44px;height:51px;}.check-activity {font-size:.8125rem;}
  }
 }
+/* Hosted: newest coins from your scanner under the address form. */
+@layer components {
+.check-suggestions{margin-top:26px}
+.check-suggestions[hidden]{display:none}
+.check-suggestions-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.check-suggestions-head h2{font-size:.9375rem;letter-spacing:-.015em}
+.check-suggestions-head a{font-size:.8125rem;font-weight:600;color:#2d5f86}
+.check-suggestions ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.check-suggestions li a{display:flex;align-items:center;gap:10px;min-height:56px;padding:9px 12px;border:1px solid #cdd3da;border-radius:12px;background:#fff;color:inherit;text-decoration:none;box-shadow:0 1px 3px #0000000a;transition:border-color .15s ease,transform .15s ease}
+.check-suggestions li a:hover{border-color:#94a8ba;transform:translateY(-1px)}
+.check-suggestions li a:focus-visible{outline:2px solid #7b9fbd;outline-offset:2px}
+.check-suggestion-logo{position:relative;display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;overflow:hidden;background:#eef1f4;color:#3b4a57;font-size:.8125rem;font-weight:700}
+.check-suggestion-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.check-suggestion-copy{display:flex;flex-direction:column;min-width:0}
+.check-suggestion-copy strong{font-size:.875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.check-suggestion-copy span{font-size:.6875rem;color:#5b6b78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:800px){.check-suggestions ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.check-suggestions li a{transition:none}}
+@media(forced-colors:active){.check-suggestions li a{border:1px solid CanvasText}}
+}
