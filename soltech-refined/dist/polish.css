@@ -151,8 +151,8 @@
   .signal-module label{padding:7px 10px;gap:10px;border-radius:10px}
   .signal-module-copy{gap:1px}
   .signal-module-head strong{font-size:.8125rem}
-  .signal-module-copy>span:not(.signal-module-head){display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;font-size:.6875rem}
-  .signal-module label:hover .signal-module-copy>span:not(.signal-module-head),.signal-module label:focus-within .signal-module-copy>span:not(.signal-module-head){-webkit-line-clamp:4}
+  /* Fixed two-line descriptions: nothing resizes on hover, so the list never jumps. Full text is in the tooltip. */
+  .signal-module-copy>span:not(.signal-module-head){display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.6875rem;line-height:1.4;min-height:2.8em}
   .signal-module-copy em{display:none}
   .signal-switch{width:34px;height:20px}
   .signal-switch::after{width:14px;height:14px}
