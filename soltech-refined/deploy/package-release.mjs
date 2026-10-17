@@ -145,6 +145,11 @@ export async function createReleasePlan({projectRoot=PROJECT_ROOT,frontendFiles=
   safeRelative(file);const original=await sourceFile(root,'dist/'+file);
   frontend.push({path:file,body:transformFrontend(file,original),sourceHash:sha(original)});
  }
+ // Hosting configuration belongs to this release, not the editable dist or
+ // app-wide Amplify settings shared with the other developer's branches.
+ const headers=await sourceFile(root,'deploy/customHttp.yml');
+ assertNoCredentials(headers.toString('utf8'),'deploy/customHttp.yml');
+ frontend.push({path:'customHttp.yml',body:headers,sourceHash:sha(headers)});
  const validation=validateFrontend(frontend),queue=[serviceEntry],visited=new Set();
  while(queue.length){
   const file=queue.shift();if(visited.has(file))continue;visited.add(file);

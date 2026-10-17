@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {mkdtemp,mkdir,writeFile,readFile,readdir,rm} from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import {createReleasePlan,packageRelease,transformFrontend,validateFrontend,moduleReferences} from './package-release.mjs';
 
 const sourceScanner='export function subscribe(){if(listeners.size===1){void refresh().catch(()=>{});connect();}}\nconst url="/api/scanner";';
+const sourceHeaders=await readFile(new URL('./customHttp.yml',import.meta.url),'utf8');
 async function fixture(t){
  const root=await mkdtemp(path.join(os.tmpdir(),'solventir-release-'));
  t.after(()=>rm(root,{recursive:true,force:true}));
@@ -16,6 +18,7 @@ async function fixture(t){
   'dist/app.js':'import "./scanner-client.js"; fetch("/api/wallet"); const upstream="https://example.com/api/public";',
   'dist/scanner-client.js':sourceScanner,
   'deploy/production-server.mjs':'import {createWalletAPI} from "../wallet-api.mjs"; import http from "node:http"; export {createWalletAPI};',
+  'deploy/customHttp.yml':sourceHeaders,
   'wallet-api.mjs':'export function createWalletAPI(){return "/api/wallet";}',
   'dist/private-notes.txt':'DO NOT PUBLISH',
   '.env':'PRIVATE_CONFIGURATION',
@@ -35,11 +38,26 @@ test('isolated release rewrites endpoints, orders session startup, preserves ori
  assert.match(scanner,/\.finally\(connect\)/);assert.match(scanner,/\/sjay-api\/scanner/);
  assert.equal(await readFile(path.join(root,'dist/scanner-client.js'),'utf8'),sourceScanner);
  assert.equal(await readFile(path.join(output,'service/wallet-api.mjs'),'utf8'),'export function createWalletAPI(){return "/api/wallet";}');
- assert.deepEqual((await readdir(path.join(output,'frontend'))).sort(),['app.css','app.js','index.html','scanner-client.js']);
+ assert.deepEqual((await readdir(path.join(output,'frontend'))).sort(),['app.css','app.js','customHttp.yml','index.html','scanner-client.js']);
  assert.deepEqual((await readdir(output)).sort(),['frontend','release-manifest.json','service']);
- assert.equal(result.files.length,7);assert.ok(result.validatedReferences>=3);
+ assert.equal(result.files.length,8);assert.ok(result.validatedReferences>=3);
  const repeated=await createReleasePlan(options);assert.equal(result.releaseId,repeated.manifest.releaseId);
  await assert.rejects(packageRelease({...options,output}),/EEXIST/);
+});
+
+test('release preserves host-only HTTPS header configuration and records its source hash',async t=>{
+ const {root,options}=await fixture(t),output=path.join(root,'output');
+ const result=await packageRelease({...options,output});
+ const packaged=await readFile(path.join(output,'frontend/customHttp.yml'),'utf8');
+ assert.equal(packaged,sourceHeaders);
+ assert.equal(await readFile(path.join(root,'deploy/customHttp.yml'),'utf8'),sourceHeaders);
+ assert.match(packaged,/key: 'Strict-Transport-Security'/);
+ assert.match(packaged,/value: 'max-age=86400'/);
+ assert.doesNotMatch(packaged,/includeSubDomains|preload/i);
+ const hash=createHash('sha256').update(sourceHeaders).digest('hex');
+ const entry=result.files.find(file=>file.path==='frontend/customHttp.yml');
+ assert.equal(entry.sha256,hash);assert.equal(entry.sourceSha256,hash);
+ assert.equal(result.files.some(file=>file.path==='service/deploy/customHttp.yml'),false);
 });
 
 test('release fails on missing imported assets before output creation',async t=>{

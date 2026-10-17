@@ -4,10 +4,11 @@ Updated October 17, 2026. Publishes the user's original Solventir app.
 
 ## Live release
 
-- Website: https://sjay.d3ilz6ab0hx4y4.amplifyapp.com
+- Website: https://www.solventir.com
+- Original AWS address: https://sjay.d3ilz6ab0hx4y4.amplifyapp.com
 - AWS account `942852434225`, region `us-east-1`, CLI identity `sjay-dev`.
 - Existing Amplify app `soltech`, ID `d3ilz6ab0hx4y4`.
-- New branch `sjay`, manual deployment job `1`: **SUCCEED**.
+- Branch `sjay`, manual deployment job `2`: **SUCCEED** (HTTPS response header).
 - Existing `soltech` and `main` branches and backend remain in place.
 - Source checkpoint `3bc098b8d1b5358e43e1298905956283677bc0c8` on
   `codex/scanner-feed-refresh-2026-10-04`. Deployment work did not edit `dist`.
@@ -53,11 +54,16 @@ Prior app configuration is saved privately in `amplify-before.json`.
 ## Artifacts and verification
 
 Ignored staging: `soltech-refined/.runtime/aws-deploy-2026-10-17`.
-Authoritative package: `release-final-v2`.
-Release ID: `f30e0d751e745a55760a6228ba8838947e840e45a0af6ab0c2c48fc2414a17c1`.
+Current frontend package: `release-https-v1`.
+Release ID: `eb1268be8a89b4462e028f04a2c3a453417092b7cc6cc89af546382660fcc0c6`.
+Frontend ZIP SHA256: `F25485D40F3B5BECE45D637035790B14C41A518535DFDD8F53E621D429A82F69`.
+The running service remains from `release-final-v2`, release ID
+`f30e0d751e745a55760a6228ba8838947e840e45a0af6ab0c2c48fc2414a17c1`.
 
-The package contains 81 frontend files and 19 service files, with 111 frontend
-references validated. All source-backed hashes match current source. Only the
+The original package contained 81 frontend files and 19 service files, with 111
+frontend references validated. The HTTPS update adds only `customHttp.yml` to the
+frontend; all 100 existing frontend/service file hashes match the prior release.
+The service was not restarted or redeployed for this change. Only the
 frontend ZIP goes to Amplify; the service archive goes to the server. Credentials,
 tests, local previews, design copies and personal history are excluded. API-path
 and hosted-copy wording transformations occur in release copies only. Older
@@ -85,9 +91,84 @@ also restored its 39 coins after reload. Evidence is in `live-review-results.jso
 `public-api-smoke-results.json`, and `restart-review-results.json` in the ignored
 staging folder.
 
+## Custom domains and HTTPS
+
+The user requested `solventir.com` with `www.solventir.com` as the served site and
+the root forwarded to it through GoDaddy. GoDaddy DNS uses `ns09.domaincontrol.com`
+and `ns10.domaincontrol.com`. The user signs into GoDaddy in a normal browser;
+its sign-in rejected the in-app browser. Do not request passwords in chat.
+
+The user saved this public certificate validation CNAME, and it resolves correctly:
+
+- Name: `_462fadeaaf0c5be6a240de6d39d9593e`
+- Target: `_7e9c4fedcc10a30980509ade2d795a90.wzccmgtwzk.acm-validations.aws`
+
+An existing domain association was found with root and `www` both mapped to `main`.
+After ownership verification it remained locked against updates until visitor DNS
+was connected. Its settings were backed up in ignored `domain-before-remap.json`.
+After verifying no hostname was live/verified and public `www` still pointed to
+GoDaddy's root, only that pending association was canceled and recreated with
+`prefix=www,branchName=sjay`. App, branches, deployments and DNS were not deleted.
+The association is now `AVAILABLE`. Its current settings name `sjay` for the root
+and `www`, but actual root traffic uses GoDaddy forwarding, not the AWS origin.
+The authoritative visitor CNAME is `www` -> `d3h57exw4rh4x9.cloudfront.net`.
+The certificate verification CNAME above is retained for renewal. Do not restore
+the old CloudFront target or point `www` back to the root.
+
+The user configured permanent, unmasked HTTPS forwarding. All HTTP/HTTPS root
+and `www` variants of `solventir.com` and `soventir.com` reach the canonical
+`https://www.solventir.com/` with zero or one redirect and a 200 response when
+using current DNS. HTTPS certificate validation passed for all four hostnames.
+The user confirmed access from their phone and their co-developer's computer.
+
+During initial setup, an old `www` -> `solventir.com` DNS record caused a loop:
+old DNS sent `www` to GoDaddy, which redirected it to itself. Old resolver caches
+and browser-cached 301 responses can outlast the correction. At approximately
+03:02 America/Chicago on October 17, this computer still received that stale
+answer; flushing its local cache did not refresh the upstream resolver. This
+does not require further DNS/forwarding edits. Diagnose normal DNS separately
+from tests using a fresh resolver; never claim universal reachability based only
+on a DNS override. Do not bypass browser certificate warnings.
+
+The live server and ignored local service environment now permit both the original
+Amplify origin and `https://www.solventir.com`. Existing secrets and data were
+retained. Service restart succeeded; a scanner request carrying the new Origin
+returned 200 with a secure session cookie. The canonical website and
+`/sjay-api/health` have passed live HTTPS checks with current DNS.
+
+`deploy/customHttp.yml` is now included in every frontend release. It sets
+`Strict-Transport-Security: max-age=86400` on this branch only. This cautious
+one-day, host-only policy is renewed on each successful HTTPS visit; it does not
+include subdomains or preload. The live header was verified after job 2 succeeded.
+App-wide custom headers remain empty, shared rewrites are unchanged, the
+co-developer's HTML hash is unchanged, and `soltech`/`main` still have jobs 8/7.
+Eight packaging tests pass. HSTS helps prevent HTTP use after a successful visit;
+it cannot repair stale DNS or cached redirects, cover the parent/other domains,
+or prevent every possible certificate/network failure. Preserve automatic
+certificate renewal and the validation CNAME. A longer HSTS lifetime can be
+considered after the complete domain configuration has settled.
+
+Post-deployment verification passed at about 03:03 America/Chicago with both
+system DNS and the explicitly labelled Cloudflare diagnostic resolver: all eight
+entry routes, canonical HTTPS/HSTS, and API health. An ordinary curl request also
+followed the root to the app with HTTP 200 and valid TLS, without a DNS override.
+Some standalone DNS queries still reported older cached records, so this is not
+a guarantee that every browser/provider cache has updated. Evidence:
+`verify-domains-2026-10-17T08-03-07-483Z.json` in the ignored staging folder.
+All 14 focused packaging and domain-verifier tests pass.
+
 ## Operation and recovery
 
 For later releases, run `package-release.mjs` into a new directory after tests.
+Run `node soltech-refined/deploy/verify-domains.mjs` before and after a deployment
+from the repository root. It checks all eight domain/protocol entry points,
+limits redirects, rejects HTTPS downgrades and unexpected hosts, validates normal
+TLS, requires HSTS on the canonical page, and checks API health. It exits nonzero
+on failure. `--resolver=1.1.1.1` is a separately labelled diagnostic for stale DNS;
+it still validates certificates against the requested hostname. A diagnostic
+pass does not override a failing normal-system-DNS result. The six verifier
+unit tests use injected responses and make no external requests.
+
 Preserve the session and gateway secrets and back up the durable findings first.
 Install a versioned service directory, update `/opt/solventir/current`, and restart
 `solventir-api`. Restart deliberately leaves saved scans paused. Keep earlier
