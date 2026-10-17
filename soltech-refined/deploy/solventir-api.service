@@ -1,0 +1,27 @@
+[Unit]
+Description=Solventir current app API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=solventir
+Group=solventir
+WorkingDirectory=/opt/solventir/current
+EnvironmentFile=/etc/solventir/service.env
+ExecStart=/usr/bin/node-24 deploy/production-server.mjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/solventir
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+MemoryMax=650M
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target
