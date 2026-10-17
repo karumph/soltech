@@ -6,7 +6,7 @@ export const PERSONAL_SCANNER_KEY='soltech.scanner.v1';
 export const sourceNames={public:'Posts on X',projects:'New coins',market:'Market data'};
 export const scannerPresets={public:{name:'X mentions',sources:['public'],description:'Follow accounts and coin mentions.'},projects:{name:'New launches',sources:['projects'],description:'Watch coins as they start trading.'},both:{name:'X + new launches',sources:['public','projects'],description:'Bring both sources into one feed.'}};
 const copy=v=>JSON.parse(JSON.stringify(v));
-export function defaultPersonalScanner(){return {name:'Soltech scanner',badgeSymbol:'scan',badgeColor:'mint',resultFilters:defaultResultFilters(),sources:Object.fromEntries(Object.keys(sourceNames).map(type=>[type,{enabled:type!=='market',settings:{...defaultSettings(type),accountScope:type==='public'?'soltech':'custom',matchMode:'direct',ageMax:type==='projects'?'24':'',riskLevels:['lower','caution','unknown']}}]))};}
+export function defaultPersonalScanner(){return {name:'Coin discovery',badgeSymbol:'scan',badgeColor:'mint',resultFilters:defaultResultFilters(),sources:Object.fromEntries(Object.keys(sourceNames).map(type=>[type,{enabled:type!=='market',settings:{...defaultSettings(type),accountScope:type==='public'?'soltech':'custom',matchMode:'direct',ageMax:type==='projects'?'24':'',riskLevels:['lower','caution','unknown']}}]))};}
 export const enabledSources=config=>Object.keys(sourceNames).filter(key=>config.sources[key].enabled);
 export function cleanPersonalScanner(value){
  if(!value||!value.sources||Object.keys(sourceNames).some(key=>!value.sources[key]||typeof value.sources[key].enabled!=='boolean'||!value.sources[key].settings))throw Error('Unrecognized scanner setup');

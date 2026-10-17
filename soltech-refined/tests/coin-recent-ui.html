@@ -1,0 +1,248 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recent coin history UI tests</title>
+<style>
+body{font:16px/1.5 system-ui;margin:24px;color:#171c26;background:#fff}#fixture{max-width:390px;margin-top:28px}[hidden]{display:none!important}.pass{color:#17613d}.fail{color:#a02030}button,input,select{font:inherit}#results li{margin:8px 0}#summary{font-weight:650}.test-note{max-width:760px;color:#4b5563}
+</style>
+<h1>Recent coin history UI tests</h1>
+<p class="test-note">Uses real checker controls with simulated lookup sessions and an isolated memory storage adapter. No provider requests or changes to browser history storage.</p>
+<p id="summary" role="status" aria-live="polite">Running…</p>
+<ol id="results"></ol>
+<div id="fixture"></div>
+<script type="module">
+const root=document.querySelector('#fixture'),results=document.querySelector('#results'),summary=document.querySelector('#summary');
+const assert=(condition,message)=>{if(!condition)throw new Error(message);};
+const tick=()=>new Promise(resolve=>setTimeout(resolve,0));
+const deferred=()=>{let resolve;const promise=new Promise(done=>resolve=done);return {promise,resolve};};
+let passes=0,failures=0,cleanup=()=>{},networkCalls=0;
+const originalFetch=window.fetch;
+window.fetch=()=>{networkCalls++;return Promise.reject(new Error('Provider calls are disabled in this fixture.'));};
+function record(name,error){
+ const li=document.createElement('li');li.className=error?'fail':'pass';
+ li.textContent=(error?'FAIL':'PASS')+' — '+name+(error?': '+error.message:'');results.append(li);
+ if(error)failures++;else passes++;
+ summary.textContent=passes+' passed, '+failures+' failed';
+}
+async function test(name,run){try{await run();record(name);}catch(error){record(name,error);}}
+function memoryStorage(){
+ const values=new Map();
+ return {getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,String(value)),removeItem:key=>values.delete(key)};
+}
+async function run(){
+ const [{mountChecker},{createRecentCoinStore,RECENT_COINS_KEY},{normalizeMarket}]=await Promise.all([
+  import('/original/coin-checker.js'),import('/original/coin-recent.js'),import('/original/coin-checker-data.js')
+ ]);
+ const sol='So11111111111111111111111111111111111111112',otherSol='FLUXBmPhT3Fd1EDVFdg46YREqHBeNypn1h4EbnTzWERX',evm='0x4200000000000000000000000000000000000006';
+ let clock=Date.now();
+ const storeFor=storage=>createRecentCoinStore(storage,{now:()=>++clock});
+ const notifyStorage=(events,storage)=>{const event=new Event('storage');Object.defineProperties(event,{key:{value:RECENT_COINS_KEY},storageArea:{value:storage}});events.dispatchEvent(event);};
+ const loading=(mint=sol,chainId='solana')=>({mint,chainId,market:{status:'loading'},risk:{status:'loading'},listing:{status:'loading'},history:{status:'loading'},bundles:{status:chainId==='solana'?'loading':'unsupported'}});
+ const complete=(mint=sol,chainId='solana',name='Fixture coin')=>({
+  mint,chainId,
+  market:{status:'ready',data:normalizeMarket([{chainId,baseToken:{address:mint,name,symbol:'TEST'},pairAddress:mint,priceUsd:'1',liquidity:{usd:25000}}],mint,++clock,chainId)},
+  risk:{status:'empty'},listing:{status:'empty'},history:{status:'empty'},bundles:{status:chainId==='solana'?'not-connected':'unsupported'}
+ });
+ const failed=(mint=sol,chainId='solana')=>({mint,chainId,market:{status:'error',message:'Simulated failure'},risk:{status:'error',message:'Simulated failure'},listing:{status:'error'},history:{status:'error'},bundles:{status:'not-connected'}});
+ function setup({storage=memoryStorage(),store=storeFor(storage),discover=async()=>({status:'resolved',chainIds:['base']}),initialCoin=null}={}){
+  cleanup();root.replaceChildren();const calls=[],discoveries=[];let emit,active=null,disposed=false,suppressed=0;
+  const createSession=onChange=>{
+   emit=onChange;
+   return {
+    lookup(mint,chain){const job={mint,chain,cancelled:false};calls.push(job);active=job;onChange(loading(mint,chain));},
+    cancel(){if(active)active.cancelled=true;active=null;},
+    dispose(){disposed=true;if(active)active.cancelled=true;active=null;}
+   };
+  };
+  const dispose=mountChecker(root,{historyStore:store,createSession,initialCoin,discover:(mint,options)=>{discoveries.push(mint);return discover(mint,options);}});
+  const input=root.querySelector('#coin-address'),form=root.querySelector('.coin-check-form');
+  const h={storage,store,calls,discoveries,input,dispose,
+   fill(value){input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},
+   submit(){form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},
+   clearInput(){root.querySelector('.clear-address').click();},
+   clearHistory(){assert(h.recentVisible(),'Clear history is not available while a coin is open');const button=root.querySelector('[data-clear-recent]');assert(button,'Clear history control is missing');button.click();},
+   recentVisible(){const section=root.querySelector('#recent-coins');return !!section&&!section.hidden&&getComputedStyle(section).display!=='none'&&section.getClientRects().length>0;},
+   rows:()=>[...root.querySelectorAll('#recent-coins [data-recent-address]')],
+   entries:()=>store.getSnapshot().entries,
+   // Production session owns cancellation/stale-job suppression; the injected
+   // session models that lifecycle rather than delivering impossible old jobs.
+   finish(state,job=active){if(disposed||!job||job.cancelled||job!==active){suppressed++;return;}emit(state);},
+   suppressed:()=>suppressed
+  };
+  cleanup=()=>{if(!disposed)h.clearInput();dispose();};return h;
+ }
+
+ await test('An empty checker shows recent coins; typing hides them without deleting stored entries',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage);assert(store.remember(complete()),'could not seed history');
+  const h=setup({storage,store});assert(h.input.value===''&&h.recentVisible()&&h.rows().length===1,'empty checker did not show history');
+  h.fill('partial address');assert(!h.recentVisible(),'typed input left history visible');assert(h.entries().length===1,'typing deleted stored history');
+  h.fill('');assert(h.recentVisible()&&h.rows().length===1,'manual empty did not restore history');
+  h.fill('   ');assert(h.recentVisible(),'whitespace-only input was treated as a coin');assert(h.calls.length===0&&h.discoveries.length===0,'typing triggered a lookup');
+ });
+
+ await test('Invalid nonempty input hides history until the address is cleared',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage);store.remember(complete());const h=setup({storage,store});
+  h.fill('not a token address');h.submit();
+  assert(!root.querySelector('#address-error').hidden&&h.input.getAttribute('aria-invalid')==='true','invalid input did not show its error');
+  assert(!h.recentVisible()&&h.entries().length===1,'validation error exposed or deleted history');assert(h.calls.length===0,'invalid address started a lookup');
+  h.clearInput();assert(h.recentVisible()&&h.rows().length===1&&root.querySelector('#address-error').hidden,'Clear did not restore idle history after validation');
+ });
+
+ await test('Network discovery and its resulting lookup keep history hidden; manual empty cancels and restores it',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage),detection=deferred();store.remember(complete());
+  const h=setup({storage,store,discover:()=>detection.promise});h.fill(evm);h.submit();
+  assert(h.discoveries.length===1&&h.calls.length===0,'network discovery did not start');assert(!h.recentVisible(),'history appeared during discovery');
+  detection.resolve({status:'resolved',chainIds:['base']});await tick();assert(h.calls.length===1&&!h.recentVisible(),'history appeared during the token lookup');
+  const job=h.calls[0];h.fill('');assert(job.cancelled&&h.recentVisible()&&h.entries().length===1,'manual empty did not cancel lookup and restore history');
+  h.finish(complete(evm,'base'),job);await tick();assert(h.recentVisible()&&h.entries().length===1,'late cancelled result changed idle history');
+ });
+
+ await test('Only a completed, usable lookup becomes a recent coin',async()=>{
+  const h=setup();h.fill(sol);h.submit();assert(h.calls.length===1,'lookup did not start');
+  assert(!h.recentVisible(),'loading lookup exposed history');
+  assert(h.entries().length===0&&h.rows().length===0,'loading address was recorded');
+  h.finish({...loading(),market:complete().market});
+  assert(h.entries().length===0,'partial lookup was recorded before core sources finished');
+  h.finish(complete());
+  assert(h.entries().length===1&&h.rows().length===1,'completed usable lookup was not recorded/rendered');
+  assert(!h.recentVisible(),'completed report exposed history');
+  assert(h.entries()[0].address===sol&&h.entries()[0].chainId==='solana','stored identity changed');
+ });
+
+ await test('Failed and metadata-only checks do not enter recent history',async()=>{
+  const h=setup();h.fill(sol);h.submit();h.finish(failed());
+  assert(!h.recentVisible(),'failed nonempty lookup exposed history');
+  assert(h.entries().length===0&&h.rows().length===0,'failed check was recorded');
+  h.finish({...failed(),listing:{status:'ready',data:{profilePaid:false,retrievedAt:++clock}}});
+  assert(h.entries().length===0,'paid-profile metadata was treated as a usable coin report');
+ });
+
+ for(const action of ['clear','edit','dispose'])await test(action+' during lookup never records its cancelled result',async()=>{
+  const h=setup();h.fill(sol);h.submit();const job=h.calls[0];
+  if(action==='clear')h.clearInput();else if(action==='edit')h.fill(otherSol);else h.dispose();
+  h.finish(complete(),job);await tick();
+  assert(job.cancelled&&h.suppressed()===1,'session lifecycle did not cancel the old request');
+  assert(h.entries().length===0,'cancelled lookup entered history');
+ });
+
+ await test('Clear address then Clear history ignores a delayed bundler callback',async()=>{
+  const h=setup();h.fill(sol);h.submit();const done=complete();
+  const job=h.calls[0];
+  h.finish({...done,bundles:{status:'loading'}});
+  assert(h.entries().length===1,'usable core result did not enter history while bundler was pending');
+  assert(!h.recentVisible(),'pending bundler report exposed history');h.clearInput();assert(h.recentVisible(),'Clear did not reveal history');
+  h.clearHistory();assert(h.entries().length===0&&h.rows().length===0,'Clear history left records');
+  h.finish({...done,bundles:{status:'not-connected'}},job);assert(job.cancelled&&h.suppressed()===1,'cleared lookup did not suppress its late callback');
+  assert(h.entries().length===0&&h.rows().length===0,'late bundler result recreated cleared history');
+  assert(storeFor(h.storage).getSnapshot().entries.length===0,'late result returned after storage reload');
+ });
+
+ await test('Recall keeps same-address records separate by network and bypasses discovery',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage);
+  assert(store.remember(complete(evm,'base','Base fixture')),'could not seed Base result');
+  assert(store.remember(complete(evm,'ethereum','Ethereum fixture')),'could not seed Ethereum result');
+  const h=setup({storage,store,discover:()=>{throw new Error('history recall must not discover a network');}});
+  assert(h.recentVisible()&&h.rows().length===2,'same address on two chains was collapsed or hidden while idle');
+  for(const chain of ['base','ethereum']){
+   const row=h.rows().find(button=>button.dataset.recentChain===chain);assert(row,'missing '+chain+' row');row.click();
+   assert(h.calls.at(-1)?.mint===evm&&h.calls.at(-1)?.chain===chain,'recall used the wrong saved identity');
+   assert(h.input.value===evm,'recall did not restore input');
+   assert(root.querySelector('#coin-network').value===chain,'recall did not preserve selected network');
+   assert(root.querySelector('.check-network').hidden,'recall unnecessarily exposed network discovery');
+   assert(document.activeElement===h.input,'recall lost input focus');
+   assert(!h.recentVisible(),'recent-row launch did not hide the list');
+   h.finish(complete(evm,chain));assert(!h.recentVisible(),'recalled report exposed the list');h.clearInput();assert(h.recentVisible(),'Clear did not restore recent rows for another network');
+  }
+  assert(h.discoveries.length===0,'recall made a discovery request');
+ });
+
+ await test('Address Clear leaves history available for another lookup',async()=>{
+  const h=setup();h.fill(sol);h.submit();h.finish(complete());h.clearInput();
+  assert(h.input.value===''&&root.querySelector('.clear-address').disabled,'address did not clear');
+  assert(h.recentVisible()&&h.entries().length===1&&h.rows().length===1,'address Clear did not restore recent history');
+  h.rows()[0].click();assert(h.calls.length===2&&h.calls[1].mint===sol&&!h.recentVisible(),'saved coin could not be recalled and hidden after address Clear');
+ });
+
+ await test('Manually emptying a completed report returns recent coins without deleting history',async()=>{
+  const h=setup();h.fill(sol);h.submit();h.finish(complete());assert(!h.recentVisible(),'report did not hide history');
+  h.fill('');assert(h.input.value===''&&h.recentVisible(),'manual empty did not restore history');assert(h.entries().length===1&&h.rows().length===1,'manual empty deleted recent history');assert(root.querySelector('#live-result').textContent==='','manual empty left the report visible');
+ });
+
+ await test('A new store and checker mount restore saved history without a lookup',async()=>{
+  const storage=memoryStorage(),first=setup({storage});first.fill(sol);first.submit();first.finish(complete());
+  assert(first.store.getSnapshot().persistent===true,'memory storage was not accepted as persistent storage');
+  const reloaded=storeFor(storage),h=setup({storage,store:reloaded});
+  assert(h.recentVisible()&&h.rows().length===1&&h.entries()[0].address===sol,'new store/mount lost or hid saved history');
+  assert(h.calls.length===0&&h.discoveries.length===0,'rendering stored history triggered a lookup');
+  h.rows()[0].click();assert(h.calls.length===1&&h.calls[0].chain==='solana'&&!h.recentVisible(),'reloaded record could not be checked with history hidden');
+ });
+
+ await test('Returning to a remembered report keeps recent coins hidden until Clear',async()=>{
+  const storage=memoryStorage(),first=setup({storage});first.fill(sol);first.submit();first.finish(complete());first.dispose();
+  const h=setup({storage,store:storeFor(storage)});
+  assert(h.input.value===sol&&root.querySelector('#live-result').textContent.includes('Fixture coin'),'completed report was not restored');
+  assert(!h.recentVisible()&&h.entries().length===1,'restored report exposed or lost history');assert(h.calls.length===0&&h.discoveries.length===0,'restoring a report launched a lookup');
+  h.clearInput();assert(h.recentVisible()&&h.rows().length===1,'Clear after restored report did not reveal history');
+ });
+
+ for(const chain of ['solana','base'])await test('A '+chain+' deep link starts with recent coins hidden',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage);store.remember(complete());const mint=chain==='solana'?sol:evm;
+  const h=setup({storage,store,initialCoin:{chainId:chain,address:mint},discover:()=>{throw Error('linked coin must use its exact network');}});
+  assert(h.calls.length===1&&h.calls[0].mint===mint&&h.calls[0].chain===chain,'deep link did not start the exact lookup');
+  assert(h.input.value===mint&&!h.recentVisible(),'deep link left recent history visible');assert(h.discoveries.length===0,'deep link started network discovery');
+  h.finish(complete(mint,chain));assert(!h.recentVisible(),'linked report exposed history');h.clearInput();assert(h.recentVisible()&&h.entries().length>=1,'Clear from linked report did not return history');
+ });
+
+ await test('Clear history while idle removes persisted records and keeps the address empty',async()=>{
+  const h=setup();h.fill(sol);h.submit();h.finish(complete());h.clearInput();const calls=h.calls.length;
+  h.clearHistory();
+  assert(h.recentVisible()&&h.entries().length===0&&h.rows().length===0,'cleared history did not show its empty idle state');
+  assert(storeFor(h.storage).getSnapshot().entries.length===0,'cleared records reappeared in a new store');
+  assert(root.querySelector('#live-result').textContent===''&&h.input.value===''&&h.calls.length===calls,'Clear history changed the idle report/address or started a lookup');
+  assert(document.activeElement===h.input,'Clear history did not return focus to the address');
+ });
+ await test('Another tab updates idle history without losing row focus or exposing it during a search',async()=>{
+  const storage=memoryStorage(),events=new EventTarget(),store=createRecentCoinStore(storage,{eventTarget:events}),otherTab=storeFor(storage),h=setup({storage,store});
+  otherTab.remember(complete());notifyStorage(events,storage);assert(h.recentVisible()&&h.rows().length===1,'external completed check did not appear while idle');
+  h.rows()[0].focus();otherTab.remember(complete(evm,'base','External Base coin'));notifyStorage(events,storage);
+  assert(h.rows().length===2&&document.activeElement?.dataset.recentAddress===sol,'external update lost focused coin identity');
+  h.fill('typed address');otherTab.remember(complete(otherSol,'solana','External Solana coin'));notifyStorage(events,storage);
+  assert(!h.recentVisible()&&h.input.value==='typed address'&&h.rows().length===3,'external update exposed history or changed typed input');
+  h.clearInput();h.fill(sol);h.submit();h.finish(complete());const report=root.querySelector('#live-result').innerHTML;
+  otherTab.clear();notifyStorage(events,storage);assert(!h.recentVisible()&&h.rows().length===0&&root.querySelector('#live-result').innerHTML===report,'external clear changed the report or exposed history');
+  h.clearInput();assert(h.recentVisible()&&h.rows().length===0,'idle history did not retain external clear');
+ });
+
+ await test('A lookup started before another tab clears history finishes without restoring its recent entry',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage),otherTab=storeFor(storage),h=setup({storage,store});
+  h.fill(sol);h.submit();otherTab.clear();otherTab.remember(complete(evm,'base','Checked after clear'));
+  // The save must re-read storage even if the browser has not delivered its event yet.
+  h.finish(complete());assert(root.querySelector('#live-result').textContent.includes('Fixture coin'),'clearing history discarded the requested report');
+  assert(h.entries().length===1&&h.entries()[0].address===evm,'pre-clear lookup re-added itself or erased the newer saved coin');
+  assert(!h.recentVisible(),'completing after external clear exposed history');h.clearInput();h.fill(sol);h.submit();h.finish(complete());
+  assert(h.entries().some(entry=>entry.address===sol),'a new post-clear check could not be saved');
+ });
+
+ await test('Disposing the checker removes its history listener and ignores late notifications',async()=>{
+  const storage=memoryStorage(),events=new EventTarget(),store=createRecentCoinStore(storage,{eventTarget:events}),otherTab=storeFor(storage);let late,unsubscribed=0;
+  const adapter={...store,subscribe(listener){late=listener;const stop=store.subscribe(listener);return ()=>{unsubscribed++;stop();};}};
+  const h=setup({storage,store:adapter});h.dispose();const oldHTML=root.innerHTML;
+  otherTab.remember(complete());notifyStorage(events,storage);assert(store.entries.length===0,'disposed history listener remained attached');
+  late();assert(unsubscribed===1&&root.innerHTML===oldHTML,'late history notification changed disposed checker DOM');
+ });
+ await test('An EVM search begun before an external clear cannot re-save after delayed network discovery',async()=>{
+  const storage=memoryStorage(),store=storeFor(storage),otherTab=storeFor(storage),detection=deferred(),h=setup({storage,store,discover:()=>detection.promise});
+  h.fill(evm);h.submit();assert(h.discoveries.length===1&&h.calls.length===0,'discovery did not stay pending');
+  otherTab.clear();detection.resolve({status:'resolved',chainIds:['base']});await tick();h.finish(complete(evm,'base'));
+  assert(h.calls.length===1&&root.querySelector('#live-result').textContent.includes('Fixture coin'),'the report did not complete');
+  assert(h.entries().length===0&&storeFor(storage).entries.length===0,'pre-clear discovery re-saved its result');
+ });
+ await test('Fixture makes no live provider calls',async()=>{assert(networkCalls===0,networkCalls+' provider requests attempted');});
+}
+try{await run();}catch(error){record('Fixture initialization',error);}
+finally{
+ cleanup();root.replaceChildren();window.fetch=originalFetch;
+ summary.dataset.complete='true';summary.dataset.failures=String(failures);summary.dataset.passes=String(passes);
+ document.title=failures?'FAIL — recent coin history UI':'PASS — recent coin history UI';
+}
+</script>

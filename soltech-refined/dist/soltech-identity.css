@@ -8,6 +8,7 @@
   --theme-secondary-fill:linear-gradient(165deg,#fff,#edf0f4);
   --theme-silver-face:linear-gradient(155deg,#fff 0%,#f8f9fb 50%,#edf0f4 100%);
   --theme-silver-rim:linear-gradient(140deg,#c0c5ce 0%,#f4f5f7 24%,#a4adb9 58%,#e5e8ed 82%,#b7bec9);
+  --theme-silver-edge:inset 0 0 0 1px var(--theme-white),0 0 0 1px #e6e9ee;
   --theme-silver-panel:linear-gradient(150deg,#f5f7fa 0%,#eef1f5 60%,#e4e9f0 100%);
   --canvas:var(--theme-white);--paper:var(--theme-white);--panel:var(--theme-panel);--panel-hover:var(--theme-hover);
   --ink:var(--theme-ink);--paper-ink:var(--theme-ink);--muted:var(--theme-copy);--paper-muted:var(--theme-copy);
@@ -37,7 +38,7 @@
  .main-nav a{font-weight:600;min-height:44px;border-radius:12px;color:var(--muted);padding:10px 19px}
  .main-nav a:hover,.main-nav a[aria-current=page]{color:var(--ink);transition:none}
  .main-nav a svg{width:20px;height:20px}
- .nav-glass{left:4px;top:4px;bottom:4px;width:calc((100% - 8px)/4);border-radius:12px;background:var(--tint-glass);border:1px solid #bec6d1;box-shadow:inset 0 1px 0 var(--theme-white),inset 0 -1px 0 #b5bec947,0 2px 5px #2631440d;transition:transform var(--tint-slide)}
+ .nav-glass{left:4px;top:4px;bottom:4px;width:calc((100% - 8px)/var(--nav-count));border-radius:12px;background:var(--tint-glass);border:1px solid #bec6d1;box-shadow:inset 0 1px 0 var(--theme-white),inset 0 -1px 0 #b5bec947,0 2px 5px #2631440d;transition:transform var(--tint-slide)}
  .nav-glass::after{content:none}
  .app-settings,.icon-button{background:var(--theme-white);border:1px solid var(--line);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:13px;color:var(--muted)}
  .app-settings:hover,.icon-button:hover{background:var(--panel);border-color:var(--control-line)}
@@ -239,13 +240,17 @@
   .checker .coin-check-form .button[type=submit]:not(.clear-address):focus-visible{outline:none;box-shadow:inset 0 -2px 0 #a4c1db}
  }
  h1[tabindex='-1']:focus{outline:none}
+ @media(min-width:801px) and (max-width:1024px){
+  .app-header{gap:16px}
+  .main-nav a{padding-inline:8px;gap:6px}
+ }
  @media(max-width:800px){
   .app-shell{padding-inline:22px}.app-header{padding:13px 0;border:0;background:#ffffffed}
   .app-header::before{inset:0 -22px;background:#ffffffed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
   .brand{font-size:1.35rem}.brand-mark{width:38px;height:38px}.app-settings{width:42px;height:42px}
   .main-nav{left:18px;right:18px;bottom:max(12px,env(safe-area-inset-bottom));padding:5px;border-radius:21px;background:#ffffffed;box-shadow:0 6px 24px #18243a12,inset 0 1px 0 var(--theme-white);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
   .main-nav a{min-height:58px;font-size:.8125rem;gap:4px;padding:8px 3px;border-radius:16px;color:var(--muted)}
-  .main-nav a svg{width:22px;height:22px}.nav-glass{left:5px;top:5px;bottom:5px;width:calc((100% - 10px)/4);border-radius:16px;background:var(--tint-glass);border-color:var(--theme-border);box-shadow:inset 0 1px 0 var(--theme-white),inset 0 -1px 0 #b6bfca38,0 2px 4px #27334a0a}
+  .main-nav a svg{width:22px;height:22px}.nav-glass{left:5px;top:5px;bottom:5px;width:calc((100% - 10px)/var(--nav-count));border-radius:16px;background:var(--tint-glass);border-color:var(--theme-border);box-shadow:inset 0 1px 0 var(--theme-white),inset 0 -1px 0 #b6bfca38,0 2px 4px #27334a0a}
   .nav-glass::after{bottom:3px;width:10px;left:calc(50% - 5px)}
   .page-intro,.checker{margin-top:30px}.page-intro{margin-bottom:24px}
   .page-intro h1,.personal-page .page-intro h1,.checker-intro h1{font-size:2rem;line-height:1.16;letter-spacing:-.035em}
@@ -334,4 +339,109 @@
  .scanner-status-actions .scanner-status-customize{min-height:44px;padding:10px 18px;font-size:.875rem;border-radius:11px}
  @media(max-width:600px){.scanner-status-card{padding:16px;column-gap:12px}.scanner-status-heading{gap:12px}}
  @media(forced-colors:active){.scanner-status-card{border-color:CanvasText;background:Canvas;box-shadow:none}.scanner-state{border-color:CanvasText;background:Canvas;color:CanvasText}.scanner-state-dot{background:CanvasText}.scanner-status-copy{color:CanvasText}}
+
+ /* Continuous report; mobile brings quick ownership signals above the chart. */
+ .checker .report-risk-area{display:contents;}
+ .checker .mobile-risk-signals,.checker .mobile-only-signal{display:none;}
+ .checker .coin-report-priority{padding-top:8px;}
+ .checker .coin-report-priority .live-coin-head{gap:10px;}
+ .checker .coin-report-priority .coin-avatar{width:40px;height:40px;}
+ .checker .coin-report-priority .live-coin-head h2{font-size:1.4rem;margin-bottom:3px;letter-spacing:-.025em;}
+ .checker .coin-report-priority .report-meta{margin:10px 0;font-size:.75rem;gap:4px 12px;flex-wrap:wrap;}
+ .checker .coin-report-priority .quick-risk{padding:10px 12px;margin-bottom:16px;}
+ .checker .coin-report-priority .quick-risk p{margin-top:2px;}
+ .checker .report-primary{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:24px;align-items:start;}
+ .checker .report-primary>*,.checker .report-key-data{min-width:0;}
+ .checker .report-primary .chart-panel{padding:0;border:0;background:transparent;}
+ .checker .report-key-data{display:grid;gap:20px;}
+ .checker .report-key-data h3{font-size:.875rem;margin:0 0 10px;}
+ .checker .coin-report-priority .check-metrics{gap:0;border-block:1px solid var(--line);}
+ .checker .coin-report-priority .check-metrics>div:nth-child(n){padding:10px 12px;border:0;border-radius:0;background:transparent;box-shadow:none;}
+ .checker .coin-report-priority .check-metrics>div:nth-child(odd){padding-left:0;}
+ .checker .coin-report-priority .check-metrics>div:nth-child(even){padding-right:0;border-left:1px solid var(--line);}
+ .checker .coin-report-priority .check-metrics>div:nth-child(n+3){border-top:1px solid var(--line);}
+ .checker .coin-report-priority .check-metrics dd{font-size:1.1rem;line-height:1.4;letter-spacing:-.015em;margin:3px 0 0;}
+ .checker .coin-report-priority .check-metrics dd.metric-missing{font-size:.8125rem;}
+ .checker .coin-report-priority .summary-value{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;list-style:none;padding:12px 0;}
+ .checker .coin-report-priority .summary-value::-webkit-details-marker{display:none;}
+ .checker .coin-report-priority .summary-value>span{font-size:.875rem;}
+ .checker .coin-report-priority .summary-value strong{float:none;text-align:right;max-width:115px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;}
+ .checker .coin-report-priority .summary-value strong::after{content:'+';display:inline-block;margin-left:8px;color:var(--muted);font-size:1rem;font-weight:400;}
+ .checker .coin-report-priority details[open]>.summary-value strong::after{content:'−';}
+ .checker .coin-report-priority .summary-value small{font-size:.6875rem;margin-top:2px;}
+ .checker .coin-report-priority .price-history{display:flex;flex-direction:column;}
+ .checker .coin-report-priority .price-history>*{order:initial;}
+ .checker .coin-report-priority .history-coverage{font-size:.75rem;margin:8px 0;}
+ .checker .coin-report-priority .history-ranges{align-self:flex-start;margin:0 0 8px;}
+ .checker .coin-report-priority .history-plot{height:220px;flex:none;}
+ .checker .coin-report-priority .history-readout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;margin:10px 0 0;padding:0;border:0;}
+ .checker .coin-report-priority .history-readout>span{grid-column:1;grid-row:1;font-size:.75rem;}
+ .checker .coin-report-priority .history-readout strong{grid-column:1;grid-row:2;font-size:1.2rem;letter-spacing:-.025em;}
+ .checker .coin-report-priority .history-readout time{grid-column:2;grid-row:1 / span 2;align-self:center;text-align:right;font-size:.6875rem;}
+ .checker .coin-report-priority .history-help{font-size:.6875rem;margin:-4px 0 6px;}
+ .checker .coin-report-priority .history-estimate{font-size:.75rem;margin:0 0 6px;}
+ .checker .coin-report-priority .history-high{margin:6px 0 12px;}
+ .checker .coin-report-priority .report-secondary{margin-top:24px;border-top:1px solid var(--line);}
+ .checker .coin-report-priority .report-sources{margin-top:0;border-top:0;}
+ .checker .coin-report-priority .check-address{padding-block:14px;}
+ @media(max-width:800px){
+  .checker > #live-result:not(:empty){margin-top:20px;padding-top:8px;border-top:1px solid var(--theme-border);}
+  @media(forced-colors:active){.checker > #live-result:not(:empty){border-color:CanvasText;}}
+  .checker .report-risk-area{display:block;margin-bottom:18px;}
+  .checker .report-risk-area .quick-risk{margin:0 0 10px;border-width:1px;border-radius:8px;padding:10px 12px;}
+  .checker .mobile-risk-signals,.checker .mobile-only-signal{display:block;}
+  .checker .mobile-risk-signals .live-security{display:grid;gap:7px;margin:0;padding:0;}
+  .checker .mobile-risk-signals h3{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+  .checker .mobile-risk-signals .check-more{position:relative;isolation:isolate;margin:0;padding:1px 12px;border:0;background:var(--theme-border);clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));}
+  .checker .mobile-risk-signals .check-more::before{content:"";position:absolute;inset:1px;z-index:-1;pointer-events:none;background:var(--theme-white);clip-path:polygon(0 0,calc(100% - 8.414px) 0,100% 8.414px,100% 100%,8.414px 100%,0 calc(100% - 8.414px));}
+  .checker .mobile-risk-signals .check-more:focus-within{background:var(--theme-focus);}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value{min-height:60px;padding:10px 0;gap:8px;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value:focus-visible{outline:2px solid var(--theme-focus);outline-offset:-2px;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value>span{min-width:0;font-size:.875rem;line-height:1.3;font-weight:650;color:var(--theme-ink);}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value small{font-size:.6875rem;line-height:1.4;font-weight:450;margin-top:3px;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value strong{min-width:64px;max-width:116px;text-align:center;font-size:.875rem;font-weight:700;line-height:1.4;padding:6px 8px;border-radius:0;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));white-space:normal;color:#596574;background:#f0f2f5;}
+  .checker .coin-report-priority .mobile-risk-signals [data-signal-tone=unknown]>.summary-value strong{font-size:.75rem;font-weight:600;}
+  .checker .mobile-risk-signals [data-signal-tone=info]>.summary-value strong{color:#244c70;background:#eef5fb;}
+  .checker .mobile-risk-signals [data-signal-tone=caution]>.summary-value strong{color:#77551c;background:#fff5de;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value strong::after{font-size:.875rem;margin-left:6px;color:currentColor;}
+  .checker .mobile-risk-signals .check-more>p{padding-bottom:8px;}
+  .checker .mobile-risk-signals .check-more[open]{padding-bottom:8px;}
+  .checker .mobile-risk-signals .check-more[open]>.summary-value{border-bottom:1px solid var(--theme-line);margin-bottom:10px;}
+  .checker .report-primary{grid-template-columns:minmax(0,1fr);gap:18px;}
+  .checker .coin-report-priority .history-plot{height:240px;}
+  .checker .coin-report-priority .report-key-data{gap:18px;}
+ }
+ @media(forced-colors:active){.checker .coin-report-priority .check-metrics>div:nth-child(n){border-color:CanvasText;background:Canvas}.checker .mobile-risk-signals .check-more{background:Canvas;border:1px solid CanvasText;clip-path:none}.checker .mobile-risk-signals .check-more::before{display:none}.checker .mobile-risk-signals .check-more:focus-within{border-color:Highlight}.checker .coin-report-priority .mobile-risk-signals .summary-value strong{color:CanvasText;background:Canvas;border:1px solid CanvasText;clip-path:none}}
+
+ /* Snapshot chart: slider exploration, with the same quiet silver controls. */
+ .checker .price-history .history-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;}
+ .checker .price-history .history-controls .history-ranges{--selection-index:3;order:0;grid-template-columns:repeat(4,minmax(44px,1fr));margin:0;flex:0 1 240px;}
+ .checker .price-history .history-controls .history-ranges::before{width:calc((100% - 6px)/4);}
+ .checker .price-history .history-ranges:has(button:nth-child(1)[aria-pressed=true]){--selection-index:0;}
+ .checker .price-history .history-ranges:has(button:nth-child(2)[aria-pressed=true]){--selection-index:1;}
+ .checker .price-history .history-ranges:has(button:nth-child(3)[aria-pressed=true]){--selection-index:2;}
+ .checker .price-history .history-ranges:has(button:nth-child(4)[aria-pressed=true]){--selection-index:3;}
+ .checker .price-history .history-plot{display:block;height:260px;min-width:0;}
+ .checker .price-history .history-canvas{width:100%;height:100%;min-width:0;touch-action:auto;}
+ .checker .price-history .history-canvas>*{pointer-events:none;}
+ .checker .price-history .history-heading{order:0;}
+ .checker .price-history .history-readout{order:1;}
+ .checker .price-history .history-coverage{order:2;}
+ .checker .price-history .history-controls{order:3;}
+ .checker .price-history .history-plot{order:4;}
+ .checker .price-history .history-dates{order:5;}
+ .checker .price-history .history-scrubber{order:6;}
+ .checker .price-history .history-help{order:7;}
+ .checker .price-history .history-estimate{order:8;}
+ .checker .price-history .history-current{order:9;}
+ .checker .price-history .history-high{order:10;}
+ .checker .price-history>.check-more{order:11;}
+ .checker .coin-report-priority .price-history .history-readout{margin:12px 0 0;gap:3px 12px;}
+ .checker .coin-report-priority .price-history .history-readout strong{font-size:1.7rem;line-height:1.2;font-weight:650;}
+ .checker .coin-report-priority .price-history .history-readout time{font-size:.75rem;max-width:120px;line-height:1.5;}
+ .checker .coin-report-priority .price-history .history-readout>span{font-size:.75rem;}
+ .checker .coin-report-priority .price-history .history-coverage{margin:8px 0 12px;}
+ .checker .coin-report-priority .price-history .history-help{font-size:.75rem;line-height:1.5;margin:0 0 8px;}
+ .checker .price-history .history-dates{font-size:.6875rem;gap:8px;}
+ @media(max-width:800px){.checker .price-history .history-plot{height:240px;}}
 }

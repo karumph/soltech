@@ -1,3 +1,113 @@
+CURRENT APP SOURCE - October 16, 2026 - GitHub source push authorized
+
+The user explicitly requested pushing their current original version. Active source is soltech-refined/dist, on codex/scanner-feed-refresh-2026-10-04. Preserve the co-developer's separate version and do not deploy or merge main as a side effect. Read soltech-refined/START-HERE.md for current features, startup and limits. Port 4185 serves the original and comparison. Browser and runtime personal data are excluded from source control.
+
+The slider-only chart has 1H, 6H, 1D and All. Profile is a circular top-right shortcut opening the merged Profile/Settings page, with Check, Feed, Scanner and Signals in main navigation. Wallet and scanner improvements are saved locally. X, account sync, billing and alerts remain unfinished as described in the current guide.
+
+TOMORROW-SOLVENTIR.txt records four deferred requests. Do not implement them without resuming the work with the user: consistent coin logos, one standard non-customizable scanner at launch, clearer grouped coin signals, and a compact Profile dropdown. They were notes only. The current customization and full Profile page remain present.
+
+All records below are historical and do not override the current app guide or the user's later instructions. Uncommitted design experiments and backups are separate from this push.
+
+CURRENT DIRECTION - October 15, 2026 - ORIGINAL APP FIRST; BROAD REDESIGN REJECTED
+
+Read SOVENTIR-FIGMA-ORIGINAL.txt first. The user rejected the page 04 broad liquid-glass redesign because it looked unlike their app. Keep its 29 screens as unused exploration; do not continue it or make it the default. The user wants the full original editable, preserving original appearance and layout, and wants to choose each change themselves with plain, hands-on mentoring. No automatic redesign.
+
+Start in the original editor at https://www.figma.com/design/aBqwqlXzPnGwlezIraP2YF?node-id=13-2 . Page 0:1 / board 13:2 contains six verified unlocked editable 390 x 844 original main captures: Check 7:2, Wallet 4:2, Feed 8:2, Scanner 5:2, Signals 9:2 and Profile 11:2. They are not every original dialog, report or state. Faithfully bring missing original views from the actual app when needed; do not invent replacements. Page 03 is still an optional clickable reference with simplified secondary views, not an exact complete app. Preserve soltech-refined\dist, all local work, settings and history. No automatic real scanning, paid X scanning, implementation, deployment or push.
+
+All records below are preserved history. Their earlier starting links and design direction are superseded by SOVENTIR-FIGMA-ORIGINAL.txt.
+
+CURRENT HANDOFF - October 15, 2026 - Clickable Figma UI review ready
+
+Read SOVENTIR-FIGMA-PROTOTYPE.txt first. The user returned and requested both editable individual UI pieces and clickable screen navigation, explicitly without real scanning or checks. The new 03 Interactive review page is ready: navigation, Coin/Wallet, Settings/Back, Customize, Profile links and Start/Pause preview states work. Long screens scroll with a fixed dock. Browser checks passed; 86 prototype reactions have valid targets. Native text selection was verified in the editor. Open the clickable preview link in that handoff and guide the user through Profile, Check and Scanner. The earlier typography proposal remains under review. No app source or real services were changed. Preserve earlier references, the Liquid Metal experiment and all local app work.
+
+PREVIOUS HANDOFF - October 15, 2026 - Figma design review saved
+
+Read SOVENTIR-FIGMA-HANDOFF.txt first. The user is a Figma beginner and wants hands-on mentoring and professional typography/buttons. Six editable screens, a reusable Scanner workshop and the first typography/control comparison are saved. Start at https://www.figma.com/design/aBqwqlXzPnGwlezIraP2YF?node-id=54-178 when the user returns. The proposal is not yet approved or implemented. The user asked to finish this comparison, save progress and pause for sleep. Preserve their Liquid Metal experiment on the source-card component-set container and their canvas edits. No live app changes, deployment or paid scanning occurred. Project copies of screenshots and state ledgers are in design-references/figma-2026-10-15. See SOVENTIR-CHAT-HANDOFF.txt for unchanged app implementation context.
+
+PREVIOUS HANDOFF - October 13, 2026 - Fresh-chat transfer saved
+
+Read SOVENTIR-CHAT-HANDOFF.txt first. It supersedes older state and preserves the current implementation, known limits, design decisions, business plan and next steps. CONTINUE-SOVENTIR.txt contains a copyable prompt for a new chat. The user asked to save the current version as-is for transfer; no app edits are part of this save. Latest verbal choice is Soventir WITHOUT L; the app still displays Solventir WITH L. The no-L rename is pending, not silently applied. The user plans to set up X access but has not confirmed completion. No X credentials, paid calls, deployment or push occurred.
+
+The fresh source checkpoint and hash manifest are in Checkpoints with the prefix soventir-fresh-chat-2026-10-13. Current browser-local data remains in the current browser/origin, not in the source archive. See the new handoff for exact inclusions and scanner findings handling.
+
+PREVIOUS HANDOFF - October 12, 2026 - Solventir branding
+
+User explicitly chose Solventir as the new app/company name, replacing Raxer. Visible branding, page titles, descriptions, settings/about/privacy text, service errors, export filenames, preview wrappers and current setup docs now use Solventir. Original logo artwork, accepted font/spacing and layout stay unchanged. Preserve storage keys, schemas, local histories, saved scanner names, API identifiers, asset names and project paths. Do not rename the SolTech folder or touch the co-developer's hosted version. Earlier Raxer/Soltech mentions below are historical; no Solventir domain has been configured.
+
+Verification: 497 automated checks pass, app/server syntax checks pass, mobile header fits with no horizontal overflow. Local preview remains on port 4185 at /mine?view=finds; real findings remain saved and paused. X access is still pending. No commit, push or deployment performed for the rename.
+
+PREVIOUS HANDOFF - October 12, 2026 - Original X post display ready for connection
+
+User authorized continuing with original X posts, a brief summary, and related coins arriving underneath. Added original author/avatar, full available source text, photo galleries, manual video controls, source time/link, and explicit reply/quote/repost context. Source media URLs are restricted to the exact trusted X image/video hosts; fixture media stays local. Missing media/text gets an honest message. Incremental coin updates preserve media controls and open details.
+
+Post in brief is currently a short source-worded excerpt, not an AI interpretation or media summary. Matching remains basic evidence-based matching; advanced theme recognition is not finished. Reposts cannot be treated as original author evidence. Source excerpts survive matching and restart. Large saved post groups are bounded without cutting the text inside retained groups.
+
+Verification: all 497 automated tests passed; final focused Feed checks also pass (30). Browser fixture checks pass (17), including narrow layouts, media fallback and stable video controls during updates. Final visual review fixed long author/handle overlap and stacks post/brief by panel width. Screenshot: soltech-refined/review/scanner-post-media-2026-10-12.jpg. Fixtures use fictional posts/coins and logo placeholders; there is no playable video fixture. Real X ingestion/media playback remains unverified until credentials are configured.
+
+Preview is running on port 4185. Real saved Feed is paused and preserved at /mine?view=finds. Post presentation fixture: /tests/scanner-feed-ui.html. X Developer Console/setup links have been shown to the user. Pending question asks whether they have signed into the console and created a Raxer app. No credentials supplied, no X requests/charges activated, no push/deployment. Next step: help user finish X developer setup, securely configure server-only credentials and a limited usage budget, then verify one real account/post before expanding coverage. See soltech-refined/SCANNER-PILOT.md.
+
+PREVIOUS HANDOFF - October 12, 2026 - Functional local scanner pilot
+
+User authorized building their Raxer scanner and progressive Feed from the hand-drawn reference. Work only in soltech-refined; do not modify the co-developer's hosted app. X API access has NOT been set up. Keep scanner labels X post and New projects; both remain included. No accounts/payments or deployment/push requested for this build.
+
+Implemented: server-owned Start/Pause, bounded real GeckoTerminal Solana pool discovery, exact-mint DEX Screener enrichment, basic mint-authority checks, shared visible result filters, durable local state, incremental SSE Feed updates, reconnect/backpressure handling. The old fake Feed and visual-only scanner are no longer the active views. Settings/history/logo/navigation preferences were preserved.
+
+Feed: post + supplied summary above related coin rows; logo/name upper left, check status upper right, CA/copy and market cap beneath. New market batches have a compact neutral header. Missing values remain unavailable; uncertain matches remain possible. Each post keeps its own association evidence. Slow checks/X do not hold up market publication. Coin details update in place and preserve focus/open disclosures.
+
+X: official polling adapter prepared but live account access UNVERIFIED. Requires explicit SCANNER_X_ENABLED=true, server-only X_BEARER_TOKEN, and up to five specific accounts. No X requests or billing activated. Default account list is unconfigured. Current matcher is deterministic evidence/name/cashtag matching, not a fully evaluated semantic intelligence system. Basic mint checks are not a full risk/safety assessment. Pool discovery is bounded recent coverage, not all launches or confirmed projects.
+
+Preview: http://127.0.0.1:4185/mine?view=finds and /mine?view=scanner; comparison server soltech-refined/review/scanner-comparison.mjs. Results stored separately per port under ignored soltech-refined/.runtime/. Current live verification run has been paused, leaving real results saved. Restart restores results paused. Browser tabs on the same port share the running scan. Local service must stay open for scanning; no cloud/account service exists yet.
+
+Verification: 464 automated tests pass; syntax checks pass. Isolated browser Feed tests: 11 pass at 320/390px, source-first progressive updates, stable Details/focus, explicit uncertainty/exclusion, no API calls. Live mobile Feed stayed connected with over 90 real listings, no horizontal overflow or broken visible images; Start/Pause and persistence after restart verified. Full CA copy verified by actual paste. Screenshot: soltech-refined/review/scanner-live-feed-2026-10-12.jpg. Fixtures at /tests/scanner-feed-ui.html are explicitly fictional and do not write to the real feed.
+
+Next: user can review the local pilot. Help configure X API access securely when requested, then validate official account permissions, usage budget, real post ingestion and matching quality. Further semantic ranking, broader launch coverage, production hosting, account quotas/payments and alerts remain future work. Nothing committed, pushed or published by this build. See soltech-refined/SCANNER-PILOT.md for operation and limitations.
+
+EARLIER HANDOFF (historical; scanner/demo descriptions below are superseded)
+RAXER — CURRENT HANDOFF
+Saved October 12, 2026, around 1:10 AM America/Chicago, covering the October 11–12 session. The user asked to save progress and remember this stopping point before leaving. Work is finished for this session; wait for their next request.
+
+ACTIVE WORK
+Project: C:\Users\jayde\OneDrive\Desktop\SolTech
+Editable app: soltech-refined\dist. Keep the SolTech folder and existing asset filenames; the visible app/company name is now Raxer, pronounced RACK-ser.
+The user owns raxer.app and has already checked availability. Do not repeat that research unless asked. This session did not configure the domain, deploy, commit, or push.
+Current branch: codex/scanner-feed-refresh-2026-10-04. Last commit at handoff: d9bf8ef (Unify Soltech palette and refine Feed and scanner settings). Many newer files and edits are intentionally uncommitted, including wallet and Signals features. Preserve them; do not reset or replace this checkout with the older committed version or the co-developer's build.
+
+PREVIEWS
+Latest own mobile: http://127.0.0.1:4185/mine?view=scanner
+Wallet mobile: http://127.0.0.1:4185/mine?view=wallet
+Signals mobile: http://127.0.0.1:4185/mine?view=signals
+Side-by-side comparison: http://127.0.0.1:4185/?view=wallet
+Own direct app: http://127.0.0.1:4185/original/index.html#check
+Co-developer hosted version: https://soltech.d3ilz6ab0hx4y4.amplifyapp.com/
+Comparison server: node soltech-refined/review/scanner-comparison.mjs from the project root. It was running on port 4185 when work stopped; first verify whether it is still running, and reuse it if so. Start hidden only if needed. Preserve this origin so browser-local histories and settings remain available. The older 4183 previews below are historical, not the currently verified comparison preview.
+
+COMPLETED THIS SESSION
+- Visible branding, titles, supporting text, and download names use Raxer. Original logo artwork, original accepted wordmark font and spacing, app design, and data are preserved. The period and rejected two-bar accent remain removed.
+- Full wording pass across Check, Wallet, Scanner, Customize, Feed, Signals, Profile, Settings, and supporting messages. Copy distinguishes the visual scanner demo, saved settings, sample Feed content, and connected features. Paid promotion labels, wallet estimates, privacy explanations and failure/retry messages are clearer.
+- Wallet checker uses the accepted compact Coin/Wallet selector. Public Solana holdings are compact, largest available dollar values first, without wallet-list risk grades or priced/unpriced filters. Holdings and Transactions stay inside the app, with address copy and refresh; no Solscan links.
+- Transactions show the main coin movement, readable amount and time, green incoming values and muted red outgoing values. Details show recorded amounts, addresses and fee. Newer transaction-format support fixed unavailable Details; unsupported/complex activity is not assigned a guessed meaning. Missing coin names can be resolved through the existing data source, with an address fallback. Service-limit retry handling is retained.
+- Coin and wallet Recently checked lists are separate, device-local, up to twelve entries, and reopen with a fresh lookup. Clearing an input does not clear history. Failed or cancelled lookups are not saved.
+- Signals was selectively added from the co-developer's shared discovery feed, with clear connected/unavailable/planned states. Boards use clearer names including Launch progress, Rising activity, Contract warnings, and Name and symbol matches. A lower-risk report is not presented as verified safety. Do not confuse this connected shared feed with the local visual Scanner or sample Feed.
+- Mobile bottom navigation has five items and a glass treatment. The outer dock and sliding selected highlight both have softly squared, nested corners. Preserve this final preference; the user rejected a pill highlight inside a boxier dock.
+- Feed keeps individual white panels, silver outlines and room for summaries. Six real coin identities/addresses are example content with October 3, 2026 market-cap snapshots; summaries and discovery times are fictional, clearly labeled. Preserve CA copying and the scanner button's intentional Finds label, which opens Feed.
+- Scanner keeps Post and New projects, near-black source panels, white scan tracks with blue sweep, angled silver stages, sequential green checks, and the existing Finds control. Eighteen-second sequence and persistent pause/fade behavior remain. Active/Inactive labels were explicitly chosen by the user. Customize keeps both sources, specific X usernames/default list, and a small set of shared filters; settings are local and do not run a live scan.
+
+OPEN NAMING DECISION
+Raxer is confirmed as company/app name. The user is considering a separate discovery engine/product identity. Current default scanner heading is Coin discovery; the navigation still says Scanner. Recommended option is Raxer Discovery, with Radar, Pulse and Core explained as alternatives. None of those product names has been selected. Revlon was discussed but not applied. Do not silently finalize another name. Existing saved/custom scanner names, including exact former default names, are preserved; Coin discovery applies only to new defaults.
+
+COMPATIBILITY AND VERIFICATION
+Keep existing soltech storage keys, accountScope values, window.SOLTECH_API, setup authentication header, API routes, preview navigation tool identifier and asset filenames. Rebranding deliberately did not migrate these or clear browser data.
+Latest full suite: 356 passed, 0 failed. Subsequent scanner-name regression check: 42 focused tests passed, covering loading and updating/saving/reopening custom names. app.js syntax and git diff --check passed. Main pages checked at mobile size without horizontal overflow; scanner verified at 320px and 390px. Existing histories remained visible.
+Validation commands: node --test soltech-refined/tests/*.test.mjs; node --check soltech-refined/dist/app.js.
+Logs: soltech-refined/review/current-tests.log and rename-compatibility-tests.log.
+Latest branding screenshot: soltech-refined/review/raxer-brand-mobile.png.
+Other useful screenshots: review/glass-dock-matched-corners.png and review/wallet-transactions-clear-summary.png.
+
+CO-DEVELOPER COMPARISON / REMAINING WORK
+Keep the user's current interface and import useful features selectively. Wallet checking, recent history, Signals and glass navigation are now local. Earlier review identified issues in the co-developer's code around incomplete risk data, stale timestamps, momentum, valuation labels, inferred EVM network and account refresh. Those findings were recommendations, not a claim that the whole backend was fixed or copied. Live scanner matching, alerts, payments, trading, account sync, production terms/privacy and domain publishing remain separate work.
+
+The older notes below are historical and superseded by this current handoff wherever they differ.
+
 SOLTECH — CURRENT HANDOFF
 Updated October 4, 2026 (America/Chicago).
 

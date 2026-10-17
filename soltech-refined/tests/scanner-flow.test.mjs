@@ -1,67 +1,56 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {scannerFlowHTML,mountScannerFlow} from '../dist/scanner-flow.js';
+import {initialScannerState} from '../dist/scanner-client.js';
 
-const pauseKey='soltech.scanner-demo-paused.v1';
-let moduleId=0;
-async function fixture(t,{paused=false,reduced=false}={}){
- const originals=['window','ResizeObserver'].map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)]),disposers=[];
- const values=new Map(paused?[[pauseKey,'true']]:[]),storage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
- const media=new EventTarget();media.matches=reduced;
- const window=new EventTarget();window.localStorage=storage;window.matchMedia=()=>media;
- Object.defineProperty(globalThis,'window',{configurable:true,value:window});
+const tick=()=>new Promise(resolve=>setImmediate(resolve));
+function fixture(t){
+ const originals=['window','ResizeObserver'].map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)]);
+ const media=new EventTarget();media.matches=false;
+ Object.defineProperty(globalThis,'window',{configurable:true,value:{matchMedia:()=>media}});
  Object.defineProperty(globalThis,'ResizeObserver',{configurable:true,value:class{observe(){}disconnect(){}}});
- t.after(()=>{try{for(const dispose of disposers.reverse())dispose();}finally{for(const [key,descriptor] of originals){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}}});
- const flow=await import(`../dist/scanner-flow.js?scanner-flow-test=${++moduleId}`);
- const button=new EventTarget();button.attributes=new Map();button.setAttribute=(key,value)=>button.attributes.set(key,value);
- const note={},status={},captions=['Scanning posts','Scanning projects'].map(text=>({textContent:text,dataset:{runningCaption:text}}));
- const box=rect=>({getBoundingClientRect:()=>rect});
- const leftWindow=box({top:24,bottom:48,height:24}),rightWindow=box({top:24,bottom:48,height:24});
+ const node=()=>({dataset:{},attributes:{},setAttribute(key,value){this.attributes[key]=value;},textContent:''});
+ const button=Object.assign(new EventTarget(),node()),note=node(),status=node(),count=node(),finds=node(),checkNote=node(),serviceNote=node();
+ const captions=[node(),node()],steps=[node(),node(),node()],counts={matched:node(),checked:node()};
+ const box=rect=>({...node(),getBoundingClientRect:()=>rect});
+ const windows=[box({top:24,bottom:48,height:24}),box({top:24,bottom:48,height:24})];
  const left=box({left:0,right:120}),right=box({left:132,right:252});
- left.querySelector=()=>leftWindow;right.querySelector=()=>rightWindow;
- const line={setAttribute(){}},link={style:{},setAttribute(){},querySelector:()=>line};
- const sources=box({left:0,top:0});sources.querySelector=selector=>({'.flow-source-link':link,'.flow-source-x':left,'.flow-source-pairs':right})[selector];
- const engine={dataset:{},querySelector:selector=>({'[data-flow-pause]':button,'.engine-demo-note':note,'[data-flow-status]':status,'.flow-sources':sources})[selector],querySelectorAll:()=>captions};
- const root={querySelector:()=>engine};
- const mount=()=>{const dispose=flow.mountScannerFlow(root);disposers.push(dispose);return dispose;};
- const storageEvent=(key,newValue,storageArea=storage)=>{const event=new Event('storage');Object.assign(event,{key,newValue,storageArea});window.dispatchEvent(event);};
- return {flow,mount,button,note,status,captions,engine,storage,values,storageEvent,media};
+ [left,right].forEach((source,index)=>{source.querySelector=selector=>selector==='.flow-scan-window'?windows[index]:captions[index];});
+ const link={...node(),style:{},querySelector:()=>node()},sources=box({left:0,top:0});
+ sources.querySelector=selector=>({'.flow-source-link':link,'.flow-source-x':left,'.flow-source-pairs':right})[selector];
+ const engine={dataset:{},querySelector:selector=>({'[data-flow-pause]':button,'.engine-demo-note':note,'[data-flow-status]':status,'.flow-sources':sources,'.flow-find-count':count,'.flow-stage-finds':finds,'[data-flow-check-note]':checkNote,'.engine-service-note':serviceNote,'[data-flow-count="matched"]':counts.matched,'[data-flow-count="checked"]':counts.checked})[selector],querySelectorAll:()=>steps};
+ let listener;const calls=[],config={resultFilters:{capMax:'50000'}},client={state:{...initialScannerState(),connection:{status:'connected'}},subscribe(fn){listener=fn;fn(this.state);return ()=>{listener=null;};},async start(value){calls.push(['start',value]);this.send({status:'running',sources:{posts:{status:'disconnected'},projects:{status:'running'}}});},async pause(){calls.push(['pause']);this.send({status:'paused'});},send(value){this.state={...this.state,...value};listener?.(this.state);}};
+ const dispose=mountScannerFlow({querySelector:()=>engine},{client,getConfig:()=>config});
+ t.after(()=>{dispose();for(const [key,descriptor] of originals){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}});
+ return {button,note,status,engine,media,client,calls,config,captions,steps,count,counts,dispose};
 }
 
-test('Pause persists through navigation and Resume restores running captions',async t=>{
- const f=await fixture(t);const dispose=f.mount();
- f.button.dispatchEvent(new Event('click'));
- assert.equal(f.engine.dataset.paused,'true');assert.equal(f.values.get(pauseKey),'true');assert.equal(f.captions[0].textContent,'Paused');
- dispose();assert.match(f.flow.scannerFlowHTML(),/data-paused="true"/);f.mount();
- f.button.dispatchEvent(new Event('click'));
- assert.equal(f.engine.dataset.paused,'false');assert.equal(f.values.get(pauseKey),'false');assert.equal(f.captions[1].textContent,'Scanning projects');
+test('Start uses saved settings and captions reflect actual connected sources',async t=>{
+ const f=fixture(t);assert.match(f.button.innerHTML,/Start/);assert.equal(f.engine.dataset.paused,'true');
+ f.button.dispatchEvent(new Event('click'));await tick();
+ assert.deepEqual(f.calls,[['start',f.config]]);assert.equal(f.engine.dataset.paused,'false');
+ assert.equal(f.captions[0].textContent,'Not connected');assert.equal(f.captions[1].textContent,'Scanning');
+ f.button.dispatchEvent(new Event('click'));await tick();assert.equal(f.engine.dataset.paused,'true');assert.equal(f.captions[1].textContent,'Paused');
 });
 
-test('scanner reflects pause changes made while another screen is open',async t=>{
- const f=await fixture(t);const dispose=f.mount();dispose();
- f.values.set(pauseKey,'true');assert.match(f.flow.scannerFlowHTML(),/data-paused="true"/);
- f.values.clear();assert.match(f.flow.scannerFlowHTML(),/data-paused="false"/);
+test('reduced motion does not stop a real scan or hide its pause control',async t=>{
+ const f=fixture(t);await f.client.start(f.config);f.media.matches=true;f.media.dispatchEvent(new Event('change'));
+ assert.equal(f.engine.dataset.reducedMotion,'true');assert.equal(f.engine.dataset.paused,'false');assert.equal(f.button.disabled,false);assert.match(f.button.innerHTML,/Pause/);
 });
 
-test('open scanner follows cross-tab pause and clear events without writing storage',async t=>{
- const f=await fixture(t);const dispose=f.mount();let writes=0;f.storage.setItem=()=>{writes++;};
- f.values.set(pauseKey,'true');f.storageEvent(pauseKey,'true');
- assert.equal(f.engine.dataset.paused,'true');assert.equal(f.status.textContent,'Inactive');
- f.storageEvent(pauseKey,'false',{});assert.equal(f.engine.dataset.paused,'true');
- f.values.clear();f.storageEvent(null,null);assert.equal(f.engine.dataset.paused,'false');
- assert.equal(writes,0);dispose();f.storageEvent(pauseKey,'true');assert.equal(f.engine.dataset.paused,'false');
+test('counters and green checks require reported data rather than elapsed animation',t=>{
+ const f=fixture(t);assert.ok(f.steps.every(step=>step.dataset.checkState==='pending'));
+ f.client.send({counts:{matched:1,checked:2,finds:3},groups:[{coins:[{checks:{checkedAt:'2026-10-12T12:00:00Z',items:[{status:'pass'},{status:'flag'},{status:'unknown'}]}}]}]});
+ assert.equal(f.count.textContent,'3');assert.equal(f.counts.matched.textContent,'1');assert.deepEqual(f.steps.map(step=>step.dataset.checkState),['pass','flag','unknown']);
 });
 
-test('failed storage writes retain the local pause choice through navigation',async t=>{
- const f=await fixture(t);f.storage.setItem=()=>{throw new Error('Storage full');};const dispose=f.mount();
- f.button.dispatchEvent(new Event('click'));dispose();
- assert.match(f.flow.scannerFlowHTML(),/data-paused="true"/);f.mount();assert.equal(f.engine.dataset.paused,'true');
+test('offline state does not imply an active scan is paused on the server',async t=>{
+ const f=fixture(t);await f.client.start(f.config);f.client.send({connection:{status:'offline',message:'Connection lost.'}});
+ assert.equal(f.status.textContent,'Offline');assert.equal(f.button.disabled,false);assert.equal(f.client.state.status,'running');assert.deepEqual(f.calls,[['start',f.config]]);
+ f.button.dispatchEvent(new Event('click'));await tick();assert.equal(f.client.state.status,'paused');
 });
 
-test('reduced motion pauses the preview without overwriting the saved choice',async t=>{
- const f=await fixture(t);f.mount();f.media.matches=true;f.media.dispatchEvent(new Event('change'));
- assert.equal(f.engine.dataset.paused,'true');assert.equal(f.button.hidden,true);assert.match(f.note.textContent,/Static preview/);
- assert.equal(f.values.has(pauseKey),false);
- f.media.matches=false;f.media.dispatchEvent(new Event('change'));assert.equal(f.engine.dataset.paused,'false');assert.equal(f.button.hidden,false);
- f.button.dispatchEvent(new Event('click'));f.media.matches=true;f.media.dispatchEvent(new Event('change'));f.media.matches=false;f.media.dispatchEvent(new Event('change'));
- assert.equal(f.engine.dataset.paused,'true');assert.equal(f.values.get(pauseKey),'true');
+test('unmount releases subscriptions without pausing and the initial HTML claims no running work',t=>{
+ const f=fixture(t);f.dispose();f.client.send({status:'running'});assert.equal(f.status.textContent,'Inactive');assert.equal(f.calls.length,0);
+ const html=scannerFlowHTML('<script>');assert.match(html,/X post/);assert.match(html,/New projects/);assert.match(html,/data-paused="true"/);assert.doesNotMatch(html,/<script>|Scanning posts|demo cycle/);
 });

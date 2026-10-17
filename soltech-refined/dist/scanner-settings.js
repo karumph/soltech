@@ -1,4 +1,4 @@
-export const scannerTypes = {public:'Posts on X',projects:'New coins',market:'All coins'};
+export const scannerTypes = {public:'Posts on X',projects:'New coins',market:'Market data'};
 export const stages = {any:'Any stage',curve:'On a launchpad',graduating:'Nearing graduation',dex:'Trading on a DEX'};
 export const ageBases = {trading:'Trading age',mint:'Token age',pool:'Pool age'};
 export const riskOptions = {lower:'Lower risk',caution:'Caution',high:'High risk',unknown:'Not assessed'};
@@ -70,7 +70,7 @@ const amount=(v,prefix='')=>Number.isFinite(Number(v))?`${prefix}${Number(v).toL
 const range=(min,max,suffix='',prefix='')=>min===''&&max===''?'Any':min===''?`Up to ${amount(max,prefix)}${suffix}`:max===''?`At least ${amount(min,prefix)}${suffix}`:`${amount(min,prefix)}–${amount(max,prefix)}${suffix}`;
 export function settingsRows(r) {
  const rows=[['Looks for',scannerTypes[r.type]]];
- if(r.type==='public')rows.push(['People on X',r.accountScope==='soltech'?'Soltech list · not connected':accountHandles(r.accounts).map(a=>'@'+a).join(', ')||'Not chosen yet'],['Matches',r.matchMode==='direct'?'Direct coin mentions':'Mentions + possible connections'],['Posts',r.postTypes.map(x=>postOptions[x]).join(', ')||'None selected'],['Post age',`Past ${r.postWindow==='168'?'7 days':r.postWindow==='1'?'hour':'24 hours'}`]);
+ if(r.type==='public')rows.push(['People on X',r.accountScope==='soltech'?'Default list · not connected':accountHandles(r.accounts).map(a=>'@'+a).join(', ')||'Not chosen yet'],['Matches',r.matchMode==='direct'?'Direct coin mentions':'Mentions + possible connections'],['Posts',r.postTypes.map(x=>postOptions[x]).join(', ')||'None selected'],['Post age',`Past ${r.postWindow==='168'?'7 days':r.postWindow==='1'?'hour':'24 hours'}`]);
  if(r.type==='projects')rows.push(['Launch stage',stages[r.stage]]);
  rows.push([ageBases[r.ageBasis],range(r.ageMin,r.ageMax,' hours')]);
  if(!usesCurve(r))rows.push(['DEX liquidity',r.liquidityMin===''?'Any':`At least ${amount(r.liquidityMin,'$')}`]);
@@ -85,7 +85,7 @@ export function settingsRows(r) {
  if(r.priceMin!==''||r.priceMax!=='')rows.push(['Price change',`${range(r.priceMin,r.priceMax,'%')} · ${r.priceWindow}`]);
  const excluded=[r.excludeMintable&&'Additional minting',r.excludeFreezable&&'Freeze authority',r.excludeMutableFees&&'Changeable transfer fees',r.excludeTransferHooks&&'Custom transfer hooks'].filter(Boolean);
  if(excluded.length)rows.push(['Exclude tokens with',excluded.join(' · ')]);
- rows.push(['Risk checks','Always included; missing data is never a pass']);
+ rows.push(['Risk checks','Reported checks only; missing data is not a pass']);
  if(r.legacyLiquidity)rows.push(['Earlier liquidity preference',`${r.legacyLiquidity} — no numeric threshold was set`]);
  return rows;
 }

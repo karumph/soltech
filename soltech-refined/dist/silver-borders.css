@@ -1,0 +1,39 @@
+/* Silver treatment belongs to main panels, not their inner controls or the Scanner. */
+@layer silver-borders {
+ @media(forced-colors:none){
+  :where(
+   .checker .coin-check-form,.checker .recent-coin,.checker .recent-coins-empty,
+   .checker .history-current,.checker .source-empty,
+   .wallet-check .wallet-summary>div,.wallet-check .wallet-list,
+   .wallet-check .wallet-transactions-list,.wallet-check .wallet-empty,.wallet-check .wallet-loading,
+   .wallet-check .wallet-transactions-empty,.wallet-check .wallet-transactions-error,
+   .scanner-feed-group,.scanner-feed-empty,
+   .signals-page .signal-modules-wrap,.signals-page .signal-board,
+   .personal-info,.photo-crop-dialog,dialog
+  ){
+   --silver-border-face:linear-gradient(var(--theme-white),var(--theme-white));
+   --silver-border-shadow:0 2px 6px #26314408;
+   border-color:transparent;
+   background:var(--silver-border-face) padding-box,var(--theme-silver-rim) border-box;
+   box-shadow:var(--theme-silver-edge),var(--silver-border-shadow);
+  }
+  .checker .coin-check-form{--silver-border-face:var(--theme-silver-panel)}
+  :where(.scanner-feed-empty,.personal-info,.wallet-empty,.wallet-loading,
+   .wallet-transactions-empty,.wallet-transactions-error){
+   --silver-border-face:linear-gradient(var(--theme-panel),var(--theme-panel));
+  }
+  .checker .history-current,.checker .source-empty{
+   --silver-border-face:linear-gradient(var(--theme-white),#fafbfc);
+  }
+  .wallet-check .wallet-summary>div:first-child{
+   --silver-border-face:var(--theme-silver-face);border-top-color:#8aaac6;
+  }
+  dialog{--silver-border-shadow:0 25px 80px #24212e38}
+  .photo-crop-dialog{--silver-border-shadow:0 24px 80px #182d4933}
+  @media(hover:hover) and (pointer:fine){
+   .checker .recent-coin:hover:not(:disabled){
+    --silver-border-face:linear-gradient(var(--theme-hover),var(--theme-hover));
+   }
+  }
+ }
+}

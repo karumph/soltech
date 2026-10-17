@@ -84,6 +84,21 @@
  .engine-controls{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:6px}
  .engine-control{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:8px 10px;background:transparent;color:var(--theme-copy);font-size:.8125rem;font-weight:550;border-radius:9px}
  .engine-control svg{width:16px;height:16px}
+ .engine-control:disabled{opacity:.55;cursor:wait}
+ .engine-service-note,.engine-run-note{font-size:.6875rem;line-height:1.5;color:var(--theme-muted);text-align:center;margin:6px auto 0;max-width:38em}
+ .flow-source-label>svg{width:20px;height:20px;flex:none;color:#fff}
+ .scanner-engine[data-live=true] .flow-stage,.scanner-engine[data-live=true] .flow-check-step,.scanner-engine[data-live=true] .flow-route-active{animation:none}
+ .scanner-engine[data-live=true] .flow-check-step{--tick:0}
+ .scanner-engine[data-live=true] .flow-route-active{opacity:0}
+ .scanner-engine[data-live=true] .flow-check-step[data-check-state=pass]{--tick:1;border-color:#68a583;background:#daf0e3}
+ .scanner-engine[data-live=true] .flow-check-step[data-check-state=flag]{border-color:#b98038;background:#fff0d8}
+ .scanner-engine[data-live=true] .flow-source[data-source-active=false] .flow-scan-beam{display:none}
+ .scanner-engine[data-live=true][data-posts-active=false] .flow-packet-source-x,.scanner-engine[data-live=true][data-posts-active=false] .flow-packet-match{display:none}
+ .scanner-engine[data-live=true][data-projects-active=false] .flow-packet-source-pairs{display:none}
+ .scanner-engine[data-live=true]:not([data-checking=true]) .flow-packet-check{display:none}
+ .scanner-engine[data-live=true][data-checking=true] .flow-stage-check{box-shadow:inset 3px 0 #398fc9,inset 0 1px var(--theme-border),inset 0 -1px var(--theme-border)}
+ .scanner-engine[data-live=true][data-paused=true] .flow-scan-window,.scanner-engine[data-live=true][data-paused=true] .flow-activity-veil{opacity:.6}
+ .scanner-engine[data-live=true][data-connection=offline] .engine-status{color:var(--theme-copy);background:var(--theme-inset);border-color:var(--theme-border)}
  .engine-control:hover{background:var(--theme-hover);color:var(--theme-ink)}
  .engine-control:focus-visible,.flow-stage-finds:focus-visible{outline:2px solid var(--theme-focus);outline-offset:3px}
  .scanner-engine{transition:filter .3s ease}
@@ -139,6 +154,12 @@
   .engine-footer{padding-top:10px}
   .engine-controls{gap:19px;margin-top:3px}
   .engine-demo-note{font-size:.75rem}
+ }
+ @media(max-width:800px) and (forced-colors:none){
+  /* Continue the 1px silver outline through the upper-right cut and right edge. */
+  .flow-stage-match::before,.flow-stage-check::before{content:"";position:absolute;inset:0 0 0 auto;width:12px;pointer-events:none;background:var(--theme-border);clip-path:polygon(.586px 0,2px 0,100% 10px,100% 100%,calc(100% - 1px) 100%,calc(100% - 1px) 10.414px)}
+  /* Follow the 10px cut with the same 3px rail, including its diagonal join. */
+  .flow-stage-match::after,.flow-stage-check::after{content:"";position:absolute;inset:0 auto 0 0;width:14.25px;pointer-events:none;background:var(--theme-label);clip-path:polygon(0 0,3px 0,3px calc(100% - 11.25px),14.25px 100%,10px 100%,0 calc(100% - 10px))}
  }
  @media(max-width:360px){
   .scanner-engine{padding-inline:12px}

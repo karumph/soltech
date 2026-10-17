@@ -12,10 +12,10 @@ function installDOM(t){
  const cleanupTasks=[];
  t.after(()=>{try{for(const cleanup of cleanupTasks.reverse())cleanup();}finally{for(const [key,descriptor] of originals){if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key];}}});
  class Root extends EventTarget{
-  constructor(){super();this.nodes=new Map();this.errors=[];this.scrolls=[];this.renders=0;this.feedback={innerHTML:''};this.apply={textContent:'',disabled:false};this.footer={textContent:''};this.banner={hidden:true};this.clear={dataset:{customizeAction:'clear'},closest:selector=>selector==='[data-customize-action]'?this.clear:null,focus:()=>{document.activeElement=this.clear;}};}
+  constructor(){super();this.nodes=new Map();this.errors=[];this.scrolls=[];this.renders=0;this.feedback={innerHTML:''};this.apply={textContent:'',disabled:false,focus:()=>{document.activeElement=this.apply;}};this.footer={textContent:''};this.banner={hidden:true};this.clear={dataset:{customizeAction:'clear'},closest:selector=>selector==='[data-customize-action]'?this.clear:null,focus:()=>{document.activeElement=this.clear;}};}
   set innerHTML(html){
    if([...this.nodes.values()].includes(document.activeElement))document.activeElement=null;
-   this.html=html;this.renders++;this.nodes=new Map();this.errors=[];this.details=[];this.repairButtons=[];
+   this.html=html;this.renders++;this.nodes=new Map();this.errors=[];this.details=[];this.repairButtons=[];this.recoveryButtons=[];
    const parents=[];
    for(const match of html.matchAll(/<\/?details\b[^>]*>|<(?:input|textarea|select|button)\b[^>]*>/g)){
     if(match[0].startsWith('</details')){parents.pop();continue;}
@@ -23,14 +23,15 @@ function installDOM(t){
      const attrs=attributes(match[0]),node={id:attrs.get('id'),tagName:'DETAILS',open:/\sopen(?:\s|>)/.test(match[0]),parentElement:parents.at(-1)||null};
      this.details.push(node);parents.push(node);if(node.id)this.nodes.set(node.id,node);continue;
     }
-    const attrs=attributes(match[0]),id=attrs.get('id');if(!id&&!attrs.has('data-repair-action'))continue;
+    const attrs=attributes(match[0]),id=attrs.get('id');if(!id&&!attrs.has('data-repair-action')&&!attrs.has('data-customize-action'))continue;
     const dataset=Object.fromEntries([...attrs].filter(([name])=>name.startsWith('data-')).map(([name,value])=>[name.slice(5).replace(/-([a-z])/g,(_,letter)=>letter.toUpperCase()),value]));
-    const node={id,dataset,value:attrs.get('value')||'',selectionStart:0,selectionEnd:0,parentElement:parents.at(-1)||null,
+    const node={id,dataset,disabled:attrs.has('disabled'),value:attrs.get('value')||'',selectionStart:0,selectionEnd:0,parentElement:parents.at(-1)||null,
      matches:()=>true,hasAttribute:name=>attrs.has(name),getAttribute:name=>attrs.get(name)??null,setAttribute:(name,value)=>attrs.set(name,value),removeAttribute:name=>attrs.delete(name),
-     closest:selector=>selector===`[data-repair-action="${dataset.repairAction}"]`?node:null,
+     closest:selector=>selector===`[data-repair-action="${dataset.repairAction}"]`||selector==='[data-customize-action]'&&dataset.customizeAction?node:null,
      focus:()=>{for(let parent=node.parentElement;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS'&&!parent.open)return;document.activeElement=node;},scrollIntoView:options=>this.scrolls.push({id,options})};
     if(attrs.has('data-repair-action'))this.repairButtons.push(node);
-    this.nodes.set(id||`repair-button-${this.repairButtons.length}`,node);
+    if(attrs.has('data-customize-action'))this.recoveryButtons.push(node);
+    this.nodes.set(id||`button-${this.repairButtons.length}-${this.recoveryButtons.length}`,node);
    }
    for(const match of html.matchAll(/<span class="(customize-field-error|field-error)" id="([^"]+)">([^<]*)<\/span>/g)){
     const node={className:match[1],id:match[2],textContent:match[3]};this.nodes.set(node.id,node);this.errors.push(node);
@@ -46,6 +47,7 @@ function installDOM(t){
    if(selector==='.customize-errors')return this.banner;
    if(selector==='.customize-clear')return this.clear;
    if(selector==='[data-customize-storage-status]')return this.html.includes('data-customize-storage-status')?this.feedback:null;
+   const recovery=selector.match(/^\[data-customize-action="([^"]+)"\]$/);if(recovery)return this.recoveryButtons.find(node=>node.dataset.customizeAction===recovery[1])||null;
    const repair=selector.match(/^\[data-repair-action="([^"]+)"\](?:\[data-value="([^"]*)"\])?$/);
    if(repair)return this.repairButtons.find(node=>node.dataset.repairAction===repair[1]&&(repair[2]===undefined||node.dataset.value===repair[2]))||null;
    const match=selector.match(/^\[data-(setting|result-filter)="([^"]+)"\]$/);
@@ -147,4 +149,28 @@ test('View filters in earlier source recovery opens the available filter control
  const button=root.querySelector('[data-repair-action="builder-step"]');assert.ok(button);emit(root,'click',button);
  assert.ok(root.querySelector('#setting-capMax'));assert.ok(root.querySelector('#setting-ageMax'));
  assert.equal(store.state.draft.config.sources.projects.settings.capMax,'100000');
+});
+
+test('storage retry keeps keyboard focus on retry while failing and returns it to Save after recovery',t=>{
+ const {root,document,cleanup}=installDOM(t),storage=disk(),write=storage.setItem;let blocked=true;
+ storage.setItem=(...args)=>{if(blocked)throw Error('Storage full');return write(...args);};
+ const store=createPersonalScannerStore(storage);cleanup(mountScannerCustomize(root,{store,navigate:()=>{},toast:()=>{}}));
+ const selector='[data-customize-action="retry"]',first=root.querySelector(selector);first.focus();emit(root,'click',first);
+ assert.notEqual(root.querySelector(selector),first);assert.equal(document.activeElement,root.querySelector(selector));assert.equal(store.issue,'write');
+ blocked=false;emit(root,'click',root.querySelector(selector));
+ assert.equal(store.issue,null);assert.equal(document.activeElement,root.apply);assert.equal(root.apply.disabled,false);
+});
+
+test('reload confirmation and failed recovery keep focus on usable controls without discarding edits',t=>{
+ const {root,document,cleanup}=installDOM(t),storage=disk(),read=storage.getItem,store=createPersonalScannerStore(storage);store.begin();
+ const local=store.state.draft.config;local.resultFilters.capMin='12';store.update(local);
+ const remote=JSON.parse(storage.getItem(PERSONAL_SCANNER_KEY));remote.revision++;remote.draft.config.resultFilters.capMin='42';storage.values.set(PERSONAL_SCANNER_KEY,JSON.stringify(remote));store.detectConflict();
+ cleanup(mountScannerCustomize(root,{store,navigate:()=>{},toast:()=>{}}));
+ const click=action=>{const node=root.querySelector(`[data-customize-action="${action}"]`);assert.ok(node,action);node.focus();emit(root,'click',node);};
+ click('reload');assert.equal(document.activeElement,root.querySelector('[data-customize-action="confirm-reload"]'));
+ click('keep');assert.equal(document.activeElement,root.querySelector('[data-customize-action="reload"]'));assert.equal(store.state.draft.config.resultFilters.capMin,'12');
+ click('reload');storage.getItem=()=>{throw Error('Read denied');};click('confirm-reload');
+ assert.equal(document.activeElement,root.querySelector('[data-customize-action="reload"]'));assert.equal(store.state.draft.config.resultFilters.capMin,'12');
+ storage.getItem=read;click('reload');click('confirm-reload');
+ assert.equal(store.issue,null);assert.equal(document.activeElement,root.querySelector('#result-capMin'));assert.equal(root.querySelector('#result-capMin').value,'42');
 });

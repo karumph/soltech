@@ -1,0 +1,111 @@
+/* Optional signal modules share the current app's white, silver and charcoal surfaces. */
+@layer signals {
+ .signals-page{max-width:none;min-width:0}
+ .signals-page .page-intro{margin-bottom:18px}
+ .signals-page .signals-lede{max-width:640px;margin:-6px 0 18px;color:var(--theme-copy);font-size:.9375rem;line-height:1.6;overflow-wrap:anywhere}
+ .signals-page :is(.signals-toolbar,.signals-snapshot){display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;margin:0 0 18px;min-width:0}
+ .signals-page :is(.signals-updated,.signals-status,.signals-message){margin:0;min-width:0;color:var(--theme-muted);font-size:.75rem;line-height:1.5;overflow-wrap:anywhere}
+ .signals-page :is(.signals-status,.signals-message){flex:1 1 220px}
+ .signals-page :is(.signals-status,.signals-message):empty{display:none}
+ .signals-page .signals-coverage{margin:-6px 0 18px;color:var(--theme-copy);font-size:.75rem;line-height:1.6;overflow-wrap:anywhere}
+ .signals-page :is(.signals-storage,.signals-storage-note){margin:0 0 16px;padding:10px 12px;border:1px solid var(--theme-border);border-radius:10px;background:var(--theme-panel);color:var(--theme-copy);font-size:.8125rem;line-height:1.5;overflow-wrap:anywhere}
+ .signals-page :is(.signals-storage,.signals-storage-note):empty{display:none}
+ .signals-page :is(.signals-refresh,.feed-check-link){display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;max-width:100%;padding:9px 13px;border:1px solid var(--theme-border);border-radius:9px;background:var(--theme-secondary-fill);color:var(--theme-label);font-size:.8125rem;font-weight:600;line-height:1.4;text-align:center;white-space:normal;overflow-wrap:anywhere}
+ .signals-page :is(.signals-refresh,.feed-check-link):hover:not(:disabled){border-color:var(--theme-control-border);background:var(--theme-hover);color:var(--theme-ink)}
+ .signals-page .signals-refresh:disabled{cursor:wait;color:var(--theme-muted);background:var(--theme-panel)}
+ .signals-page :is(.signals-refresh,.feed-check-link):focus-visible,.signals-page .signal-modules-wrap>summary:focus-visible{outline:2px solid var(--theme-focus);outline-offset:3px}
+ .signals-page .signals-layout{display:grid;gap:18px;align-items:start;min-width:0}
+ .signals-page .signal-modules-wrap{min-width:0;padding:4px 14px 10px;border:1px solid var(--theme-border);border-radius:14px;background:var(--theme-white)}
+ .signals-page .signal-modules-wrap>summary{display:flex;align-items:center;gap:8px;min-height:44px;padding:10px 0;list-style:none;color:var(--theme-ink);font-size:.9375rem;font-weight:650;line-height:1.45;cursor:pointer}
+ .signals-page .signal-modules-wrap>summary::-webkit-details-marker{display:none}
+ .signals-page .signal-modules-wrap>summary::after{content:"";flex:none;width:8px;height:8px;margin:0 3px 3px;border:solid var(--theme-muted);border-width:0 1.6px 1.6px 0;transform:rotate(45deg);transition:transform .2s ease}
+ .signals-page .signal-modules-wrap[open]>summary::after{transform:rotate(-135deg);margin-bottom:-3px}
+ .signals-page .signal-count{margin-left:auto;padding:2px 9px;border-radius:999px;background:#edf4fa;color:#315878;font-size:.75rem;font-weight:600;white-space:nowrap}
+ .signals-page .signal-group h2{margin:12px 0 6px;color:var(--theme-muted);font-size:.6875rem;font-weight:700;line-height:1.5;letter-spacing:.08em;text-transform:uppercase}
+ .signals-page .signal-modules{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+ .signals-page .signal-module{min-width:0}
+ .signals-page .signal-module label{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 44px;align-items:center;gap:10px;min-height:44px;padding:10px 12px;border:1px solid var(--theme-line);border-radius:10px;background:var(--theme-panel);cursor:pointer}
+ .signals-page .signal-module.is-on label{border-color:#bdd0e0;background:#f8fbfd}
+ .signals-page .signal-module label:has(input:disabled){cursor:default;background:var(--theme-panel);border-color:var(--theme-line)}
+ .signals-page .signal-module-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+ .signals-page .signal-module-head{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;min-width:0}
+ .signals-page .signal-module-head strong{color:var(--theme-ink);font-size:.875rem;font-weight:650;line-height:1.4;overflow-wrap:anywhere}
+ .signals-page .signal-module-copy>span:not(.signal-module-head){color:var(--theme-copy);font-size:.75rem;line-height:1.5;overflow-wrap:anywhere}
+ .signals-page .signal-module-copy em{display:block;color:var(--theme-muted);font-size:.6875rem;font-style:normal;line-height:1.5;overflow-wrap:anywhere}
+ .signals-page .signal-status{padding:2px 7px;border-radius:999px;font-size:.625rem;font-weight:650;line-height:1.5;white-space:nowrap}
+ .signals-page .signal-status.is-live{background:#edf6f0;color:#28624c}
+ .signals-page .signal-status.is-setup,.signals-page .signal-status.is-soon{background:var(--theme-hover);color:var(--theme-copy)}
+ .signals-page .signal-module input{position:absolute;right:12px;top:50%;z-index:1;width:44px;height:44px;margin:0;transform:translateY(-50%);opacity:0;cursor:pointer}
+ .signals-page .signal-module input:disabled{cursor:default}
+ .signals-page .signal-switch{position:relative;display:block;justify-self:center;width:40px;height:24px;flex:none;border:1px solid var(--theme-border);border-radius:999px;background:var(--theme-inset);transition:background .2s ease}
+ .signals-page .signal-switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--theme-white);box-shadow:0 1px 3px #17243a35;transition:transform .2s ease}
+ .signals-page .signal-module input:checked+.signal-switch{border-color:#527da0;background:#527da0}
+ .signals-page .signal-module input:checked+.signal-switch::after{transform:translateX(16px)}
+ .signals-page .signal-module input:disabled+.signal-switch{border-style:dashed;background:var(--theme-panel)}
+ .signals-page .signal-module input:disabled+.signal-switch::after{box-shadow:none;border:1px solid var(--theme-border)}
+ .signals-page .signal-module input:focus-visible+.signal-switch{outline:2px solid var(--theme-focus);outline-offset:3px}
+ .signals-page .signal-boards{display:grid;gap:14px;min-width:0}
+ .signals-page .signal-board{min-width:0;padding:14px 16px;border:1px solid var(--theme-border);border-radius:14px;background:var(--theme-white)}
+ .signals-page .signal-board-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px 12px;margin-bottom:8px}
+ .signals-page .signal-board-head h2{min-width:0;color:var(--theme-ink);font-size:1rem;line-height:1.35;letter-spacing:-.015em;overflow-wrap:anywhere}
+ .signals-page .signal-board-head>span{flex:none;padding:2px 9px;border-radius:999px;background:var(--theme-panel);color:var(--theme-copy);font-size:.75rem;font-weight:650;line-height:1.5}
+ .signals-page .signal-rows{display:grid;margin:0;padding:0;list-style:none}
+ .signals-page .signal-rows>li{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;min-width:0;padding:9px 0;border-top:1px solid var(--theme-line)}
+ .signals-page .signal-rows>li:first-child{border-top:0}
+ .signals-page .signal-badge{position:relative;display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--theme-line);border-radius:50%;overflow:hidden;background:var(--theme-panel);color:var(--theme-label);font-size:.75rem;font-weight:650}
+ .signals-page .signal-badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+ .signals-page .signal-copy{display:flex;flex-direction:column;gap:2px;min-width:0}
+ .signals-page .signal-copy strong{color:var(--theme-ink);font-size:.875rem;font-weight:650;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .signals-page .signal-name{color:var(--theme-muted);font-size:.6875rem;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .signals-page .signal-address{display:flex;flex-wrap:wrap;gap:2px 5px;min-width:0;color:var(--theme-muted);font-size:.6875rem;line-height:1.5}
+ .signals-page .signal-address code{padding:0;border:0;background:none;color:inherit;font:inherit;font-variant-numeric:tabular-nums;white-space:nowrap}
+ .signals-page .signal-metric{color:var(--theme-label);font-size:.75rem;line-height:1.5;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+ .signals-page .signal-metric .up{color:#28624c}
+ .signals-page .signal-metric.is-warning{color:#923044}
+ .signals-page .signal-progress{display:block;height:6px;max-width:240px;margin:3px 0 2px;border-radius:999px;background:var(--theme-inset);overflow:hidden}
+ .signals-page .signal-progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#aac3d7,#527da0)}
+ .signals-page .signal-side{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:0;max-width:100px}
+ .signals-page .signal-side .risk{gap:4px;max-width:100%;padding:4px 6px;font-size:.6875rem;line-height:1.35;white-space:normal}
+ .signals-page .signal-side .risk-dot{width:5px;height:5px}
+ .signals-page :is(.signal-more,.signal-empty){margin:0;padding:8px 0;color:var(--theme-muted);font-size:.8125rem;line-height:1.6;overflow-wrap:anywhere}
+ @media(min-width:1024px){
+  .signals-page .signals-layout{grid-template-columns:300px minmax(0,1fr);gap:24px}
+  .signals-page .signal-modules-wrap{position:sticky;top:24px;max-height:calc(100dvh - 48px);padding:2px 12px 8px;overflow:auto;scrollbar-width:thin}
+  .signals-page .signal-group h2{margin-top:10px}
+  .signals-page .signal-modules{gap:4px}
+  .signals-page .signal-module label{padding:8px 10px;gap:8px}
+  .signals-page .signal-module input{right:10px}
+  .signals-page .signal-module-head strong{font-size:.8125rem}
+  .signals-page .signal-module-copy>span:not(.signal-module-head){font-size:.6875rem}
+  .signals-page .signal-boards{display:block;columns:2 360px;column-gap:16px}
+  .signals-page .signal-board{display:inline-block;width:100%;margin-bottom:16px;break-inside:avoid}
+ }
+ @media(max-width:400px){
+  .signals-page .signal-board{padding:12px}
+  .signals-page .signal-rows>li{column-gap:8px}
+  .signals-page .signal-side{max-width:92px}
+  .signals-page .signal-side .risk{font-size:.6875rem;padding-inline:5px}
+  .signals-page .signal-module label{padding-inline:10px}
+  .signals-page .signal-module input{right:10px}
+ }
+ @media(prefers-reduced-motion:reduce){.signals-page .signal-switch,.signals-page .signal-switch::after,.signals-page .signal-modules-wrap>summary::after{transition:none}}
+ @media(forced-colors:active){
+  .signals-page :is(.signal-modules-wrap,.signal-module label,.signal-module.is-on label,.signal-module label:has(input:disabled),.signal-board,.signal-badge,.signals-storage,.signals-storage-note){border-color:CanvasText;background:Canvas;color:CanvasText;box-shadow:none}
+  .signals-page :is(.signals-lede,.signals-status,.signals-message,.signals-updated,.signals-coverage,.signal-module-head strong,.signal-module-copy>span,.signal-module-copy em,.signal-group h2,.signal-board-head h2,.signal-copy strong,.signal-name,.signal-address,.signal-metric,.signal-metric.is-warning,.signal-metric .up,.signal-more,.signal-empty){color:CanvasText}
+  .signals-page :is(.signal-count,.signal-status,.signal-board-head>span,.signal-side .risk){border:1px solid CanvasText;background:Canvas;color:CanvasText}
+  .signals-page .signal-rows>li{border-color:CanvasText}
+  .signals-page .signal-switch,.signals-page .signal-module input:disabled+.signal-switch{border:1px solid ButtonText;background:Canvas}
+  .signals-page .signal-switch::after{background:ButtonText;box-shadow:none}
+  .signals-page .signal-module input:checked+.signal-switch{background:Highlight;border-color:Highlight}
+  .signals-page .signal-module input:checked+.signal-switch::after{background:HighlightText}
+  .signals-page .signal-module input:disabled+.signal-switch{border-color:GrayText}
+  .signals-page .signal-module input:disabled+.signal-switch::after{border-color:GrayText;background:GrayText}
+  .signals-page .signal-progress{border:1px solid CanvasText;background:Canvas}
+  .signals-page .signal-progress span{background:Highlight}
+  .signals-page :is(.signals-refresh,.feed-check-link),.signals-page :is(.signals-refresh,.feed-check-link):hover:not(:disabled){border-color:ButtonText;background:ButtonFace;color:ButtonText}
+  .signals-page .signals-refresh:disabled{border-color:GrayText;color:GrayText}
+  .signals-page .signal-modules-wrap>summary{color:CanvasText}
+  .signals-page .signal-modules-wrap>summary::after{border-color:CanvasText}
+  .signals-page :is(.signals-refresh,.feed-check-link):focus-visible,.signals-page .signal-modules-wrap>summary:focus-visible,.signals-page .signal-module input:focus-visible+.signal-switch{outline-color:Highlight}
+ }
+}

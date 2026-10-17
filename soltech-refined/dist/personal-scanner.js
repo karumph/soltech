@@ -6,8 +6,8 @@ import {scannerIntent,settingStep,stepErrors} from './scanner-guidance.js';
 import {activeSettingsRows,cleanSettings} from './scanner-settings.js';
 import {scannerFlowHTML,mountScannerFlow} from './scanner-flow.js';
 import {mountScannerCustomize} from './scanner-customize.js';
-import {coinFeedPreviewHTML} from './coin-feed.js';
-import {mountCoinFeedCopy} from './coin-feed-copy.js';
+import {scannerFeedHTML,mountScannerFeed} from './scanner-feed.js';
+import {getScannerClient} from './scanner-client.js';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const marks={public:{badgeSymbol:'publicPosts',badgeColor:'mint'},projects:{badgeSymbol:'launch',badgeColor:'peach'},market:{badgeSymbol:'coin',badgeColor:'teal'}};
@@ -38,11 +38,11 @@ export function createPersonalScannerFeature({store,getPrevious,navigate,toast})
     return heading+notice()+scannerFlowHTML(c.name);
    }
    function finds(){
-    return `<div class="page-intro"><h1>Feed<span class="accent">.</span></h1><a class="button glass" href="#scanner">Scanner</a></div>${notice()}${coinFeedPreviewHTML()}`;
+    return `<div class="page-intro"><h1>Feed<span class="accent">.</span></h1><a class="button glass" href="#scanner">Scanner</a></div>${notice()}${scannerFeedHTML()}`;
    }
    function previous(){
     const previous=getPrevious();
-    return `<a class="back-link" href="#profile">Back to Profile</a><div class="page-intro"><h1>Previous setups<span class="accent">.</span></h1></div><p class="field-help">Your earlier scanners are kept here. They aren’t running. You can copy one source’s rules into your new scanner.</p>${notice()}${previous.length?previous.map((item,index)=>`<details class="single-source-detail"><summary>${esc(item.name||'Unfinished draft')}${item.draft?' · Draft':''}</summary>${renderSettingsSummary(cleanSettings(item.filters,item))}<button type="button" class="button glass" data-primary-action="import" data-index="${index}">Use these rules</button></details>`).join(''):'<p class="empty">No previous setups.</p>'}`;
+    return `<a class="back-link" href="#profile">Back to Profile</a><div class="page-intro"><h1>Previous setups<span class="accent">.</span></h1></div><p class="field-help">Copy one source’s rules from an earlier setup. These setups are not running.</p>${notice()}${previous.length?previous.map((item,index)=>`<details class="single-source-detail"><summary>${esc(item.name||'Unfinished draft')}${item.draft?' · Draft':''}</summary>${renderSettingsSummary(cleanSettings(item.filters,item))}<button type="button" class="button glass" data-primary-action="import" data-index="${index}">Use these rules</button></details>`).join(''):'<p class="empty">No previous setups.</p>'}`;
    }
    function wizard(){
     const d=store.state.draft;if(!d)return `<h1>Scanner setup</h1>${notice()}<a class="button glass" href="#scanner">Back to Scanner</a>`;
@@ -55,21 +55,21 @@ export function createPersonalScannerFeature({store,getPrevious,navigate,toast})
      title={public:'Who should it follow?',projects:'How new is new?',market:'Which coins fit?'}[key];intro=`${sourceNames[key]} · Source ${enabled.indexOf(key)+1} of ${enabled.length}`;
      body=`<div id="personal-settings">${adapt(renderSettings(r,2))}</div>`;
     }else if(d.screen==='filters'){
-     title='Fine-tune your results.';intro='Keep the defaults, or adjust each source.';
+     title='Choose result filters.';intro='Keep the defaults, or adjust each source.';
      body=`${enabled.length>1?`<div class="source-tabs" role="group" aria-label="Choose source to filter">${enabled.map(k=>`<button type="button" data-primary-action="filter-source" data-source="${k}" aria-pressed="${k===key}">${sourceNames[k]}</button>`).join('')}</div>`:''}<p class="filter-source-label">Filters for <strong>${sourceNames[key]}</strong></p><div id="personal-settings">${adapt(renderSettings(r,3))}</div>`;
     }else{
      title='Review your scanner.';intro='One feed, with your sources and rules.';
-     body=`<div class="field name-field"><label for="primary-scanner-name">Scanner name</label><input id="primary-scanner-name" data-primary-field="name" maxlength="50" value="${esc(c.name)}"></div>${adapt(renderAppearance(c))}${enabled.map(k=>`<section class="review-source"><div class="builder-section-title"><h2>${sourceNames[k]}</h2><button type="button" class="text-link" data-primary-action="edit-source" data-source="${k}">Edit setup</button></div><p>${esc(scannerIntent(c.sources[k].settings))}</p><details class="single-source-detail"><summary>Chosen rules</summary><dl class="builder-plan">${ruleRows(c.sources[k].settings)}</dl><button type="button" class="text-link" data-primary-action="filter-source" data-source="${k}">Edit filters</button></details></section>`).join('')}<p class="builder-save-note">Saves your setup. Live monitoring isn’t connected yet.</p>`;
+     body=`<div class="field name-field"><label for="primary-scanner-name">Scanner name</label><input id="primary-scanner-name" data-primary-field="name" maxlength="50" value="${esc(c.name)}"></div>${adapt(renderAppearance(c))}${enabled.map(k=>`<section class="review-source"><div class="builder-section-title"><h2>${sourceNames[k]}</h2><button type="button" class="text-link" data-primary-action="edit-source" data-source="${k}">Edit setup</button></div><p>${esc(scannerIntent(c.sources[k].settings))}</p><details class="single-source-detail"><summary>Chosen rules</summary><dl class="builder-plan">${ruleRows(c.sources[k].settings)}</dl><button type="button" class="text-link" data-primary-action="filter-source" data-source="${k}">Edit filters</button></details></section>`).join('')}<p class="builder-save-note">Saves this setup locally. It does not run a live scan.</p>`;
     }
     const next=d.screen==='review'?'Save setup':d.screen==='sources'?'Set up sources':d.screen==='setup'&&enabled.indexOf(key)<enabled.length-1?`Next: ${sourceNames[enabled[enabled.indexOf(key)+1]]}`:d.screen==='setup'?'Choose filters':'Review setup';
-    return `<div class="builder-top"><button type="button" class="button glass scanner-save-exit" data-primary-action="exit">Save draft &amp; exit</button><span class="builder-preview-label">Step ${step} of 4</span></div><ol class="builder-progress" aria-label="Scanner setup progress">${['Sources','Set up','Filters','Review'].map((label,i)=>`<li ${i+1===step?'aria-current="step"':''} class="${i+1<step?'complete':''}"><span>${i+1<step?'✓':i+1}</span>${label}</li>`).join('')}</ol><header class="builder-heading"><h1>${title}</h1><p>${intro}</p></header>${notice()}<form id="personal-scanner-form" novalidate><div class="form-error-summary" role="alert" id="primary-errors" ${error?'':'hidden'}>${esc(error)}</div>${body}<div class="builder-actions"><button type="button" class="text-link" data-primary-action="back">${d.screen==='sources'?'Cancel':'Back'}</button><button class="button glass" type="submit" ${store.issue==='read'||store.issue==='conflict'?'disabled':''}>${next}</button></div></form><p class="builder-connection-note">Setup preview · Live monitoring isn’t connected.</p><p class="personal-device-note">${store.issue?'Changes kept in this tab':'Draft saved on this device'}</p>`;
+    return `<div class="builder-top"><button type="button" class="button glass scanner-save-exit" data-primary-action="exit">Save draft &amp; exit</button><span class="builder-preview-label">Step ${step} of 4</span></div><ol class="builder-progress" aria-label="Scanner setup progress">${['Sources','Set up','Filters','Review'].map((label,i)=>`<li ${i+1===step?'aria-current="step"':''} class="${i+1<step?'complete':''}"><span>${i+1<step?'✓':i+1}</span>${label}</li>`).join('')}</ol><header class="builder-heading"><h1>${title}</h1><p>${intro}</p></header>${notice()}<form id="personal-scanner-form" novalidate><div class="form-error-summary" role="alert" id="primary-errors" ${error?'':'hidden'}>${esc(error)}</div>${body}<div class="builder-actions"><button type="button" class="text-link" data-primary-action="back">${d.screen==='sources'?'Cancel':'Back'}</button><button class="button glass" type="submit" ${store.issue==='read'||store.issue==='conflict'?'disabled':''}>${next}</button></div></form><p class="builder-connection-note">Setup preview · Saved settings do not filter live results yet.</p><p class="personal-device-note">${store.issue?'Changes kept in this tab':'Draft saved on this device'}</p>`;
    }
    function render(focus=false){
     disposeFlow();disposeFeedCopy();
-    document.title=(view==='finds'?'Feed':view==='previous'?'Previous setups':'Scanner')+' · Soltech';
+    document.title=(view==='finds'?'Feed':view==='previous'?'Previous setups':'Scanner')+' · Solventir';
     root.innerHTML=`<div class="page-width personal-scanner ${editing?'scanner-builder guided-builder':view==='scanner'?'scanner-flow-page':view==='finds'?'coin-feed-page':''}">${editing?wizard():view==='finds'?finds():view==='previous'?previous():home()}</div>`;
-    disposeFlow=mountScannerFlow(root);
-    disposeFeedCopy=view==='finds'?mountCoinFeedCopy(root,{toast}):()=>{};
+    disposeFlow=mountScannerFlow(root,{getConfig:()=>store.effective,toast});
+    disposeFeedCopy=view==='finds'?mountScannerFeed(root,{client:getScannerClient(),toast}):()=>{};
     if(focus){const heading=root.querySelector('h1');heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
    }
    function routeError(item){
@@ -122,7 +122,7 @@ export function createPersonalScannerFeature({store,getPrevious,navigate,toast})
     if(action==='keep'){cancelPrompt=false;error='';render();}
     if(action==='confirm-cancel'&&cancelPrompt){if(store.cancel())navigate('scanner');else render();}
     if(action==='retry'){store.retry();render();}
-    if(action==='download'){const url=URL.createObjectURL(new Blob([store.export()],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='soltech-scanner-setup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+    if(action==='download'){const url=URL.createObjectURL(new Blob([store.export()],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='solventir-scanner-setup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
     if(action==='reload'){root.querySelector('.scanner-recovery').innerHTML='<span>Download your local edits first if you want to keep them.</span><button type="button" class="text-link" data-primary-action="confirm-reload">Replace local edits with saved version</button>';}
     if(action==='confirm-reload'){store.reload();error='';render();}
     if(action==='import'){

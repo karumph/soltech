@@ -24,7 +24,7 @@ test('clear-all storage events refresh Feed from the default scanner without wri
  f.mount();assert.equal(f.store.state.saved.name,'Earlier scanner');assert.equal(f.root.renders,1);
  f.values.clear();f.storageEvent(null);
  assert.equal(f.store.state.saved,null);assert.equal(f.store.state.draft,null);
- assert.equal(f.store.effective.name,'Soltech scanner');assert.equal(f.store.effective.sources.projects.enabled,true);assert.equal(f.root.renders,2);
+ assert.equal(f.store.effective.name,'Coin discovery');assert.equal(f.store.effective.sources.projects.enabled,true);assert.equal(f.root.renders,2);
  assert.equal(writes,0);assert.equal(f.storage.getItem(PERSONAL_SCANNER_KEY),null);
 });
 

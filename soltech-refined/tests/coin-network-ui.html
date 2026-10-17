@@ -9,10 +9,10 @@ const evm='0x4200000000000000000000000000000000000006',other='0x1111111111111111
 const assert=(ok,message)=>{if(!ok)throw Error(message);},tick=()=>new Promise(resolve=>setTimeout(resolve,0));
 const deferred=()=>{let resolve;const promise=new Promise(done=>resolve=done);return {resolve,promise};};
 let cleanup=()=>{},passes=0,failures=0;
-function setup(discover,emitResult=false){
+function setup(discover,emitResult=false,initialCoin=null){
  cleanup();root.replaceChildren();const calls=[],discoveries=[],signals=[];let emit;
  const createSession=onChange=>{emit=onChange;return {lookup(mint,chain){calls.push({mint,chain});if(emitResult)onChange({mint,chainId:chain,market:{status:'empty'},risk:{status:'empty'},listing:{status:'empty'},history:{status:'empty'},bundles:{status:'unsupported'}});},cancel(){},dispose(){}};};
- const dispose=mountChecker(root,{discover:(mint,options)=>{discoveries.push(mint);signals.push(options.signal);return discover(mint,options);},createSession});
+ const dispose=mountChecker(root,{discover:(mint,options)=>{discoveries.push(mint);signals.push(options.signal);return discover(mint,options);},createSession,initialCoin,historyStore:{getSnapshot:()=>({entries:[],persistent:false,error:null}),remember:()=>false,clear:()=>true}});
  const input=root.querySelector('#coin-address'),select=root.querySelector('#coin-network'),box=root.querySelector('.check-network'),form=root.querySelector('form');
  const h={calls,discoveries,signals,input,select,box,form,dispose,emit:state=>emit(state),fill(value){input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},submit(){form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},clear(){root.querySelector('.clear-address').click();}};
  cleanup=()=>{h.clear();dispose();};return h;
@@ -47,5 +47,12 @@ await test('Leaving during a bundle check preserves the report and allows an imm
  root.querySelector('form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));assert(retries===1,'interrupted bundle retry was throttled');
  root.querySelector('.clear-address').click();dispose();cleanup=()=>{};
 });
+for(const chain of ['base','ethereum','solana'])await test('Signals coin link uses its exact '+chain+' network',async()=>{
+ const address=chain==='solana'?sol:evm,h=setup(()=>{throw Error('unexpected discovery');},false,{chainId:chain,address});
+ assert(h.calls.length===1&&h.calls[0].chain===chain&&h.calls[0].mint===address&&h.box.hidden,'linked coin lost its network');
+ assert(h.discoveries.length===0,'linked coin ran network discovery');
+ h.fill(other);h.submit();await tick();assert(h.discoveries.length===1,'editing linked address retained the old network');
+});
+await test('Malformed linked coins never start a lookup',()=>{for(const entry of [{chainId:'constructor',address:evm},{chainId:'base',address:sol},{chainId:'solana',address:evm},{chainId:'missing',address:evm}]){const h=setup(()=>{throw Error('unexpected discovery');},false,entry);assert(h.calls.length===0&&h.discoveries.length===0,'invalid linked coin was looked up');}});
 cleanup();root.replaceChildren();summary.dataset.complete='true';summary.dataset.failures=String(failures);document.title=failures?'FAIL — network UI':'PASS — network UI';
 </script>

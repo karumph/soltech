@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wallet layout review</title>
+<link rel="stylesheet" href="/original/app.css"><link rel="stylesheet" href="/original/coin-checker.css"><link rel="stylesheet" href="/original/soltech-identity.css"><link rel="stylesheet" href="/original/wallet-check.css"><link rel="stylesheet" href="/original/coin-recent.css">
+<link rel="stylesheet" href="/original/silver-borders.css">
+<style>body{margin:0;padding:16px;background:white}main{padding:0}.fixture-label{font:12px/1.5 system-ui;color:#475569;margin-bottom:12px}.checker{margin:0!important;padding:0!important;max-width:100%!important}</style>
+<p class="fixture-label">Layout review · sample balances and activity</p><main id="fixture"></main>
+<script type="module">
+import {mountWalletCheck} from '/original/wallet-check.js';
+const query=new URLSearchParams(location.search);
+if(!query.has('screen')){
+ const width=query.get('width')==='320'?320:390;
+ document.body.style.cssText='margin:0;padding:16px;background:#eef0f4';
+ document.body.innerHTML=`<iframe title="Wallet design review" src="?screen=1" style="display:block;width:${width}px;max-width:100%;height:1100px;margin:auto;border:1px solid #b9c2cf;border-radius:18px;background:white"></iframe>`;
+}else{
+ const address='So11111111111111111111111111111111111111112';
+ const holdings=[
+  {name:'A longer project name for mobile layout',symbol:'PROJECT',amount:1002345.6789,valueUsd:127.48},
+  {name:'Sample USD Coin',symbol:'USDC',amount:5240.19,valueUsd:5240.19},
+  {name:'Sample Wrapped SOL',symbol:'SOL',amount:18.4201,valueUsd:2061.95},
+  {name:'Unpriced sample',symbol:'SAMPLE',amount:2000000000,valueUsd:null},
+  {name:'Zero-value sample',symbol:'ZERO',amount:123,valueUsd:0},
+ ].map((coin,i)=>({...coin,address:address.slice(0,-1)+String(i+2),found:true,flags:[]}));
+ const alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+ const signature=index=>{let number=BigInt('0x'+(index+1).toString(16).padStart(2,'0').repeat(64)),result='';while(number){result=alphabet[Number(number%58n)]+result;number/=58n;}return result;};
+ const activity=Array.from({length:24},(_,i)=>({signature:signature(i),slot:455800000-i,blockTime:Math.floor(Date.now()/1000)-i*3600,status:i===2?'failed':'succeeded',confirmationStatus:'finalized'}));
+ const historyStore={entries:[],issue:null,add(){return {ok:true};},clear(){return {ok:true};}};
+ const fetcher=async(url,options)=>{
+  const body=JSON.parse(options.body);
+  if(url.endsWith('/transactions')){const list=body.before?activity.slice(20):activity.slice(0,20);return new Response(JSON.stringify({status:'ready',address,transactions:list,nextBefore:body.before?null:list.at(-1).signature,checkedAt:new Date().toISOString()}),{status:200});}
+  if(url.endsWith('/transaction')){
+   const index=activity.findIndex(item=>item.signature===body.signature),item=activity[index],received=index%2===0,peer='Vote111111111111111111111111111111111111111',asset=received?'SOL':holdings[1].address;
+   if(index===0)return new Response(JSON.stringify({status:'ready',address,signature:body.signature,slot:item.slot,blockTime:item.blockTime,transactionStatus:'succeeded',feeSol:0.000005,solChange:-0.400805,transfers:[{asset:'SOL',amount:'0.4',direction:'sent',source:address,destination:peer},{asset:holdings[1].address,amount:'125.5',direction:'received',source:peer,destination:address},{asset:'SOL',amount:'0.0008',direction:'sent',source:address,destination:peer}],tokenChanges:[{mint:holdings[1].address,change:'+125.5'}],detailsComplete:false,detailsNote:'Some transaction activity could not be verified. Only verified transfers and balance changes are shown.'}),{status:200});
+   return new Response(JSON.stringify({status:'ready',address,signature:body.signature,slot:item.slot,blockTime:item.blockTime,transactionStatus:item.status,feeSol:0.000005,solChange:item.status==='failed'?-0.000005:received?0.249995:-0.000005,transfers:item.status==='failed'?[]:[{asset,amount:received?'0.25':'125.5',direction:received?'received':'sent',source:received?peer:address,destination:received?address:peer}],tokenChanges:received||item.status==='failed'?[]:[{mint:asset,change:'-125.5'}],detailsComplete:true,detailsNote:null}),{status:200});
+  }
+  return new Response(JSON.stringify({supported:true,chain:'solana',address,holdings,tokens:5,shown:5,sol:2.35,solPriceUsd:112,solPriceCheckedAt:new Date().toISOString(),solPriceSource:'dexscreener',checkedAt:new Date().toISOString()}),{status:200});
+ };
+ mountWalletCheck(document.querySelector('#fixture'),{fetcher,historyStore});
+ document.querySelector('#wallet-address').value=address;
+ document.querySelector('.wallet-form').requestSubmit();
+}
+</script></html>

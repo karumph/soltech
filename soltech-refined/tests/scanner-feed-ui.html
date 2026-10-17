@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'none'; img-src 'self'; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+ <title>Solventir scanner feed · Isolated UI tests</title>
+ <link rel="stylesheet" href="/original/app.css">
+ <link rel="stylesheet" href="/original/soltech-identity.css">
+ <link rel="stylesheet" href="/original/scanner-feed.css">
+ <link rel="stylesheet" href="/original/silver-borders.css">
+<style>
+  body{margin:0;padding:20px;background:#f8f9fb;color:#171c26;font-family:system-ui,sans-serif}
+  .harness{max-width:1020px;margin:0 auto;min-width:0}
+  .harness h1{font-size:1.4rem;line-height:1.3;margin:0 0 8px}
+  .fixture-warning{font-size:.875rem;font-weight:650;color:#79452b;border:1px solid #ddc7b4;background:#fff9f3;border-radius:10px;padding:12px;margin:0 0 8px}
+  .fixture-help{font-size:.8125rem;color:#4b5563;margin:0 0 14px;line-height:1.5}
+  .fixture-controls{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+  .fixture-controls button,.fixture-editor button{font:600 .8125rem/1.4 system-ui;min-height:44px;padding:9px 12px;border:1px solid #b9c2cf;border-radius:8px;background:#fff;color:#263442;cursor:pointer}
+  .fixture-controls button:focus-visible,.fixture-editor :focus-visible{outline:2px solid #627f9b;outline-offset:2px}
+  .fixture-editor{margin:12px 0;border:1px solid #e1e5eb;border-radius:10px;padding:0 12px;background:#fff}
+  .fixture-editor summary{min-height:44px;padding:10px 0;cursor:pointer;font-size:.8125rem}
+  .fixture-editor label{display:block;font-size:.8125rem;font-weight:600;margin:4px 0 7px}
+  .fixture-editor textarea{display:block;width:100%;max-width:100%;min-height:85px;resize:vertical;padding:10px;border:1px solid #7e8999;border-radius:8px;font:14px/1.5 system-ui}
+  .fixture-editor button{margin:10px 0}
+  #fixture{box-sizing:border-box;width:390px;max-width:100%;margin:22px auto 0;padding:0;min-width:0;background:#fff}
+  #fixture>.scanner-feed{margin:0;padding:14px;border:1px solid #e1e5eb;border-radius:16px}
+  #fixture-toast{font-size:.8125rem;min-height:1.5em;color:#3f4956;margin:10px 0;overflow-wrap:anywhere}
+  .fixture-results{margin-top:24px;border-top:1px solid #d9dfe8;padding-top:15px}
+  .fixture-results summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:650;font-size:.875rem}
+  #test-summary{font-size:.875rem;font-weight:650;margin:0 0 10px}
+  #test-results{font-size:.8125rem;line-height:1.5;padding-left:23px}
+  #test-results li{margin:7px 0;overflow-wrap:anywhere}
+  .pass{color:#246246}.fail{color:#9a3042}
+  @media(max-width:600px){body{padding:12px}#fixture>.scanner-feed{padding:10px}.harness h1{font-size:1.15rem}}
+ </style>
+</head>
+<body>
+ <main class="harness">
+  <h1>Progressive scanner feed</h1>
+  <p class="fixture-warning">Isolated test fixtures — not live discoveries</p>
+  <p class="fixture-help">Fictional posts and coins exercise the real feed renderer. Images are local logo placeholders, not actual post media. The video fixture uses an unplayable local image to test its fallback; no playable clip is bundled. No X access, provider calls, wallet actions, browser storage or real clipboard writes. Addresses are test inputs; source links are disabled here.</p>
+  <div class="fixture-controls" aria-label="Simulated scanner events">
+   <button type="button" data-event="initial">Initial post</button>
+   <button type="button" data-event="add">Add coin</button>
+   <button type="button" data-event="complete">Complete checks</button>
+   <button type="button" data-event="another">Add another coin</button>
+   <button type="button" data-event="offline">Simulate offline</button>
+   <button type="button" data-event="launch">Show launch group</button>
+   <button type="button" data-event="photos">Show photos</button>
+   <button type="button" data-event="video">Video fallback</button>
+   <button type="button" data-event="mediaonly">Media-only post</button>
+   <button type="button" data-event="repost">Show repost</button>
+   <button type="button" data-event="tests">Run checks</button>
+  </div>
+  <div class="fixture-controls" aria-label="Feed preview width">
+   <button type="button" data-width="320">320px</button>
+   <button type="button" data-width="390">390px</button>
+   <button type="button" data-width="100%">Full width</button>
+  </div>
+  <details class="fixture-editor">
+   <summary>Edit the test post</summary>
+   <label for="fixture-post">Post text (rendered as text, never HTML)</label>
+   <textarea id="fixture-post"></textarea>
+   <button type="button" id="apply-post">Apply post text</button>
+  </details>
+  <div id="fixture"></div>
+  <p id="fixture-toast" role="status" aria-live="polite"></p>
+  <details class="fixture-results" open>
+   <summary>Browser checks</summary>
+   <p id="test-summary" role="status" aria-live="polite">Running…</p>
+   <ol id="test-results"></ol>
+  </details>
+ </main>
+ <script type="module">
+  const {scannerFeedHTML,mountScannerFeed}=await import('/original/scanner-feed.js');
+  const fixture=document.querySelector('#fixture'),results=document.querySelector('#test-results'),summary=document.querySelector('#test-summary'),editor=document.querySelector('#fixture-post'),toast=document.querySelector('#fixture-toast');
+  const firstAddress='11111111111111111111111111111112',secondAddress='11111111111111111111111111111113';
+  const baseTime='2026-10-12T16:00:00.000Z',postText='A silver comet crossed my notebook today. Just a drawing and a name idea — no token launch announced.';
+  const localAvatar='/original/assets/x-logo.png',localPhoto='/original/assets/soltech-logo.png';
+  const photoMedia=()=>[{type:'photo',url:localPhoto,alt:'Local brand logo used only as a post-image test placeholder',width:1024,height:1024},{type:'photo',url:localAvatar,alt:'Local X logo used only as a gallery test placeholder',width:512,height:512}];
+  let state,listeners=new Set(),cleanup=()=>{},networkCalls=0,runningTests=false;
+  const copies=[];
+  window.fetch=()=>{networkCalls++;return Promise.reject(new Error('Network calls are disabled in this isolated fixture.'));};
+  const client={get state(){return state;},subscribe(callback){listeners.add(callback);callback(state);return ()=>listeners.delete(callback);},async refresh(){state.connection={status:'connected',message:''};publish();},async start(){state.status='running';publish();},async pause(){state.status='paused';publish();}};
+  function initialState(){return {version:1,revision:1,status:'running',updatedAt:baseTime,message:'Isolated fixture',persistent:true,sources:{posts:{status:'running',message:'Simulated source only; no X connection.'},projects:{status:'running',message:'Simulated market source only.'}},counts:{discovered:0,matched:0,checked:0,finds:0},connection:{status:'connected',message:''},groups:[{id:'fixture-post-1',kind:'post',createdAt:baseTime,updatedAt:baseTime,post:{id:'1234567890123456789',author:'Solventir Test Source',handle:'raxertestsource',text:postText,avatarUrl:localAvatar,media:photoMedia(),url:'https://x.com/raxertestsource/status/1234567890123456789',publishedAt:baseTime,context:{kind:'original'}},summary:'Just a drawing and a name idea — no token launch announced.',summaryStatus:'excerpt',coins:[]}]};}
+  function publish(){state.revision++;for(const listener of listeners)listener(structuredClone(state));}
+  function reset(){cleanup();state=initialState();fixture.innerHTML=scannerFeedHTML();editor.value=postText;toast.textContent='';copies.length=0;cleanup=mountScannerFeed(fixture,{client,toast:message=>{toast.textContent=message;},clipboard:{writeText:async address=>{copies.push(address);}}});}
+  function coin(address,name,symbol){return {id:'solana:'+address,chain:'solana',address,name,symbol,imageUrl:'',discoveredAt:'2026-10-12T16:02:00.000Z',marketCap:null,liquidity:null,volume24h:null,poolCreatedAt:'2026-10-12T16:01:30.000Z',marketCheckedAt:null,stage:'checking',match:{kind:'possible',label:'Possible name connection',evidence:['The token name resembles the earlier test post. A shared name does not establish ownership or endorsement.']},checks:{status:'pending',label:'Checks pending',items:[]},filter:{status:'pending',reason:'Waiting for market data and basic checks.'}};}
+  function addCoin(){const group=state.groups.find(item=>item.kind==='post');if(!group)return;if(!group.coins.some(item=>item.address===firstAddress))group.coins.push(coin(firstAddress,'Silver Comet','COMET'));publish();}
+  function completeChecks(){addCoin();const first=state.groups[0]?.coins.find(item=>item.address===firstAddress);if(!first)return;Object.assign(first,{stage:'ready',marketCap:42100,liquidity:17800,volume24h:6530,marketCheckedAt:'2026-10-12T16:02:40.000Z',checks:{status:'unavailable',label:'Checks incomplete',items:[{key:'mintAuthority',label:'Mint authority',status:'pass',detail:'No mint authority is set.'},{key:'freezeAuthority',label:'Freeze authority',status:'pass',detail:'No freeze authority is set.'},{key:'extensions',label:'Additional token controls',status:'unknown',detail:'This test report does not assess additional token controls.'}]},filter:{status:'pending',reason:'The connection to the post is unconfirmed; further checks are missing.'}});publish();}
+  function addAnother(){addCoin();const group=state.groups.find(item=>item.kind==='post');if(!group)return;if(!group.coins.some(item=>item.address===secondAddress)){const next=coin(secondAddress,'Silver Comet Community With A Deliberately Long Candidate Name','COMETCOMMUNITY');Object.assign(next,{stage:'ready',marketCap:0,liquidity:9000,volume24h:2500,marketCheckedAt:'2026-10-12T16:03:00.000Z',checks:{status:'complete',label:'Authority active',items:[{key:'mintAuthority',label:'Mint authority',status:'flag',detail:'More tokens can be minted.'},{key:'freezeAuthority',label:'Freeze authority',status:'pass',detail:'No freeze authority is set.'}]},filter:{status:'excluded',reason:'Liquidity is below this fixture’s selected minimum.'}});group.coins.push(next);}publish();}
+  function offline(){state.connection={status:'offline',message:'Simulated interruption. Select Refresh to restore the test connection.'};publish();}
+  function launch(){const next=coin(firstAddress,'Fictional Market Coin','MARKET');next.match={kind:'launch',label:'New indexed pool',evidence:[]};state.groups=[{id:'fixture-launch',kind:'launch',createdAt:baseTime,updatedAt:baseTime,post:null,summary:'This longer backend summary should not duplicate the compact launch heading.',coins:[next]}];publish();}
+  function photos(){if(state.groups[0]?.kind!=='post')reset();const group=state.groups[0];group.post.media=photoMedia();group.post.text=postText;delete group.post.displayText;group.post.context={kind:'original'};group.summaryStatus='excerpt';publish();}
+  function video(){if(state.groups[0]?.kind!=='post')reset();state.groups[0].post.media=[{type:'video',url:localPhoto,previewUrl:localAvatar,alt:'Unplayable local test source for media failure handling'}];publish();}
+  function mediaonly(){photos();const group=state.groups[0];group.post.text='';group.summary='';group.summaryStatus='unavailable';publish();}
+  function repost(){photos();const group=state.groups[0];group.post.text='';group.post.displayText='RT @original: '+postText;group.post.context={kind:'repost',referencedPostId:'9876543210987654321',url:'https://x.com/i/status/9876543210987654321'};group.summaryStatus='unavailable';publish();}
+  const frame=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const assert=(condition,message)=>{if(!condition)throw new Error(message);};
+  function record(name,error){const li=document.createElement('li');li.className=error?'fail':'pass';li.textContent=(error?'FAIL':'PASS')+' — '+name+(error?': '+error.message:'');results.append(li);}
+  async function runChecks(){
+   if(runningTests)return;runningTests=true;results.replaceChildren();let passed=0,failed=0;
+   async function test(name,run){try{await run();passed++;record(name);}catch(error){failed++;record(name,error);}}
+   reset();
+   await test('A fictional source post appears before any coins',()=>{assert(fixture.querySelectorAll('.scanner-feed-group').length===1,'Expected one post group');assert(fixture.querySelectorAll('.scanner-feed-coin').length===0,'No coin should exist yet');assert(fixture.querySelector('.scanner-feed-author').textContent==='Solventir Test Source','Source identity missing');assert(!fixture.querySelector('.scanner-feed-waiting').hidden,'Waiting state missing');});
+   await test('Injected post text remains literal text',()=>{const attack='<img src=x onerror="window.__scannerFixtureInjection=true">';state.groups[0].post.text=attack;publish();assert(fixture.querySelector('.scanner-feed-post-text').textContent===attack,'Post text changed');assert(!fixture.querySelector('.scanner-feed-post-text img'),'Injected element created');assert(window.__scannerFixtureInjection!==true,'Injected code executed');state.groups[0].post.text=postText;publish();});
+   await test('Avatar, original photos and source excerpt have distinct, literal labels',()=>{assert(fixture.querySelector('.scanner-feed-avatar img').getAttribute('src')===localAvatar,'Avatar missing');assert(fixture.querySelectorAll('.scanner-feed-media-item').length===2,'Photo gallery missing');assert(fixture.querySelector('.scanner-feed-summary-label').textContent==='Post in brief','Summary label missing');assert(fixture.querySelector('.scanner-feed-summary-hint').textContent==='Short excerpt from the original post.','Excerpt origin missing');assert(postText.includes(fixture.querySelector('.scanner-feed-overview p').textContent),'Summary is not an actual source excerpt');});
+   await test('A candidate coin appends beneath its source post',()=>{addCoin();assert(fixture.querySelectorAll('.scanner-feed-group').length===1,'Coin created a second post group');assert(fixture.querySelectorAll('.scanner-feed-coin').length===1,'Candidate missing');assert(fixture.querySelector('.scanner-feed-checks').textContent==='Checking…','Progress state missing');});
+   const originalRow=fixture.querySelector('.scanner-feed-coin'),details=originalRow.querySelector('details'),copy=originalRow.querySelector('[data-scanner-feed-copy]');details.open=true;copy.focus({preventScroll:true});
+   await test('Completing checks keeps the row, open details and keyboard focus',()=>{completeChecks();assert(fixture.querySelector('.scanner-feed-coin')===originalRow,'First row replaced');assert(details.open,'Details collapsed');assert(document.activeElement===copy,'Focus lost');assert(originalRow.querySelector('.scanner-feed-checks').textContent==='Checks incomplete','Missing coverage treated as clear');});
+   await test('A second coin appends while the first candidate remains uncertain',()=>{addAnother();assert(fixture.querySelectorAll('.scanner-feed-coin').length===2,'Expected two candidates');assert(fixture.querySelector('.scanner-feed-coin')===originalRow,'First candidate replaced');assert(details.open,'Open details lost');assert(originalRow.querySelector('.scanner-feed-match').textContent==='Possible name connection','Possible match was upgraded');assert(originalRow.querySelector('.scanner-feed-check-list').textContent.includes('does not assess additional token controls'),'Check detail missing');});
+   await test('Source evidence, report links, exclusions and warnings are explicit',()=>{const rows=fixture.querySelectorAll('.scanner-feed-coin');assert(fixture.querySelector('.scanner-feed-post-meta a').href==='https://x.com/raxertestsource/status/1234567890123456789','Source permalink changed');assert(rows[0].querySelector('.scanner-feed-report').getAttribute('href')==='#check/solana/'+firstAddress,'Coin report points at the wrong address');assert(rows[1].querySelector('.scanner-feed-checks').dataset.tone==='warning','Active authority lacks warning');assert(!rows[1].querySelector('.scanner-feed-excluded').hidden,'Exclusion hidden');assert(rows[0].querySelector('.scanner-feed-evidence').textContent.includes('does not establish ownership'),'Uncertain attribution missing');});
+   await test('Copy uses the full address through an injected clipboard callback',async()=>{copy.click();await new Promise(resolve=>setTimeout(resolve,0));assert(copies.at(-1)===firstAddress,'Incorrect address copied');assert(fixture.querySelector('[data-scanner-feed-copy-status]').textContent.includes('address copied'),'Success not announced');});
+   await test('Offline preserves coins and does not pretend they are current live results',async()=>{offline();assert(fixture.querySelectorAll('.scanner-feed-coin').length===2,'Offline removed results');assert(fixture.querySelector('[data-scanner-feed-status]').textContent.includes('Showing saved results'),'Offline state not explained');await client.refresh();assert(fixture.querySelector('[data-scanner-feed-error]').hidden,'Recovery left the error visible');});
+   await test('Long names, media, details and copy controls fit 320px and 390px previews',async()=>{for(const width of [320,390]){fixture.style.width=width+'px';await frame();const boundary=fixture.getBoundingClientRect();assert(fixture.scrollWidth<=fixture.clientWidth+1,'Feed horizontally overflows '+width+'px');for(const element of fixture.querySelectorAll('.scanner-feed-name,.scanner-feed-address,.scanner-feed-checks,.scanner-feed-cap,.scanner-feed-detail-body,.scanner-feed-media,.scanner-feed-post-image,.scanner-feed-post-identity')){const box=element.getBoundingClientRect();if(box.width)assert(box.right<=boundary.right+1&&box.left>=boundary.left-1,'Content crosses '+width+'px frame: '+element.className);}for(const button of fixture.querySelectorAll('button'))assert(button.getBoundingClientRect().height>=44,'Button target is too short');}});
+   await test('Video has manual controls and keeps its node and source while coin checks update',()=>{video();const player=fixture.querySelector('video'),src=player.getAttribute('src');assert(player.controls&&player.playsInline,'Inline controls missing');assert(!player.autoplay&&!player.loop,'Media starts automatically');completeChecks();assert(fixture.querySelector('video')===player,'Video replaced during coin update');assert(player.getAttribute('src')===src,'Video source changed');assert(details.open,'Coin details collapsed');assert(fixture.scrollWidth<=fixture.clientWidth+1,'Video overflows the frame');});
+   await test('Failed video keeps post text and explains the unavailable media',()=>{const player=fixture.querySelector('video');player.dispatchEvent(new Event('error'));assert(player.hidden,'Failed video stays visible');assert(!fixture.querySelector('.scanner-feed-media-fallback').hidden,'Fallback explanation missing');assert(fixture.querySelector('.scanner-feed-post-text').textContent===postText,'Source text lost');publish();assert(fixture.querySelector('video')===player&&player.hidden,'Failed video restarted');});
+   await test('Media-only posts do not invent a text summary',()=>{mediaonly();assert(fixture.querySelector('.scanner-feed-post-text').hidden,'Empty text placeholder distracts from media');assert(fixture.querySelector('.scanner-feed-overview p').textContent==='Text summary unavailable for this post.','Missing summary was invented');});
+   await test('Reposts identify context while keeping the original API-returned wording',()=>{repost();assert(fixture.querySelector('.scanner-feed-source-label').textContent==='Reposted on X','Repost label missing');assert(fixture.querySelector('.scanner-feed-post-text').textContent==='RT @original: '+postText,'Returned repost wording changed');assert(fixture.querySelector('.scanner-feed-context-link').getAttribute('href')==='https://x.com/i/status/9876543210987654321','Referenced post changed');assert(fixture.querySelector('.scanner-feed-overview p').textContent==='Text summary unavailable for this post.','Reposted text treated as an original excerpt');});
+   await test('Fixture media uses only local assets',()=>{for(const item of fixture.querySelectorAll('img,video')){const value=item.getAttribute('src');if(value)assert(value.startsWith('/original/assets/')&&!value.includes('..'),'Unexpected remote or unsafe media URL');}assert(networkCalls===0,'Unexpected API request');});
+   await test('Launch groups use one compact header and retain the clarification in Details',async()=>{launch();await frame();const head=fixture.querySelector('.scanner-feed-group-head');assert(head.getBoundingClientRect().height<105,'Launch header is still too tall');assert(fixture.querySelector('.scanner-feed-overview').hidden,'Duplicate summary is visible');assert(fixture.querySelector('.scanner-feed-post-text').textContent==='Newly indexed Solana pools','Launch description changed');assert(fixture.querySelector('.scanner-feed-details .scanner-feed-market-note').textContent.includes('does not confirm a new project'),'Project clarification missing');});
+   await test('No API or X calls were attempted',()=>assert(networkCalls===0,'Unexpected network call'));
+   reset();completeChecks();addAnother();fixture.style.width='390px';
+   summary.textContent=passed+' passed, '+failed+' failed';summary.className=failed?'fail':'pass';window.scannerFeedTestResults={passed,failed,networkCalls};runningTests=false;
+  }
+  document.querySelectorAll('[data-event]').forEach(button=>button.addEventListener('click',()=>{if(runningTests)return;({initial:reset,add:addCoin,complete:completeChecks,another:addAnother,offline,launch,photos,video,mediaonly,repost,tests:runChecks}[button.dataset.event])();}));
+  document.querySelectorAll('[data-width]').forEach(button=>button.addEventListener('click',()=>{fixture.style.width=button.dataset.width==='100%'?'100%':button.dataset.width+'px';}));
+  document.querySelector('#apply-post').addEventListener('click',()=>{const group=state.groups.find(item=>item.kind==='post');if(group){group.post.text=editor.value;delete group.post.displayText;group.summary=editor.value.slice(0,140);group.summaryStatus=editor.value?'excerpt':'unavailable';publish();}});
+  fixture.addEventListener('click',event=>{const link=event.target.closest('a');if(link){event.preventDefault();toast.textContent='Navigation is disabled in this isolated fixture.';}});
+  window.addEventListener('pagehide',()=>cleanup(),{once:true});
+  await runChecks();
+ </script>
+</body>
+</html>

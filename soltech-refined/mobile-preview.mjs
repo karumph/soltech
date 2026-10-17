@@ -4,6 +4,10 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createBundlerAPI,localBundlerRequestAllowed} from './bundler-api.mjs';
 import {createBundlerSetup} from './bundler-setup.mjs';
+import {createWalletHandler} from './wallet-api.mjs';
+import {createWalletTransactionsHandler} from './wallet-transactions-api.mjs';
+import {createSignalsHandler} from './signals-api.mjs';
+import {createScannerHandler} from './scanner-api.mjs';
 const project=path.dirname(fileURLToPath(import.meta.url));
 const root=path.join(project,'dist');
 const frame=path.join(project,'mobile-preview.html');
@@ -11,10 +15,18 @@ const port=Number(process.argv[2]||4183);
 const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.png':'image/png','.svg':'image/svg+xml'};
 let bundles=createBundlerAPI();
 const setup=createBundlerSetup({port,setKey:key=>{process.env.SOLANATRACKER_API_KEY=key;bundles=createBundlerAPI();}});
+const wallet=createWalletHandler({port});
+const walletTransactions=createWalletTransactionsHandler({port});
+const signals=createSignalsHandler({port});
+const scanner=createScannerHandler({port});
 const server=http.createServer(async(req,res)=>{
  let relative;
  try{relative=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}catch{res.writeHead(400);res.end();return;}
  if(await setup(req,res,relative))return;
+ if(await wallet(req,res,relative))return;
+ if(await walletTransactions(req,res,relative))return;
+ if(await signals(req,res,relative))return;
+ if(await scanner(req,res,relative))return;
  if(relative==='/api/bundlers'){
   res.setHeader('Cache-Control','no-store');res.setHeader('Content-Type','application/json');res.setHeader('X-Content-Type-Options','nosniff');
   if(req.method!=='GET'){res.writeHead(405,{Allow:'GET'});res.end(JSON.stringify({status:'error'}));return;}
@@ -32,4 +44,4 @@ const server=http.createServer(async(req,res)=>{
  });
 });
 server.on('error',error=>{console.error(error.code==='EADDRINUSE'?`Port ${port} is already in use. An existing preview may still be running.`:error.message);process.exitCode=1;});
-server.listen(port,'127.0.0.1',()=>console.log(`Soltech mobile preview: http://127.0.0.1:${port}/mobile-preview.html`));
+server.listen(port,'127.0.0.1',()=>console.log(`Solventir mobile preview: http://127.0.0.1:${port}/mobile-preview.html`));

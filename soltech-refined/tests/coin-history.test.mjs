@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {historyWindow,historySeries,nearestPoint,historyHTML,marketCapFactor,chartGeometry,axisMoney,rangeAvailable} from '../dist/coin-history.js';
+import {historyWindow,historySeries,nearestPoint,historyHTML,marketCapFactor,chartGeometry,axisMoney,rangeAvailable,normalizeHistoryRange} from '../dist/coin-history.js';
+import {chartData,finitePrice} from '../dist/coin-history-chart.js';
 const hour=3600000;
 const points=[0,1,2,30,60,190].map(n=>({timestamp:1800000000000+n*hour,close:1+n/100}));
 const h={points,from:points[0].timestamp,through:points.at(-1).timestamp,observedHigh:3,pair:'pool'};
@@ -13,7 +14,7 @@ test('market-cap estimates require finite positive current data and remain expli
 });
 test('chart ranges preserve real timestamps and choose an actual candle across missing hours',()=>{
  assert.deepEqual(historyWindow(h,'day'),[points[5]]);
- assert.deepEqual(historyWindow(h,'week'),points.slice(3));
+ assert.deepEqual(historyWindow(h,'week'),points);
  assert.deepEqual(historyWindow(h,'all'),points);
  assert.equal(nearestPoint(points,points[0].timestamp+25*hour),3);
  assert.equal(nearestPoint(points,-Infinity),0);
@@ -21,7 +22,8 @@ test('chart ranges preserve real timestamps and choose an actual candle across m
 test('chart presents current market cap separately from historical close and preserves missing cap',()=>{
  const html=historyHTML({status:'ready',data:h},{marketCap:250000,retrievedAt:1800000000000});
  assert.match(html,/Current market cap/);assert.match(html,/\$250K/);assert.match(html,/Selected close/);assert.match(html,/Historical market cap is unavailable/);
- assert.match(html,/type="range"/);assert.match(html,/data-history-range="week"/);
+ assert.match(html,/type="range"/);assert.match(html,/data-history-range="day"/);
+ assert.match(html,/data-history-range="six"/);assert.doesNotMatch(html,/data-history-range="week"/);
  assert.match(historyHTML({status:'ready',data:h},{marketCap:null}),/Current market cap<\/span><strong>Unavailable/);
 });
 
@@ -56,10 +58,10 @@ test('tiny axis labels retain significant digits without scientific notation or 
  assert.equal(axisMoney(1200000),'$1.2M');
 });
 
-test('short histories still expose day, week and all available ranges',()=>{
+test('short histories expose exactly hour, six hours, day and all available ranges',()=>{
  const data={...h,points:points.slice(0,3),through:points[2].timestamp};
  const html=historyHTML({status:'ready',data},{});
- for(const range of ['day','week','all'])assert.match(html,new RegExp('data-history-range="'+range+'"'));
+ assert.deepEqual([...html.matchAll(/data-history-range="([^"]+)"/g)].map(match=>match[1]),['hour','six','day','all']);
  assert.match(html,/All available history/);
  assert.deepEqual(historyWindow(data,'day'),data.points);
  assert.equal(rangeAvailable(data,'day'),false);
@@ -97,4 +99,68 @@ test('All never replaces the earliest hourly coverage with a truncated minute re
  const recent={...h,interval:'minute',rawCount:1000,windowStart:h.from+11*60000,points:points.slice(1),from:points[1].timestamp};
  for(const rawCount of [999,1000])assert.equal(historySeries({...h,recent:{...recent,rawCount}},'all').interval,undefined);
  assert.equal(historySeries({...h,recent:{...recent,rawCount:999,windowStart:h.from}},'all').interval,'minute');
+});
+
+test('retired or unknown ranges normalize to All while supported ranges stay intact',()=>{
+ for(const range of ['hour','six','day','all'])assert.equal(normalizeHistoryRange(range),range);
+ for(const range of ['week',undefined,null,'live','__proto__'])assert.equal(normalizeHistoryRange(range),'all');
+});
+
+test('canvas series split genuine gaps and preserve empty intervals on a regular time axis',()=>{
+ const data=[0,1,4,5,9].map((n,i)=>({timestamp:1800000000000+n*hour,close:i+1}));
+ const model=chartData(data,hour);
+ assert.equal(model.segments.length,2);assert.equal(model.isolated.length,1);
+ assert.equal(model.timeline.length,10);
+ assert.equal(model.timeline[4].time-model.timeline[0].time,4*3600);
+ assert.deepEqual(model.segments.map(segment=>segment.map(point=>point.value)),[[1,2],[3,4]]);
+ assert.deepEqual(model.isolated,[{time:data[4].timestamp/1000,value:5}]);
+ assert.ok(model.timeline.every(point=>!Object.hasOwn(point,'value')),'whitespace must not fabricate prices');
+});
+
+test('provider returned quiet candles remain continuous but no prices are invented',()=>{
+ const data=[{timestamp:1800000000000,close:4},{timestamp:1800000060000,close:4,zeroVolume:true},{timestamp:1800000120000,close:5}];
+ const model=chartData(data,60000);
+ assert.equal(model.segments.length,1);assert.equal(model.isolated.length,0);
+ assert.deepEqual(model.segments[0].map(point=>point.value),[4,4,5]);
+ const html=historyHTML({status:'ready',data:{...h,emptyIntervalPolicy:'previous-close'}},{});
+ assert.match(html,/previous close into periods without swaps/);
+ assert.match(html,/Intervals still missing from the source stay empty/);
+});
+
+test('canvas numeric normalization handles flat, single and extreme finite prices',()=>{
+ for(const values of [[5],[0,0],[5,5],[9e307,1e308],[1e-309,2e-309]]){
+  const data=values.map((close,i)=>({timestamp:1800000000000+i*hour,close}));
+  const model=chartData(data,hour);
+  assert.ok(Number.isFinite(model.unit)&&model.unit>0);
+  const rendered=model.groups.flat().map(point=>point.value);
+  assert.ok(rendered.every(Number.isFinite));
+  if(values[0]!==values[1]&&values.length>1)assert.notEqual(rendered[0],rendered[1]);
+  assert.ok(Number.isFinite(finitePrice(2,model.unit)),'axis overshoot must remain finite');
+ }
+ assert.deepEqual(chartData([],hour),{unit:1,timeline:[],groups:[],isolated:[],segments:[]});
+});
+
+test('chart exposes slider exploration without gesture or reset instructions',()=>{
+ const html=historyHTML({status:'ready',data:h},{marketCap:250000,price:1});
+ assert.doesNotMatch(html,/data-history-reset|Reset view|Pinch to zoom|Hold to inspect|Drag to move/);
+ assert.match(html,/Slide to explore/);
+ assert.match(html,/type="range"/);assert.match(html,/arrow keys/);
+ assert.match(html,/Snapshot/);assert.match(html,/not a streaming feed/);
+ assert.match(html,/All means available history, not lifetime history/);
+ assert.match(html,/https:\/\/www.tradingview.com\//);
+ assert.match(html,/TradingView Lightweight Charts/);
+});
+
+test('six-hour view uses minute coverage without replacing an incomplete window',()=>{
+ const through=1800000000000+48*hour,from=through-48*hour;
+ const hourly={...h,from,through,retrievedAt:through+30000,points:Array.from({length:49},(_,n)=>({timestamp:from+n*hour,close:n+1}))};
+ const minutePoints=Array.from({length:601},(_,n)=>({timestamp:through-10*hour+n*60000,close:n+1}));
+ const recent={...hourly,interval:'minute',intervalMs:60000,rawCount:601,windowStart:through-10*hour,points:minutePoints,from:minutePoints[0].timestamp,through};
+ const data={...hourly,recent};
+ assert.equal(historySeries(data,'six'),recent);
+ assert.equal(historyWindow(data,'six').length,360);
+ assert.ok(historyWindow(data,'six').every(p=>p.timestamp>=data.retrievedAt-6*hour));
+ assert.equal(historySeries({...data,recent:{...recent,windowStart:through-2*hour}},'six').points,hourly.points);
+ assert.equal(historySeries({...data,recent:undefined},'six').points,hourly.points);
+ assert.equal(rangeAvailable(data,'six'),true);
 });

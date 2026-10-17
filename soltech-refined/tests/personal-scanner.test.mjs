@@ -96,11 +96,26 @@ test('storage-event conflicts retain the local draft without replacing it',()=>{
 
 test('fresh visits derive one default without writing storage or creating a draft',()=>{
  const disk=memory(),s=createPersonalScannerStore(disk),c=s.effective;
- assert.equal(c.name,'Soltech scanner');assert.deepEqual(enabledSources(c),['public','projects']);
+ assert.equal(c.name,'Coin discovery');assert.deepEqual(enabledSources(c),['public','projects']);
  assert.equal(c.sources.public.settings.accountScope,'soltech');assert.equal(c.sources.projects.settings.ageMax,'24');
  assert.equal(s.state.saved,null);assert.equal(s.state.draft,null);assert.equal(disk.getItem(PERSONAL_SCANNER_KEY),null);
  c.name='Changed copy';c.sources.projects.settings.ageMax='1';
- assert.equal(s.effective.name,'Soltech scanner');assert.equal(s.effective.sources.projects.settings.ageMax,'24');
+ assert.equal(s.effective.name,'Coin discovery');assert.equal(s.effective.sources.projects.settings.ageMax,'24');
+});
+
+test('rebranding preserves saved and user-entered names including former defaults',()=>{
+ const disk=memory(),saved={...defaultPersonalScanner(),name:'Soltech scanner'},draft={...defaultPersonalScanner(),name:'Raxer scanner'};
+ saved.sources.projects.settings.ageMax='6';draft.resultFilters.capMax='1234';
+ const raw=JSON.stringify({schemaVersion:1,revision:7,saved,draft:{config:draft,screen:'review',source:'projects'}});disk.setItem(PERSONAL_SCANNER_KEY,raw);
+ const store=createPersonalScannerStore(disk);assert.equal(store.effective.name,'Soltech scanner');assert.equal(store.state.draft.config.name,'Raxer scanner');
+ assert.equal(store.effective.sources.projects.settings.ageMax,'6');assert.equal(store.state.draft.config.resultFilters.capMax,'1234');assert.equal(store.state.revision,7);assert.equal(disk.getItem(PERSONAL_SCANNER_KEY),raw);
+ for(const name of ['Soltech scanner','Raxer scanner','My Soltech scanner','My Raxer scanner','Soltech night watch','Soltech scanner ','SOLTECH scanner']){
+  const custom=JSON.stringify({schemaVersion:1,revision:8,saved:{...saved,name},draft:null});disk.setItem(PERSONAL_SCANNER_KEY,custom);
+  const reopened=createPersonalScannerStore(disk);assert.equal(reopened.effective.name,name);assert.equal(disk.getItem(PERSONAL_SCANNER_KEY),custom);
+  reopened.begin();const edited=reopened.state.draft.config;edited.name=name;
+  assert.equal(reopened.update(edited),true);assert.equal(reopened.save().ok,true);assert.equal(createPersonalScannerStore(disk).effective.name,name);
+ }
+ assert.equal(PERSONAL_SCANNER_KEY,'soltech.scanner.v1');assert.equal(store.effective.sources.public.settings.accountScope,'soltech');
 });
 
 test('default cosmetic edits save without requiring a personal X list',()=>{

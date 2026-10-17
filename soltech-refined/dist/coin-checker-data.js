@@ -160,7 +160,7 @@ export function normalizeListing(data,now=Date.now()){
  const profileStatus=approved?'paid':incomplete||!knownProfiles?'unavailable':!profiles.length?'not-reported':profiles.every(order=>order.status==='cancelled')?'cancelled':profiles.every(order=>['cancelled','rejected'].includes(order.status))?'not-approved':'pending';
  return {profilePaid:approved?true:incomplete||profilePending?null:false,profileStatus,retrievedAt:now};
 }
-// Each series is one pool's bounded observed window, never a token-wide all-time high.
+// Each series is one pool's bounded returned window, never a token-wide all-time high.
 export function normalizeHistory(data,mint,pair,now=Date.now(),chain='solana',interval='hour'){
  const candles=data?.data?.attributes?.ohlcv_list;
  if(!validTokenAddress(mint,chain)||!validPairId(pair,chain)||data?.data?.type!=='ohlcv_request_response'||!Array.isArray(candles)||candles.length>1000||![data?.meta?.base?.address,data?.meta?.quote?.address].some(address=>sameAddress(address,mint,chain)))throw new LookupError('format');
@@ -170,16 +170,20 @@ export function normalizeHistory(data,mint,pair,now=Date.now(),chain='solana',in
   if(!Array.isArray(candle)||candle.length!==6)throw new LookupError('format');
   const [seconds,open,high,low,close,volume]=candle,timestamp=seconds*1000;
   if(!Number.isSafeInteger(seconds)||seconds%(intervalMs/1000)!==0||timestamp<1230768000000||timestamp>now||seen.has(seconds)||[open,high,low,close,volume].some(value=>numeric(value)===null)||high<Math.max(open,low,close)||low>Math.min(open,high,close))throw new LookupError('format');
-  seen.add(seconds);if(timestamp>=windowStart)points.push({timestamp,open,high,low,close,volume});
+  seen.add(seconds);if(timestamp>=windowStart)points.push({timestamp,open,high,low,close,volume,zeroVolume:volume===0});
  }
  if(!points.length)return null;
  points.sort((a,b)=>a.timestamp-b.timestamp);
  return {mint,pair,chainId:chain,interval,intervalMs,currency:'usd',windowStart,rawCount:candles.length,windowHours:1000*intervalMs/3600000,points,observedHigh:Math.max(...points.map(p=>p.high)),observedLow:Math.min(...points.map(p=>p.low)),from:points[0].timestamp,through:points.at(-1).timestamp,retrievedAt:now};
 }
 export async function loadPriceHistory(mint,market,signal,chain='solana',request=requestJSON){
+ if(!validTokenAddress(mint,chain)||!validPairId(market?.pair,chain)||(market.mint&&!sameAddress(market.mint,mint,chain))||(market.chainId&&market.chainId!==chain))throw new LookupError('format');
  const results=await Promise.allSettled(['hour','minute'].map(async interval=>{
-  const url='https://api.geckoterminal.com/api/v2/networks/'+NETWORKS[chain].gecko+'/pools/'+market.pair+'/ohlcv/'+interval+'?aggregate=1&limit=1000&currency=usd&include_empty_intervals=false&token='+mint;
-  return normalizeHistory(await request(url,{signal}),mint,market.pair,Date.now(),chain,interval);
+  // Let the source return no-swap intervals at the previous close, with zero volume.
+  // Never interpolate locally: any gaps still absent from the response remain gaps.
+  const url='https://api.geckoterminal.com/api/v2/networks/'+NETWORKS[chain].gecko+'/pools/'+market.pair+'/ohlcv/'+interval+'?aggregate=1&limit=1000&currency=usd&include_empty_intervals=true&token='+mint;
+  const history=normalizeHistory(await request(url,{signal}),mint,market.pair,Date.now(),chain,interval);
+  return history?{...history,emptyIntervalPolicy:'previous-close'}:null;
  }));
  const [hourly,recent]=results.map(result=>result.status==='fulfilled'?result.value:null);
  if(!hourly&&!recent){const failed=results.find(result=>result.status==='rejected');if(failed)throw failed.reason;return null;}
