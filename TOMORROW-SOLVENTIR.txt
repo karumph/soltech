@@ -1,0 +1,27 @@
+SOLVENTIR - NEXT SESSION
+Recorded October 16, 2026, before signing off.
+
+NOTES ONLY - Do not implement these items until the user resumes and authorizes the work.
+
+1. Coin logos
+   Review logo availability and loading so coins consistently show their correct logos.
+   User's wording: make sure logos always appear for the coins.
+   Determine where logos are missing and fix reliable lookup/loading; do not invent a real logo for a coin that has none available.
+
+2. One standard scanner for the first release
+   Everyone should get the same scanner in the initial web app.
+   Do not offer scanner customization in that first version. Customization is a later feature.
+   This is a product decision to implement later; current scanner settings and saved data have not been removed.
+
+3. Coin signal overview
+   Improve how Top ten accounts, Suspected insiders, Bundle buys, and Snipers are grouped and presented.
+   User wants that bundled overview to look better. Preserve the current app's visual style; the exact treatment can be reviewed next session.
+
+4. Compact profile/settings dropdown
+   Keep the circular profile button at the top right, but open a small dropdown instead of immediately showing the large Profile page/menu.
+   Prioritize essential entries such as Notifications and Privacy. Retain access to profile details and other settings as appropriate.
+   This is the latest preference and supersedes the full-page entry behavior built tonight. Record only; implement in the next session when authorized.
+
+CURRENT SAVED APP
+The previously authorized Profile/Settings merge is saved in the original app: circular profile button at the top right, four main navigation items below, and preferences within Profile. Its 30 focused tests pass, and mobile navigation was checked.
+The four future-work items above have NOT been implemented. In particular, the smaller dropdown is a note for next time, not an additional change tonight.

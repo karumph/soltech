@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coin chart interaction review · synthetic data</title>
+<link rel="stylesheet" href="/original/app.css">
+<link rel="stylesheet" href="/original/coin-checker.css">
+<link rel="stylesheet" href="/original/blue-glass.css">
+<link rel="stylesheet" href="/original/soltech-identity.css">
+<link rel="stylesheet" href="/original/wallet-check.css">
+<link rel="stylesheet" href="/original/coin-recent.css">
+<link rel="stylesheet" href="/original/navigation-glass.css">
+<link rel="stylesheet" href="/original/silver-borders.css">
+<style>
+body.fixture-host{padding:20px 12px;background:#edf0f4;font:14px/1.5 system-ui,sans-serif;color:#263144}
+.fixture-controls{max-width:1180px;margin:0 auto 14px;display:grid;gap:10px}.fixture-controls h1{font:650 20px/1.3 system-ui,sans-serif;letter-spacing:-.02em}.fixture-controls p{max-width:90ch;margin:0;color:#485466}.fixture-row{display:flex;flex-wrap:wrap;gap:8px}.fixture-row button{min-height:40px;padding:8px 13px;border:1px solid #bac3cf;border-radius:9px;background:white;color:#263144;font:600 13px system-ui,sans-serif}.fixture-row button[aria-pressed=true]{background:#263144;color:white}.fixture-row button:focus-visible{outline:2px solid #356bad;outline-offset:2px}.fixture-row button:disabled{opacity:.55}.fixture-stage{overflow:auto;padding:2px 2px 20px}#review-frame{display:block;margin:0 auto;width:390px;max-width:none;height:820px;border:1px solid #bdc7d4;border-radius:20px;background:white;box-shadow:0 12px 32px #26314414}#test-summary[data-failures="0"]{color:#205c44}#test-summary:not([data-failures="0"]){color:#9e3542}.fixture-controls details{font-size:13px}.fixture-controls ol{padding-left:22px}.sample-label{padding:9px 14px;background:#eff2f6;border-bottom:1px solid #bec7d3;color:#4b5666;font:600 12px/1.45 system-ui,sans-serif}.fixture-frame .checker{max-width:1120px;padding:18px 16px 30px;margin:0 auto}.fixture-frame .fixture-title{margin:0 0 16px}.fixture-title h1{font:650 20px/1.3 system-ui,sans-serif;letter-spacing:-.025em}.fixture-title p{margin-top:5px;font-size:13px;color:#536071}.fixture-frame .live-history{min-width:0}.fixture-frame .price-history{min-width:0}.fixture-frame .fixture-status{font:500 12px/1.5 system-ui,sans-serif;color:#536071;padding:12px 0}
+</style>
+</head>
+<body>
+<script type="module">
+import {historyHTML,mountHistoryChart} from '/original/coin-history.js';
+
+const channel='coin-chart-review';
+const isFrame=new URL(location.href).searchParams.has('frame');
+if(!isFrame){
+ document.body.className='fixture-host';
+ document.body.innerHTML=`<header class="fixture-controls"><h1>Coin chart interaction review</h1><p>Synthetic prices only. This fixture does not check coins, write saved history, or call data providers.</p><div class="fixture-row" aria-label="Preview width"><button data-width="320" aria-pressed="false">320px phone</button><button data-width="390" aria-pressed="true">390px phone</button><button data-width="1180" aria-pressed="false">Desktop</button><button id="run-tests">Run all sizes</button><button id="run-resize">Run resize check</button></div><div class="fixture-row" aria-label="Sample history"><button data-scenario="normal" aria-pressed="true">Regular history</button><button data-scenario="quiet" aria-pressed="false">Quiet trading</button><button data-scenario="gap" aria-pressed="false">Missing interval</button><button data-scenario="single" aria-pressed="false">Single point</button></div><p id="test-summary" role="status" aria-live="polite">Loading the chart…</p><p>Synthetic mouse and touch events test that chart gestures leave the viewport fixed. They cannot verify physical touch accuracy or page scrolling on an iPhone. Synthetic keys also cannot invoke native browser default actions: keyboard checks verify focus, semantics and range stepping; a real Arrow-key check is still required.</p><details><summary>Check results</summary><ol id="test-results"></ol></details></header><div class="fixture-stage"><iframe id="review-frame" title="Synthetic snapshot coin chart" src="?frame=1"></iframe></div>`;
+ const frame=document.querySelector('#review-frame'),runButton=document.querySelector('#run-tests'),resizeButton=document.querySelector('#run-resize'),summary=document.querySelector('#test-summary'),results=[];
+ const send=data=>frame.contentWindow.postMessage({source:channel,...data},location.origin);
+ let ready=false,queue=[],running=false,resizeStarted=false;
+ function setWidth(width){frame.style.width=width+'px';for(const b of document.querySelectorAll('[data-width]'))b.setAttribute('aria-pressed',b.dataset.width===String(width));}
+ function render(){const failed=results.filter(r=>!r.ok).length;summary.textContent=`${results.length-failed} passed, ${failed} failed${running?' · checking responsive sizes…':' · synthetic chart ready'}`;summary.dataset.failures=String(failed);summary.dataset.complete=String(!running);document.querySelector('#test-results').replaceChildren(...results.map(result=>{const li=document.createElement('li');li.textContent=(result.ok?'PASS — ':'FAIL — ')+(result.width?result.width+'px · ':'')+result.name+(result.error?': '+result.error:'');return li;}));if(!running)document.title=(failed?'FAIL':'PASS')+' · Coin chart interactions';}
+ function next(){if(queue.length){const width=queue.shift();setWidth(width);requestAnimationFrame(()=>requestAnimationFrame(()=>send({action:'test',width})));}else if(!resizeStarted){resizeStarted=true;send({action:'resize-test'});}else{running=false;runButton.disabled=false;resizeButton.disabled=false;setWidth(390);render();}}
+ function runAll(){if(!ready||running)return;running=true;resizeStarted=false;runButton.disabled=true;resizeButton.disabled=true;results.length=0;queue=[320,390,1180];render();next();}
+ function runResize(){if(!ready||running)return;running=true;resizeStarted=true;runButton.disabled=true;resizeButton.disabled=true;results.length=0;queue=[];render();send({action:'resize-test'});}
+ document.addEventListener('click',event=>{const b=event.target.closest('button');if(!b||running)return;if(b.dataset.width){setWidth(b.dataset.width);send({action:'measure'});}if(b.dataset.scenario){for(const s of document.querySelectorAll('[data-scenario]'))s.setAttribute('aria-pressed',s===b);send({action:'show',scenario:b.dataset.scenario});}if(b===runButton)runAll();if(b===resizeButton)runResize();});
+ window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==frame.contentWindow||event.data?.source!==channel+'-frame')return;const data=event.data;if(data.ready){ready=true;new URL(location.href).searchParams.has('resize')?runResize():runAll();}if(data.tests){results.push(...data.tests.map(r=>({...r,width:data.width})));render();next();}if(data.resizeTo){setWidth(data.resizeTo);requestAnimationFrame(()=>requestAnimationFrame(()=>send({action:'resize-applied',width:data.resizeTo})));}if(data.error){results.push({name:'Chart fixture initialization',ok:false,error:data.error});running=false;runButton.disabled=false;resizeButton.disabled=false;render();}if(data.measure){summary.dataset.width=data.measure.width;summary.dataset.overflow=data.measure.overflow;}});
+}else{
+ document.body.className='fixture-frame';
+ document.body.innerHTML='<div class="sample-label">Synthetic data · snapshot chart · no provider connection</div><main class="checker"><header class="fixture-title"><h1>Northstar</h1><p>NORTH · Fictional coin for layout and interaction checks</p></header><section class="live-history" id="chart-root"></section><p class="fixture-status" id="fixture-status">Chart ready for inspection.</p></main>';
+ const root=document.querySelector('#chart-root'),now=Date.UTC(2026,9,16,7,0),hour=3600000,minute=60000,pair='So11111111111111111111111111111111111111112';
+ const networkCalls=[],errors=[];
+ const forbid=kind=>{networkCalls.push(kind);throw Error('Network disabled in this synthetic chart fixture');};
+ window.fetch=async()=>forbid('fetch');
+ window.XMLHttpRequest=class{open(){forbid('XMLHttpRequest');}};
+ window.WebSocket=class{constructor(){forbid('WebSocket');}};
+ window.EventSource=class{constructor(){forbid('EventSource');}};
+ window.addEventListener('error',event=>errors.push(event.message));
+ window.addEventListener('unhandledrejection',event=>{errors.push(String(event.reason?.message||event.reason));event.preventDefault();});
+ const send=data=>parent.postMessage({source:channel+'-frame',...data},location.origin);
+ const paint=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+ const settle=async()=>{for(let i=0;i<5;i++)await paint();};
+ const clone=value=>structuredClone(value);
+ const values=(length,step)=>Array.from({length},(_,i)=>{const close=.0045+i*.0000008+Math.sin(i/9)*.00016+Math.cos(i/28)*.00011;return {timestamp:now-(length-i)*step,open:close,high:close*1.01,low:close*.99,close,volume:40+i%11,zeroVolume:false};});
+ function series(points,interval){const step=interval==='minute'?minute:hour;return {chainId:'solana',mint:pair,pair,interval,intervalMs:step,currency:'usd',points,from:points[0].timestamp,through:points.at(-1).timestamp,observedHigh:Math.max(...points.map(p=>p.high)),observedLow:Math.min(...points.map(p=>p.low)),windowStart:now-1000*step,windowHours:1000*step/hour,rawCount:points.length,retrievedAt:now,emptyIntervalPolicy:'previous-close'};}
+ function historyFor(scenario='normal'){
+  let hourly=values(97,hour),recent=values(300,minute);
+  if(scenario==='quiet')recent=recent.map((p,i)=>i>239&&i<280?{...p,open:recent[239].close,high:recent[239].close,low:recent[239].close,close:recent[239].close,volume:0,zeroVolume:true}:p);
+  if(scenario==='gap')recent=recent.filter((_,i)=>i<247||i>269);
+  if(scenario==='single'){hourly=hourly.slice(-1);recent=recent.slice(-1);}
+  const long=series(hourly,'hour'),short=series(recent,'minute');return {...long,recent:short,recentStatus:'ready',hourlyStatus:'ready',observedHigh:Math.max(long.observedHigh,short.observedHigh),observedLow:Math.min(long.observedLow,short.observedLow)};
+ }
+ const market={chainId:'solana',mint:pair,pair,marketCap:4970000,price:.00497,retrievedAt:now};
+ let history,view,dispose=()=>{},scenario='normal';
+ function mount(nextScenario='normal',nextView,nextHistory){scenario=nextScenario;dispose();history=nextHistory||historyFor(nextScenario);view=nextView||{range:'hour',selected:null,metric:'cap'};root.innerHTML=historyHTML({status:'ready',data:history},market,{compact:true});dispose=mountHistoryChart(root.querySelector('.price-history'),history,view,market);}
+ function assert(value,message){if(!value)throw Error(message);}
+ function control(selector){const node=root.querySelector(selector);assert(node,'Missing control: '+selector);return node;}
+ function clickRange(value){control('[data-history-range="'+value+'"]').click();}
+ function setMetric(value){const mode=control('.history-mode');mode.value=value;mode.dispatchEvent(new Event('change',{bubbles:true}));}
+ function canvas(){const candidates=[...root.querySelectorAll('canvas')].map(el=>({el,rect:el.getBoundingClientRect()})).filter(item=>item.rect.width>100&&item.rect.height>100);candidates.sort((a,b)=>b.rect.width*b.rect.height-a.rect.width*a.rect.height);assert(candidates.length,'Interactive canvas missing');const biggest=candidates[0];return candidates.filter(c=>c.rect.width===biggest.rect.width&&c.rect.height===biggest.rect.height).at(-1).el;}
+ function mouse(type,target,x,y,buttons=0){target.dispatchEvent(new MouseEvent(type,{bubbles:true,cancelable:true,view:window,button:0,buttons,clientX:x,clientY:y}));}
+ async function dragPlot(){const target=canvas(),r=target.getBoundingClientRect(),y=r.top+r.height*.48;mouse('mouseenter',target,r.left+r.width*.65,y);mouse('mousedown',target,r.left+r.width*.65,y,1);for(let i=1;i<=5;i++){mouse('mousemove',target,r.left+r.width*(.65-i*.055),y,1);await paint();}mouse('mouseup',target,r.left+r.width*.375,y);await settle();}
+ async function wheelPlot(){const target=canvas(),r=target.getBoundingClientRect();target.dispatchEvent(new WheelEvent('wheel',{bubbles:true,cancelable:true,clientX:r.left+r.width*.55,clientY:r.top+r.height*.5,deltaY:-180,deltaX:0,deltaMode:0}));await settle();}
+ function touchPoint(id,target,x,y){return new Touch({identifier:id,target,clientX:x,clientY:y,pageX:x+scrollX,pageY:y+scrollY,screenX:x,screenY:y,radiusX:8,radiusY:8,force:.5});}
+ function touch(type,target,points,changed=points){target.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,view:window,touches:points,targetTouches:points,changedTouches:changed}));}
+ async function pinchPlot(){assert(typeof Touch==='function'&&typeof TouchEvent==='function','This browser does not expose synthetic touch constructors');const target=canvas(),r=target.getBoundingClientRect(),cx=r.left+r.width*.5,y=r.top+r.height*.45,span=Math.min(45,r.width*.18);const a=touchPoint(11,target,cx-span,y),b=touchPoint(12,target,cx+span,y);touch('touchstart',target,[a]);touch('touchstart',target,[a,b],[b]);for(let i=1;i<=5;i++){touch('touchmove',target,[touchPoint(11,target,cx-span-i*3,y),touchPoint(12,target,cx+span+i*3,y)]);await paint();}touch('touchend',target,[],[a,b]);await settle();}
+ async function dragTouchPlot(){const target=canvas(),r=target.getBoundingClientRect(),x=r.left+r.width*.7,y=r.top+r.height*.5,first=touchPoint(21,target,x,y);touch('touchstart',target,[first]);for(let i=1;i<=5;i++){touch('touchmove',target,[touchPoint(21,target,x-i*10,y)]);await paint();}touch('touchend',target,[],[touchPoint(21,target,x-50,y)]);await settle();}
+ async function dragPriceAxis(){const candidates=[...root.querySelectorAll('canvas')].map(el=>({el,rect:el.getBoundingClientRect()})).filter(c=>c.rect.width>30&&c.rect.width<120&&c.rect.height>120);assert(candidates.length,'Price-axis canvas missing');const {el:target,rect:r}=candidates.at(-1),x=r.left+r.width*.55,y=r.top+r.height*.5;mouse('mousedown',target,x,y,1);for(let i=1;i<=5;i++){mouse('mousemove',target,x,y+i*7,1);await paint();}mouse('mouseup',target,x,y+35);target.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,pointerType:'mouse',button:0,clientX:x,clientY:y+35}));await settle();}
+ function viewport(){return clone(view.viewport?.logical||null);}
+ function approximately(a,b,tolerance=1e-4){return Math.abs(a-b)<=tolerance*Math.max(1e-12,Math.abs(a),Math.abs(b));}
+ function sameViewport(a,b){return a&&b&&approximately(a.from,b.from)&&approximately(a.to,b.to);}
+ function fixedState(){return {logical:viewport(),price:clone(view.viewport?.price||null),autoScale:view.viewport?.autoScale,selected:view.selected,time:control('[data-history-time]').dateTime,value:control('[data-history-price]').textContent};}
+ function assertFixed(before,gesture){const after=fixedState();assert(sameViewport(before.logical,after.logical),gesture+' moved the time window');assert(sameViewport(before.price,after.price),gesture+' changed the value scale');assert(after.autoScale===true,gesture+' changed automatic scaling');assert(after.selected===before.selected&&after.time===before.time&&after.value===before.value,gesture+' changed the slider selection');}
+ function selectSlider(index){const input=control('.history-scrubber');input.value=String(index);input.dispatchEvent(new Event('input',{bubbles:true}));return input;}
+ const measure=()=>send({measure:{width:document.documentElement.clientWidth,overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth)}});
+ let resizeResolve=null;
+ const requestWidth=width=>new Promise(resolve=>{resizeResolve=resolve;send({resizeTo:width});});
+ async function runResize(){
+  const result={name:'Same chart keeps its history and selected endpoint through 390 → 320 → desktop → 390',ok:true};
+  try{
+   await requestWidth(390);await settle();mount('normal',{range:'all',selected:null,metric:'cap'});await settle();
+   const existingCanvas=canvas(),initialLogical=viewport(),initialTime=clone(view.viewport.time),selected=view.selected,selectedTime=control('[data-history-time]').dateTime,selectedPrice=control('[data-history-price]').textContent;
+   assert(selected===history.points.at(-1).timestamp,'Resize test did not start at the latest hourly observation');
+   for(const width of [320,1180,390]){
+    await requestWidth(width);await settle();
+    const logical=viewport(),visible=view.viewport?.time;
+    assert(existingCanvas.isConnected&&[...root.querySelectorAll('canvas')].includes(existingCanvas),'Chart was replaced during '+width+'px resize');
+    // Fractional-bar rounding can change at a new pixel width. A shift of an
+    // entire candle is not allowed, and the selected endpoint must stay visible.
+    assert(logical&&Math.abs(logical.from-initialLogical.from)<1&&Math.abs(logical.to-initialLogical.to)<1,'History window shifted by a candle or more at '+width+'px');
+    assert(visible&&Math.abs(visible.from-initialTime.from)<=hour/1000&&Math.abs(visible.to-initialTime.to)<=hour/1000,'Visible dates changed beyond axis rounding at '+width+'px');
+    assert(view.selected===selected&&control('[data-history-time]').dateTime===selectedTime,'Selected timestamp changed at '+width+'px');
+    assert(control('[data-history-price]').textContent===selectedPrice,'Selected value changed at '+width+'px');
+    assert(selected>=visible.from*1000&&selected<=visible.to*1000,'Selected endpoint was pushed outside the visible history at '+width+'px');
+    assert(document.documentElement.scrollWidth<=document.documentElement.clientWidth+1,'Resized chart overflows at '+width+'px');
+   }
+   assert(networkCalls.length===0,'Resize requested fresh data');
+  }catch(error){result.ok=false;result.error=error.message;}
+  document.querySelector('#fixture-status').textContent='Same-instance resize check finished. The visible chart was kept mounted while its frame changed size.';
+  send({tests:[result]});measure();
+ }
+ async function run(width){
+  const results=[];const test=async(name,fn)=>{try{await fn();results.push({name,ok:true});}catch(error){results.push({name,ok:false,error:error.message});}};
+  try{mount();await settle();}catch(error){send({error:error.message});return;}
+  await test('The chart fits without horizontal overflow',()=>{assert(document.documentElement.scrollWidth<=document.documentElement.clientWidth+1,'Document has horizontal overflow');const r=control('.price-history').getBoundingClientRect();assert(r.width>200&&r.right<=document.documentElement.clientWidth+1,'Chart frame is clipped');const c=canvas().getBoundingClientRect();assert(c.width>100&&c.height>120,'Chart is too small or unpainted');});
+  await test('Only 1H, 6H, 1D and All are available, with no Reset view',()=>{assert([...root.querySelectorAll('[data-history-range]')].map(b=>b.textContent.trim()).join('|')==='1H|6H|1D|All','Unexpected history ranges');assert(!root.querySelector('[data-history-reset]'),'Reset view is still present');assert(!/pinch to zoom|drag to move|reset view/i.test(root.textContent),'Old gesture instructions remain');});
+  await test('Every displayed range selects an actual snapshot view',async()=>{for(const key of ['hour','six','day','all']){clickRange(key);await settle();assert(control('[data-history-range="'+key+'"]').getAttribute('aria-pressed')==='true',key+' did not become selected');assert(view.range===key,'View range did not persist');assert(view.viewport?.autoScale===true,'Range did not use automatic scaling');}clickRange('hour');await settle();});
+  await test('The native scrubber updates an exact returned time and value',async()=>{const input=control('.history-scrubber'),points=history.recent.points.filter(p=>p.timestamp>=now-hour);assert(input.type==='range'&&input.getAttribute('aria-label'),'Accessible native scrubber missing');assert(Number(input.max)===points.length-1,'Slider includes unreturned points');const before=viewport();selectSlider(3);await paint();assert(input.getAttribute('aria-valuetext')?.length>8,'Scrubber value description missing');assert(view.selected===points[3].timestamp,'Scrubber did not select the exact candle');assert(control('[data-history-time]').dateTime===new Date(points[3].timestamp).toISOString(),'Readout timestamp does not match selection');assert(!/Unavailable|NaN|Infinity/.test(control('[data-history-price]').textContent),'Selected value is invalid');assert(sameViewport(before,viewport()),'Selecting a point moved the fixed window');});
+  await test('Native range preserves keyboard focus and exact step selection',async()=>{const input=control('.history-scrubber');assert(!input.disabled&&input.tabIndex>=0&&input.step==='1','Native keyboard range semantics are unavailable');input.focus({preventScroll:true});assert(document.activeElement===input,'Scrubber cannot receive keyboard focus');const key=new KeyboardEvent('keydown',{key:'ArrowRight',code:'ArrowRight',bubbles:true,cancelable:true});input.dispatchEvent(key);assert(!key.defaultPrevented,'Arrow-key default was prevented');const before=Number(input.value);input.stepUp();input.dispatchEvent(new Event('input',{bubbles:true}));await paint();const points=history.recent.points.filter(p=>p.timestamp>=now-hour);assert(Number(input.value)===before+1&&view.selected===points[before+1].timestamp,'One native step did not select the next returned candle');});
+  await test('Metric and selected observation survive report remount',async()=>{setMetric('price');await paint();const before=fixedState(),saved=clone(view);mount('normal',saved);await settle();assert(control('.history-mode').value==='price','Metric lost on remount');assertFixed(before,'Report remount');});
+  await test('Pinch and horizontal touch drag leave the chart fixed',async()=>{clickRange('hour');await settle();const before=fixedState();await pinchPlot();assertFixed(before,'Synthetic pinch');await dragTouchPlot();assertFixed(before,'Synthetic touch drag');});
+  // Wait out the chart engine's touch-to-mouse duplicate suppression. A physical
+  // browser normally emits its own compatible event sequence instead.
+  await new Promise(resolve=>setTimeout(resolve,650));
+  await test('Mouse dragging leaves the chart and selection fixed',async()=>{const before=fixedState();await dragPlot();assertFixed(before,'Mouse drag');});
+  await test('Wheel scrolling leaves the chart and selection fixed',async()=>{const before=fixedState();await wheelPlot();assertFixed(before,'Wheel');});
+  await test('Value-axis dragging cannot change the chart scale',async()=>{const before=fixedState();await dragPriceAxis();assertFixed(before,'Value-axis drag');});
+  await test('Old manual viewport state cannot override a preset',async()=>{const normal=fixedState(),saved=clone(view);saved.viewport={...saved.viewport,logical:{from:10,to:15},price:{from:.001,to:.002},autoScale:false};mount('normal',saved);await settle();assertFixed(normal,'Legacy viewport restoration');});
+  await test('Incoming history retains the preset, metric and selected observation',async()=>{clickRange('six');setMetric('price');await settle();selectSlider(3);await paint();const selected=view.selected,time=control('[data-history-time]').dateTime,value=control('[data-history-price]').textContent,incoming=clone(history),last=clone(incoming.recent.points.at(-1));incoming.recent.points.push({...last,timestamp:now,close:last.close*1.003,high:last.high*1.003});incoming.recent.through=now;incoming.recent.rawCount++;incoming.retrievedAt=now+minute;incoming.recent.retrievedAt=now+minute;const saved=clone(view);mount('normal',saved,incoming);await settle();assert(view.range==='six'&&control('[data-history-range="six"]').getAttribute('aria-pressed')==='true','Incoming data changed the chosen range');assert(view.metric==='price'&&control('.history-mode').value==='price','Incoming data changed the metric');assert(view.selected===selected&&control('[data-history-time]').dateTime===time&&control('[data-history-price]').textContent===value,'Incoming data replaced the selected observation');assert(view.viewport?.autoScale===true,'Incoming history restored a manual scale');});
+  await test('Missing intervals never gain invented selectable prices',async()=>{mount('gap');await settle();const points=history.recent.points.filter(p=>p.timestamp>=now-hour),input=control('.history-scrubber');assert(Number(input.max)===points.length-1,'A missing candle became selectable');assert(points.some((p,i)=>i&&p.timestamp-points[i-1].timestamp>minute),'Gap sample contains no missing interval');for(let i=0;i<points.length;i++){selectSlider(i);assert(view.selected===points[i].timestamp,'Slider fabricated or skipped timestamp at '+i);assert(control('[data-history-time]').dateTime===new Date(points[i].timestamp).toISOString(),'Gap readout differs from its real observation');}assert(root.querySelector('canvas'),'Gap chart did not mount');});
+  await test('Quiet and single-point snapshots remain truthful and usable',async()=>{mount('quiet');await settle();const points=history.recent.points.filter(p=>p.timestamp>=now-hour),quiet=points.findIndex(p=>p.zeroVolume);assert(quiet>=0,'Quiet sample contains no zero-volume candle');selectSlider(quiet);assert(/No swaps/.test(control('[data-history-label]').textContent),'Source-provided quiet candle is not identified');assert(view.selected===points[quiet].timestamp,'Quiet candle timestamp changed');mount('single');await settle();assert(root.querySelector('canvas'),'Single-point chart did not mount');assert(control('.history-scrubber').disabled&&control('.history-scrubber').max==='0','Single point exposes nonexistent observations');assert(!/NaN|Infinity|Invalid Date/.test(root.textContent),'Invalid sparse-history value');assert(document.documentElement.scrollWidth<=document.documentElement.clientWidth+1,'Sparse chart overflows');mount();await settle();});
+  await test('Dispose removes the canvas and accepts repeated cleanup',async()=>{dispose();dispose();await paint();assert(!root.querySelector('canvas'),'Canvas remains after disposal');mount();await settle();});
+  await test('Interactions make no network requests or streaming connections',()=>assert(networkCalls.length===0,networkCalls.join(', ')||'Unexpected network request'));
+  await test('No uncaught browser errors were observed',()=>assert(errors.length===0,errors.join(' · ')));
+  document.querySelector('#fixture-status').textContent=`${width}px review finished. Choose 1H, 6H, 1D or All, then use the slider to inspect a point. The chart stays fixed.`;
+  root.querySelector('.history-scrubber')?.blur();send({tests:results,width});measure();
+ }
+ window.addEventListener('message',async event=>{if(event.origin!==location.origin||event.source!==parent||event.data?.source!==channel)return;const d=event.data;if(d.action==='test')await run(d.width);if(d.action==='resize-test')await runResize();if(d.action==='resize-applied'){const resolve=resizeResolve;resizeResolve=null;resolve?.();}if(d.action==='show'){mount(d.scenario);await settle();scrollTo(0,0);measure();}if(d.action==='measure'){await settle();measure();}});
+ window.addEventListener('pagehide',()=>dispose(),{once:true});
+ try{mount();await settle();send({ready:true});}catch(error){send({error:error.message});}
+}
+</script>
+</body>
+</html>

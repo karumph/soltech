@@ -4,7 +4,7 @@ import {accountHandles,activeSettingsRows,ageBases,stages,settingsErrors} from '
 export function scannerIntent(r){
  if(r.type==='public'){
   const accounts=accountHandles(r.accounts);
-  const source=r.accountScope==='soltech'?'the Soltech account list (not connected yet)':!accounts.length?'the X accounts you choose':accounts.length===1?'@'+accounts[0]:`${accounts.length} X accounts`;
+  const source=r.accountScope==='soltech'?'the default X account list (not connected yet)':!accounts.length?'the X accounts you choose':accounts.length===1?'@'+accounts[0]:`${accounts.length} X accounts`;
   return r.matchMode==='direct'?`Look for token addresses and coin links from ${source}.`:`Look for coin mentions and possible theme connections from ${source}.`;
  }
  if(r.type==='projects'){
@@ -36,7 +36,7 @@ export function riskSummary(r){
 export function setupGuidance(r){
  const errors=settingsErrors(r);
  const sourceInvalid=r.type==='public'&&errors.accounts;
- const intent=sourceInvalid?'Add valid X handles to define whose posts to watch.':r.type==='projects'&&errors.ageMax?'Choose a valid maximum age for new coins.':scannerIntent(r);
+ const intent=sourceInvalid?'Add valid X usernames to choose whose posts to watch.':r.type==='projects'&&errors.ageMax?'Choose a valid maximum age for new coins.':scannerIntent(r);
  const details=r.type==='public'?(r.matchMode==='direct'?'An address identifies the coin. A name alone is not enough.':'Theme connections are suggestions, not proof of an endorsement.'):
  r.type==='projects'?'Age and launch stage are separate: an older coin can open a new pool.':'Leave a limit blank to include any value.';
  const extras=extraFilterRows(r);

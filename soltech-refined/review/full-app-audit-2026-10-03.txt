@@ -1,0 +1,80 @@
+SOLTECH — FULL APP AUDIT
+October 3, 2026
+
+Scope
+Reviewed the active soltech-refined app: Check coin and its report tabs, Feed,
+Scanner, Customize, Profile, Settings, Notifications, Privacy, Terms and About.
+The work covered layout, accessibility and interactions while preserving the
+current visual design.
+
+Fixed findings
+1. Scanner sat too low and its lower controls crowded the mobile navigation.
+   Reduced excess space above the heading, inside the engine and between stages.
+   At 390 x 844, the engine now runs from approximately y=126 to y=734, above
+   navigation at y=762. At 1440 x 900, the engine and controls also fit vertically.
+   At 320 x 667, content scrolls naturally without horizontal overflow.
+   The existing design, 18-second sequence and Pause/Resume behavior remain.
+
+2. The chart's selected value and time could be offscreen while using its slider.
+   On mobile, the readout now sits immediately above the slider. A contained,
+   subtle keyboard focus outline no longer reaches into the adjacent readout.
+   Desktop chart order is preserved.
+
+3. Profile's Scanner settings link opened the scanner landing page.
+   It now opens Customize directly.
+
+4. Customize rebuilt all form fields when storage failed or another tab changed
+   the saved configuration, interrupting focus and typing.
+   It now updates recovery notices and action state without replacing inputs.
+
+5. Existing scanner drafts could lose subsequent edits when storage became
+   unreadable. Draft edits now stay in memory and remain exportable. Applying,
+   discarding or starting a draft still requires storage recovery; unreadable
+   saved data is not overwritten.
+
+6. Several Customize helper labels, units and placeholders were too faint.
+   These use darker neutral text; checked contrast is at least 4.97:1 on the
+   relevant existing surfaces.
+
+7. Corrected recovery errors could remain visible, and validation forced a
+   smooth scroll. Stale messages now clear and error focus uses normal scrolling.
+
+8. Feed's abbreviated address used an accessibility label on an element that
+   does not reliably support that name. Explicit screen-reader text now exposes
+   the full address, while the visible compact row and copy behavior remain.
+
+9. Scanner ignored a clear-all storage event from another tab and could display
+   stale saved information until refresh. It now handles that event, preserving
+   the existing conflict and draft-recovery guards. Tested with isolated in-memory
+   storage; no real browser data was cleared.
+
+Validation
+- Checked 320 x 667, 390 x 844 and 1440 x 900 browser viewports.
+- No horizontal overflow on the reviewed screens.
+- Verified Scanner Pause across navigation and reload, Resume, and Finds to Feed.
+- Verified Profile to Customize, Edit profile Cancel, notification Cancel,
+  About dialog, Privacy and Terms screens.
+- Checked Customize invalid ranges, correction, focus and restored original
+  field values without applying test preferences.
+- A public Bonk lookup returned a live Solana report; Overview, Chart and Details
+  were inspected. Slider keyboard input updated the visible value and time.
+- Regression tests cover storage failures, conflicts, draft retention, corrected
+  validation, Feed address accessibility/copy, and existing app behaviors.
+- Full automated suite: 189 tests passed, 0 failed. Output is saved in
+  full-app-audit-tests-2026-10-03.txt.
+- No browser console warnings/errors were recorded in the final audit tab.
+
+Screenshots
+- audit-scanner-mobile-2026-10-03.jpg
+- audit-scanner-desktop-2026-10-03.jpg
+- audit-chart-mobile-2026-10-03.jpg
+
+Existing preview limitations
+Live X scanning, alerts and account sync are not connected. Scanner activity is
+still a labeled demo. Feed market caps are saved snapshots and its summaries and
+discovery times are fictional examples. Privacy and Terms remain preview pages.
+Testing was in the desktop browser's responsive viewports, not on a physical
+iPhone. This review cannot establish that every possible issue has been found.
+
+All source changes, screenshots, regression tests and this report are saved
+inside the SolTech project. No deployment was performed.

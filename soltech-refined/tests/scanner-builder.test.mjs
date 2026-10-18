@@ -110,9 +110,9 @@ test('every validation target exists on its owning screen, including range and c
 test('guidance describes chosen rules without claiming matching or hiding unknown risks',()=>{
  const r={...defaultSettings('public'),accounts:'@example',matchMode:'related',riskLevels:['lower','unknown']};
  const guidance=setupGuidance(r);assert.match(guidance.intent,/@example/);assert.match(guidance.details,/not proof/);assert.match(guidance.risk,/High risk excluded/);assert.match(guidance.risk,/Unassessed included/);
- assert.match(setupGuidance({...r,accounts:'bad/link'}).intent,/valid X handles/);
+ assert.match(setupGuidance({...r,accounts:'bad/link'}).intent,/valid X usernames/);
  assert.match(setupGuidance({...defaultSettings('projects'),ageMax:'6',ageBasis:'mint'}).intent,/6 hours old \(since token creation\)/);
- assert.match(renderSettings({...r,accounts:'<script>'},2),/valid X handles/);
+ assert.match(renderSettings({...r,accounts:'<script>'},2),/valid X usernames/);
 });
 
 test('new-coin guidance accurately states minimum and bounded age limits',()=>{

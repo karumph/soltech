@@ -19,7 +19,7 @@ test('Solana address validation checks base58 byte length, not only characters',
 const evm='0x4200000000000000000000000000000000000006',evmPair='0x1111111111111111111111111111111111111111';
 test('EVM identity includes the chosen supported network and never borrows another chain or quote token',()=>{
  for(const chain of Object.keys(NETWORKS))assert.equal(validTokenAddress(chain==='solana'?mint:evm,chain),true);
- assert.equal(validTokenAddress(evm,'unknown'),false);assert.equal(validTokenAddress(mint,'base'),false);
+ assert.equal(validTokenAddress(evm,'../unknown'),false);assert.equal(validTokenAddress(mint,'base'),false);
  const p=market({chainId:'base',baseToken:{address:evm.toUpperCase().replace('0X','0x'),name:'Wrapped Ether'},pairAddress:evmPair});
  assert.equal(normalizeMarket([p,{...p,chainId:'optimism',liquidity:{usd:1e9}}],evm,Date.now(),'base').chainId,'base');
  assert.equal(normalizeMarket([{...p,chainId:'optimism'}],evm,Date.now(),'base'),null);
@@ -144,7 +144,7 @@ test('cancelled orders and omitted boost counts remain distinct from failed or m
 });
 const historyNow=1800000000000,latestHour=Math.floor(historyNow/3600000)*3600;
 const historyReport=(candles,metadata={base:{address:mint},quote:{address:other}})=>({data:{id:'unrelated-request-id',type:'ohlcv_request_response',attributes:{ohlcv_list:candles}},meta:metadata});
-test('history binds the requested token and pool and retains only observed hourly prices',()=>{
+test('history binds the requested token and pool and retains only returned hourly prices',()=>{
  const data=historyReport([[latestHour,4,7,3,6,50],[latestHour-3600,2,5,1,4,20]]),result=normalizeHistory(data,mint,pair,historyNow);
  assert.equal(result.mint,mint);assert.equal(result.pair,pair);assert.equal(result.currency,'usd');assert.equal(result.observedHigh,7);assert.equal(result.observedLow,1);assert.equal(result.from,(latestHour-3600)*1000);assert.equal(result.through,latestHour*1000);assert.equal(result.points[0].close,4);assert.equal(result.retrievedAt,historyNow);assert.equal(Object.hasOwn(result,'ath'),false);
  assert.equal(normalizeHistory(historyReport([], {base:{address:other},quote:{address:mint}}),mint,pair,historyNow),null);
@@ -171,12 +171,29 @@ test('history requests exact-token minute and hourly data and preserves either s
  const request=async(url,options)=>{urls.push(url);assert.equal(options.signal,signal);const step=url.includes('/minute?')?60:3600,t=Math.floor(Date.now()/1000/step)*step;return historyReport([[t,4,7,3,6,50]]);};
  const h=await loadPriceHistory(mint,{pair},signal,'solana',request);
  assert.equal(h.interval,'hour');assert.equal(h.recent.interval,'minute');
- assert.equal(urls.length,2);for(const url of urls){assert.ok(url.endsWith('token='+mint));assert.match(url,/include_empty_intervals=false/);}
+ assert.equal(urls.length,2);for(const url of urls){assert.ok(url.endsWith('token='+mint));assert.match(url,/include_empty_intervals=true/);}
+ assert.equal(h.emptyIntervalPolicy,'previous-close');assert.equal(h.recent.emptyIntervalPolicy,'previous-close');
  const hourly=await loadPriceHistory(mint,{pair},signal,'solana',(url,opts)=>url.includes('/minute?')?Promise.reject(new LookupError('rate')):request(url,opts));
  assert.equal(hourly.interval,'hour');assert.equal(hourly.recentStatus,'unavailable');
  const minute=await loadPriceHistory(mint,{pair},signal,'solana',(url,opts)=>url.includes('/hour?')?Promise.reject(new LookupError('rate')):request(url,opts));
  assert.equal(minute.interval,'minute');assert.equal(minute.hourlyStatus,'unavailable');
  await assert.rejects(loadPriceHistory(mint,{pair},signal,'solana',async()=>{throw new LookupError('rate');}),error=>error.code==='rate');
+});
+test('provider no-trade closes stay exact and do not fill genuinely missing intervals',()=>{
+ const t=Math.floor(historyNow/60000)*60;
+ const data=normalizeHistory(historyReport([[t,6,7,5,6.5,20],[t-60,6,6,6,6,0],[t-120,4,7,3,6,50],[t-300,3,4,2,4,10]]),mint,pair,historyNow,'solana','minute');
+ assert.equal(data.points.length,4);
+ assert.deepEqual(data.points.map(p=>p.timestamp),[t-300,t-120,t-60,t].map(n=>n*1000));
+ assert.deepEqual(data.points.map(p=>p.close),[4,6,6,6.5]);
+ assert.deepEqual(data.points.map(p=>p.zeroVolume),[false,false,true,false]);
+ assert.equal(data.points[2].volume,0);assert.equal(data.observedHigh,7);assert.equal(data.observedLow,2);
+});
+test('history rejects wrong-network or wrong-token market context before requesting prices',async()=>{
+ let requests=0;const request=async()=>{requests++;return historyReport([]);};
+ for(const [address,market,chain] of [[mint,{pair,mint:other},'solana'],[mint,{pair,chainId:'ethereum'},'solana'],[mint,{pair:'invalid'},'solana'],[mint,{pair},'missing/chain'],['invalid',{pair},'solana']]){
+  await assert.rejects(loadPriceHistory(address,market,undefined,chain,request),error=>error.code==='format');
+ }
+ assert.equal(requests,0);
 });
 test('risk reports preserve missing controls and reject mismatched identity',()=>{
  let r=normalizeRisk(report(),mint);assert.equal(r.level,'lower');assert.equal(r.mintAuthority,'Disabled');assert.equal(r.mutable,'Changeable');assert.equal(r.holders,null);

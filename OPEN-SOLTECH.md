@@ -1,6 +1,6 @@
 # Open the current Soltech project
 
-## Current version — October 2, 2026
+## Current version — October 4, 2026
 
 Everything collected for this project is organized under this **SolTech** folder. The active app is **soltech-refined**; the other three app folders are preserved older versions.
 

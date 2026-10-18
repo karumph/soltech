@@ -1,38 +1,83 @@
-# Resume the current Soltech app
+# Start here: current Solventir app
 
-**Current version: October 2, 2026.** This is the active app, including the animated scanner, simplified customization, persistent Pause, and automatic network lookup. Read the current section of `../SOLTECH-RESUME.txt` first. Run `node mobile-preview.mjs 4183` from this folder and use `http://127.0.0.1:4183/mobile-preview.html`; reuse the server if it is already running. App source is in `dist` and requires no build step. The older comparison notes below are historical.
+Current source checkpoint: October 16, 2026. Work in `soltech-refined/dist`.
+This is the original version the user approved in the comparison, not the later
+Figma/redesign experiment. Visible branding remains Solventir. Legacy storage keys
+and filenames remain unchanged for compatibility.
 
-Current checkpoint: September 30, 2026. Read `../SOLTECH-RESUME.txt` first for the latest user decisions and fresh-chat handoff. Current metric tiles are M1 with SOFT rounded corners; the latest finished feature is the chart slider's glass-style handle. The user asked to pause after it. The older overview below remains as historical context; no automatic redesign or deployment is requested.
+## Open the current app
 
-## Open the two versions
-
-The original remains in `../soltech-ui` on port 4175. This separate version is `soltech-refined` on port 4183. Do not replace the original folder with this copy.
-
-Run from this comparison folder:
+From the repository root, with Node.js 24:
 
 ```sh
-node mobile-preview.mjs 4183
+node soltech-refined/review/scanner-comparison.mjs
 ```
 
-Then open:
+Open http://127.0.0.1:4185/mine?view=check for the mobile frame, or
+http://127.0.0.1:4185/original/index.html#check for the responsive app directly.
+The comparison at http://127.0.0.1:4185/?view=check loads your version on the left
+and the co-developer's separately hosted app on the right. Reuse the running server
+and original browser/origin to retain local settings and histories.
 
-- Mobile comparison: http://127.0.0.1:4183/mobile-preview.html
-- Web comparison: http://127.0.0.1:4183/index.html
+Alternatively, `node soltech-refined/mobile-preview.mjs 4183` serves the same app
+at http://127.0.0.1:4183/index.html and its mobile wrapper at
+http://127.0.0.1:4183/mobile-preview.html. This server also offers the private,
+memory-only optional bundle-provider setup at `/setup/bundlers`.
 
-For the original, run `node mobile-preview.mjs 4175` from `../soltech-ui`, then open http://127.0.0.1:4175/mobile-preview.html or http://127.0.0.1:4175/index.html. If a preview already opens, leave its server running.
+For a physical phone on a trusted local network, start the comparison server first,
+then run `node soltech-refined/review/phone-preview.mjs <private-IPv4> 4187`.
+Its generated access link is saved under ignored `.runtime/phone-preview.json`.
+Do not commit or publicly share that access link. Keep the computer awake;
+phone browser data is separate. This HTTP LAN preview is not a production host.
 
-## Where we stopped
+## Working features
 
-The separate redesign is complete for review. The latest request favors a silver theme and removes the blue line beneath the selected glass control. Silver navigation, charcoal actions, quiet paired edge details, open data sections and consistent typography now extend through Check, coin reports, Finds, Scanner, setup, Profile and settings. The supplied logo remains unchanged.
+- Coin checks, network selection, market figures and evidence-based risk details.
+  Missing data stays unavailable. Ownership signals are prominent on mobile;
+  secondary details remain expandable.
+- Historical chart snapshots with 1H, 6H, 1D and All ranges. The slider selects
+  recorded values; chart pinch, pan and Reset view are removed. No live streaming.
+  All means available returned history, not guaranteed lifetime coverage.
+- Solana wallet holdings, token logos, estimated value including priced SOL,
+  and recent transactions with amounts, time and in-app details where available.
+  Unpriced or incomplete data is identified instead of treated as zero.
+- Recent coins and wallets stay local and appear when their search is cleared.
+  Coin history keeps the five most recent entries. Clearing history is synchronized
+  across tabs and protected against delayed results restoring cleared entries.
+- Real bounded Solana market discovery, Start/Pause, saved findings and progressive
+  Feed updates. See [SCANNER-PILOT.md](SCANNER-PILOT.md) for coverage and limits.
+- Shared Signals, saved profile preferences, and a circular top-right Profile
+  shortcut. Profile contains identity editing, scanner settings, Notifications,
+  Privacy, Terms and About; old Settings routes remain compatible. Main navigation
+  contains Check, Feed, Scanner and Signals.
 
-The original's 162 baseline files were checked against `original-baseline.json` without a mismatch. The redesigned copy has its own file manifest and ZIP checkpoint. `../OPEN-SOLTECH.md` points to both versions and their backups.
+## Limits and deferred requests
 
-Next: compare the silver version with the original before adopting a direction. No further feature work or replacement of the original is implied. The main product gap remains live scanner monitoring, which is not connected; the checker already uses live data.
+Wallet holdings and Signals still rely on the co-developer's hosted services.
+Provider availability varies. X access is not configured or live-verified; the
+prepared adapter and original-post/media display are tested with fixtures.
+Post summaries are source excerpts and matching is basic evidence matching;
+advanced interpretation remains future work. No account sync, billing, daily
+allowance enforcement, alert delivery, or native phone app is implemented.
 
-## Keep saved work safe
+[The next-session list](../TOMORROW-SOLVENTIR.txt) is notes only: improve logo
+consistency, launch with one non-customizable scanner, refine the grouped coin
+signals, and change Profile entry to a compact dropdown. These are not implemented
+by this checkpoint; the current app still has scanner customization and a full
+Profile page.
 
-Project ZIPs contain source files, research and screenshots. Profile photos, scanner settings, drafts and preferences live separately in browser storage. Keep the same browser and port and do not clear site data. Ports 4175 and 4183 have separate local settings. A last coin lookup is tab-local and can be rerun after refresh.
+## Verify and preserve
 
-No provider key was copied. The optional bundle service remains unconnected here until a key is entered privately; it is held only in the running server and clears on restart. Public lookup sources may have their own availability and coverage gaps. No native iPhone build, account sync, live X monitoring or notification delivery is provided by this preview.
+```sh
+node --test soltech-refined/tests/*.test.mjs soltech-refined/review/phone-preview.test.mjs
+node --check soltech-refined/dist/app.js
+```
 
-Read `DESIGN-NOTES.md` for the design rules and QA record. Earlier dated documents in `research/` and `review/` are history and may describe superseded flows. The hosted website has not been updated. Local hash verification does not confirm OneDrive cloud sync.
+The phone-preview test opens temporary local HTTP servers and needs loopback
+network access. Browser fixtures under `tests/` are explicitly separate from real
+scanner results. See the scanner pilot guide for their purpose.
+
+Do not reset or replace local changes, clear browser storage, commit credentials,
+or publish the hosted app as a side effect of pushing code. Git stores source,
+not personal browser data or live scanner findings. The vendored chart library's
+license and attribution files remain in `dist/vendor`.
