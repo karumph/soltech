@@ -1,8 +1,31 @@
 # Current app AWS deployment
 
-Updated October 17, 2026. Publishes the user's original Solventir app.
+Updated October 18, 2026. Publishes the user's original Solventir app.
 
-## Live release
+## October 18 release verification
+
+- Amplify `sjay` manual deployment job `3`: **SUCCEED**.
+- App source: `50573178cfed97082ee993a61226e1642f67cebd`, pushed to
+  `codex/scanner-feed-refresh-2026-10-04`.
+- Release: `7fcb196453d5c55be95134498ca793822854e926005b3390b25a9e5a06e53422`.
+- Frontend and API updated together, including the revised coin reports,
+  expanded network support, wallet account-type validation, wallet copy icon,
+  and four-pixel wordmark offset.
+- All 684 automated checks passed. After publication, all eight domain/HTTPS
+  redirect checks and API health passed with normal DNS. Five key public assets
+  matched the release package exactly. A coin address was rejected by Wallet;
+  a genuine wallet returned its matching address and seven holdings.
+- Service environment and saved scanner findings were hash-verified unchanged.
+  Backup: `/opt/solventir/backups/scanner-20261018.tar.gz`. Restart leaves scans
+  paused; saved findings remain available.
+- Previous service release retained for rollback:
+  `f30e0d751e745a55760a6228ba8838947e840e45a0af6ab0c2c48fc2414a17c1`.
+- Local release artifacts are ignored under
+  `soltech-refined/.runtime/aws-deploy-2026-10-18/`. No credentials are committed.
+
+The October 17 baseline and hosting details below remain for reference.
+
+## October 17 baseline
 
 - Website: https://www.solventir.com
 - Original AWS address: https://sjay.d3ilz6ab0hx4y4.amplifyapp.com
