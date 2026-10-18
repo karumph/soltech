@@ -2,6 +2,12 @@ import {validMint} from './dist/coin-checker-data.js';
 import {localBundlerRequestAllowed} from './bundler-api.mjs';
 
 const WALLET_ENDPOINT='https://soltech.d3ilz6ab0hx4y4.amplifyapp.com/api/wallet';
+const ACCOUNT_ENDPOINT='https://solana-rpc.publicnode.com';
+const SYSTEM_PROGRAM='11111111111111111111111111111111';
+const TOKEN_PROGRAMS=new Map([
+ ['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA','spl-token'],
+ ['TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb','spl-token-2022'],
+]);
 const SOL_MINT='So11111111111111111111111111111111111111112';
 const SOL_PRICE_ENDPOINT='https://api.dexscreener.com/tokens/v1/solana/'+SOL_MINT;
 const unavailableSOLPrice=()=>({solPriceUsd:null,solPriceCheckedAt:null,solPriceSource:null});
@@ -27,6 +33,68 @@ async function readResponse(response,maxBytes,signal){
  finally{signal.removeEventListener('abort',cancel);reader.releaseLock();}
  if(signal.aborted)throw new Error('cancelled');
  return JSON.parse(Buffer.concat(chunks).toString('utf8'));
+}
+
+const object=value=>value!==null&&typeof value==='object'&&!Array.isArray(value);
+function accountTypeFailure(body){
+ if(!object(body)||body.jsonrpc!=='2.0'||body.id!==1||Object.hasOwn(body,'error')
+  ||!object(body.result)||!Number.isSafeInteger(body.result.context?.slot)||body.result.context.slot<0
+  ||!Object.hasOwn(body.result,'value'))throw new Error('invalid account response');
+ const account=body.result.value;
+ // An unfunded address can still own token accounts. A valid null RPC value
+ // must not be confused with a missing or malformed account response.
+ if(account===null)return null;
+ if(!object(account)||!validMint(account.owner)||typeof account.executable!=='boolean'
+  ||!Number.isInteger(account.lamports)||account.lamports<0
+  ||!Number.isSafeInteger(account.space)||account.space<0)throw new Error('invalid account');
+ const data=account.data;
+ if(Array.isArray(data)){
+  if(data.length!==2||data[1]!=='base64'||typeof data[0]!=='string'
+   ||!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(data[0])
+   ||Buffer.from(data[0],'base64').length!==account.space)throw new Error('invalid account data');
+ }else if(!object(data)||typeof data.program!=='string'||!object(data.parsed)
+  ||typeof data.parsed.type!=='string'||!data.parsed.type||!object(data.parsed.info)
+  ||(Object.hasOwn(data,'space')&&data.space!==account.space))throw new Error('invalid parsed account');
+ if(account.executable)return failure(400,'This is a program address. Paste a wallet address instead.');
+ const tokenProgram=TOKEN_PROGRAMS.get(account.owner);
+ if(tokenProgram){
+  if(!Array.isArray(data)&&data.program!==tokenProgram)throw new Error('mismatched token program');
+  if(data.parsed?.type==='mint')return failure(400,'This is a coin address. Paste a wallet address instead.');
+  if(data.parsed?.type==='account')return failure(400,'This is a token account address. Paste your wallet address instead.');
+  return failure(400,'This is a token program account. Paste a wallet address instead.');
+ }
+ if(account.owner===SYSTEM_PROGRAM&&account.space===0&&Array.isArray(data)&&data[0]==='')return null;
+ return failure(400,'This account type is not supported. Paste a regular Solana wallet address.');
+}
+
+async function checkWalletAccount(address,{fetcher,signal,timeoutMs,maxResponseBytes}){
+ const controller=new AbortController();let timer,rejectAbort;
+ const cancelled=new Promise((_,reject)=>{rejectAbort=reject;});
+ const abort=()=>{controller.abort();rejectAbort(new Error('cancelled'));};
+ signal.addEventListener('abort',abort,{once:true});
+ if(signal.aborted)abort();
+ try{
+  const request=(async()=>{
+   if(controller.signal.aborted)throw new Error('cancelled');
+   const response=await fetcher(ACCOUNT_ENDPOINT,{
+    method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
+    body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getAccountInfo',params:[address,{encoding:'jsonParsed',commitment:'confirmed'}]}),
+    signal:controller.signal,redirect:'error',credentials:'omit',referrerPolicy:'no-referrer',cache:'no-store'
+   });
+   if(controller.signal.aborted){response.body?.cancel().catch(()=>{});throw new Error('cancelled');}
+   if(!response.ok){
+    response.body?.cancel().catch(()=>{});
+    if(response.status===429)return failure(429,'Wallet address verification is busy. Try again shortly.');
+    return failure(response.status===504?504:503,'Wallet address verification is unavailable. Try again.');
+   }
+   return accountTypeFailure(await readResponse(response,maxResponseBytes,controller.signal));
+  })();
+  const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(new Error('account timeout'));},timeoutMs);});
+  return await Promise.race([request,deadline,cancelled]);
+ }catch{
+  const timedOut=controller.signal.aborted;controller.abort();
+  return failure(timedOut?504:503,timedOut?'Wallet address verification timed out. Try again.':'Wallet address verification is unavailable. Try again.');
+ }finally{clearTimeout(timer);signal.removeEventListener('abort',abort);}
 }
 
 function solPrice(body){
@@ -92,9 +160,10 @@ function validResult(body,address){
  return amount(total)&&Math.abs(body.totalValue-total)<=tolerance;
 }
 
-// Local preview bridge to fixed read-only services. No credentials, arbitrary URLs,
+// Shared preview/production bridge to fixed read-only services. No credentials, arbitrary URLs,
 // account state, or wallet addresses are saved by this process.
 export function createWalletAPI({fetcher=fetch,timeoutMs=30000,maxResponseBytes=2000000,
+ accountFetcher=fetcher,accountTimeoutMs=8000,accountMaxResponseBytes=65536,
  solPriceFetcher=fetcher,solPriceTimeoutMs=2000,solPriceMaxResponseBytes=1000000,solPriceCacheMs=30000,now=Date.now}={}){
  const pending=new Map();
  const lookupSOLPrice=createSOLPriceLookup({fetcher:solPriceFetcher,timeoutMs:solPriceTimeoutMs,maxResponseBytes:solPriceMaxResponseBytes,cacheMs:solPriceCacheMs,now});
@@ -105,6 +174,9 @@ export function createWalletAPI({fetcher=fetch,timeoutMs=30000,maxResponseBytes=
   if(pending.size>=2)return failure(429,'Wallet checks are busy. Try again shortly.');
   const controller=new AbortController();let timer;
   const request=(async()=>{
+   const rejected=await checkWalletAccount(address,{fetcher:accountFetcher,signal:controller.signal,timeoutMs:accountTimeoutMs,maxResponseBytes:accountMaxResponseBytes});
+   if(controller.signal.aborted)throw new Error('cancelled');
+   if(rejected)return rejected;
    const response=await fetcher(WALLET_ENDPOINT,{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify({address}),signal:controller.signal,redirect:'error',credentials:'omit',referrerPolicy:'no-referrer'

@@ -59,6 +59,7 @@
  .checker-intro>p{font-size:1rem;color:var(--muted)}
  .coin-check-form{padding:22px;border-radius:18px;border:1px solid #d1d8e2;background:linear-gradient(145deg,#f9fafc,var(--theme-hover));box-shadow:inset 0 1px 0 var(--theme-white),inset 0 -1px 0 #c3cbd51a;backdrop-filter:none;-webkit-backdrop-filter:none;position:relative}
  .coin-check-form::before{content:none}
+ .checker:not(.wallet-check) .coin-check-form:has(>.check-privacy:not([open])){padding-bottom:8px}
  .check-label{font-size:.875rem;margin-bottom:11px}
  .check-address-input{border-radius:10px;border-color:var(--control-line);background:var(--theme-white);box-shadow:0 1px 2px #18243a04}
  .check-input-row .check-address-input input{padding:14px;border-radius:10px 0 0 10px;min-height:54px}
@@ -84,7 +85,7 @@
  .coin-avatar{width:52px;height:52px}.coin-monogram{background:#f1f3f6;color:var(--ink);border-color:#d7dde6}
  .coin-subline{font-size:.8125rem;gap:8px}.report-meta{margin:20px 0 14px;font-size:.8125rem}
  .quick-risk{border-radius:12px;padding:14px 16px;box-shadow:none;border-left-width:3px}
- .quick-risk.lower{border-left-color:#418160}.quick-risk.caution{border-left-color:#a77a1f}.quick-risk.high{border-left-color:#b54059}
+ .quick-risk.lower{border-left-width:1px;border-left-color:#d6e6d0}.quick-risk.caution{border-left-color:#a77a1f}.quick-risk.high{border-left-color:#b54059}
  .quick-risk p{line-height:1.55}.quick-risk .risk{font-size:.875rem;font-weight:650}
  .report-tabs,.history-ranges{background:#f5f6f8;border-color:var(--line);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:12px}
  .report-tabs{margin:24px 0;padding:4px}
@@ -340,14 +341,22 @@
  @media(max-width:600px){.scanner-status-card{padding:16px;column-gap:12px}.scanner-status-heading{gap:12px}}
  @media(forced-colors:active){.scanner-status-card{border-color:CanvasText;background:Canvas;box-shadow:none}.scanner-state{border-color:CanvasText;background:Canvas;color:CanvasText}.scanner-state-dot{background:CanvasText}.scanner-status-copy{color:CanvasText}}
 
- /* Continuous report; mobile brings quick ownership signals above the chart. */
+ /* Continuous report; mobile places quick ownership signals below the chart. */
  .checker .report-risk-area{display:contents;}
- .checker .mobile-risk-signals,.checker .mobile-only-signal{display:none;}
+ .checker .mobile-risk-signals{display:contents;}
+ .checker .mobile-only-signal{display:none;}
  .checker .coin-report-priority{padding-top:8px;}
  .checker .coin-report-priority .live-coin-head{gap:10px;}
  .checker .coin-report-priority .coin-avatar{width:40px;height:40px;}
  .checker .coin-report-priority .live-coin-head h2{font-size:1.4rem;margin-bottom:3px;letter-spacing:-.025em;}
- .checker .coin-report-priority .report-meta{margin:10px 0;font-size:.75rem;gap:4px 12px;flex-wrap:wrap;}
+ .checker .coin-report-priority .coin-title-row h2{margin-bottom:0;}
+ .checker .coin-report-priority .coin-subline{gap:6px;}
+ @media(max-width:800px){
+  .checker .coin-report-priority .live-coin-head{gap:8px;}
+  .checker .coin-report-priority .coin-title-row h2{font-size:1.25rem;line-height:1.3;}
+ }
+ @media(max-width:360px){.checker .coin-report-priority .coin-title-row h2{font-size:1.125rem;}}
+ .checker .coin-report-priority .report-meta{margin:8px 0 4px;font-size:.75rem;gap:4px 12px;flex-wrap:wrap;}
  .checker .coin-report-priority .quick-risk{padding:10px 12px;margin-bottom:16px;}
  .checker .coin-report-priority .quick-risk p{margin-top:2px;}
  .checker .report-primary{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:24px;align-items:start;}
@@ -381,37 +390,67 @@
  .checker .coin-report-priority .history-help{font-size:.6875rem;margin:-4px 0 6px;}
  .checker .coin-report-priority .history-estimate{font-size:.75rem;margin:0 0 6px;}
  .checker .coin-report-priority .history-high{margin:6px 0 12px;}
- .checker .coin-report-priority .report-secondary{margin-top:24px;border-top:1px solid var(--line);}
+ .checker .coin-report-priority .report-secondary{margin-top:24px;border-top:0;}
  .checker .coin-report-priority .report-sources{margin-top:0;border-top:0;}
  .checker .coin-report-priority .check-address{padding-block:14px;}
+ .checker .report-secondary>.check-project{padding:0 0 12px;border-bottom:1px solid var(--line);}
+ .checker .signal-facts{display:none;}
+ .checker .check-market-extra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 0;padding:12px 0 0;border-top:1px solid var(--line);}
+ .checker .check-market-extra>div{min-width:0;}
+ .checker .check-market-extra dt{font-size:.8125rem;color:var(--theme-label);}
+ .checker .check-market-extra dd{margin:4px 0 0;font-size:1rem;font-weight:600;color:var(--theme-ink);overflow-wrap:anywhere;font-variant-numeric:tabular-nums;}
+ .checker .check-market-extra dd.metric-missing{font-size:.875rem;font-weight:450;color:#596574;}
  @media(max-width:800px){
   .checker > #live-result:not(:empty){margin-top:20px;padding-top:8px;border-top:1px solid var(--theme-border);}
   @media(forced-colors:active){.checker > #live-result:not(:empty){border-color:CanvasText;}}
-  .checker .report-risk-area{display:block;margin-bottom:18px;}
-  .checker .report-risk-area .quick-risk{margin:0 0 10px;border-width:1px;border-radius:8px;padding:10px 12px;}
-  .checker .mobile-risk-signals,.checker .mobile-only-signal{display:block;}
-  .checker .mobile-risk-signals .live-security{display:grid;gap:7px;margin:0;padding:0;}
+  .checker .report-risk-area{display:block;margin-bottom:0;}
+  .checker .report-risk-area .quick-risk{margin:0 0 14px;border-width:1px;border-radius:8px;padding:10px 12px;}
+  .checker .mobile-only-signal{display:block;}
+  .checker .mobile-risk-signals{--signal-rule:#7b858f;--signal-row-rule:var(--signal-rule);--signal-weight:1.5px;position:relative;display:flow-root;padding:0;border:0;border-radius:0;background:#fff;}
+  .checker .mobile-risk-signals::before{content:"";position:absolute;z-index:1;inset:0 auto 22px 0;width:var(--signal-weight);background:var(--signal-rule);pointer-events:none;}
+  .checker .mobile-risk-signals:empty{display:none;}
+  .checker .mobile-risk-signals .live-market,.checker .mobile-risk-signals .live-security{display:block;min-width:0;margin:0;padding:0;border:0;background:transparent;box-shadow:none;}
   .checker .mobile-risk-signals h3{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
-  .checker .mobile-risk-signals .check-more{position:relative;isolation:isolate;margin:0;padding:1px 12px;border:0;background:var(--theme-border);clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));}
-  .checker .mobile-risk-signals .check-more::before{content:"";position:absolute;inset:1px;z-index:-1;pointer-events:none;background:var(--theme-white);clip-path:polygon(0 0,calc(100% - 8.414px) 0,100% 8.414px,100% 100%,8.414px 100%,0 calc(100% - 8.414px));}
-  .checker .mobile-risk-signals .check-more:focus-within{background:var(--theme-focus);}
-  .checker .coin-report-priority .mobile-risk-signals .summary-value{min-height:60px;padding:10px 0;gap:8px;}
-  .checker .coin-report-priority .mobile-risk-signals .summary-value:focus-visible{outline:2px solid var(--theme-focus);outline-offset:-2px;}
-  .checker .coin-report-priority .mobile-risk-signals .summary-value>span{min-width:0;font-size:.875rem;line-height:1.3;font-weight:650;color:var(--theme-ink);}
-  .checker .coin-report-priority .mobile-risk-signals .summary-value small{font-size:.6875rem;line-height:1.4;font-weight:450;margin-top:3px;}
-  .checker .coin-report-priority .mobile-risk-signals .summary-value strong{min-width:64px;max-width:116px;text-align:center;font-size:.875rem;font-weight:700;line-height:1.4;padding:6px 8px;border-radius:0;clip-path:polygon(0 0,calc(100% - 4px) 0,100% 4px,100% 100%,4px 100%,0 calc(100% - 4px));white-space:normal;color:#596574;background:#f0f2f5;}
-  .checker .coin-report-priority .mobile-risk-signals [data-signal-tone=unknown]>.summary-value strong{font-size:.75rem;font-weight:600;}
-  .checker .mobile-risk-signals [data-signal-tone=info]>.summary-value strong{color:#244c70;background:#eef5fb;}
-  .checker .mobile-risk-signals [data-signal-tone=caution]>.summary-value strong{color:#77551c;background:#fff5de;}
-  .checker .coin-report-priority .mobile-risk-signals .summary-value strong::after{font-size:.875rem;margin-left:6px;color:currentColor;}
-  .checker .mobile-risk-signals .check-more>p{padding-bottom:8px;}
-  .checker .mobile-risk-signals .check-more[open]{padding-bottom:8px;}
-  .checker .mobile-risk-signals .check-more[open]>.summary-value{border-bottom:1px solid var(--theme-line);margin-bottom:10px;}
-  .checker .report-primary{grid-template-columns:minmax(0,1fr);gap:18px;}
+  .checker .coin-report-priority .mobile-risk-signals .check-metrics,.checker .mobile-risk-signals .check-market-extra{display:block;margin:0;padding:0;border:0;}
+  .checker .coin-report-priority .mobile-risk-signals .check-metrics>div:nth-child(n),.checker .mobile-risk-signals .check-market-extra>div,.checker .mobile-risk-signals .signal-facts>div{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-width:0;min-height:52px;margin:0 0 8px;padding:14px 12px 14px 18px;border:0;border-radius:0;background:transparent;box-shadow:none;}
+  .checker .coin-report-priority .mobile-risk-signals .check-metrics>div:is(.metric-price,.metric-market-cap){display:none;}
+  .checker .mobile-risk-signals .check-metrics dt,.checker .mobile-risk-signals .check-market-extra dt,.checker .mobile-risk-signals .signal-facts dt{font-size:.875rem;line-height:1.5;font-weight:500;color:var(--theme-label);}
+  .checker .coin-report-priority .mobile-risk-signals .check-metrics dd,.checker .mobile-risk-signals .check-market-extra dd,.checker .mobile-risk-signals .signal-facts dd{min-width:0;margin:0;text-align:right;font-size:.9375rem;line-height:1.5;font-weight:600;letter-spacing:0;color:var(--theme-ink);overflow-wrap:anywhere;font-variant-numeric:tabular-nums;}
+  .checker .coin-report-priority .mobile-risk-signals dd.metric-missing{font-size:.875rem;font-weight:450;color:#596574;}
+  .checker .mobile-risk-signals dd:has(.dex-boost-count){display:flex;justify-content:flex-end;align-items:center;}
+  .checker .mobile-risk-signals .dex-boost-count{line-height:20px;}
+  .checker .mobile-risk-signals .dex-boost-count.has-boosts{padding:1px 8px;}
+  .checker .mobile-risk-signals .dex-boost-count svg{width:16px;height:16px;}
+  .checker .mobile-risk-signals .live-market{padding:0;}
+  .checker .mobile-risk-signals .signal-facts{display:block;margin:0;padding:0;border:0;}
+  .checker .mobile-risk-signals .check-more{position:relative;isolation:auto;min-width:0;margin:0;padding:0;border:0;border-radius:0;background:transparent;clip-path:none;}
+  .checker .mobile-risk-signals .check-more:nth-of-type(n){padding:0;border:0;}
+  .checker .mobile-risk-signals .check-more::before{display:none;}
+  .checker .mobile-risk-signals .check-more:focus-within{background:transparent;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:52px;margin:0 0 8px;padding:14px 12px 14px 18px;gap:12px;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value:focus-visible{outline:2px solid var(--theme-focus);outline-offset:2px;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value>span{min-width:0;font-size:.875rem;line-height:1.4;font-weight:550;color:var(--theme-ink);}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value small{display:none;font-size:.75rem;line-height:1.4;font-weight:450;margin-top:3px;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value strong{position:relative;flex:0 1 auto;min-width:0;max-width:50%;text-align:right;font-size:.9375rem;font-weight:600;line-height:1.4;letter-spacing:0;padding:0 16px 0 0;border:0;border-radius:0;clip-path:none;white-space:normal;overflow-wrap:anywhere;color:#596574;background:transparent;font-variant-numeric:tabular-nums;}
+  .checker .coin-report-priority .mobile-risk-signals [data-signal-tone=unknown]>.summary-value strong{font-size:.875rem;font-weight:500;letter-spacing:0;}
+  .checker .mobile-risk-signals [data-signal-tone]:not([data-signal-tone=unknown])>.summary-value strong{color:var(--theme-ink);background:transparent;}
+  .checker .coin-report-priority .mobile-risk-signals .summary-value strong::after{content:"";position:absolute;right:2px;top:50%;width:6px;height:6px;border-top:1.3px solid #677382;border-right:1.3px solid #677382;transform:translateY(-50%) rotate(45deg);margin:0;}
+  .checker .mobile-risk-signals .check-more>p{padding:0 12px 8px 18px;}
+  .checker .mobile-risk-signals .check-more>.check-detail-list,.checker .mobile-risk-signals .check-more>.holder-list{margin-inline:18px 12px;}
+  .checker .mobile-risk-signals .check-more[open]{padding:0 0 12px;}
+  .checker .mobile-risk-signals .check-more[open]>.summary-value{min-height:52px;border-bottom:0;margin-bottom:8px;}
+  .checker .mobile-risk-signals .check-more[open]>.summary-value small{display:none;}
+  .checker .coin-report-priority .mobile-risk-signals .check-more[open]>.summary-value strong::after{content:"";transform:translateY(-50%) rotate(135deg);}
+  .checker .mobile-risk-signals .check-metrics>div::before,.checker .mobile-risk-signals .check-market-extra>div::before,.checker .mobile-risk-signals .signal-facts>div::before,.checker .coin-report-priority .mobile-risk-signals .summary-value::before{content:"";position:absolute;inset:auto 0 0 14px;height:var(--signal-weight);background:var(--signal-row-rule);pointer-events:none;}
+  .checker .mobile-risk-signals .check-metrics>div::after,.checker .mobile-risk-signals .check-market-extra>div::after,.checker .mobile-risk-signals .signal-facts>div::after,.checker .coin-report-priority .mobile-risk-signals .summary-value::after{content:"";position:absolute;inset:0 auto 0 0;width:calc(14px + var(--signal-weight) * 1.414);background:var(--signal-rule);clip-path:polygon(0 0,var(--signal-weight) 0,var(--signal-weight) calc(100% - 14px - var(--signal-weight) * .414),100% 100%,14px 100%,0 calc(100% - 14px));pointer-events:none;}
+  @media(max-width:360px){.checker .mobile-risk-signals .check-metrics dt,.checker .mobile-risk-signals .check-market-extra dt,.checker .mobile-risk-signals .signal-facts dt,.checker .coin-report-priority .mobile-risk-signals .summary-value>span{font-size:.8125rem;}.checker .coin-report-priority .mobile-risk-signals .summary-value strong{font-size:.875rem;}.checker .coin-report-priority .mobile-risk-signals [data-signal-tone=unknown]>.summary-value strong{font-size:.8125rem;}}
+  @media(forced-colors:active){.checker .mobile-risk-signals{--signal-rule:CanvasText;--signal-row-rule:CanvasText;}}
+  .checker .report-primary{grid-template-columns:minmax(0,1fr);gap:14px;}
   .checker .coin-report-priority .history-plot{height:240px;}
   .checker .coin-report-priority .report-key-data{gap:18px;}
+  .checker .report-key-data:empty{display:none;}
  }
- @media(forced-colors:active){.checker .coin-report-priority .check-metrics>div:nth-child(n){border-color:CanvasText;background:Canvas}.checker .mobile-risk-signals .check-more{background:Canvas;border:1px solid CanvasText;clip-path:none}.checker .mobile-risk-signals .check-more::before{display:none}.checker .mobile-risk-signals .check-more:focus-within{border-color:Highlight}.checker .coin-report-priority .mobile-risk-signals .summary-value strong{color:CanvasText;background:Canvas;border:1px solid CanvasText;clip-path:none}}
+ @media(forced-colors:active){.checker .coin-report-priority .check-metrics>div:nth-child(n){border-color:CanvasText;background:Canvas}.checker .mobile-risk-signals .live-security{border-color:CanvasText;background:Canvas}.checker .mobile-risk-signals .check-more{background:Canvas;border-color:CanvasText;clip-path:none}.checker .mobile-risk-signals .check-more::before{display:none}.checker .mobile-risk-signals .check-more:focus-within{border-color:Highlight}.checker .coin-report-priority .mobile-risk-signals .summary-value strong{color:CanvasText;background:Canvas;clip-path:none}.checker .coin-report-priority .mobile-risk-signals .summary-value strong::after{border-color:CanvasText}}
 
  /* Snapshot chart: slider exploration, with the same quiet silver controls. */
  .checker .price-history .history-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;}
@@ -436,10 +475,13 @@
  .checker .price-history .history-current{order:9;}
  .checker .price-history .history-high{order:10;}
  .checker .price-history>.check-more{order:11;}
- .checker .coin-report-priority .price-history .history-readout{margin:12px 0 0;gap:3px 12px;}
+ .checker .price-history>.history-attribution{order:11;margin:8px 0 0;line-height:1.5;}
+ .checker .coin-report-priority .price-history .history-readout{margin:8px 0 0;gap:3px 12px;}
  .checker .coin-report-priority .price-history .history-readout strong{font-size:1.7rem;line-height:1.2;font-weight:650;}
- .checker .coin-report-priority .price-history .history-readout time{font-size:.75rem;max-width:120px;line-height:1.5;}
- .checker .coin-report-priority .price-history .history-readout>span{font-size:.75rem;}
+ .checker .coin-report-priority .price-history .history-readout time{grid-row:1;align-self:start;font-size:.75rem;max-width:120px;line-height:1.5;}
+ .checker .coin-report-priority .history-copy-ca{color:var(--theme-label);}
+ .checker .coin-report-priority .history-copy-ca:focus-visible{outline-color:var(--theme-focus);}
+ .checker .coin-report-priority .price-history .history-readout>span{align-self:start;font-size:.75rem;line-height:1.5;}
  .checker .coin-report-priority .price-history .history-coverage{margin:8px 0 12px;}
  .checker .coin-report-priority .price-history .history-help{font-size:.75rem;line-height:1.5;margin:0 0 8px;}
  .checker .price-history .history-dates{font-size:.6875rem;gap:8px;}

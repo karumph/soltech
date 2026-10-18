@@ -61,6 +61,39 @@ test('EVM case dedupes within a network and the same contract on different netwo
  const solana=ready(mint);assert.equal(store.remember(solana),true);assert.equal(store.entries.find(entry=>entry.chainId==='solana').address,mint);
 });
 
+test('market-only checks on newly discovered networks survive reload without losing existing history',()=>{
+ const storage=disk(),store=createRecentCoinStore(storage);
+ store.remember(ready(mint));
+ const marketOnly=ready(evm,'future-network',at+1000);marketOnly.risk={status:'unsupported'};marketOnly.history={status:'unsupported'};
+ assert.equal(store.remember(marketOnly),true);
+ const reopened=createRecentCoinStore(storage).getSnapshot();
+ assert.equal(reopened.persistent,true);assert.equal(reopened.error,null);
+ assert.deepEqual(reopened.entries.map(entry=>[entry.chainId,entry.address]),[['future-network',evm],['solana',mint]]);
+ const html=recentCoinsHTML(reopened);assert.match(html,/Future Network/);assert.match(html,/data-recent-chain="future-network"/);
+ assert.doesNotMatch(html,/undefined|risk lower|No flags/);
+ assert.equal(store.clear(),true);assert.deepEqual(createRecentCoinStore(storage).entries,[]);
+});
+
+test('generic token IDs preserve case while 40-hex contracts deduplicate on their exact new network',()=>{
+ const storage=disk(),store=createRecentCoinStore(storage),upper='0x'+evm.slice(2).toUpperCase();
+ assert.equal(store.remember(ready(upper,'future-network',at)),true);
+ assert.equal(store.remember(ready(evm,'future-network',at+1)),true);
+ assert.equal(store.remember(ready(evm,'another-network',at+2)),true);
+ for(const [index,address] of ['TokenCase123','tokencase123'].entries())assert.equal(store.remember(ready(address,'future-network',at+3+index)),true);
+ assert.deepEqual(createRecentCoinStore(storage).entries.map(entry=>[entry.chainId,entry.address]),[['future-network','tokencase123'],['future-network','TokenCase123'],['another-network',evm],['future-network',evm]]);
+ const wrong=ready('TokenCase123','future-network',at+10);wrong.market.data.mint='tokencase123';assert.equal(store.remember(wrong),false);
+ const token='0x2::coin::Example';assert.equal(store.remember(ready(token,'sui',at+11)),true);
+ assert.equal(createRecentCoinStore(storage).entries[0].address,token);
+});
+
+test('new-chain history still rejects unsafe identities and a lookup crossing Clear history',()=>{
+ const storage=disk(),store=createRecentCoinStore(storage),started=store.beginCheck();
+ store.clear();assert.equal(store.remember(ready(evm,'future-network'),undefined,{clearToken:started}),false);
+ for(const chain of ['constructor','__proto__','bad/chain','bad?chain','"><script>'])assert.equal(store.remember(ready(evm,chain)),false);
+ for(const address of ['https://example.com/token','../../token','token%2Fother','token?x=y'])assert.equal(store.remember(ready(address,'future-network')),false);
+ assert.deepEqual(store.entries,[]);
+});
+
 test('history keeps only the 5 newest unique coins across remounts',()=>{
  const storage=disk(),store=createRecentCoinStore(storage),addresses=[];
  for(let i=1;i<=15;i++){const address='0x'+i.toString(16).padStart(40,'0');addresses.push(address);assert.equal(store.remember(ready(address,'base',at+i)),true);}

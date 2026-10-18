@@ -1,5 +1,5 @@
 // Public, read-only sources. No wallet, keys, or scanner workspace access.
-import {NETWORKS,validEvmAddress,sameAddress} from './coin-networks.js';
+import {getNetwork,validLookupAddress,validEvmAddress,sameAddress} from './coin-networks.js';
 const alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 export function validMint(value){
  if(typeof value!=='string'||value.length<32||value.length>44)return false;
@@ -10,9 +10,17 @@ export function validMint(value){
  return bytes+zeroes===32;
 }
 export const textValue=(value,fallback='')=>typeof value==='string'?value.trim().slice(0,500)||fallback:fallback;
-export const validTokenAddress=(value,chain='solana')=>NETWORKS[chain]?.kind==='solana'?validMint(value):NETWORKS[chain]?.kind==='evm'?validEvmAddress(value):false;
+export function validTokenAddress(value,chain='solana'){
+ const network=getNetwork(chain);
+ return network?.kind==='solana'?validMint(value):network?.kind==='evm'?validEvmAddress(value):network?.kind==='generic'?validLookupAddress(value):false;
+}
 // DEX pool identifiers can be v4 IDs or Curve pool/token combinations, not just contract addresses.
-export const validPairId=(value,chain='solana')=>chain==='solana'?validMint(value):NETWORKS[chain]?.kind==='evm'&&typeof value==='string'&&/^0x(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})(?:-0x[0-9a-fA-F]{40}){0,2}$/.test(value);
+export function validPairId(value,chain='solana'){
+ const network=getNetwork(chain);if(!network)return false;
+ if(network.kind==='solana')return validMint(value);
+ const evmPool=typeof value==='string'&&/^0x(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})(?:-0x[0-9a-fA-F]{40}){0,2}$/.test(value);
+ return network.kind==='evm'?evmPool:evmPool||validLookupAddress(value);
+}
 export const formatMoney=n=>typeof n!=='number'||!Number.isFinite(n)||n<0?'Unavailable':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',notation:n>=10000?'compact':'standard',...(n>0&&n<.000001?{maximumSignificantDigits:5}:{maximumFractionDigits:n===0?0:n<.01?10:n<1?6:2})}).format(n);
 const numeric=(value,signed=false)=>typeof value==='number'&&Number.isFinite(value)&&(signed||value>=0)?value:null;
 const price=value=>typeof value==='string'&&/^\d+(\.\d+)?$/.test(value)?numeric(Number(value)):null;
@@ -77,7 +85,8 @@ export function normalizeBundles(data,mint,now=Date.now()){
 }
 export async function loadBundlers(mint,signal,chain='solana',request=requestJSON){
  if(chain!=='solana')return {status:'unsupported'};
- const result=await request('/api/bundlers?chain=solana&address='+mint,{signal,timeout:10000});
+ if(!validMint(mint))throw new LookupError('address');
+ const result=await request('/api/bundlers?chain=solana&address='+encodeURIComponent(mint),{signal,timeout:10000});
  if(result?.status==='not-connected'||result?.status==='unsupported')return {status:result.status};
  if(result?.status==='error')return {status:'error',message:textValue(result.message,'Bundler data is unavailable.')};
  if(result?.status!=='ready'||result.data?.mint!==mint||typeof result.data.retrievedAt!=='number'||!Number.isFinite(result.data.retrievedAt)||result.data.retrievedAt<1230768000000||result.data.retrievedAt>Date.now()+5000)throw new LookupError('format');
@@ -86,7 +95,7 @@ export async function loadBundlers(mint,signal,chain='solana',request=requestJSO
  return {status:'ready',data};
 }
 export function normalizeMarket(data,mint,now=Date.now(),chain='solana'){
- if(!Array.isArray(data))throw new LookupError('format');
+ if(!Array.isArray(data)||!validTokenAddress(mint,chain))throw new LookupError('format');
  const pairs=data.filter(p=>p&&p.chainId===chain&&sameAddress(p.baseToken?.address,mint,chain)&&validPairId(p.pairAddress,chain));
  if(!pairs.length)return null;
  pairs.sort((a,b)=>(numeric(b.liquidity?.usd)??-1)-(numeric(a.liquidity?.usd)??-1)||String(a.pairAddress).localeCompare(String(b.pairAddress)));
@@ -117,7 +126,7 @@ export function normalizeRisk(data,mint,now=Date.now()){
   mutable:typeof data.tokenMeta?.mutable==='boolean'?(data.tokenMeta.mutable?'Changeable':'Fixed'):'Unavailable'};
 }
 export function normalizeEvmRisk(data,mint,chain,now=Date.now()){
- if(!NETWORKS[chain]?.securityId||!validEvmAddress(mint)||data?.code!==1||!data.result||typeof data.result!=='object')throw new LookupError('format');
+ if(!getNetwork(chain)?.securityId||!validEvmAddress(mint)||data?.code!==1||!data.result||typeof data.result!=='object')throw new LookupError('format');
  const entries=Object.entries(data.result).filter(([address])=>sameAddress(address,mint,chain));
  if(!entries.length)return null;
  const r=entries[0][1];if(!r||typeof r!=='object'||Array.isArray(r)||!Object.keys(r).length)return null;
@@ -178,10 +187,11 @@ export function normalizeHistory(data,mint,pair,now=Date.now(),chain='solana',in
 }
 export async function loadPriceHistory(mint,market,signal,chain='solana',request=requestJSON){
  if(!validTokenAddress(mint,chain)||!validPairId(market?.pair,chain)||(market.mint&&!sameAddress(market.mint,mint,chain))||(market.chainId&&market.chainId!==chain))throw new LookupError('format');
+ const network=getNetwork(chain);if(!network.gecko)throw new LookupError('unsupported');
  const results=await Promise.allSettled(['hour','minute'].map(async interval=>{
   // Let the source return no-swap intervals at the previous close, with zero volume.
   // Never interpolate locally: any gaps still absent from the response remain gaps.
-  const url='https://api.geckoterminal.com/api/v2/networks/'+NETWORKS[chain].gecko+'/pools/'+market.pair+'/ohlcv/'+interval+'?aggregate=1&limit=1000&currency=usd&include_empty_intervals=true&token='+mint;
+  const url='https://api.geckoterminal.com/api/v2/networks/'+encodeURIComponent(network.gecko)+'/pools/'+encodeURIComponent(market.pair)+'/ohlcv/'+encodeURIComponent(interval)+'?aggregate=1&limit=1000&currency=usd&include_empty_intervals=true&token='+encodeURIComponent(mint);
   const history=normalizeHistory(await request(url,{signal}),mint,market.pair,Date.now(),chain,interval);
   return history?{...history,emptyIntervalPolicy:'previous-close'}:null;
  }));
@@ -203,12 +213,12 @@ export async function requestJSON(url,{signal,fetcher=fetch,timeout=18000}={}){
  }catch(error){if(timedOut)throw new LookupError('timeout');if(signal?.aborted)throw error;if(error instanceof LookupError)throw error;throw new LookupError('network');}
  finally{clearTimeout(timer);signal?.removeEventListener('abort',abort);}
 }
-export const errorText=error=>({rate:'This source is busy. Wait a minute, then try again.',missing:'No report is available from this source yet.',service:'This source is temporarily unavailable. Try again shortly.',format:'This source returned incomplete data. Try again later.',timeout:'This source took too long to respond. Try again.',network:'Couldn’t reach this source. Check your connection and try again.'}[error?.code]||'Couldn’t load this source. Try again.');
+export const errorText=error=>({rate:'This source is busy. Wait a minute, then try again.',missing:'No report is available from this source yet.',service:'This source is temporarily unavailable. Try again shortly.',format:'This source returned incomplete data. Try again later.',unsupported:'This source does not support this network yet.',timeout:'This source took too long to respond. Try again.',network:'Couldn’t reach this source. Check your connection and try again.'}[error?.code]||'Couldn’t load this source. Try again.');
 export function createLookupSession(onChange,{loadMarket,loadRisk,loadListing,loadHistory,loadBundles}={}){
  let serial=0,controller=null,disposed=false;
- const marketLoader=loadMarket||((mint,signal,chain)=>requestJSON('https://api.dexscreener.com/token-pairs/v1/'+chain+'/'+mint,{signal}).then(d=>normalizeMarket(d,mint,Date.now(),chain)));
- const riskLoader=loadRisk||((mint,signal,chain)=>chain==='solana'?requestJSON('https://api.rugcheck.xyz/v1/tokens/'+mint+'/report',{signal}).then(d=>normalizeRisk(d,mint)):requestJSON('https://api.gopluslabs.io/api/v1/token_security/'+NETWORKS[chain].securityId+'?contract_addresses='+mint,{signal}).then(d=>normalizeEvmRisk(d,mint,chain)));
- const listingLoader=loadListing||((mint,signal,chain)=>requestJSON('https://api.dexscreener.com/orders/v1/'+chain+'/'+mint,{signal}).then(d=>normalizeListing(d)));
+ const marketLoader=loadMarket||((mint,signal,chain)=>requestJSON('https://api.dexscreener.com/token-pairs/v1/'+encodeURIComponent(chain)+'/'+encodeURIComponent(mint),{signal}).then(d=>normalizeMarket(d,mint,Date.now(),chain)));
+ const riskLoader=loadRisk||((mint,signal,chain)=>chain==='solana'?requestJSON('https://api.rugcheck.xyz/v1/tokens/'+encodeURIComponent(mint)+'/report',{signal}).then(d=>normalizeRisk(d,mint)):requestJSON('https://api.gopluslabs.io/api/v1/token_security/'+encodeURIComponent(getNetwork(chain).securityId)+'?contract_addresses='+encodeURIComponent(mint),{signal}).then(d=>normalizeEvmRisk(d,mint,chain)));
+ const listingLoader=loadListing||((mint,signal,chain)=>requestJSON('https://api.dexscreener.com/orders/v1/'+encodeURIComponent(chain)+'/'+encodeURIComponent(mint),{signal}).then(d=>normalizeListing(d)));
  const historyLoader=loadHistory||loadPriceHistory;
  const bundleLoader=loadBundles||loadBundlers;
  return {
@@ -216,11 +226,12 @@ export function createLookupSession(onChange,{loadMarket,loadRisk,loadListing,lo
    controller?.abort();const id=++serial;
    if(disposed)return;
    if(!validTokenAddress(mint,chain))throw new LookupError('address');
+   const network=getNetwork(chain),hasRisk=chain==='solana'||Boolean(network.securityId),hasHistory=Boolean(network.gecko);
    controller=new AbortController();const signal=controller.signal;
-   let state={mint,chainId:chain,market:{status:'loading'},risk:{status:'loading'},listing:{status:'loading'},history:{status:'waiting'},bundles:{status:chain==='solana'?'loading':'unsupported'}};
+   let state={mint,chainId:chain,market:{status:'loading'},risk:hasRisk?{status:'loading'}:{status:'unsupported',message:'Contract checks are not available for this network.'},listing:{status:'loading'},history:hasHistory?{status:'waiting'}:{status:'unsupported',message:'Price history is not available for this network.'},bundles:{status:chain==='solana'?'loading':'unsupported'}};
    const emit=()=>{if(!disposed&&id===serial)onChange(state);};emit();
    const history=async market=>{
-    if(disposed||id!==serial||signal.aborted)return;
+    if(disposed||id!==serial||signal.aborted||!hasHistory)return;
     if(!market){state={...state,history:{status:'empty',data:null}};emit();return;}
     if(!sameAddress(market.mint,mint,chain)||!validPairId(market.pair,chain)||(market.chainId&&market.chainId!==chain)){state={...state,history:{status:'error',message:errorText(new LookupError('format'))}};emit();return;}
     state={...state,history:{status:'loading'}};emit();
@@ -228,15 +239,16 @@ export function createLookupSession(onChange,{loadMarket,loadRisk,loadListing,lo
     catch(error){if(disposed||id!==serial||signal.aborted)return;state={...state,history:{status:'error',message:errorText(error)}};}
     emit();
    };
-   const bundleTask=(async()=>{
+   const bundleTask=chain!=='solana'?Promise.resolve():(async()=>{
     try{const result=await bundleLoader(mint,signal,chain);if(disposed||id!==serial||signal.aborted)return;state={...state,bundles:result};}
     catch{if(disposed||id!==serial||signal.aborted)return;state={...state,bundles:{status:'error',message:'Bundler data is unavailable. Try again later.'}};}
     emit();
    })();
-   await Promise.allSettled([bundleTask,...[['market',marketLoader],['risk',riskLoader],['listing',listingLoader]].map(async([key,load])=>{
-    try{const data=await load(mint,signal,chain);if(disposed||id!==serial||signal.aborted)return;state={...state,[key]:{status:data?'ready':'empty',data}};emit();if(key==='market')await history(data);return;}
+   const tasks=[['market',marketLoader],...(hasRisk?[['risk',riskLoader]]:[]),['listing',listingLoader]];
+   await Promise.allSettled([bundleTask,...tasks.map(async([key,load])=>{
+    try{const data=await load(mint,signal,chain);if(disposed||id!==serial||signal.aborted)return;if(key==='market'&&data&&network.kind==='generic'&&(!sameAddress(data.mint,mint,chain)||!validPairId(data.pair,chain)||data.chainId!==chain))throw new LookupError('format');state={...state,[key]:{status:data?'ready':'empty',data}};emit();if(key==='market')await history(data);return;}
     catch(error){if(disposed||id!==serial||signal.aborted)return;state={...state,[key]:{status:'error',message:errorText(error)}};}
-    if(key==='market')state={...state,history:{status:'empty',data:null}};
+    if(key==='market'&&hasHistory)state={...state,history:{status:'empty',data:null}};
     emit();
    })]);
   },

@@ -1,5 +1,4 @@
 import {formatMoney} from './coin-checker-data.js';
-import {NETWORKS} from './coin-networks.js';
 import {mountTouchChart} from './coin-history-chart.js';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -60,12 +59,15 @@ export function chartGeometry(points,factor=1,width=300,height=236,intervalMs=ho
  const area=groups.filter(g=>g.length>1).map(g=>`M${g.join(' L')} L${g.at(-1).split(',')[0]},${height} L${g[0].split(',')[0]},${height} Z`).join(' ');
  return {left,right,top,bottom,from,through,x,y,path,area,isolated:groups.filter(g=>g.length===1).map(g=>g[0].split(',').map(Number)),ticks:high===low?[low]:[high,low+(high-low)/2,low]};
 }
-export function historyHTML(part,market,{compact=false}={}){
+export function historyAttributionHTML(){
+ return '<p class="section-note history-attribution"><a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView Lightweight Charts™</a> · Copyright (с) 2025 TradingView, Inc.</p>';
+}
+export function historyHTML(part,market,{compact=false,attribution=true}={}){
  if(!part||part.status==='waiting'||part.status==='loading')return '<div class="check-pending"><p>Getting price history…</p></div>';
  if(part.status==='error')return `<details class="check-more" data-view-key="history"><summary>Price history unavailable</summary><p>${esc(part.message)}</p></details>`;
  if(part.status!=='ready')return '<p class="section-note history-empty">Price history is not available for this pool yet.</p>';
  const h=part.data,series=historySeries(h),last=series.points.at(-1),canEstimate=marketCapFactor(market,h)!==null;
- const readout=`<div class="history-readout"><span data-history-label>Selected close</span><strong data-history-price>${chartMoney(last.close)}</strong><time data-history-time>${esc(time(last.timestamp))}</time></div>`;
+ const readout=`<div class="history-readout"><span data-history-label>Selected close</span><strong data-history-price>${chartMoney(last.close)}</strong><time data-history-time${compact?' hidden':''}>${esc(time(last.timestamp))}</time></div>`;
  const coverage=coverageText(h)+' · '+intervalLabel(series)+' closes';
  return `<div class="price-history"><div class="history-heading"><h3 data-history-heading>${canEstimate?'Market cap history':'Price history'}</h3><select class="history-mode" data-view-key="history-mode" aria-label="Chart metric"><option value="price" ${canEstimate?'':'selected'}>Price</option><option value="cap" ${canEstimate?'selected':'disabled'}>Market cap (est.)</option></select></div>
  ${compact?'':readout}
@@ -73,10 +75,10 @@ export function historyHTML(part,market,{compact=false}={}){
  <div class="history-plot"><div class="history-canvas" data-history-plot role="group" aria-label="Interactive price history"></div></div><div class="history-dates"><span data-history-from>${esc(time(h.from))}</span><span data-history-through>${esc(time(h.through))}</span></div>
  ${compact?readout:''}
  <input class="history-scrubber" data-view-key="history-scrubber" type="range" min="0" max="${series.points.length-1}" value="${series.points.length-1}" step="1" aria-label="Explore closing prices" aria-describedby="history-help" ${series.points.length===1?'disabled':''}>
- <p class="section-note history-help" id="history-help">Slide to explore</p><p class="section-note history-estimate" data-history-estimate hidden>Estimate using today’s market-cap-to-price ratio.</p>
+ <p class="section-note history-help" id="history-help">Slide to explore</p>
  ${compact?'':`<div class="history-current"><span>Current market cap</span><strong>${formatMoney(market?.marketCap??null)}</strong><small>${market?.retrievedAt?'Checked '+esc(time(market.retrievedAt)):'Unavailable'}</small></div>
  <dl class="history-high"><div><dt data-history-high-label>Highest observed price</dt><dd data-history-high>${chartMoney(h.observedHigh)}</dd></div></dl>`}
- <details class="check-more" data-view-key="history"><summary>About this chart</summary>${compact?`<dl class="history-high"><div><dt data-history-high-label>Highest observed price</dt><dd data-history-high>${chartMoney(h.observedHigh)}</dd></div></dl>`:''}<p>GeckoTerminal · ${esc(time(h.from))}–${esc(time(h.through))}. The high covers this pool’s returned candles, not the coin’s all-time high. The line shows closes; timestamps mark the start of each candle.</p><p>Up to 1,000 hourly and 1,000 recent minute candles. The one-hour view uses minute data when available. Six hours also uses minute data when that response covers the full window; otherwise it uses hourly data. All means available history, not lifetime history. Ranges without a distinct view or two observations are unavailable.</p><p>${h.emptyIntervalPolicy==='previous-close'?'The source can carry the previous close into periods without swaps, with zero volume. These are not new trades. ':''}Intervals still missing from the source stay empty. Rechecking may change the latest unfinished candle.</p><p>Choose 1H, 6H, 1D, or All, then use the slider to explore recorded values and times. The slider also works with the arrow keys. The chart stays fixed while you scroll the page.</p><p>Historical market cap is unavailable. The estimate uses today’s market-cap-to-price ratio. Supply changes can make it inaccurate.</p><p>Checked ${esc(time(h.retrievedAt??h.through))}. This is a snapshot, not a streaming feed. Sources may cache prices.</p>${marketCapFactor(market,h)===null?'<p>Market-cap estimates need a current price and market cap.</p>':''}<a class="text-link" data-view-key="history-source" href="https://www.geckoterminal.com/${NETWORKS[h.chainId||'solana'].gecko}/pools/${esc(h.pair)}" target="_blank" rel="noopener noreferrer">View price history <span aria-hidden="true">↗</span></a><p class="history-attribution"><a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView Lightweight Charts™</a> · Copyright (с) 2025 TradingView, Inc.</p></details></div>`;
+ ${attribution?historyAttributionHTML():''}</div>`;
 }
 
 export function mountHistoryChart(root,history,view,market){
@@ -106,9 +108,9 @@ export function mountHistoryChart(root,history,view,market){
   points=historyWindow(history,view.range);if(!points.length)points=history.points;
   mode.value=metricValue;
   root.querySelector('[data-history-heading]').textContent=metricValue==='cap'?'Market cap history':'Price history';
-  root.querySelector('[data-history-estimate]').hidden=metricValue!=='cap';
-  root.querySelector('[data-history-high-label]').textContent=metricValue==='cap'?'Highest estimate in history':'Highest observed price';
-  root.querySelector('[data-history-high]').textContent=chartMoney(history.observedHigh*(metricValue==='cap'?factor:1));
+  const highLabel=root.querySelector('[data-history-high-label]'),highValue=root.querySelector('[data-history-high]');
+  if(highLabel)highLabel.textContent=metricValue==='cap'?'Highest estimate in history':'Highest observed price';
+  if(highValue)highValue.textContent=chartMoney(history.observedHigh*(metricValue==='cap'?factor:1));
   slider.setAttribute('aria-label',metricValue==='cap'?'Explore estimated market cap':'Explore closing prices');
   slider.max=String(points.length-1);slider.disabled=points.length<2;
   root.querySelector('.history-coverage').textContent=coverageText(history)+' · '+intervalLabel(series)+' closes · Snapshot';

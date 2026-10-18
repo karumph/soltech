@@ -27,6 +27,8 @@
  .check-privacy {font-size:.75rem;color:var(--muted);margin-top:8px;}
  .check-privacy summary {min-height:44px;cursor:pointer;padding:12px 0 4px;}
  .check-privacy p {max-width:70ch;padding:8px 0 5px;}
+ .check-privacy-points {display:grid;gap:8px;max-width:70ch;margin:8px 0 0;padding-left:18px;line-height:1.5;}
+ .check-privacy a {text-decoration:underline;text-underline-offset:3px;}
  .lookup-status {font-size:.75rem;color:var(--muted);margin:10px 0;min-height:18px;}
  .checker-welcome {display:flex;align-items:center;justify-content:center;gap:24px;padding:16px 10px;}
  .checker-welcome h2 {font-size:1.4rem;letter-spacing:-.025em;}
@@ -34,6 +36,12 @@
  .live-coin {padding-top:12px;}
  .live-coin-head {display:flex;gap:14px;align-items:center;}
  .live-coin-head>div {min-width:0;}
+ .coin-identity{flex:1;}
+ .coin-title-row{display:flex;align-items:center;gap:4px;min-width:0;}
+ .live-coin-head .coin-title-row h2{min-width:0;margin:0;}
+ .coin-title-row+.coin-subline{margin-top:3px;}
+ .coin-exchange{display:inline-flex;align-items:center;gap:0;white-space:nowrap;}
+ .coin-exchange .history-copy-ca{margin-block:-12px;margin-right:-8px;margin-left:-3px;}
  .live-coin-head h2 {font-size:2rem;margin-bottom:6px;overflow-wrap:anywhere;}
  .coin-monogram {border-radius:50%;background:#f0f0f4;border:1px solid var(--line);display:grid;place-items:center;width:52px;height:60px;font-weight:750;color:#303753;font-size:.875rem;}
  .coin-avatar {position:relative;display:grid;place-items:center;flex:none;width:52px;height:52px;}
@@ -81,6 +89,19 @@
  .history-readout>span{font-size:.8125rem;color:var(--muted);}
  .history-readout strong{font-size:2.5rem;line-height:1.15;letter-spacing:-.045em;font-weight:650;overflow-wrap:anywhere;}
  .history-readout time{font-size:.8125rem;color:var(--muted);}
+ .history-copy-ca{position:relative;display:inline-flex;flex:none;align-items:center;justify-content:center;min-height:44px;width:44px;padding:0;border:0;border-radius:8px;background:transparent;color:var(--ink);box-shadow:none;font:600 .75rem/1.2 var(--body);cursor:pointer;transition:background-color 120ms ease;}
+ .history-copy-ca svg{width:17px;height:17px;flex:none;}
+ .history-copy-ca[data-copied=true] svg{visibility:hidden;}
+ .history-copy-ca[data-copied=true]::after{content:"";position:absolute;width:7px;height:12px;margin-top:-3px;border:solid currentColor;border-width:0 1.6px 1.6px 0;transform:rotate(45deg);}
+ .history-copy-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+ .history-copy-ca:is(:disabled,[aria-disabled=true]){opacity:.7;cursor:wait;}
+ .history-copy-ca:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px;}
+ .history-copy-feedback{grid-column:1/-1;margin:4px 0 0;color:var(--muted);font-size:.75rem;line-height:1.5;overflow-wrap:anywhere;}
+ .history-copy-feedback:has(.history-copy-address[hidden]){position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+ .history-copy-address{display:block;margin-top:4px;font:inherit;overflow-wrap:anywhere;user-select:all;}
+ .history-copy-ca:active:not(:disabled):not([aria-disabled=true]){background:#e7ebef;}
+ @media(hover:hover) and (pointer:fine){.history-copy-ca:hover:not(:disabled):not([aria-disabled=true]){background:#edf0f4;}}
+ @media(forced-colors:active){.history-copy-ca{color:ButtonText;background:ButtonFace;border-color:ButtonText;}.history-copy-ca:focus-visible{outline-color:Highlight;}.history-copy-feedback{color:CanvasText;}}
  .history-coverage{font-size:.8125rem;color:var(--muted);margin:0 0 8px;}
  .history-ranges{display:inline-flex;gap:2px;padding:3px;margin:0 0 12px;max-width:100%;border:1px solid #e1e5ef;background:#f0f3f9;border-radius:14px;}
  .history-ranges button{min-height:44px;min-width:44px;padding:8px 10px;border:1px solid transparent;border-radius:10px;font-size:.8125rem;font-weight:600;color:var(--muted);background:transparent;}
@@ -164,6 +185,10 @@
  .source-empty {padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--panel);}
  .source-empty h4 {margin:0 0 7px;font-size:.875rem;}
  .source-empty p {font-size:.8125rem;color:var(--muted);margin-top:7px;}
+}
+/* Keep the existing figures visible when the chart cannot provide a readout. */
+@media(max-width:800px) {
+ .checker .coin-report-priority[data-chart-ready="false"] .mobile-risk-signals .check-metrics>div:is(.metric-price,.metric-market-cap){display:grid;}
 }
 @layer responsive {
  @media(max-width:800px) {

@@ -92,7 +92,7 @@ test('long coin names retain their full text and an accessible details destinati
 
 test('wallet identity has address copying and internal views without outbound explorer links',()=>{
  const html=walletResultsHTML(normalizeWalletReport(report([holding()]),address));
- assert.match(html,/data-copy-wallet-address>Copy address<\/button>/);assert.match(html,new RegExp(`aria-label="Public wallet address ${address}"`));assert.match(html,/data-wallet-copy-status role="status" aria-live="polite"/);
+ assert.match(html,/data-copy-wallet-address aria-label="Copy address"[^>]*><svg/);assert.match(html,new RegExp(`aria-label="Public wallet address ${address}"`));assert.match(html,/data-wallet-copy-status role="status" aria-live="polite"/);
  assert.match(html,/data-wallet-view="holdings" aria-pressed="true"/);assert.match(html,/data-wallet-view="transactions" aria-pressed="false"/);assert.match(html,/id="wallet-transactions"[^>]* hidden/);
  assert.doesNotMatch(html,/solscan|href="https?:|data-wallet-filter/i);
  const invalid='\"><img src=x onerror=alert(1)>';
@@ -301,6 +301,27 @@ test('Clear history removes only recent addresses and keeps the displayed report
  const output=f.nodes.get('#wallet-result').innerHTML,status=f.nodes.get('.lookup-status').textContent;
  f.clickHistory('[data-clear-wallet-history]');assert.deepEqual(f.historyStore.entries,[]);assert.deepEqual(JSON.parse(f.storage.getItem(RECENT_WALLETS_KEY)).entries,[]);
  assert.equal(f.input.value,address);assert.equal(f.nodes.get('#wallet-result').innerHTML,output);assert.equal(f.nodes.get('.lookup-status').textContent,status);assert.match(f.nodes.get('#recent-wallets').innerHTML,/Wallet history cleared/);
+});
+
+test('coin addresses and unverified account types leave no wallet report and are not saved',async t=>{
+ const f=mountedWallet(t),out=f.nodes.get('#wallet-result'),error=f.nodes.get('#wallet-error');
+ f.fill(validOther);f.submit();f.requests.at(-1).resolve(response(report([],{address:validOther})));
+ await new Promise(resolve=>setImmediate(resolve));
+ const saved=f.historyStore.entries;
+ assert.match(out.innerHTML,/Wallet overview/);
+ for(const [status,message] of [[400,'This is a coin address. Paste a wallet address instead.'],[503,'The account type could not be verified. Try again shortly.']]){
+  f.fill(address);f.submit();
+  f.requests.at(-1).resolve(response({status:'error',error:message},{ok:false,status}));
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(error.hidden,false);assert.equal(error.textContent,message);
+  assert.equal(out.innerHTML,'');assert.equal(f.input.value,address);
+  assert.deepEqual(f.historyStore.entries,saved);
+  assert.equal(f.nodes.get('[data-wallet-submit]').disabled,false);
+ }
+ f.fill(validOther);f.submit();f.requests.at(-1).resolve(response(report([],{address:validOther})));
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(error.hidden,true);assert.match(out.innerHTML,/Wallet overview/);
+ assert.equal(f.historyStore.entries.length,1);
 });
 
 test('failed reports and results arriving after disposal never become recent wallets',async t=>{

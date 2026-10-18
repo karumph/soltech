@@ -9,11 +9,11 @@ export const PROJECT_ROOT=path.resolve(here,'..');
 // Deliberate list: adding a file to dist does not automatically publish it.
 export const FRONTEND_FILES=Object.freeze(`
 app.css app.js blue-glass.css coin-checker-data.js coin-checker.css coin-checker.js
-coin-feed-copy.js coin-feed.css coin-feed.js coin-history-chart.js coin-history.js
+coin-feed-copy.js coin-feed.css coin-feed.js coin-history-chart.js coin-history-copy.js coin-history.js
 coin-network-discovery.js coin-networks.js coin-recent.css coin-recent.js
-daily-recap.css daily-recap.js data.js index.html navigation-glass.css
+daily-recap.css daily-recap.js data.js header-logo.css index.html navigation-glass.css
 personal-scanner-store.js personal-scanner.css personal-scanner.js photo-crop.js
-profile-shortcut-icons.js profile-shortcut.js profile-store.js profile.css profile.js
+profile-menu.js profile-shortcut-icons.js profile-shortcut.js profile-store.js profile.css profile.js
 scanner-appearance.js scanner-builder.css scanner-builder.js scanner-client.js
 scanner-customize.css scanner-customize.js scanner-editor.css scanner-editor.js
 scanner-feed.css scanner-feed.js scanner-findings.css scanner-findings.js
@@ -26,7 +26,7 @@ assets/feed-coin-bonk.png assets/feed-coin-jup.png assets/feed-coin-pengu.png
 assets/feed-coin-popcat.png assets/feed-coin-ray.png assets/feed-coin-wif.png
 assets/feed-demo-aster.svg assets/feed-demo-cove.svg assets/feed-demo-luma.svg
 assets/feed-demo-mica.svg assets/feed-demo-orbit.svg assets/feed-demo-relay.svg
-assets/phosphor-license.txt assets/soltech-logo.png assets/x-logo.png
+assets/phosphor-license.txt assets/soltech-logo.png assets/solventir-logo.jpg assets/x-logo.png
 vendor/lightweight-charts-5.2.1/LICENSE vendor/lightweight-charts-5.2.1/NOTICE
 vendor/lightweight-charts-5.2.1/README.md vendor/lightweight-charts-5.2.1/lightweight-charts.standalone.production.js
 `.trim().split(/\s+/).sort());

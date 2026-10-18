@@ -64,19 +64,14 @@ test('retrying storage while a photo is opening keeps Save disabled and shows ph
  f.submit();assert.deepEqual(f.navigations,[]);
 });
 
-test('Profile contains identity editing, the existing scanner shortcuts, and one Settings section',t=>{
+test('Profile keeps identity editing while scanner and settings entries move out of the page',t=>{
  const f=fixture(t,{scanners:[{id:'earlier'}],draft:{},scannerState:{saved:{},draft:{}}});f.mount('profile','');
  const html=f.root.innerHTML;
  assert.match(html,/href="#profile\/edit"[^>]*aria-label="Edit profile"/);
- assert.match(html,/Your scanner.*Scanner settings.*Your sources and filters.*Continue setup.*Previous setups/s);
- assert.match(html,/href="#previous"/);
- assert.match(html,/aria-labelledby="personal-settings-title"><h2 id="personal-settings-title">Settings<\/h2>/);
- assert.ok(html.indexOf('Your scanner')<html.indexOf('personal-settings-title'));
- for(const page of ['notifications','privacy','terms'])assert.equal(html.split(`href="#profile/${page}"`).length-1,1);
- assert.equal(html.split('<strong>Notifications</strong>').length-1,1);
- assert.match(html,/<button type="button" class="personal-row personal-about" data-action="about"/);
- assert.match(html,/Live alerts aren’t connected yet/);
- assert.doesNotMatch(html,/href="#settings|<h2[^>]*>Preferences<\/h2>/);
+ assert.match(html,/aria-label="Your profile"/);
+ assert.match(html,/href="#check"/);
+ assert.match(html,/Saved in this browser/);
+ assert.doesNotMatch(html,/Your scanner|Scanner settings|Continue setup|Previous setups|personal-settings-title|href="#profile\/(notifications|privacy|terms)"/);
  const canonical=html;f.mount('settings','');assert.equal(f.root.innerHTML,canonical);assert.equal(document.title,'Profile · Solventir');
 });
 

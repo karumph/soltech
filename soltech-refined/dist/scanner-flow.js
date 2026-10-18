@@ -3,8 +3,7 @@ import {getScannerClient} from './scanner-client.js';
 const icon=(paths,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
 const icons={
  pause:'<path d="M8 5v14M16 5v14" stroke-width="2.2"/>',
- play:'<path d="m8 5 11 7-11 7V5Z"/>',
- sliders:'<path d="M4 7h5m4 0h7M4 17h9m4 0h3"/><circle cx="11" cy="7" r="2"/><circle cx="15" cy="17" r="2"/>'
+ play:'<path d="m8 5 11 7-11 7V5Z"/>'
 };
 const pathLayer=(path,kind)=>`<path class="flow-channel-halo" d="${path}"/><path class="flow-channel-line" d="${path}"/>${kind?`<g class="flow-packet-veil"><path class="flow-packet ${kind}" pathLength="100" d="${path}"/></g>`:''}`;
 const connector=stage=>`<div class="flow-connector" aria-hidden="true"><svg viewBox="0 0 320 48" preserveAspectRatio="none" focusable="false">${pathLayer('M160 0V48','flow-packet-'+stage)}</svg></div>`;
@@ -27,7 +26,7 @@ const checkProgress=()=>`<span class="flow-activity-veil flow-check-progress" ar
 
 export function scannerFlowHTML(name='Coin discovery'){
  return `<section class="scanner-engine" data-live="true" data-paused="true" aria-labelledby="scanner-engine-title">
-  <header class="engine-header"><div><h2 id="scanner-engine-title">${esc(name||'Coin discovery')}</h2><p>Discover · Match · Check</p></div><span class="engine-status" role="status" aria-label="Scanner status"><span class="engine-status-dot" aria-hidden="true"></span><span data-flow-status>Connecting</span></span></header>
+  <header class="engine-header"><div><h2 id="scanner-engine-title">${esc(name||'Coin discovery')}</h2><span class="engine-status" role="status" aria-label="Scanner status"><span class="engine-status-dot" aria-hidden="true"></span><span data-flow-status>Connecting</span></span></div><button type="button" class="engine-control" data-flow-pause disabled aria-label="Start scanner">${icon(icons.play)}<span>Start</span></button></header>
   <div class="engine-flow" role="group" aria-label="X posts and new markets, with matching, coin checks and Feed results.">
    <div class="flow-sources"><svg class="flow-source-link" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0L100 100M0 100L100 0"/></svg>${source('x','X post')}${source('pairs','New projects')}</div>
    <div class="flow-merge" aria-hidden="true"><svg viewBox="0 0 320 72" preserveAspectRatio="none" focusable="false">${pathLayer('M77 0V14Q77 32 95 32H160')}${pathLayer('M243 0V14Q243 32 225 32H160')}${pathLayer('M160 32V72')}<g class="flow-packet-veil"><path class="flow-packet flow-packet-source-x" pathLength="100" d="M77 0V14Q77 32 95 32H160V72"/><path class="flow-packet flow-packet-source-pairs" pathLength="100" d="M243 0V14Q243 32 225 32H160V72"/></g></svg></div>
@@ -37,7 +36,7 @@ export function scannerFlowHTML(name='Coin discovery'){
     <li><a href="#finds" class="flow-stage flow-stage-finds" aria-label="Open Feed, 0 finds"><h3>Finds</h3><span class="flow-find-count" aria-hidden="true">0</span></a></li>
    </ol>
   </div>
-  <footer class="engine-footer"><p class="engine-demo-note" role="status">Connecting to your local scanner…</p><p class="engine-service-note">X access is not connected. New projects currently discovers new Solana markets.</p><div class="engine-controls"><a href="#scanner/edit" class="engine-control">${icon(icons.sliders)}Customize</a><button type="button" class="engine-control" data-flow-pause disabled aria-label="Start scanner">${icon(icons.play)}<span>Start</span></button></div><p class="engine-run-note">Runs while this local service is open, even if you leave this page.</p></footer>
+  <p class="engine-demo-note" role="status" hidden></p>
  </section>`;
 }
 
@@ -73,6 +72,7 @@ export function mountScannerFlow(root,{client=getScannerClient(),getConfig=()=>u
   engine.dataset.connection=snapshot.connection?.status||'connecting';
   engine.dataset.checking=String(connected&&running&&snapshot.groups.some(group=>group.coins.some(coin=>coin.stage==='checking')));
   status.textContent=!connected?(snapshot.connection?.status==='offline'?'Offline':'Connecting'):running?(projectActive||postActive?'Active':'Waiting'):'Inactive';
+  engine.dataset.activity=status.textContent.toLowerCase();
   const caption=(source,active)=>active?'Scanning':source.status==='disconnected'?'Not connected':source.status==='error'?'Retrying':running?'Waiting':'Paused';
   leftSource.dataset.sourceActive=String(postActive);rightSource.dataset.sourceActive=String(projectActive);
   leftSource.querySelector('[data-flow-source-caption]').textContent=caption(posts,postActive);
@@ -87,8 +87,8 @@ export function mountScannerFlow(root,{client=getScannerClient(),getConfig=()=>u
   engine.querySelector('[data-flow-check-note]').textContent=engine.dataset.checking==='true'?'Checking mint data':latest?'Latest coin checks':'Waiting for coins';
   button.innerHTML=icon(running?icons.pause:icons.play)+`<span>${busy?'Working…':running?'Pause':'Start'}</span>`;
   button.setAttribute('aria-label',running?'Pause scanner':'Start scanner');button.disabled=busy||(!connected&&!running);
-  note.textContent=commandError||(!connected?snapshot.connection?.message:snapshot.persistenceError||snapshot.message)||(running?'Discovering new markets…':'Start to discover new markets.');
-  engine.querySelector('.engine-service-note').textContent=posts.status==='disconnected'?'X access is not connected. New projects discovers new Solana markets.':posts.message||'Post matches and market listings appear in Feed as they arrive.';
+  note.textContent=commandError||snapshot.persistenceError||(snapshot.connection?.status==='offline'?(snapshot.connection.message||'Scanner connection lost. Reconnect to control scanning.'):'');
+  note.hidden=!note.textContent;
  };
  const toggle=async()=>{
   if(busy)return;busy=true;commandError='';update();

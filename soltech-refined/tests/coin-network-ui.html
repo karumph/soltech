@@ -2,30 +2,73 @@
 <style>body{font:16px system-ui;margin:24px}#fixture{max-width:375px}[hidden]{display:none!important}.pass{color:#17613d}.fail{color:#a02030}</style>
 <h1>Network lookup UI tests</h1><p id="summary">Running…</p><ol id="results"></ol><div id="fixture"></div>
 <script type="module">
-import {mountChecker} from '/coin-checker.js';
+import {mountChecker,resultHTML} from '/coin-checker.js';
 import {normalizeMarket,normalizeRisk} from '/coin-checker-data.js';
 const root=document.querySelector('#fixture'),results=document.querySelector('#results'),summary=document.querySelector('#summary');
 const evm='0x4200000000000000000000000000000000000006',other='0x1111111111111111111111111111111111111111',sol='So11111111111111111111111111111111111111112';
 const assert=(ok,message)=>{if(!ok)throw Error(message);},tick=()=>new Promise(resolve=>setTimeout(resolve,0));
 const deferred=()=>{let resolve;const promise=new Promise(done=>resolve=done);return {resolve,promise};};
 let cleanup=()=>{},passes=0,failures=0;
-function setup(discover,emitResult=false,initialCoin=null){
- cleanup();root.replaceChildren();const calls=[],discoveries=[],signals=[];let emit;
+function setup(discover,emitResult=false,initialCoin=null,historyEntries=[]){
+ cleanup();root.replaceChildren();const calls=[],discoveries=[],signals=[],retries=[];let emit;
  const createSession=onChange=>{emit=onChange;return {lookup(mint,chain){calls.push({mint,chain});if(emitResult)onChange({mint,chainId:chain,market:{status:'empty'},risk:{status:'empty'},listing:{status:'empty'},history:{status:'empty'},bundles:{status:'unsupported'}});},cancel(){},dispose(){}};};
- const dispose=mountChecker(root,{discover:(mint,options)=>{discoveries.push(mint);signals.push(options.signal);return discover(mint,options);},createSession,initialCoin,historyStore:{getSnapshot:()=>({entries:[],persistent:false,error:null}),remember:()=>false,clear:()=>true}});
+ const dispose=mountChecker(root,{discover:(mint,options)=>{discoveries.push(mint);signals.push(options.signal);retries.push(options.onRetry);return discover(mint,options);},createSession,initialCoin,historyStore:{getSnapshot:()=>({entries:historyEntries,persistent:false,error:null}),remember:()=>false,clear:()=>{historyEntries=[];return true;}}});
  const input=root.querySelector('#coin-address'),select=root.querySelector('#coin-network'),box=root.querySelector('.check-network'),form=root.querySelector('form');
- const h={calls,discoveries,signals,input,select,box,form,dispose,emit:state=>emit(state),fill(value){input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},submit(){form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},clear(){root.querySelector('.clear-address').click();}};
+ const h={calls,discoveries,signals,retries,input,select,box,form,status:root.querySelector('.lookup-status'),dispose,emit:state=>emit(state),fill(value){input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));},submit(){form.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));},clear(){root.querySelector('.clear-address').click();}};
  cleanup=()=>{h.clear();dispose();};return h;
 }
 async function test(name,run){try{await run();passes++;results.insertAdjacentHTML('beforeend','<li class="pass">PASS — '+name+'</li>');}catch(error){failures++;const li=document.createElement('li');li.className='fail';li.textContent='FAIL — '+name+': '+error.message;results.append(li);}summary.textContent=passes+' passed, '+failures+' failed';}
 await test('Solana bypasses network discovery',async()=>{const h=setup(()=>{throw Error('unexpected discovery');});h.fill(sol);h.submit();await tick();assert(h.box.hidden&&h.calls[0]?.chain==='solana'&&h.discoveries.length===0,'Solana must look up directly');});
 await test('EVM picker stays hidden before and during discovery; duplicate submits share work',async()=>{const d=deferred(),h=setup(()=>d.promise);h.fill(evm);assert(h.box.hidden,'picker shown on paste');h.submit();h.submit();assert(h.box.hidden&&h.discoveries.length===1&&h.form.getAttribute('aria-busy')==='true','duplicate discovery or wrong busy state');d.resolve({status:'resolved',chainIds:['base']});await tick();assert(h.calls.length===1&&h.calls[0].chain==='base'&&h.box.hidden&&h.form.getAttribute('aria-busy')==='false','unique match did not auto-open');});
+for(const chain of ['ethereum','base','bsc'])await test('A unique '+chain+' match starts automatically without a network choice',async()=>{
+ const h=setup(async()=>({status:'resolved',chainIds:[chain]}));h.fill(evm);h.input.focus();h.submit();await tick();
+ assert(h.calls.length===1&&h.calls[0].mint===evm&&h.calls[0].chain===chain,'wrong automatic chain');
+ assert(h.box.hidden&&root.querySelector('#network-help').hidden&&document.activeElement!==h.select,'automatic lookup asked for a network');
+});
+for(const [chain,address] of [['robinhood','0x2a13008CC2F5A853F6Fb21cbD90841806C64b247'],['future-network','TokenCase123'],['sui','0x2::coin::Example']])await test('A discovered '+chain+' identity opens without losing its chain or address',async()=>{
+ const h=setup(async()=>({status:'resolved',chainIds:[chain]}));h.fill(address);h.submit();await tick();
+ const expected=chain==='robinhood'?address.toLowerCase():address;
+ assert(h.calls.length===1&&h.calls[0].mint===expected&&h.calls[0].chain===chain&&h.box.hidden,'new network was rejected or rewritten');
+ h.submit();await tick();assert(h.discoveries.length===1&&h.calls[1]?.chain===chain,'resolved new network was lost on another check');
+});
+await test('A genuine cross-network match lists only its known and newly discovered choices',async()=>{
+ const h=setup(async()=>({status:'ambiguous',chainIds:['base','future-network']}));h.fill(evm);h.submit();await tick();
+ assert(!h.box.hidden&&[...h.select.options].map(option=>option.value).join(',')===',base,future-network','new chain missing or unrelated choices added');
+ h.select.value='future-network';h.submit();assert(h.calls[0]?.chain==='future-network','new-chain selection did not start lookup');
+});
+await test('Reopening a recent coin preserves its new chain and performs a fresh direct lookup',async()=>{
+ const h=setup(()=>{throw Error('unexpected discovery');},false,null,[{chainId:'future-network',address:'TokenCase123',name:'Saved token',symbol:'SAVED',logo:'',checkedAt:Date.now()}]);
+ const row=root.querySelector('[data-recent-address="TokenCase123"]');assert(row,'new-chain recent row missing');row.click();
+ assert(h.calls.length===1&&h.calls[0].chain==='future-network'&&h.calls[0].mint==='TokenCase123'&&h.discoveries.length===0&&h.box.hidden,'history lost the exact saved network');
+ h.clear();assert(!root.querySelector('#recent-coins').hidden&&root.querySelector('[data-recent-address="TokenCase123"]'),'Clear address removed history');
+});
 await test('Ambiguity focuses choice, limits it to matches, and starts only after selection',async()=>{const h=setup(async()=>({status:'ambiguous',chainIds:['base','optimism']}));h.fill(evm);h.submit();await tick();assert(!h.box.hidden&&document.activeElement===h.select&&h.calls.length===0,'missing focused fallback');assert([...h.select.options].map(o=>o.value).join(',')===',base,optimism','unexpected choices');h.submit();assert(h.calls.length===0&&h.select.getAttribute('aria-invalid')==='true','empty choice accepted');h.select.value='optimism';h.submit();assert(h.calls[0]?.chain==='optimism'&&!h.box.hidden,'manual choice must remain available for correction');});
-for(const kind of ['not-found','incomplete','throw'])await test(kind+' permits manual choice without rejecting the address',async()=>{const h=setup(async()=>{if(kind==='throw')throw Error('offline');return {status:kind,chainIds:[]};});h.fill(evm);h.submit();await tick();assert(!h.box.hidden&&h.select.options.length===8&&!h.input.hasAttribute('aria-invalid'),'no manual fallback');h.select.value='ethereum';h.submit();assert(h.calls[0]?.chain==='ethereum','manual fallback failed');});
+for(const kind of ['not-found','incomplete','throw'])await test(kind+' keeps the picker hidden and Check coin retries discovery',async()=>{
+ let attempt=0;const h=setup(async()=>{if(++attempt>1)return {status:'resolved',chainIds:['ethereum']};if(kind==='throw')throw Error('offline');return {status:kind,chainIds:[]};});
+ h.fill(evm);h.input.focus();h.submit();await tick();
+ assert(h.box.hidden&&root.querySelector('#network-help').hidden&&!h.input.hasAttribute('aria-invalid')&&document.activeElement!==h.select,'failure asked for a network or rejected a valid address');
+ assert(h.calls.length===0&&h.form.getAttribute('aria-busy')==='false'&&h.status.textContent.includes('Check coin'),'missing settled retry explanation');
+ h.submit();await tick();assert(h.discoveries.length===2&&h.calls.length===1&&h.calls[0].chain==='ethereum'&&h.box.hidden,'Check coin did not retry automatically');
+});
+await test('An incomplete lookup can name its confirmed match without choosing it',async()=>{
+ let attempt=0;const h=setup(async()=>++attempt===1?{status:'incomplete',chainIds:['base']}:{status:'resolved',chainIds:['base']});h.fill(evm);h.submit();await tick();
+ assert(h.box.hidden&&h.calls.length===0&&h.status.textContent.includes('Base')&&h.status.textContent.includes('other networks'),'partial evidence was selected or lost');
+ h.submit();await tick();assert(h.discoveries.length===2&&h.calls[0]?.chain==='base'&&h.box.hidden,'partial match was not rediscovered');
+});
+await test('Multiple matches with unfinished checks still require a retry, not a network choice',async()=>{
+ const h=setup(async()=>({status:'incomplete',chainIds:['ethereum','base']}));h.fill(evm);h.submit();await tick();
+ assert(h.box.hidden&&h.calls.length===0&&h.status.textContent.includes('Ethereum')&&h.status.textContent.includes('Base'),'incomplete detection became an ambiguous picker');
+});
+await test('Provider retries announce progress without exposing a picker or starting a lookup early',async()=>{
+ const d=deferred(),h=setup(()=>d.promise);h.fill(evm);h.submit();h.retries[0]();h.submit();
+ assert(h.status.textContent.includes('Retrying')&&h.form.getAttribute('aria-busy')==='true'&&h.box.hidden&&h.calls.length===0&&h.discoveries.length===1,'retry progress was not reflected or duplicate submission restarted discovery');
+ d.resolve({status:'resolved',chainIds:['bsc']});await tick();const finished=h.status.textContent;h.retries[0]();
+ assert(h.calls[0]?.chain==='bsc'&&h.status.textContent===finished&&h.form.getAttribute('aria-busy')==='false','a finished discovery accepted a late retry callback');
+});
 await test('Changing the address clears a previously selected network',async()=>{const h=setup(async()=>({status:'ambiguous',chainIds:['base','optimism']}));h.fill(evm);h.submit();await tick();h.select.value='base';h.submit();h.fill(other);assert(h.box.hidden&&h.select.value==='','stale selection');h.submit();await tick();assert(h.discoveries.length===2&&h.calls.length===1&&!h.box.hidden,'new address silently used old chain');});
 await test('Changing the address clears an automatically detected network',async()=>{const h=setup(async()=>({status:'resolved',chainIds:['base']}));h.fill(evm);h.submit();await tick();h.fill(other);h.submit();await tick();assert(h.discoveries.length===2&&h.calls[1]?.mint===other,'discovery bypassed for new address');});
-for(const action of ['clear','edit','dispose'])await test(action+' cancels discovery and ignores late responses',async()=>{const d=deferred(),h=setup(()=>d.promise);h.fill(evm);h.submit();if(action==='clear')h.clear();if(action==='edit')h.fill(other);if(action==='dispose')h.dispose();assert(h.signals[0].aborted,'signal not aborted');d.resolve({status:'ambiguous',chainIds:['base','optimism']});await tick();assert(h.box.hidden&&h.calls.length===0,'late discovery changed UI');});
-await test('An old detection cannot replace a newer address lookup',async()=>{const a=deferred(),b=deferred(),h=setup(mint=>mint===evm?a.promise:b.promise);h.fill(evm);h.submit();h.fill(other);h.submit();b.resolve({status:'resolved',chainIds:['ethereum']});await tick();a.resolve({status:'resolved',chainIds:['base']});await tick();assert(h.calls.length===1&&h.calls[0].mint===other&&h.calls[0].chain==='ethereum','old request won');});
+for(const action of ['clear','edit','dispose'])await test(action+' cancels discovery and ignores late responses and retry notices',async()=>{const d=deferred(),h=setup(()=>d.promise);h.fill(evm);h.submit();if(action==='clear')h.clear();if(action==='edit')h.fill(other);if(action==='dispose')h.dispose();assert(h.signals[0].aborted,'signal not aborted');const stopped=h.status.textContent;h.retries[0]();assert(h.status.textContent===stopped,'late retry changed the status');d.resolve({status:'ambiguous',chainIds:['base','optimism']});await tick();assert(h.box.hidden&&h.calls.length===0&&h.status.textContent===stopped,'late discovery changed UI');});
+await test('An old detection cannot replace a newer address lookup or its retry status',async()=>{const a=deferred(),b=deferred(),h=setup(mint=>mint===evm?a.promise:b.promise);h.fill(evm);h.submit();h.fill(other);h.submit();const fresh=h.status.textContent;h.retries[0]();assert(h.status.textContent===fresh,'old retry status won');b.resolve({status:'resolved',chainIds:['ethereum']});await tick();a.resolve({status:'resolved',chainIds:['base']});await tick();assert(h.calls.length===1&&h.calls[0].mint===other&&h.calls[0].chain==='ethereum','old request won');});
 await test('Invalid input makes no discovery request',async()=>{const h=setup(()=>{throw Error('unexpected discovery');});h.fill('not an address');h.submit();await tick();assert(h.discoveries.length===0&&h.calls.length===0&&h.input.getAttribute('aria-invalid')==='true'&&h.box.hidden,'invalid input accepted');});
 await test('Submitting only whitespace keeps the empty field and Clear state in sync',async()=>{const h=setup(()=>{throw Error('unexpected discovery');});h.fill('   ');h.submit();await tick();assert(h.input.value===''&&root.querySelector('.clear-address').disabled,'Clear stayed enabled after whitespace was trimmed');});
 await test('Whitespace or address case changes do not discard the same token lookup',async()=>{const h=setup(async()=>({status:'resolved',chainIds:['base']}));h.fill('0x'+'A'.repeat(40));h.submit();await tick();h.fill('  0x'+'a'.repeat(40)+'  ');h.submit();await tick();assert(h.discoveries.length===1,'same address rediscovered');});
@@ -47,12 +90,24 @@ await test('Leaving during a bundle check preserves the report and allows an imm
  root.querySelector('form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));assert(retries===1,'interrupted bundle retry was throttled');
  root.querySelector('.clear-address').click();dispose();cleanup=()=>{};
 });
-for(const chain of ['base','ethereum','solana'])await test('Signals coin link uses its exact '+chain+' network',async()=>{
+for(const chain of ['base','ethereum','bsc','robinhood','future-network','solana'])await test('Coin link uses its exact '+chain+' network',async()=>{
  const address=chain==='solana'?sol:evm,h=setup(()=>{throw Error('unexpected discovery');},false,{chainId:chain,address});
  assert(h.calls.length===1&&h.calls[0].chain===chain&&h.calls[0].mint===address&&h.box.hidden,'linked coin lost its network');
  assert(h.discoveries.length===0,'linked coin ran network discovery');
  h.fill(other);h.submit();await tick();assert(h.discoveries.length===1,'editing linked address retained the old network');
 });
-await test('Malformed linked coins never start a lookup',()=>{for(const entry of [{chainId:'constructor',address:evm},{chainId:'base',address:sol},{chainId:'solana',address:evm},{chainId:'missing',address:evm}]){const h=setup(()=>{throw Error('unexpected discovery');},false,entry);assert(h.calls.length===0&&h.discoveries.length===0,'invalid linked coin was looked up');}});
+await test('Malformed linked coins never start a lookup',()=>{for(const entry of [{chainId:'constructor',address:evm},{chainId:'base',address:sol},{chainId:'solana',address:evm},{chainId:'bad/chain',address:evm},{chainId:'future-network',address:'https://example.com/token'}]){const h=setup(()=>{throw Error('unexpected discovery');},false,entry);assert(h.calls.length===0&&h.discoveries.length===0,'invalid linked coin was looked up');}});
+for(const width of [320,390])await test(width+'px reports keep Price and Market cap when a chart is unavailable without duplicating ready-chart figures',async()=>{
+ cleanup();cleanup=()=>{};root.replaceChildren();const frame=document.createElement('iframe');frame.title='Isolated mobile figure test';frame.style.width=width+'px';frame.style.height='200px';
+ const loaded=new Promise(resolve=>frame.addEventListener('load',resolve,{once:true}));frame.srcdoc='<link rel="stylesheet" href="/original/app.css"><link rel="stylesheet" href="/original/coin-checker.css"><link rel="stylesheet" href="/original/soltech-identity.css"><div class="checker"></div>';root.append(frame);await loaded;
+ assert(frame.contentDocument.styleSheets.length===3&&[...frame.contentDocument.styleSheets].every(sheet=>sheet.cssRules.length),'Fixture stylesheets did not load');
+ const fixture=frame.contentDocument.querySelector('.checker'),now=Date.now(),data=normalizeMarket([{chainId:'base',baseToken:{address:evm,name:'Example'},pairAddress:other,priceUsd:'2',marketCap:1000}],evm,now,'base');
+ for(const chart of [{status:'loading'},{status:'error',message:'Unavailable'},{status:'unsupported',message:'This network has no history provider.'},{status:'ready',data:{points:[{timestamp:now,close:2}],from:now,through:now,observedHigh:2,retrievedAt:now}}]){
+  fixture.innerHTML=resultHTML({mint:evm,chainId:'base',market:{status:'ready',data},risk:{status:'unsupported'},listing:{status:'empty'},history:chart});
+  fixture.querySelector('.mobile-risk-signals').append(fixture.querySelector('.live-market'));
+  for(const key of ['price','market-cap']){const nodes=fixture.querySelectorAll('.metric-'+key);assert(nodes.length===1,'duplicate '+key+' nodes');assert(frame.contentWindow.getComputedStyle(nodes[0]).display===(chart.status==='ready'?'none':'grid'),chart.status+' hid or duplicated '+key);}
+ }
+ frame.remove();
+});
 cleanup();root.replaceChildren();summary.dataset.complete='true';summary.dataset.failures=String(failures);document.title=failures?'FAIL — network UI':'PASS — network UI';
 </script>

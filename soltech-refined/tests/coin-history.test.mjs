@@ -21,7 +21,7 @@ test('chart ranges preserve real timestamps and choose an actual candle across m
 });
 test('chart presents current market cap separately from historical close and preserves missing cap',()=>{
  const html=historyHTML({status:'ready',data:h},{marketCap:250000,retrievedAt:1800000000000});
- assert.match(html,/Current market cap/);assert.match(html,/\$250K/);assert.match(html,/Selected close/);assert.match(html,/Historical market cap is unavailable/);
+ assert.match(html,/Current market cap/);assert.match(html,/\$250K/);assert.match(html,/Selected close/);assert.doesNotMatch(html,/Estimate using today’s market-cap-to-price ratio|data-history-estimate/);
  assert.match(html,/type="range"/);assert.match(html,/data-history-range="day"/);
  assert.match(html,/data-history-range="six"/);assert.doesNotMatch(html,/data-history-range="week"/);
  assert.match(historyHTML({status:'ready',data:h},{marketCap:null}),/Current market cap<\/span><strong>Unavailable/);
@@ -122,9 +122,6 @@ test('provider returned quiet candles remain continuous but no prices are invent
  const model=chartData(data,60000);
  assert.equal(model.segments.length,1);assert.equal(model.isolated.length,0);
  assert.deepEqual(model.segments[0].map(point=>point.value),[4,4,5]);
- const html=historyHTML({status:'ready',data:{...h,emptyIntervalPolicy:'previous-close'}},{});
- assert.match(html,/previous close into periods without swaps/);
- assert.match(html,/Intervals still missing from the source stay empty/);
 });
 
 test('canvas numeric normalization handles flat, single and extreme finite prices',()=>{
@@ -144,11 +141,21 @@ test('chart exposes slider exploration without gesture or reset instructions',()
  const html=historyHTML({status:'ready',data:h},{marketCap:250000,price:1});
  assert.doesNotMatch(html,/data-history-reset|Reset view|Pinch to zoom|Hold to inspect|Drag to move/);
  assert.match(html,/Slide to explore/);
- assert.match(html,/type="range"/);assert.match(html,/arrow keys/);
- assert.match(html,/Snapshot/);assert.match(html,/not a streaming feed/);
- assert.match(html,/All means available history, not lifetime history/);
+ assert.match(html,/type="range"/);assert.match(html,/aria-label="Explore closing prices"/);
+ assert.match(html,/Snapshot/);assert.match(html,/All available history/);
+ assert.doesNotMatch(html,/About this chart/);
  assert.match(html,/https:\/\/www.tradingview.com\//);
  assert.match(html,/TradingView Lightweight Charts/);
+});
+
+test('compact chart hides its timestamp while retaining the selection hook and one header copy action',()=>{
+ for(const compact of [true,false]){
+  const html=historyHTML({status:'ready',data:h},{marketCap:250000,price:1},{compact});
+  assert.equal((html.match(/class="history-readout"/g)||[]).length,1);
+  assert.match(html,compact?/<strong data-history-price>[^<]+<\/strong><time data-history-time hidden>[^<]+<\/time><\/div>/:/<strong data-history-price>[^<]+<\/strong><time data-history-time>[^<]+<\/time><\/div>/);
+  assert.doesNotMatch(html,/history-copy-ca|history-copy-feedback|history-context/);
+  assert.match(html,/data-history-price/);assert.match(html,/history-scrubber/);
+ }
 });
 
 test('six-hour view uses minute coverage without replacing an incomplete window',()=>{

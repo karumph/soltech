@@ -19,7 +19,7 @@ test('Solana address validation checks base58 byte length, not only characters',
 const evm='0x4200000000000000000000000000000000000006',evmPair='0x1111111111111111111111111111111111111111';
 test('EVM identity includes the chosen supported network and never borrows another chain or quote token',()=>{
  for(const chain of Object.keys(NETWORKS))assert.equal(validTokenAddress(chain==='solana'?mint:evm,chain),true);
- assert.equal(validTokenAddress(evm,'unknown'),false);assert.equal(validTokenAddress(mint,'base'),false);
+ assert.equal(validTokenAddress(evm,'../unknown'),false);assert.equal(validTokenAddress(mint,'base'),false);
  const p=market({chainId:'base',baseToken:{address:evm.toUpperCase().replace('0X','0x'),name:'Wrapped Ether'},pairAddress:evmPair});
  assert.equal(normalizeMarket([p,{...p,chainId:'optimism',liquidity:{usd:1e9}}],evm,Date.now(),'base').chainId,'base');
  assert.equal(normalizeMarket([{...p,chainId:'optimism'}],evm,Date.now(),'base'),null);
@@ -190,7 +190,7 @@ test('provider no-trade closes stay exact and do not fill genuinely missing inte
 });
 test('history rejects wrong-network or wrong-token market context before requesting prices',async()=>{
  let requests=0;const request=async()=>{requests++;return historyReport([]);};
- for(const [address,market,chain] of [[mint,{pair,mint:other},'solana'],[mint,{pair,chainId:'ethereum'},'solana'],[mint,{pair:'invalid'},'solana'],[mint,{pair},'missing'],['invalid',{pair},'solana']]){
+ for(const [address,market,chain] of [[mint,{pair,mint:other},'solana'],[mint,{pair,chainId:'ethereum'},'solana'],[mint,{pair:'invalid'},'solana'],[mint,{pair},'missing/chain'],['invalid',{pair},'solana']]){
   await assert.rejects(loadPriceHistory(address,market,undefined,chain,request),error=>error.code==='format');
  }
  assert.equal(requests,0);

@@ -8,6 +8,6 @@ Unmodified standalone production ES module from the official `lightweight-charts
 - Official tagged attribution: https://github.com/tradingview/lightweight-charts/blob/v5.2.1/NOTICE
 - Module SHA-256: `1bb1ee79f9d4dd17261b53d930f7a8995748276f80e7ba0e24412b5068062f5f`
 
-The package archive does not contain a NOTICE file; the accompanying NOTICE is the unmodified official file from tag v5.2.1. Product attribution and the TradingView link are included in the chart's “About this chart” disclosure.
+The package archive does not contain a NOTICE file; the accompanying NOTICE is the unmodified official file from tag v5.2.1. Product attribution and the TradingView link appear in the public coin report’s Sources & coverage disclosure. Standalone charts retain their own credit below the chart. The full notice and link remain accessible; neither the license nor the vendor files are removed.
 
 The app uses the library only to display a checked price-history snapshot. It does not connect to TradingView data, load remote scripts, open a streaming feed, or send wallet addresses to TradingView.

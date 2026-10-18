@@ -7,10 +7,16 @@ const address='So11111111111111111111111111111111111111112';
 const other='FLUXBmPhT3Fd1EDVFdg46YREqHBeNypn1h4EbnTzWERX';
 const result=(wallet=address)=>({address:wallet,chain:'solana',supported:true,checkedAt:'2026-10-11T12:00:00.000Z',sol:1.5,tokens:0,shown:0,noMarket:0,totalValue:0,risk:{high:0,caution:0,lower:0,unknown:0},flagged:{},holdings:[]});
 const response=body=>new Response(JSON.stringify(body),{headers:{'Content-Type':'application/json'}});
+const systemProgram='11111111111111111111111111111111';
+const tokenPrograms=['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA','TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb'];
+const regularAccount=()=>({owner:systemProgram,executable:false,lamports:0,data:['','base64'],space:0});
+const accountReply=(value=regularAccount())=>({jsonrpc:'2.0',id:1,result:{context:{slot:123},value}});
+const tokenAccount=(type,index=0)=>({...regularAccount(),owner:tokenPrograms[index],space:type==='mint'?82:165,
+ data:{program:index?'spl-token-2022':'spl-token',parsed:{type,info:{owner:other}},space:type==='mint'?82:165}});
 const noPrice={solPriceUsd:null,solPriceCheckedAt:null,solPriceSource:null};
 // Every service is isolated, including cases which only exercise the wallet bridge.
-const createWalletAPI=options=>walletAPI({solPriceFetcher:async()=>response([]),...options});
-const createWalletHandler=options=>walletHandler({solPriceFetcher:async()=>response([]),...options});
+const createWalletAPI=options=>walletAPI({accountFetcher:async()=>response(accountReply()),solPriceFetcher:async()=>response([]),...options});
+const createWalletHandler=options=>walletHandler({accountFetcher:async()=>response(accountReply()),solPriceFetcher:async()=>response([]),...options});
 const pair=(patch={})=>({chainId:'solana',pairAddress:other,baseToken:{address},priceUsd:'150.25',liquidity:{usd:1000000},...patch});
 
 test('wallet addresses must decode to exactly 32 bytes before any service call',async()=>{
@@ -31,6 +37,125 @@ test('only the public address goes to the fixed endpoint, with no credentials or
   return response(result());
  }});
  assert.deepEqual(await api(address),{statusCode:200,body:{...result(),...noPrice,status:'ready'}});assert.equal(calls,1);
+});
+
+test('account verification uses the exact address and fixed RPC before holdings and quotes',async()=>{
+ const wallet='4cwfMFnNjgvriwf4UEEKPYzWP1923TEXfXVRQmaQSX8Z',calls=[];
+ // Without a separate accountFetcher, production's shared fetch scheduler is reused.
+ const api=walletAPI({fetcher:async(url,options)=>{
+  calls.push(url);
+  if(calls.length===1){
+   assert.equal(url,'https://solana-rpc.publicnode.com');
+   assert.deepEqual(JSON.parse(options.body),{jsonrpc:'2.0',id:1,method:'getAccountInfo',params:[wallet,{encoding:'jsonParsed',commitment:'confirmed'}]});
+   assert.equal(options.method,'POST');assert.equal(options.credentials,'omit');assert.equal(options.redirect,'error');
+   assert.equal(options.referrerPolicy,'no-referrer');assert.equal(options.cache,'no-store');assert.ok(options.signal instanceof AbortSignal);
+   return response(accountReply({...regularAccount(),lamports:1500000000}));
+  }
+  assert.equal(url,'https://soltech.d3ilz6ab0hx4y4.amplifyapp.com/api/wallet');
+  assert.deepEqual(JSON.parse(options.body),{address:wallet});return response(result(wallet));
+ },solPriceFetcher:async()=>{calls.push('quote');return response([pair()]);}});
+ const got=await api(' '+wallet+' ');
+ assert.equal(got.statusCode,200);assert.equal(got.body.address,wallet);assert.equal(got.body.solPriceUsd,150.25);
+ assert.deepEqual(calls,['https://solana-rpc.publicnode.com','https://soltech.d3ilz6ab0hx4y4.amplifyapp.com/api/wallet','quote']);
+});
+
+test('legacy and Token-2022 coin addresses fail before holdings or pricing',async()=>{
+ const mint='3NxfWMHmfQg8NJFW5AG1ti2xACdczWz24e9SKyk1pump';let holdings=0,quotes=0;
+ for(const index of [0,1]){
+  const account=tokenAccount('mint',index);if(index){account.space=410;account.data.space=410;}
+  const api=createWalletAPI({accountFetcher:async()=>response(accountReply(account)),fetcher:async()=>{holdings++;return response(result(mint));},solPriceFetcher:async()=>{quotes++;return response([pair()]);}});
+  assert.deepEqual(await api(mint),{statusCode:400,body:{status:'error',error:'This is a coin address. Paste a wallet address instead.'}});
+ }
+ assert.equal(holdings,0);assert.equal(quotes,0);
+});
+
+test('token accounts, executable programs and data accounts cannot become wallet reports or redirect to owners',async()=>{
+ const cases=[
+  [tokenAccount('account',0),/token account address/],[tokenAccount('account',1),/token account address/],
+  [tokenAccount('multisig'),/token program account/],
+  [{...regularAccount(),executable:true},/program address/],
+  [{...regularAccount(),space:1,data:['AA==','base64']},/account type is not supported/],
+  [{...regularAccount(),owner:other},/account type is not supported/],
+  [{...regularAccount(),space:80,data:{program:'system',parsed:{type:'nonce',info:{authority:other}}}},/account type is not supported/],
+ ];
+ for(const [account,message] of cases){
+  let calls=0;
+  const api=createWalletAPI({accountFetcher:async()=>response(accountReply(account)),fetcher:async()=>{calls++;return response(result(other));},solPriceFetcher:async()=>{calls++;return response([pair()]);}});
+  const got=await api(address);assert.equal(got.statusCode,400);assert.match(got.body.error,message);
+  assert.equal(got.body.holdings,undefined);assert.equal(got.body.address,undefined);assert.equal(calls,0);
+ }
+});
+
+test('regular empty wallets and null unfunded accounts retain genuine empty or token-only holdings',async()=>{
+ for(const account of [regularAccount(),null])for(const tokenOnly of [false,true]){
+  const wallet={...result(),sol:0,...(tokenOnly?{tokens:1,shown:1,noMarket:1,holdings:[{address:other,found:false,amount:2,valueUsd:null,risk:'unknown'}]}:{})};
+  const api=createWalletAPI({accountFetcher:async()=>response(accountReply(account)),fetcher:async()=>response(wallet)});
+  assert.deepEqual(await api(address),{statusCode:200,body:{...wallet,status:'ready',...noPrice}});
+ }
+});
+
+test('malformed account envelopes and contradictory account data fail closed without service details',async()=>{
+ const badAccounts=[{},[],{...regularAccount(),owner:'invalid'},{...regularAccount(),executable:undefined},
+  {...regularAccount(),lamports:null},{...regularAccount(),space:undefined},{...regularAccount(),space:-1},
+  {...regularAccount(),data:undefined},{...regularAccount(),data:['','base58']},{...regularAccount(),data:['AA==','base64']},
+  {...regularAccount(),data:['!','base64']},{...regularAccount(),space:1},{...regularAccount(),data:{program:'system',parsed:{type:'nonce'}}},
+  {...tokenAccount('mint'),data:{...tokenAccount('mint').data,program:'spl-token-2022'}},
+  {...tokenAccount('mint'),data:{...tokenAccount('mint').data,space:99}}];
+ const malformed=[null,{},[],{...accountReply(),id:2},{...accountReply(),jsonrpc:'1.0'},
+  {...accountReply(),error:{message:'private provider data'}},{...accountReply(),result:{value:null}},
+  {...accountReply(),result:{context:{slot:1}}},{...accountReply(),result:{context:{slot:-1},value:null}},
+  ...badAccounts.map(accountReply)];
+ for(const body of malformed){
+  let calls=0;const api=createWalletAPI({accountFetcher:async()=>response(body),fetcher:async()=>{calls++;return response(result());},solPriceFetcher:async()=>{calls++;return response([pair()]);}});
+  const got=await api(address);assert.equal(got.statusCode,503);assert.match(got.body.error,/verification is unavailable.*Try again/);
+  assert.doesNotMatch(JSON.stringify(got),/private/);assert.equal(got.body.holdings,undefined);assert.equal(calls,0);
+ }
+});
+
+test('account verification errors, bad JSON and bounded bodies never fall through to holdings',async()=>{
+ const failures=[
+  ...[[401,503],[403,503],[429,429],[500,503],[504,504]].map(([status,expected])=>[()=>new Response('private provider data',{status}),expected]),
+  [()=>{throw new Error('private network data');},503],[()=>new Response('<html>'),503],
+  [()=>new Response('x'.repeat(1025)),503],[()=>new Response('{}',{headers:{'Content-Length':'1025'}}),503],
+ ];
+ for(const [accountFetcher,expected] of failures){
+  let calls=0;const api=createWalletAPI({accountFetcher,accountMaxResponseBytes:1024,fetcher:async()=>{calls++;return response(result());},solPriceFetcher:async()=>{calls++;return response([pair()]);}});
+  const got=await api(address);assert.equal(got.statusCode,expected);assert.equal(got.body.status,'error');
+  assert.match(got.body.error,/Try again/);assert.doesNotMatch(JSON.stringify(got),/private/);assert.equal(calls,0);
+ }
+});
+
+test('account deadline aborts stalled fetches and bodies, ignores late replies and allows retry',async()=>{
+ for(const stalledBody of [false,true]){
+  let signal,finish,cancelled=false,checks=0,holdings=0;
+  const stream=new ReadableStream({start(controller){controller.enqueue(new TextEncoder().encode('{'));},cancel(){cancelled=true;}});
+  const api=createWalletAPI({accountTimeoutMs:10,timeoutMs:1000,accountFetcher:async(url,options)=>{
+   signal=options.signal;checks++;if(checks>1)return response(accountReply());
+   return stalledBody?new Response(stream):new Promise(done=>{finish=done;});
+  },fetcher:async()=>{holdings++;return response(result());}});
+  const got=await api(address);assert.equal(got.statusCode,504);assert.match(got.body.error,/verification timed out/);
+  assert.equal(signal.aborted,true);assert.equal(holdings,0);if(stalledBody)assert.equal(cancelled,true);
+  else{finish(response(accountReply()));await new Promise(done=>setImmediate(done));assert.equal(holdings,0);}
+  assert.equal((await api(address)).statusCode,200);assert.equal(holdings,1);
+ }
+});
+
+test('overall wallet deadline also cancels account verification before any downstream lookup',async()=>{
+ let signal,finish,calls=0;
+ const api=createWalletAPI({timeoutMs:10,accountTimeoutMs:1000,accountFetcher:async(url,options)=>{signal=options.signal;return new Promise(done=>{finish=done;});},fetcher:async()=>{calls++;return response(result());}});
+ assert.equal((await api(address)).statusCode,504);assert.equal(signal.aborted,true);assert.equal(calls,0);
+ finish(response(accountReply()));await new Promise(done=>setImmediate(done));assert.equal(calls,0);
+});
+
+test('pending account verification shares duplicate work and respects the two-wallet limit',async()=>{
+ const checks=[],holdings=[];
+ const api=createWalletAPI({accountFetcher:(url,options)=>new Promise(done=>{checks.push({address:JSON.parse(options.body).params[0],done});}),
+  fetcher:async(url,options)=>{const wallet=JSON.parse(options.body).address;holdings.push(wallet);return response(result(wallet));}});
+ const first=api(address),duplicate=api(address),second=api(other);
+ assert.deepEqual(checks.map(check=>check.address),[address,other]);assert.equal(holdings.length,0);
+ assert.equal((await api(systemProgram)).statusCode,429);
+ checks.forEach(check=>check.done(response(accountReply())));
+ assert.deepEqual(await first,await duplicate);assert.equal((await second).statusCode,200);assert.deepEqual(holdings,[address,other]);
 });
 
 test('SOL quote selects the most liquid valid base-mint pool without sharing the wallet address',async()=>{
@@ -202,6 +327,7 @@ test('deadline covers both a stalled fetch and a stalled response body, and perm
 test('duplicate checks share one request and simultaneous work is bounded',async()=>{
  const completions=[];const api=createWalletAPI({fetcher:()=>new Promise(done=>{completions.push(done);})});
  const first=api(address),second=api(address),third=api(other);
+ await new Promise(done=>setImmediate(done));
  assert.equal(completions.length,2);
  assert.equal((await api('1'.repeat(32))).statusCode,429);
  completions[0](response(result()));completions[1](response(result(other)));

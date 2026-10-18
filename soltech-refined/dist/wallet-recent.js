@@ -101,7 +101,7 @@ export const getRecentWalletStore=()=>recentWalletStore??=createRecentWalletStor
 function walletBadge(address){
  let hash=2166136261;
  for(const character of address)hash=Math.imul(hash^character.charCodeAt(0),16777619);
- return `<span class="recent-coin-logo" data-wallet-tone="${(hash>>>0)%8}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="M4.5 9V6a1.5 1.5 0 0 1 1.5-1.5h12A1.5 1.5 0 0 1 19.5 6v3Z" fill="var(--wallet-badge-top,#fff)" stroke="var(--wallet-badge-edge,#586572)" stroke-width="1.1"/><rect x="3" y="8" width="18" height="12" rx="2.8" fill="var(--wallet-badge-face,#dce2e8)" stroke="var(--wallet-badge-edge,#586572)" stroke-width="1.2"/><rect x="15" y="11.5" width="6.5" height="5" rx="1.6" fill="currentColor"/><circle cx="17.25" cy="14" r=".7" fill="var(--wallet-badge-top,#fff)"/></svg></span>`;
+ return `<span class="recent-coin-logo" data-wallet-tone="${(hash>>>0)%8}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" focusable="false"><path d="M4.5 9V6a1.5 1.5 0 0 1 1.5-1.5h12A1.5 1.5 0 0 1 19.5 6v3Z" fill="var(--wallet-badge-top,#fff)" stroke="var(--wallet-badge-edge,#586572)" stroke-width="1.1"/><rect x="3" y="8" width="18" height="12" rx="2.8" fill="var(--wallet-badge-face,#dce2e8)" stroke="var(--wallet-badge-edge,#586572)" stroke-width="1.2"/><rect x="15" y="11.5" width="6.5" height="5" rx="1.6" fill="var(--wallet-badge-top,#fff)" stroke="var(--wallet-badge-edge,#586572)" stroke-width="1.1"/><circle cx="17.25" cy="14" r=".7" fill="var(--wallet-badge-edge,#586572)"/></svg></span>`;
 }
 
 export function recentWalletsHTML(entries,{issue=null,message=''}={}){

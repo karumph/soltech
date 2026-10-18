@@ -14,6 +14,7 @@ import {mountSignals} from './signals.js';
 import {createProfileStore} from './profile-store.js';
 import {createProfileFeature} from './profile.js';
 import {createProfileShortcut} from './profile-shortcut.js';
+import {createProfileMenu} from './profile-menu.js';
 import {createPersonalScannerStore} from './personal-scanner-store.js';
 import {createPersonalScannerFeature} from './personal-scanner.js';
 let disposeChecker=null,disposeProfile=null,disposeScanner=null;
@@ -25,11 +26,12 @@ const workspace=createWorkspace({getItem:key=>localStorage.getItem(key),setItem:
 workspace.prepareWorkspace();
 const profileStore=createProfileStore({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value)});
 const profileShortcut=createProfileShortcut({element:document.querySelector('.app-profile'),store:profileStore});
+const profileMenu=createProfileMenu({trigger:document.querySelector('.app-profile'),panel:document.querySelector('#profile-menu')});
 const personalScannerStore=createPersonalScannerStore({getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value)});
 window.addEventListener('beforeunload',event=>{if(personalScannerStore.issue&&personalScannerStore.state.draft){event.preventDefault();event.returnValue='';}});
 const getPrevious=()=>[...workspace.state.savedScanners,...(workspace.state.draft?[{...workspace.state.draft.fields,sourceId:workspace.state.draft.sourceId,draft:true}]:[])];
 const personalScannerFeature=createPersonalScannerFeature({store:personalScannerStore,getPrevious,navigate,toast});
-const profileFeature=createProfileFeature({store:profileStore,getScanners:()=>workspace.state.savedScanners,getDraft:()=>workspace.state.draft,getScannerState:()=>personalScannerStore.state,navigate,toast});
+const profileFeature=createProfileFeature({store:profileStore,navigate,toast});
 let {selected}=workspace.state.view;
 let pendingDraft=null,successId=null;
 const riskLabel=r=>`<span class="risk ${r}"><span class="risk-dot" aria-hidden="true"></span>${riskNames[r]}</span>`;
@@ -218,6 +220,7 @@ document.addEventListener('submit',e=>{
 });
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 function route(){
+ profileMenu.close();
  const previousSwitch=main.querySelector('.check-tabs'),previousGlass=previousSwitch?.querySelector('.check-switch-glass');
  const previousPosition=previousGlass?getComputedStyle(previousGlass).transform:null;
  const previousChoice=previousSwitch?.dataset.activeIndex;
@@ -226,7 +229,9 @@ function route(){
  document.body.classList.remove('scanner-setup');if(dialog.open)dialog.close();main.setAttribute('aria-busy','true');
  let currentNav='explore';
  if(['check','home','main'].includes(view)){
-  disposeChecker=mountChecker(main,{initialCoin:view==='check'&&id&&origin?{chainId:id,address:origin}:null});currentNav='check';
+  let initialCoin=null;
+  if(view==='check'&&id&&origin)try{initialCoin={chainId:decodeURIComponent(id),address:decodeURIComponent(origin)};}catch{}
+  disposeChecker=mountChecker(main,{initialCoin});currentNav='check';
   main.querySelector('.checker-intro')?.insertAdjacentHTML('afterbegin',checkTabsHTML('coin'));
  }
  else if(view==='wallet'){disposeChecker=mountWalletCheck(main);currentNav='check';}

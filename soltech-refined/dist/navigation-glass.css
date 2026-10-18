@@ -6,7 +6,21 @@
  .app-header .app-profile .personal-avatar svg{width:28px;height:28px;filter:drop-shadow(0 1px 1px #16355240)}
  .app-header .app-profile:focus-visible{outline:2px solid var(--theme-focus);outline-offset:3px}
  .app-header .app-profile[aria-current=page]{background:#fff;box-shadow:0 0 0 1px var(--theme-border)}
+ .profile-menu-anchor{position:relative;flex:none}
+ .profile-menu{position:absolute;top:calc(100% + 10px);right:0;z-index:45;width:248px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 110px);overflow-y:auto;overscroll-behavior:contain;padding:6px;border:1px solid transparent;border-radius:16px;background:linear-gradient(var(--theme-white),var(--theme-white)) padding-box,var(--theme-silver-rim) border-box;box-shadow:var(--theme-silver-edge),0 12px 32px -12px #17243a33}
+ .profile-menu[hidden]{display:none}
+ .profile-menu .profile-menu-item{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:11px 12px;border:0;border-radius:10px;background:transparent;color:var(--theme-ink);font:inherit;font-size:.875rem;font-weight:550;line-height:1.4;text-align:left;text-decoration:none;cursor:pointer}
+ .profile-menu .profile-menu-item svg{width:20px;height:20px;flex:none;color:var(--theme-label)}
+ .profile-menu .profile-menu-identity{font-weight:650;margin-bottom:5px;border-bottom:1px solid var(--theme-line);border-radius:10px 10px 0 0;padding-bottom:15px}
+ .profile-menu .profile-menu-item:hover{background:var(--theme-hover)}
+ .profile-menu .profile-menu-item:focus-visible{outline:2px solid var(--theme-focus);outline-offset:-2px;background:var(--theme-hover)}
+ .app-header .app-profile[aria-expanded=true]{background:var(--theme-hover)}
  @media(forced-colors:active){
+  .profile-menu{border-color:CanvasText;background:Canvas;box-shadow:none}
+  .profile-menu .profile-menu-item{color:LinkText}
+  .profile-menu .profile-menu-item svg{color:currentColor}
+  .profile-menu .profile-menu-identity{border-color:CanvasText}
+  .profile-menu .profile-menu-item:focus-visible{outline-color:Highlight}
   .app-header .app-profile{border:1px solid ButtonText}
   .app-header .app-profile[aria-current=page]{outline:1px solid Highlight}
   .app-header .app-profile:focus-visible{outline:2px solid Highlight}

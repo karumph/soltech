@@ -1,20 +1,20 @@
 import {validTokenAddress,safeImageUrl} from './coin-checker-data.js';
-import {NETWORKS} from './coin-networks.js';
+import {getNetwork,canonicalAddress} from './coin-networks.js';
 
 export const RECENT_COINS_KEY='soltech.recent-coins.v1';
 const CLEAR_KEY=RECENT_COINS_KEY+'.clear';
 const LIMIT=5;
-const terminal=new Set(['ready','empty','error']);
+const terminal=new Set(['ready','empty','error','unsupported']);
 const record=value=>value&&typeof value==='object'&&!Array.isArray(value);
 const text=value=>typeof value==='string'?value.replace(/[\u0000-\u001f\u007f]/g,' ').trim().slice(0,120):'';
 const timestamp=value=>typeof value==='number'&&Number.isSafeInteger(value)&&value>0&&Number.isFinite(new Date(value).getTime());
-const canonical=(address,chainId)=>NETWORKS[chainId]?.kind==='evm'?address.toLowerCase():address;
+const canonical=canonicalAddress;
 const keyOf=entry=>entry.chainId+':'+entry.address;
 const short=address=>address.slice(0,5)+'…'+address.slice(-5);
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 
 function cleanEntry(value){
- if(!record(value)||!Object.hasOwn(NETWORKS,value.chainId)||!validTokenAddress(value.address,value.chainId)||!timestamp(value.checkedAt))return null;
+ if(!record(value)||!getNetwork(value.chainId)||!validTokenAddress(value.address,value.chainId)||!timestamp(value.checkedAt))return null;
  const address=canonical(value.address,value.chainId),symbol=text(value.symbol);
  return {chainId:value.chainId,address,name:text(value.name)||symbol||short(address),symbol,logo:safeImageUrl(value.logo)||'',checkedAt:value.checkedAt};
 }
@@ -96,7 +96,7 @@ export function createRecentCoinStore(storage,{now=Date.now,eventTarget=globalTh
    return ()=>{listeners.delete(listener);if(!listeners.size)eventTarget?.removeEventListener?.('storage',onStorage);};
   },
   remember(state,checkedAt,{clearToken:startedBeforeClear}={}){
-   if(!record(state)||!Object.hasOwn(NETWORKS,state.chainId)||!validTokenAddress(state.mint,state.chainId)||!['market','risk','listing','history'].every(part=>terminal.has(state[part]?.status)))return false;
+   if(!record(state)||!getNetwork(state.chainId)||!validTokenAddress(state.mint,state.chainId)||!['market','risk','listing','history'].every(part=>terminal.has(state[part]?.status)))return false;
    const chainId=state.chainId,address=canonical(state.mint,chainId);
    const matching=part=>part?.status==='ready'&&record(part.data)&&part.data.chainId===chainId&&validTokenAddress(part.data.mint,chainId)&&canonical(part.data.mint,chainId)===address?part.data:null;
    const market=matching(state.market),risk=matching(state.risk);
@@ -127,6 +127,6 @@ export function recentCoinsHTML(snapshot){
  return `<section class="recent-coins" aria-labelledby="recent-coins-title"><div class="recent-coins-header"><h2 id="recent-coins-title">Recently checked</h2><button type="button" class="recent-coins-clear" data-clear-recent ${entries.length||snapshot?.error?'':'disabled'}>Clear history</button></div>${note?`<p class="recent-coins-note is-unavailable">${esc(note)}</p>`:''}${entries.length?`<ol class="recent-coins-list">${entries.map(entry=>{
   const name=entry.symbol||entry.name,initial=Array.from(name)[0]||'?';
   const date=new Date(entry.checkedAt),day=date.toLocaleDateString([],{month:'short',day:'numeric'}),clock=date.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}),fullDate=date.toLocaleString([],{year:'numeric',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'});
-  return `<li><button type="button" class="recent-coin" data-recent-chain="${esc(entry.chainId)}" data-recent-address="${esc(entry.address)}" aria-label="Check ${esc(entry.name)} on ${esc(NETWORKS[entry.chainId].name)} again. Last checked ${esc(fullDate)}"><span class="recent-coin-logo" aria-hidden="true"><span>${esc(initial)}</span>${entry.logo?`<img src="${esc(entry.logo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:''}</span><span class="recent-coin-identity"><strong title="${esc(entry.name)}">${esc(entry.name)}</strong><small>${entry.symbol?esc(entry.symbol)+' · ':''}${esc(NETWORKS[entry.chainId].name)}</small></span><span class="recent-coin-time"><time datetime="${date.toISOString()}" title="${esc(fullDate)}"><span>${esc(day)}</span><span>${esc(clock)}</span></time></span></button></li>`;
+  return `<li><button type="button" class="recent-coin" data-recent-chain="${esc(entry.chainId)}" data-recent-address="${esc(entry.address)}" aria-label="Check ${esc(entry.name)} on ${esc(getNetwork(entry.chainId).name)} again. Last checked ${esc(fullDate)}"><span class="recent-coin-logo" aria-hidden="true"><span>${esc(initial)}</span>${entry.logo?`<img src="${esc(entry.logo)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:''}</span><span class="recent-coin-identity"><strong title="${esc(entry.name)}">${esc(entry.name)}</strong><small>${entry.symbol?esc(entry.symbol)+' · ':''}${esc(getNetwork(entry.chainId).name)}</small></span><span class="recent-coin-time"><time datetime="${date.toISOString()}" title="${esc(fullDate)}"><span>${esc(day)}</span><span>${esc(clock)}</span></time></span></button></li>`;
  }).join('')}</ol>`:'<p class="recent-coins-empty">Coins you check will appear here.</p>'}</section>`;
 }
